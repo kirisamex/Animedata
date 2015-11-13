@@ -68,16 +68,18 @@ namespace Main
 
                 string firstRowAnimeNo = null;
 
-                if(!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
+                if (ds.Tables[0].Rows.Count != 0)
                 {
-                    firstRowAnimeNo=ds.Tables[0].Rows[0][0].ToString();
+                    firstRowAnimeNo = ds.Tables[0].Rows[0][0].ToString();
+
+                    //获取播放信息
+                    ShowAnimeInfo(firstRowAnimeNo);
+
+                    //获取角色信息
+                    ShowCharacterInfo(firstRowAnimeNo);
                 }              
 
-                //获取播放信息
-                ShowAnimeInfo(firstRowAnimeNo);
-
-                //获取角色信息
-                ShowCharacterInfo(firstRowAnimeNo);
+               
             }
             catch (Exception ex)
             {
