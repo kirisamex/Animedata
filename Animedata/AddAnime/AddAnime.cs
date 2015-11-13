@@ -350,6 +350,7 @@ namespace Main
                         else
                         {
                             chara.No = service.SetCharacterNoFromLastNo(lastLeadingCharaNo);
+                            lastLeadingCharaNo = chara.No;
                         }
                     }
                     else
@@ -363,6 +364,7 @@ namespace Main
                         else
                         {
                             chara.No = service.SetCharacterNoFromLastNo(lastNonLeadingCharaNo);
+                            lastNonLeadingCharaNo = chara.No;
                         }
                     }
                 }
