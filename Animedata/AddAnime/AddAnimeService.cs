@@ -13,7 +13,28 @@ namespace Main
         public AddAnimeService() : base() { }
 
         AddanimeDao dao = new AddanimeDao();
-       
+
+        /// <summary>
+        /// 查询是否有重复的动画信息（新规）
+        /// </summary>
+        /// <param name="anime"></param>
+        /// <returns></returns>
+        public Animation SearchRepeatAnimeInfo(Animation anime,int ctr)
+        {
+            return dao.SearchRepeatAnimeInfo(anime,ctr);
+        }
+
+        /// <summary>
+        /// 查询是否有重复的动画信息（修改）
+        /// </summary>
+        /// <param name="anime"></param>
+        /// <param name="ctr"></param>
+        /// <returns></returns>
+        public Animation SearchChangedAnimeInfo(Animation anime,int ctr)
+        {
+            return dao.SearchRepeatAnimeInfo(anime,ctr);
+        }
+                   
         /// <summary>
         /// 根据公司名返回公司ID、新规公司信息
         /// </summary>
@@ -99,11 +120,31 @@ namespace Main
         }
 
         /// <summary>
+        /// 根据声优名返回声优ID
+        /// </summary>
+        /// <param name="CVName"></param>
+        /// <returns></returns>
+        public int GetCVIDByCVName(string CVName)
+        {
+            return dao.GetCVIDByCVName(CVName);
+        }
+
+        /// <summary>
+        /// 根据声优ID返回声优名
+        /// </summary>
+        /// <param name="CVID"></param>
+        /// <returns></returns>
+        public string GetCVNameByCVID(int CVID)
+        {
+            return dao.GetCVNameByCVID(CVID);
+        }
+
+        /// <summary>
         /// 从数据库中设定角色ID
         /// </summary>
         /// <param name="chara"></param>
         /// <returns></returns>
-        public string SetCharacterNoFromDB(character chara)
+        public string SetCharacterNoFromDB(CharacterInfo chara)
         {
             string maxCharaNo = dao.GetMaxCharacterIDByCharacterInfo(chara);
             int leadingFlg = 0;
@@ -170,53 +211,6 @@ namespace Main
             dtFormat.ShortDatePattern = "yyyy年MM月";
             return Convert.ToDateTime(YYYYMM, dtFormat);
         }
-
-
- 
-        /// <summary>
-        /// 修改功能：更新动画信息
-        /// </summary>
-        /// <param name="id"></param>
-        /// <returns></returns>
-        /// 
-        /*
-        public bool UpdateAnimeInfo(string id)//
-        {
-            if (IsAnimeInfoFull() == true)
-            {
-                return false;
-            }
-
-            Animation anime = new Animation();
-            anime.name = cnnamebox.Text.ToString();
-            anime.nickname = nnbox.Text.ToString();
-            anime.status = statescbox.Text.ToString();
-            anime.animeid = numbox.Text.ToString();
-            anime.fromwhat = originalbox.Text.ToString();
-
-            
-            try
-            {
-                OleDbConnection conn = GetConn();
-                if (AnimationRepeatCheck(anime, conn, 1, id) == true)
-                {
-                    return false;
-                }
-                conn.Open();
-                string sqlcmd = "UPDATE animation SET id = '" + anime.animeid + "',animename='" + anime.name + "',animenickname='" + anime.nickname + "',status='" + anime.status + "',fromwhat='" + anime.fromwhat + "' WHERE ID='" + anime.animeid + "'";
-                OleDbCommand cmd = new OleDbCommand(sqlcmd, conn);
-                cmd.ExecuteNonQuery();
-                MessageBox.Show("修改成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
-                conn.Close();
-                return true;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show("错误:" + ex.Message, "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
-        }
-        */
     }
 
 

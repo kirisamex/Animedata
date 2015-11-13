@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Main
 {
-    public class playinfo
+    public class PlayInfo
     {
         #region 变量
         /// <summary>
@@ -58,7 +58,7 @@ namespace Main
         /// <summary>
         /// 构造函数
         /// </summary>
-        public playinfo()
+        public PlayInfo()
         {
         }
     }

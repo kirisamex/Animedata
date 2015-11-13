@@ -97,7 +97,7 @@
     <Compile Include="AddAnime\AddAnimeService.cs" />
     <Compile Include="Class\AnimeClass\AnimationClass.cs" />
     <Compile Include="Class\AnimeClass\AnimationClassDao.cs" />
-    <Compile Include="Class\CharacterClass\character.cs" />
+    <Compile Include="Class\CharacterInfoClass\CharacterInfo.cs" />
     <Compile Include="Company\company.cs">
       <SubType>Form</SubType>
     </Compile>

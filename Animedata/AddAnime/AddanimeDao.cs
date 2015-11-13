@@ -59,7 +59,7 @@ namespace Main
         /// </summary>
         /// <param name="chara"></param>
         /// <returns></returns>
-        public string GetMaxCharacterIDByCharacterInfo(character chara)
+        public string GetMaxCharacterIDByCharacterInfo(CharacterInfo chara)
         {
             SqlConnection conn = Getconnection();
 
@@ -96,7 +96,7 @@ namespace Main
         /// </summary>
         /// <param name="anime"></param>
         /// <returns>重复的动画信息，如无则为null</returns>
-        public Animation SearchRepeatAnimeInfo(Animation anime)
+        public Animation SearchRepeatAnimeInfo(Animation anime, int ctr)
         {
             SqlConnection conn = Getconnection();
 
@@ -126,15 +126,18 @@ namespace Main
             {
                 return null;
             }
-            else
+
+            if (ctr == 1 && ds.Tables[0].Rows[0][0].ToString().Equals(anime.No))
             {
-                Animation repeatAnime = new Animation();
-                repeatAnime.No = ds.Tables[0].Rows[0][0].ToString();
-                repeatAnime.CNName = ds.Tables[0].Rows[0][1].ToString();
-                repeatAnime.JPName = ds.Tables[0].Rows[0][2].ToString();
-                repeatAnime.Nickname = ds.Tables[0].Rows[0][3].ToString();
-                return repeatAnime;
+                return null;
             }
+
+            Animation repeatAnime = new Animation();
+            repeatAnime.No = ds.Tables[0].Rows[0][0].ToString();
+            repeatAnime.CNName = ds.Tables[0].Rows[0][1].ToString();
+            repeatAnime.JPName = ds.Tables[0].Rows[0][2].ToString();
+            repeatAnime.Nickname = ds.Tables[0].Rows[0][3].ToString();
+            return repeatAnime;
         }
 
         /// <summary>
@@ -181,10 +184,10 @@ namespace Main
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        public List<playinfo> GetPlayInfoListFromAnimeNo(string animeNo)
+        public List<PlayInfo> GetPlayInfoListFromAnimeNo(string animeNo)
         {
             SqlConnection conn = Getconnection();
-            List<playinfo> pInfoList = new List<playinfo>();
+            List<PlayInfo> pInfoList = new List<PlayInfo>();
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
                                 WHERE ANIME_NO = @animeNo";
@@ -204,7 +207,7 @@ namespace Main
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                playinfo pInfo = new playinfo();
+                PlayInfo pInfo = new PlayInfo();
                 pInfo.animeNo = animeNo;
                 pInfo.ID = Convert.ToInt32(dr[0]);
                 pInfo.info = dr[2].ToString();
@@ -239,10 +242,10 @@ namespace Main
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        public List<character> GetCharacterListFromAnimeNo(string animeNo)
+        public List<CharacterInfo> GetCharacterListFromAnimeNo(string animeNo)
         {
             SqlConnection conn = Getconnection();
-            List<character> cInfoList = new List<character>();
+            List<CharacterInfo> cInfoList = new List<CharacterInfo>();
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                 WHERE ANIME_NO = @animeNo";
@@ -262,7 +265,7 @@ namespace Main
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                character cInfo = new character();
+                CharacterInfo cInfo = new CharacterInfo();
                 cInfo.No = dr[0].ToString();
                 cInfo.name = dr[1].ToString();
                 cInfo.animeNo = animeNo;

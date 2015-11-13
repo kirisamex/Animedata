@@ -42,12 +42,12 @@ namespace Main
         /// <summary>
         /// 播放信息
         /// </summary>
-        public List<playinfo> playInfoList { get; set; }
+        public List<PlayInfo> playInfoList { get; set; }
 
         /// <summary>
         /// 角色信息
         /// </summary>
-        public List<character> characterList { get; set; }
+        public List<CharacterInfo> characterList { get; set; }
 
         #endregion
 
@@ -68,8 +68,8 @@ namespace Main
             if (!string.IsNullOrEmpty(animeNo))
             {
                 this.No = animeNo;
-                this.playInfoList=new List<playinfo>();
-                this.characterList = new List<character>();
+                this.playInfoList=new List<PlayInfo>();
+                this.characterList = new List<CharacterInfo>();
             }
             else
             {
@@ -164,16 +164,16 @@ namespace Main
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        private List<playinfo> GetPlayInfoListByAnimeNo(string animeNo)
+        private List<PlayInfo> GetPlayInfoListByAnimeNo(string animeNo)
         {
             //获取动画信息DataTable
             DataTable dt = dao.GetPlayInfoDataTableByAnimeNo(animeNo);
 
-            List<playinfo> playInfoList = new List<playinfo>();
+            List<PlayInfo> playInfoList = new List<PlayInfo>();
 
             for (int i = 1; i < dt.Rows.Count; i++)
             {
-                playinfo pinfo = new playinfo();
+                PlayInfo pinfo = new PlayInfo();
 
                 pinfo.ID = Convert.ToInt32(dt.Rows[0][0]);
                 pinfo.info = dt.Rows[0][1].ToString();
@@ -207,16 +207,16 @@ namespace Main
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        private List<character> GetCharacterListByAnimeNo(string animeNo)
+        private List<CharacterInfo> GetCharacterListByAnimeNo(string animeNo)
         {
             //获取动画信息DataTable
             DataTable dt = dao.GetCharacterListByAnimeNo(animeNo);
 
-            List<character> characherInfoList = new List<character>();
+            List<CharacterInfo> characherInfoList = new List<CharacterInfo>();
 
             for (int i = 1; i < dt.Rows.Count; i++)
             {
-                character chara = new character();
+                CharacterInfo chara = new CharacterInfo();
 
                 chara.No = dt.Rows[0][0].ToString();
                 chara.name = dt.Rows[0][1].ToString();
@@ -253,7 +253,7 @@ namespace Main
         /// 添加播放信息
         /// </summary>
         /// <param name="pinfo"></param>
-        public void AddPlayInfo(playinfo pinfo)
+        public void AddPlayInfo(PlayInfo pinfo)
         {
             this.playInfoList.Add(pinfo);
         }
@@ -262,7 +262,7 @@ namespace Main
         /// 添加角色信息
         /// </summary>
         /// <param name="cinfo"></param>
-        public void AddCharacterInfo(character cinfo)
+        public void AddCharacterInfo(CharacterInfo cinfo)
         {
             this.characterList.Add(cinfo);
         }
