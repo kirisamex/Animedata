@@ -110,20 +110,54 @@ namespace Main
         }
 
         /// <summary>
+        /// 通过声优ID获得声优名
+        /// </summary>
+        /// <param name="CVID"></param>
+        /// <returns></returns>
+        public string GetCVNameByCVID(int CVID)
+        {
+            SqlConnection conn = Getconnection();
+
+            string sqlcmd = @"SELECT 
+                                    CV_NAME 
+                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    WHERE CV_ID=  @cvId ";
+
+            SqlParameter para = new SqlParameter("@cvId", CVID);
+
+            conn.Open();
+            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
+            adp.SelectCommand.Parameters.Add(para);
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+            conn.Close();
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return null;
+            }
+            else if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
+            {
+                return ds.Tables[0].Rows[0][0].ToString();
+            }
+                
+            return null;
+        }
+
+        /// <summary>
         /// 通过公司id获得制作公司名
         /// </summary>
         /// <param name="companyId"></param>
         /// <returns></returns>
         public string GetCompanyNameByCompanyNo(int companyId)
         {
-
             string companyName;
             SqlConnection conn = Getconnection();
 
             string sqlcmd = @"SELECT 
                                     COMPANY_NAME 
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
-                                    WHERE ANIME_ID=  @companyId ";
+                                    WHERE COMPANY_ID=  @companyId ";
 
             SqlParameter para = new SqlParameter("@companyId", companyId);
 

@@ -11,15 +11,37 @@ namespace Main
 {
     public partial class Main : Form
     {
+        
+
         #region 常量
+        /// <summary>
+        /// 版本号设置
+        /// </summary>
+        const string Version = " Ver. 0.1";
+
+        /// <summary>
+        /// 选中行
+        /// </summary>
         public string selectedRowID;
 
+        /// <summary>
+        /// DAO
+        /// </summary>
         Maindao dao = new Maindao();
 
+        /// <summary>
+        /// 文字
+        /// </summary>
         const string DELETEANIMEINFO = "删除动画信息";
 
+        /// <summary>
+        /// 文字
+        /// </summary>
         const string ERROR = "错误：";
 
+        /// <summary>
+        /// 文字
+        /// </summary>
         const string ERRORINFO = "错误信息";
 
         #endregion
@@ -199,6 +221,7 @@ namespace Main
         public Main()
         {
             InitializeComponent();
+            this.Text += Version;
             this.LoadAnime();
         }
 
@@ -301,7 +324,7 @@ namespace Main
         public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRowNo = GetSelectedRow().Index;
-            string animeID = AnimeDataGridview.Rows[selectedRowNo].Cells[0].ToString();
+            string animeID = AnimeDataGridview.Rows[selectedRowNo].Cells[0].Value.ToString();
             ShowAnimeInfo(animeID);
             ShowCharacterInfo(animeID);
         }

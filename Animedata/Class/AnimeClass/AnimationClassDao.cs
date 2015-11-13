@@ -56,7 +56,7 @@ namespace Main
             //动画播放信息插入
             if (anime.playInfoList.Count > 0)
             {
-                foreach (playinfo pInfo in anime.playInfoList)
+                foreach (PlayInfo pInfo in anime.playInfoList)
                 {
                     try
                     {
@@ -72,7 +72,7 @@ namespace Main
             //角色信息插入
             if (anime.characterList.Count > 0)
             {
-                foreach (character cInfo in anime.characterList)
+                foreach (CharacterInfo cInfo in anime.characterList)
                 {
                     try
                     {
@@ -137,7 +137,7 @@ namespace Main
         /// 插入播放信息
         /// </summary>
         /// <param name="pInfo"></param>
-        private void InsertPlayInfo(playinfo pInfo)
+        private void InsertPlayInfo(PlayInfo pInfo)
         {
             SqlConnection conn = Getconnection();
 
@@ -220,7 +220,7 @@ namespace Main
         /// 插入角色信息
         /// </summary>
         /// <param name="cInfo"></param>
-        private void InsertCharacterInfo(character cInfo)
+        private void InsertCharacterInfo(CharacterInfo cInfo)
         {
             SqlConnection conn = Getconnection();
 
