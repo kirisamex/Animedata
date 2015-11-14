@@ -69,7 +69,6 @@ namespace Main
         private void AddAnime_Load(object sender, EventArgs e)
         {
             //选择控件载入
-            this.PlayInfoDataGridView.Controls.Add(this.dateTimePicker1);
             this.CharacterInfoDataGridView.Controls.Add(this.CVbox);
 
             //根据操作种类进行窗口内容调整
@@ -465,7 +464,7 @@ namespace Main
         }
 
         /// <summary>
-        /// 放送信息完整性检查
+        /// 放送信息完整性与规则检查
         /// </summary>
         /// <returns>false:不完整 true:完整</returns>
         private bool PlayInfoNullAndFormatCheck()
@@ -483,24 +482,6 @@ namespace Main
                     return false;
                 }
 
-                /*
-                //话数check
-                if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells[1].ToString()))
-                {
-                    MessageBox.Show("放送信息不完整：请填写第" + i + 1.ToString() + "行的话数！",
-                        ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-
-                //制作公司check
-                if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells[2].ToString()))
-                {
-                    MessageBox.Show("放送信息不完整：请填写第" + i + 1.ToString() + "行的制作公司！",
-                        ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-                    return false;
-                }
-                 */
-
                 //状态check
                 if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells[3].ToString()))
                 {
@@ -509,7 +490,7 @@ namespace Main
                     return false;
                 }
 
-                //话数int Format Check
+                //规则检查：话数必须为数字
                 if (PlayInfoDataGridView.Rows[i].Cells[1].Value != null)
                 {
                     string seriesnum = PlayInfoDataGridView.Rows[i].Cells[1].Value.ToString();
@@ -525,6 +506,24 @@ namespace Main
                                 return false;
                             }
                         }
+                    }
+                }
+
+                //规则检查：播放时间与收看时间不能超过本月
+                if (PlayInfoDataGridView.Rows[i].Cells[4].Value != null)
+                {
+                    if (!service.YYYYMMFormatCheck(PlayInfoDataGridView.Rows[i].Cells[4].Value.ToString()))
+                    {
+                        PlayInfoDataGridView.CurrentCell = PlayInfoDataGridView.Rows[i].Cells[4];
+                        return false;
+                    }
+                }
+                if (PlayInfoDataGridView.Rows[i].Cells[5] != null)
+                {
+                    if (!service.YYYYMMFormatCheck(PlayInfoDataGridView.Rows[i].Cells[5].Value.ToString()))
+                    {
+                        PlayInfoDataGridView.CurrentCell = PlayInfoDataGridView.Rows[i].Cells[5];
+                        return false;
                     }
                 }
             }
@@ -567,7 +566,7 @@ namespace Main
         }
 
         /// <summary>
-        /// 格式与规则检查
+        /// 动画格式与规则检查
         /// </summary>
         /// <returns></returns>
         public bool AnimeInfoFormatAndRuleCheck(int ctr, Animation anime)
@@ -640,38 +639,20 @@ namespace Main
         {
             DataGridViewCell CurrnetCell = this.PlayInfoDataGridView.CurrentCell;
 
-            //时间选择框
-            if ((CurrnetCell != null && CurrnetCell.OwningColumn.Name == "playstarttime") || (CurrnetCell != null && CurrnetCell.OwningColumn.Name == "watchtime"))
-            {
-                Rectangle TmpRect = this.PlayInfoDataGridView.GetCellDisplayRectangle(CurrnetCell.ColumnIndex, CurrnetCell.RowIndex, true);
-               if (CurrnetCell.Value != null)
-                {
-                    this.dateTimePicker1.Value = Convert.ToDateTime(CurrnetCell.Value);
-                }
-                this.dateTimePicker1.Size = TmpRect.Size;
-                this.dateTimePicker1.Top = TmpRect.Top;
-                this.dateTimePicker1.Left = TmpRect.Left;
-                this.dateTimePicker1.Visible = true;
-                this.dateTimePicker1.MaxDate = System.DateTime.Today;
-                this.dateTimePicker1.Value = System.DateTime.Today;
-           }
-           else            
-            {
-                this.dateTimePicker1.Visible = false;
-            }
-
             //制作公司选择框
             if (CurrnetCell != null && CurrnetCell.OwningColumn.Name == "company")
             {
                 Rectangle TmpRect = this.PlayInfoDataGridView.GetCellDisplayRectangle(CurrnetCell.ColumnIndex, CurrnetCell.RowIndex, true);
                 if (CurrnetCell.Value != null)
                 {
-                    this.companybox.Text = CurrnetCell.Value.ToString();
+                    companybox.Text = CurrnetCell.Value.ToString();
                 }
-                this.companybox.Size = TmpRect.Size;
-                this.companybox.Top = TmpRect.Top+2;
-                this.companybox.Left = TmpRect.Left+2;
-                this.companybox.Visible = true;
+
+                companybox.Size = TmpRect.Size;
+                companybox.Top = TmpRect.Top+2;
+                companybox.Left = TmpRect.Left+2;
+                companybox.Visible = true;
+                
 
                 DataTable dt = new DataTable();
                 try
@@ -696,17 +677,6 @@ namespace Main
             {
                 this.companybox.Visible = false;
             }
-        }
-
-        /// <summary>
-        /// 显示选择的时间
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void dateTimePicker1_CloseUp(object sender, EventArgs e)
-        {   
-            string dtp = service.ConvertToYYYYMMFromDatetime(this.dateTimePicker1.Value);
-            this.PlayInfoDataGridView.CurrentCell.Value = dtp;
         }
 
         /// <summary>
@@ -788,6 +758,7 @@ namespace Main
             this.button3.Visible = false;
             this.AcceptButton = button1;
 
+            //基本信息
             numbox.Text = anime.No;
             cnnamebox.Text = anime.CNName;
             jpnamebox.Text=anime.JPName;
@@ -795,6 +766,7 @@ namespace Main
             statescbox.Text = service.GetStatusTextFromStatusInt(anime.status);
             originalbox.Text = service.GetOriginalTextFromOriginalInt(anime.original);
 
+            //播放信息
             try
             {
                 if (anime.playInfoList != null)
@@ -838,6 +810,7 @@ namespace Main
                 MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
+            //角色信息
             try
             {
                 if (anime.characterList != null)

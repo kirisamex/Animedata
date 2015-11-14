@@ -316,7 +316,7 @@ namespace Main
 										END
 									    AS '状态'
 	                                    ,TPT.PARTS AS 放送话数
-	                                    ,TCT.COMPANY_NAME AS 制作公司
+	                                    ,TCT.COMPANY_NAME AS 制作公司 
 	                                    ,TPT.START_TIME AS 开始时间
 	                                    ,TPT.WATCH_TIME AS 收看时间
                                     FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
