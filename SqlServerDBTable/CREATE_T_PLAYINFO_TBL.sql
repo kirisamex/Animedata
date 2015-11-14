@@ -1,6 +1,7 @@
 USE [ANIMEDATA]
 GO
 
+DROP TABLE [dbo].[T_PLAYINFO_TBL]
 /****** Object:  Table [dbo].[T_PLAYINFO_TBL]    Script Date: 11/13/2015 17:14:24 ******/
 SET ANSI_NULLS ON
 GO

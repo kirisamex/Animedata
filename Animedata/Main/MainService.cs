@@ -112,7 +112,103 @@ namespace Main
             return YYYYMM;
         }
 
+        /// <summary>
+        /// 根据动画编号获得动画信息
+        /// </summary>
+        /// <param name="animeID"></param>
+        /// <returns></returns>       
+        public Animation GetAnimeFromAnimeNo(string animeNo)
+        {
+            return dao.GetAnimeFromAnimeNo(animeNo);
+        }
+
+        /// <summary>
+        /// 根据公司名返回公司ID、新规公司信息
+        /// </summary>
+        /// <param name="companyName"></param>
+        /// <returns></returns>
+        public int SetCompanyIDByCompanyName(string companyName)
+        {
+            int companyID = dao.GetCompanyIdByCompanyName(companyName);
+
+            if (companyID >= 0)
+            {
+                return companyID;
+            }
+
+            //新规company作成
+            CompanyClass comp = new CompanyClass();
+            comp.ID = dao.GetMaxInt("COMPANY") + 1;
+            comp.Name = companyName;
+
+            //company表插入
+            try
+            {
+                dao.InsertCompanyInfo(comp);
+                return comp.ID;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return -99;
+            }
+        }
+
+        /// <summary>
+        /// 根据公司名返回公司ID
+        /// </summary>
+        /// <param name="companyName"></param>
+        /// <returns></returns>
+        public int GetCompanyIdByCompanyName(string companyName)
+        {
+            return dao.GetCompanyIdByCompanyName(companyName);
+        }
+
+        /// <summary>
+        /// 根据公司ID返回公司名
+        /// </summary>
+        /// <param name="companyNo"></param>
+        /// <returns></returns>
+        public string GetCompanyNameByCompanyNo(int companyNo)
+        {
+            return dao.GetCompanyNameByCompanyId(companyNo);
+        }
+
         #endregion
+
+        #region Main
+        /// <summary>
+        /// 载入动画
+        /// </summary>
+        /// <returns></returns>
+        public DataSet LoadAnime()
+        {
+            return dao.LoadAnime();
+        }
+
+        /// <summary>
+        /// 载入动画
+        /// 指定公司制作
+        /// </summary>
+        /// <param name="comp"></param>
+        /// <returns></returns>
+        public DataSet LoadAnime(CompanyClass comp)
+        {
+            return dao.LoadAnime(comp);
+        }
+
+        /// <summary>
+        /// 载入动画
+        /// 指定声优
+        /// </summary>
+        /// <param name="cv"></param>
+        /// <returns></returns>
+        public DataSet LoadAnime(CVClass cv)
+        {
+            return dao.LoadAnime(cv);
+        }
+        #endregion
+
 
     }
 }

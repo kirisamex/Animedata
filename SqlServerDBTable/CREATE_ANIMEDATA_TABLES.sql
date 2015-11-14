@@ -1,5 +1,6 @@
 USE [ANIMEDATA]
 GO
+DROP TABLE [dbo].[T_ANIME_TBL]
 
 /****** Object:  Table [dbo].[T_ANIME_TBL]    Script Date: 11/13/2015 17:13:04 ******/
 SET ANSI_NULLS ON
@@ -31,7 +32,7 @@ GO
 
 USE [ANIMEDATA]
 GO
-
+DROP TABLE [dbo].[T_CHARACTER_TBL]
 /****** Object:  Table [dbo].[T_CHARACTER_TBL]    Script Date: 11/13/2015 17:13:53 ******/
 SET ANSI_NULLS ON
 GO
@@ -64,7 +65,7 @@ GO
 
 USE [ANIMEDATA]
 GO
-
+DROP TABLE [dbo].[T_COMPANY_TBL]
 /****** Object:  Table [dbo].[T_COMPANY_TBL]    Script Date: 11/13/2015 17:14:04 ******/
 SET ANSI_NULLS ON
 GO
@@ -74,7 +75,7 @@ GO
 
 CREATE TABLE [dbo].[T_COMPANY_TBL](
 	[COMPANY_ID] [int] NOT NULL,
-	[COMPANY_NAME] [nchar](10) NOT NULL,
+	[COMPANY_NAME] [varchar](255) NOT NULL,
  CONSTRAINT [PK_T_COMPANY_TBL] PRIMARY KEY CLUSTERED 
 (
 	[COMPANY_ID] ASC
@@ -85,7 +86,7 @@ GO
 
 USE [ANIMEDATA]
 GO
-
+DROP TABLE [dbo].[T_CV_TBL]
 /****** Object:  Table [dbo].[T_CV_TBL]    Script Date: 11/13/2015 17:14:14 ******/
 SET ANSI_NULLS ON
 GO
@@ -115,7 +116,7 @@ GO
 
 USE [ANIMEDATA]
 GO
-
+DROP TABLE [dbo].[T_PLAYINFO_TBL]
 /****** Object:  Table [dbo].[T_PLAYINFO_TBL]    Script Date: 11/13/2015 17:14:24 ******/
 SET ANSI_NULLS ON
 GO

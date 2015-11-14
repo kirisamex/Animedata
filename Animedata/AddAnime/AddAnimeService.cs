@@ -34,58 +34,6 @@ namespace Main
         {
             return dao.SearchRepeatAnimeInfo(anime,ctr);
         }
-                   
-        /// <summary>
-        /// 根据公司名返回公司ID、新规公司信息
-        /// </summary>
-        /// <param name="companyName"></param>
-        /// <returns></returns>
-        public int SetCompanyIDByCompanyName(string companyName)
-        {
-            int companyID = dao.GetCompanyIdByCompanyName(companyName);
-
-            if (companyID >= 0)
-            {
-                return companyID;
-            }
-
-            //新规company作成
-            CompanyClass comp = new CompanyClass();
-            comp.ID = dao.GetMaxInt("COMPANY") + 1;
-            comp.Name = companyName;
-
-            //company表插入
-            try
-            {
-                dao.InsertCompanyInfo(comp);
-                return comp.ID;
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return -99;
-            }
-        }
-
-        /// <summary>
-        /// 根据公司名返回公司ID
-        /// </summary>
-        /// <param name="companyName"></param>
-        /// <returns></returns>
-        public int GetCompanyIdByCompanyName(string companyName)
-        {
-            return dao.GetCompanyIdByCompanyName(companyName);
-        }
-
-        /// <summary>
-        /// 根据公司ID返回公司名
-        /// </summary>
-        /// <param name="companyNo"></param>
-        /// <returns></returns>
-        public string GetCompanyNameByCompanyNo(int companyNo)
-        {
-            return dao.GetCompanyNameByCompanyNo(companyNo);
-        }
 
         /// <summary>
         /// 根据声优名返回声优ID、新规声优信息
@@ -179,16 +127,6 @@ namespace Main
             return nextCharaNo;
         }
  
-        /// <summary>
-        /// 根据动画编号获得动画信息
-        /// </summary>
-        /// <param name="animeID"></param>
-        /// <returns></returns>       
-        public Animation GetAnimeFromAnimeNo(string animeNo)
-        {
-            return dao.GetAnimeFromAnimeNo(animeNo);
-        }
-
         /// <summary>
         /// 根据YYYYMM转换为日期
         /// </summary>
