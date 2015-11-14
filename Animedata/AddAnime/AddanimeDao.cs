@@ -248,7 +248,8 @@ namespace Main
             List<CharacterInfo> cInfoList = new List<CharacterInfo>();
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_CHARACTER_TBL
-                                WHERE ANIME_NO = @animeNo";
+                                WHERE ANIME_NO = @animeNo
+                                ORDER BY LEADING_FLG DESC";
             SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);

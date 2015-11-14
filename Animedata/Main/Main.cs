@@ -11,8 +11,6 @@ namespace Main
 {
     public partial class Main : Form
     {
-        
-
         #region 常量
         /// <summary>
         /// 版本号设置
@@ -28,6 +26,10 @@ namespace Main
         /// DAO
         /// </summary>
         Maindao dao = new Maindao();
+
+        MainService service = new MainService();
+
+        AddAnimeService addanimeservice = new AddAnimeService();
 
         /// <summary>
         /// 文字
@@ -99,13 +101,61 @@ namespace Main
                 //获得动画播放信息
                 DataSet ds = dao.LoadAnimePlayInfo(animeNo);
 
+                Animation anime = addanimeservice.GetAnimeFromAnimeNo(animeNo);
+
+                try
+                {
+                    if (anime.playInfoList != null)
+                    {
+                        for (int i = 0; i < anime.playInfoList.Count; i++)
+                        {
+                            PlayInfo pInfo = anime.playInfoList[i];
+                            dataGridView2.Rows.Add();
+
+                            DataGridViewRow dgvrow = dataGridView2.Rows[i];
+
+                            dgvrow.Cells[0].Value = pInfo.info;
+
+                            if (pInfo.parts != 0)
+                            {
+                                dgvrow.Cells[1].Value = pInfo.parts.ToString();
+                            }
+
+                            if (pInfo.companyID != 0)
+                            {
+                                dgvrow.Cells[2].Value = addanimeservice.GetCompanyNameByCompanyNo(pInfo.companyID);
+                            }
+
+                            dgvrow.Cells[3].Value = addanimeservice.GetStatusTextFromStatusInt(pInfo.status);
+
+                            if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
+                            {
+                                dgvrow.Cells[4].Value = addanimeservice.ConvertToYYYYMMFromDatetime(pInfo.startTime);
+                            }
+
+                            if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
+                            {
+                                dgvrow.Cells[5].Value = addanimeservice.ConvertToYYYYMMFromDatetime(pInfo.watchedTime);
+                            }
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+
                 //DGV2格式设置
-                dataGridView2.DataSource = ds.Tables[0].DefaultView;
+                //dataGridView2.DataSource = ds.Tables[0].DefaultView;
+
                 foreach(DataGridViewColumn dc in dataGridView2.Columns)
                 {
                     dc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }   
+                }
+
+
+
             }
             catch (Exception ex)
             {
@@ -318,7 +368,11 @@ namespace Main
             fm.Show();
         }
 
-
+        private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            AboutBox about = new AboutBox();
+            about.Show();
+        }
         #endregion
 
         #region 按键
@@ -361,6 +415,9 @@ namespace Main
         {
             switch (e.KeyCode)
             {
+                case Keys.F1:
+                    关于ToolStripMenuItem_Click(this, EventArgs.Empty);
+                    break;
                 case Keys.F2:
                     添加动画信息ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
@@ -377,9 +434,10 @@ namespace Main
             }
         }
 
+
+
         #endregion
-       
-        
+
 
     }
 }

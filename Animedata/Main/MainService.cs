@@ -11,8 +11,6 @@ namespace Main
     {
         #region 常量
         public string selectedRowID;
-
-        Main mainform = new Main();
         
         Maindao dao = new Maindao();
 
@@ -101,6 +99,17 @@ namespace Main
                 case "其他": return 9;
                 default: return -1;
             }
+        }
+
+        /// <summary>
+        /// 根据日期转换为YYYY年MM月格式
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public string ConvertToYYYYMMFromDatetime(DateTime dt)
+        {
+            string YYYYMM = dt.ToString("yyyyMM");
+            return YYYYMM;
         }
 
         #endregion

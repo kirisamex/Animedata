@@ -51,7 +51,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.playinfotab = new System.Windows.Forms.TabPage();
             this.companybox = new System.Windows.Forms.ComboBox();
-            this.dateTimePicker1 = new System.Windows.Forms.DateTimePicker();
             this.PlayInfoDataGridView = new System.Windows.Forms.DataGridView();
             this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.playcounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -92,7 +91,7 @@
             this.nnbox.Location = new System.Drawing.Point(130, 120);
             this.nnbox.MaxLength = 4;
             this.nnbox.Name = "nnbox";
-            this.nnbox.Size = new System.Drawing.Size(112, 19);
+            this.nnbox.Size = new System.Drawing.Size(112, 21);
             this.nnbox.TabIndex = 14;
             // 
             // cnnamebox
@@ -101,7 +100,7 @@
             this.cnnamebox.Location = new System.Drawing.Point(130, 53);
             this.cnnamebox.MaxLength = 255;
             this.cnnamebox.Name = "cnnamebox";
-            this.cnnamebox.Size = new System.Drawing.Size(151, 19);
+            this.cnnamebox.Size = new System.Drawing.Size(151, 21);
             this.cnnamebox.TabIndex = 12;
             // 
             // button2
@@ -158,7 +157,7 @@
             this.numbox.Location = new System.Drawing.Point(130, 18);
             this.numbox.MaxLength = 4;
             this.numbox.Name = "numbox";
-            this.numbox.Size = new System.Drawing.Size(112, 19);
+            this.numbox.Size = new System.Drawing.Size(112, 21);
             this.numbox.TabIndex = 11;
             // 
             // label4
@@ -243,7 +242,7 @@
             this.jpnamebox.Location = new System.Drawing.Point(130, 85);
             this.jpnamebox.MaxLength = 255;
             this.jpnamebox.Name = "jpnamebox";
-            this.jpnamebox.Size = new System.Drawing.Size(151, 19);
+            this.jpnamebox.Size = new System.Drawing.Size(151, 21);
             this.jpnamebox.TabIndex = 13;
             // 
             // label6
@@ -258,7 +257,6 @@
             // playinfotab
             // 
             this.playinfotab.Controls.Add(this.companybox);
-            this.playinfotab.Controls.Add(this.dateTimePicker1);
             this.playinfotab.Controls.Add(this.PlayInfoDataGridView);
             this.playinfotab.Location = new System.Drawing.Point(4, 22);
             this.playinfotab.Name = "playinfotab";
@@ -271,24 +269,12 @@
             // companybox
             // 
             this.companybox.FormattingEnabled = true;
-            this.companybox.Location = new System.Drawing.Point(306, 113);
+            this.companybox.Location = new System.Drawing.Point(255, 74);
             this.companybox.Name = "companybox";
             this.companybox.Size = new System.Drawing.Size(121, 20);
             this.companybox.TabIndex = 2;
             this.companybox.Visible = false;
             this.companybox.Leave += new System.EventHandler(this.companybox_Leave);
-            // 
-            // dateTimePicker1
-            // 
-            this.dateTimePicker1.CustomFormat = "yyyy年MM月";
-            this.dateTimePicker1.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.dateTimePicker1.Location = new System.Drawing.Point(274, 72);
-            this.dateTimePicker1.Name = "dateTimePicker1";
-            this.dateTimePicker1.Size = new System.Drawing.Size(200, 19);
-            this.dateTimePicker1.TabIndex = 1;
-            this.dateTimePicker1.Value = new System.DateTime(2015, 1, 16, 0, 0, 0, 0);
-            this.dateTimePicker1.Visible = false;
-            this.dateTimePicker1.CloseUp += new System.EventHandler(this.dateTimePicker1_CloseUp);
             // 
             // PlayInfoDataGridView
             // 
@@ -296,7 +282,7 @@
             this.PlayInfoDataGridView.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -369,7 +355,7 @@
             // CVbox
             // 
             this.CVbox.FormattingEnabled = true;
-            this.CVbox.Location = new System.Drawing.Point(215, 96);
+            this.CVbox.Location = new System.Drawing.Point(256, 53);
             this.CVbox.Name = "CVbox";
             this.CVbox.Size = new System.Drawing.Size(121, 20);
             this.CVbox.TabIndex = 1;
@@ -382,7 +368,7 @@
             this.CharacterInfoDataGridView.BackgroundColor = System.Drawing.Color.LightPink;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -395,7 +381,7 @@
             this.ismaincharacter});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -408,12 +394,13 @@
             this.CharacterInfoDataGridView.Name = "CharacterInfoDataGridView";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.CharacterInfoDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.CharacterInfoDataGridView.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.CharacterInfoDataGridView.RowTemplate.Height = 23;
             this.CharacterInfoDataGridView.Size = new System.Drawing.Size(673, 221);
             this.CharacterInfoDataGridView.TabIndex = 0;
@@ -485,7 +472,6 @@
         private System.Windows.Forms.TabPage charainfotab;
         private System.Windows.Forms.DataGridView PlayInfoDataGridView;
         private System.Windows.Forms.DataGridView CharacterInfoDataGridView;
-        private System.Windows.Forms.DateTimePicker dateTimePicker1;
         private System.Windows.Forms.ComboBox CVbox;
         private System.Windows.Forms.DataGridViewTextBoxColumn charactername;
         private System.Windows.Forms.DataGridViewTextBoxColumn seiyuuname;

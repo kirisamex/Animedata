@@ -190,27 +190,46 @@ namespace Main
         }
 
         /// <summary>
-        /// 根据日期转换为YYYY年MM月格式
-        /// </summary>
-        /// <param name="dt"></param>
-        /// <returns></returns>
-        public string ConvertToYYYYMMFromDatetime(DateTime dt)
-        {
-            string YYYYMM = dt.Year + "年" + dt.Month + "月";
-            return YYYYMM;
-        }
-
-        /// <summary>
-        /// 根据YYYY年MM月转换为日期
+        /// 根据YYYYMM转换为日期
         /// </summary>
         /// <param name="YYYYMM"></param>
         /// <returns></returns>
         public DateTime ConvertToDateTimeFromYYYYMM(string YYYYMM)
         {
             DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
-            dtFormat.ShortDatePattern = "yyyy年MM月";
+            dtFormat.ShortDatePattern = "yyyyMM";
             return Convert.ToDateTime(YYYYMM, dtFormat);
         }
+
+        #region 规则检查
+        /// <summary>
+        /// YYYYMM格式检查
+        /// </summary>
+        /// <param name="YYYYMM"></param>
+        /// <returns></returns>
+        public bool YYYYMMFormatCheck(string YYYYMM)
+        {
+            //六位数字，年月
+            Regex yyyymm = new Regex(@"^(19[5-9][0-9]|20[0-9]{2})(0[0-9]|1(1,2))$");
+            Match ymmatch = yyyymm.Match(YYYYMM);
+            if (!ymmatch.Success)
+            {
+                MessageBox.Show(ERRORINFO + "\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。",
+                    ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            //是否超过今天
+            if (ConvertToDateTimeFromYYYYMM(YYYYMM) > DateTime.Today)
+            {
+                MessageBox.Show(ERRORINFO + "\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",
+                    ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                return false;
+            }
+
+            return true;
+        }
+        #endregion
     }
 
 
