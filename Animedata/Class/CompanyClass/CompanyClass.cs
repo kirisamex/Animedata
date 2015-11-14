@@ -7,6 +7,8 @@ namespace Main
 {
     public class CompanyClass
     {
+        CompanyClassDao dao = new CompanyClassDao();
+
         #region 变量
         
         /// <summary>
@@ -20,5 +22,23 @@ namespace Main
         public string Name;
 
         #endregion
+
+        /// <summary>
+        /// 使用检查
+        /// </summary>
+        /// <returns>true:未使用 false:有使用</returns>
+        public List<PlayInfo> UsedCheck()
+        {
+            return dao.IsUsedCheck(ID);
+        }
+
+        /// <summary>
+        /// 删除该动画
+        /// 删除前务必检查是否使用！！ 
+        /// </summary>
+        public void Delete()
+        {
+            dao.DeleteCompanyInfoByCompanyID(ID);
+        }
     }
 }

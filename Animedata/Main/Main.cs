@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace Main
 {
@@ -15,7 +16,7 @@ namespace Main
         /// <summary>
         /// 版本号设置
         /// </summary>
-        const string Version = " Ver. 0.1";
+        string Version =  "Ver. " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
 
         /// <summary>
         /// 选中行
@@ -52,12 +53,12 @@ namespace Main
         /// <summary>
         /// 主窗口载入动画操作
         /// </summary>
-        public void LoadAnime()//载入动画
+        public void LoadAnime()
         {
             try
             {
                 //获取动画信息
-                DataSet ds = dao.LoadAnime();
+                DataSet ds = service.LoadAnime();
 
                 AnimeDataGridview.DataSource = ds.Tables[0].DefaultView;
 
@@ -98,6 +99,8 @@ namespace Main
         {
             try
             {
+                dataGridView2.Rows.Clear();
+
                 //获得动画播放信息
                 DataSet ds = dao.LoadAnimePlayInfo(animeNo);
 
@@ -110,6 +113,7 @@ namespace Main
                         for (int i = 0; i < anime.playInfoList.Count; i++)
                         {
                             PlayInfo pInfo = anime.playInfoList[i];
+
                             dataGridView2.Rows.Add();
 
                             DataGridViewRow dgvrow = dataGridView2.Rows[i];
