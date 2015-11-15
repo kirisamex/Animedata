@@ -5,11 +5,11 @@ using System.Text;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace Main.Company
+namespace Main
 {
-    public class CompanyDao:Maindao
+    public class CompanyManageDao:Maindao
     {
-        public CompanyDao() : base(){ }
+        public CompanyManageDao() : base(){ }
 
         /// <summary>
         /// 载入公司信息
@@ -39,7 +39,7 @@ namespace Main.Company
         /// <param name="newName"></param>
         /// <param name="company"></param>
         /// <returns></returns>
-        public bool UpdateCompanyName(string newName, CompanyClass company)
+        public bool UpdateCompanyName(string newName, Company company)
         {
             SqlConnection conn = Getconnection();
 

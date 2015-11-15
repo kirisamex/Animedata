@@ -134,12 +134,12 @@ namespace Main
 
                             if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
                             {
-                                dgvrow.Cells[4].Value = addanimeservice.ConvertToYYYYMMFromDatetime(pInfo.startTime);
+                                dgvrow.Cells[4].Value = addanimeservice.ConvertToYYYYNianMMYueFromDatetime(pInfo.startTime);
                             }
 
                             if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
                             {
-                                dgvrow.Cells[5].Value = addanimeservice.ConvertToYYYYMMFromDatetime(pInfo.watchedTime);
+                                dgvrow.Cells[5].Value = addanimeservice.ConvertToYYYYNianMMYueFromDatetime(pInfo.watchedTime);
                             }
                         }
                     }
@@ -362,13 +362,13 @@ namespace Main
 
         private void 动画制作企业列表ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            company fm = new company(this);
+            CompanyManage fm = new CompanyManage(this);
             fm.Show();
         }
 
         private void 声优列表SF3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            seiyuu fm = new seiyuu();
+            CVManage fm = new CVManage();
             fm.Show();
         }
 

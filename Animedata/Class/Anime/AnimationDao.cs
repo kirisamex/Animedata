@@ -5,9 +5,9 @@ using System.Data.SqlClient;
 
 namespace Main
 {
-    class AnimationClassDao : Maindao
+    class AnimationDao : Maindao
     {
-        public AnimationClassDao()
+        public AnimationDao()
             : base()
         {
         }

@@ -1,6 +1,6 @@
 ﻿namespace Main
 {
-    partial class company
+    partial class CompanyManage
     {
         /// <summary>
         /// Required designer variable.

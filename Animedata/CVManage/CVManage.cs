@@ -10,9 +10,9 @@ using System.Data.OleDb;
 
 namespace Main
 {
-    public partial class seiyuu : Form
+    public partial class CVManage : Form
     {
-        public seiyuu()
+        public CVManage()
         {
             InitializeComponent();
         }

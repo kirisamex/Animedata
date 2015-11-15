@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Main
 {
-    public class CVClass
+    public class CV
     {
         #region 常量
          public enum GenderType

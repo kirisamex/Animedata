@@ -93,7 +93,7 @@ namespace Main
         /// <summary>
         /// 
         /// </summary>
-        AnimationClassDao dao = new AnimationClassDao();
+        AnimationDao dao = new AnimationDao();
 
         #region 函数
 

@@ -5,11 +5,11 @@ using System.Text;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Main.Company
+namespace Main
 {
-    public class CompanyService : MainService
+    public class CompanyManageService : MainService
     {
-        CompanyDao dao = new CompanyDao();
+        CompanyManageDao dao = new CompanyManageDao();
 
         /// <summary>
         /// 载入公司信息
@@ -28,7 +28,7 @@ namespace Main.Company
         /// <returns></returns>
         public bool DeleteCompanyByCompanyID(int companyID)
         {
-            CompanyClass company = new CompanyClass();
+            Company company = new Company();
             company.ID = companyID;
             company.Name = dao.GetCompanyNameByCompanyId(companyID);
 
@@ -42,8 +42,8 @@ namespace Main.Company
 
                 foreach (PlayInfo pInfo in repeatPlayinfoList)
                 {
-                    errorString += "动画编号：" + pInfo.animeNo + "; 动画名称：" + GetAnimeFromAnimeNo(pInfo.animeNo).CNName +
-                        "; 放送内容：" + pInfo.info + ";\n";
+                    errorString += "编号：" + pInfo.animeNo + "; 名称：" + GetAnimeFromAnimeNo(pInfo.animeNo).CNName +
+                        "; 内容：" + pInfo.info + ";\n";
                 }
 
                 MessageBox.Show(ERROR + "该制作公司正被以下动画使用\n" + errorString,
@@ -63,7 +63,7 @@ namespace Main.Company
         /// <param name="newName">更新后的新名称</param>
         /// <param name="comp">需要更新的公司信息</param>
         /// <returns></returns>
-        public bool UpdateCompanyInfo(string newName,CompanyClass comp)
+        public bool UpdateCompanyInfo(string newName,Company comp)
         {
             return dao.UpdateCompanyName(newName, comp);
         }

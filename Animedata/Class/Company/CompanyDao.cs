@@ -7,7 +7,7 @@ using System.Data.SqlClient;
 
 namespace Main
 {
-    public class CompanyClassDao : Maindao
+    public class CompanyDao : Maindao
     {
         /// <summary>
         /// 检查该ID的公司是否有使用
@@ -19,20 +19,21 @@ namespace Main
             SqlConnection conn = Getconnection();
 
             const string sqlcmd = @"SELECT 
-                                    ANIME_ID,
+                                    ANIME_NO,
                                     ANIME_PLAYINFO
                                     FROM ANIMEDATA.dbo.T_PLAYINFO_TBL 
                                     WHERE COMPANY_ID = @companyID";
 
             SqlParameter para = new SqlParameter("@companyID", companyID);
-
+            
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
+            adp.SelectCommand.Parameters.Add(para);
             DataSet ds = new DataSet();
             adp.Fill(ds);
             conn.Close();
 
-            if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
+            if (ds.Tables[0].Rows.Count != 0)
             {
                 List<PlayInfo> repeatPlayinfoList = new List<PlayInfo>();
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -42,6 +43,7 @@ namespace Main
                     repeatInfo.info = ds.Tables[0].Rows[i][1].ToString();
                     repeatPlayinfoList.Add(repeatInfo);
                 }
+                return repeatPlayinfoList;
             }
 
             return null;

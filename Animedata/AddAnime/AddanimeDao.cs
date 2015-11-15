@@ -148,7 +148,7 @@ namespace Main
         /// 插入新规声优信息
         /// </summary>
         /// <param name="cvc"></param>
-        public void InsertCVInfo(CVClass cvc)
+        public void InsertCVInfo(CV cvc)
         {
             SqlConnection conn = Getconnection();
 
