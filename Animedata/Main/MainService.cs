@@ -106,6 +106,17 @@ namespace Main
         /// </summary>
         /// <param name="dt"></param>
         /// <returns></returns>
+        public string ConvertToYYYYNianMMYueFromDatetime(DateTime dt)
+        {
+            string YYYYMM = dt.ToString("yyyy年MM月");
+            return YYYYMM;
+        }
+
+        /// <summary>
+        /// 根据日期转换为YYYYMM格式
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
         public string ConvertToYYYYMMFromDatetime(DateTime dt)
         {
             string YYYYMM = dt.ToString("yyyyMM");
@@ -137,7 +148,7 @@ namespace Main
             }
 
             //新规company作成
-            CompanyClass comp = new CompanyClass();
+            Company comp = new Company();
             comp.ID = dao.GetMaxInt("COMPANY") + 1;
             comp.Name = companyName;
 
@@ -192,7 +203,7 @@ namespace Main
         /// </summary>
         /// <param name="comp"></param>
         /// <returns></returns>
-        public DataSet LoadAnime(CompanyClass comp)
+        public DataSet LoadAnime(Company comp)
         {
             return dao.LoadAnime(comp);
         }
@@ -203,7 +214,7 @@ namespace Main
         /// </summary>
         /// <param name="cv"></param>
         /// <returns></returns>
-        public DataSet LoadAnime(CVClass cv)
+        public DataSet LoadAnime(CV cv)
         {
             return dao.LoadAnime(cv);
         }

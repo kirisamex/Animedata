@@ -5,9 +5,9 @@ using System.Text;
 
 namespace Main
 {
-    public class CompanyClass
+    public class Company
     {
-        CompanyClassDao dao = new CompanyClassDao();
+        CompanyDao dao = new CompanyDao();
 
         #region 变量
         

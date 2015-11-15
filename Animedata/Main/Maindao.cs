@@ -394,7 +394,7 @@ namespace Main
         /// 插入新规公司信息
         /// </summary>
         /// <param name="comp"></param>
-        public void InsertCompanyInfo(CompanyClass comp)
+        public void InsertCompanyInfo(Company comp)
         {
             SqlConnection conn = Getconnection();
 
@@ -471,7 +471,7 @@ namespace Main
         /// </summary>
         /// <param name="comp"></param>
         /// <returns></returns>
-        public DataSet LoadAnime(CompanyClass comp)
+        public DataSet LoadAnime(Company comp)
         {
             SqlConnection conn = Getconnection();
 
@@ -519,7 +519,7 @@ namespace Main
         /// </summary>
         /// <param name="cv"></param>
         /// <returns></returns>
-        public DataSet LoadAnime(CVClass cv)
+        public DataSet LoadAnime(CV cv)
         {
             SqlConnection conn = Getconnection();
 

@@ -2,11 +2,10 @@
 using System.Data;
 using System.Windows.Forms;
 using System.Data.OleDb;
-using Main.Company;
 
 namespace Main
 {
-    public partial class company : Form
+    public partial class CompanyManage : Form
     {
         #region 常量
 
@@ -18,7 +17,7 @@ namespace Main
         /// <summary>
         /// 服务传递
         /// </summary>
-        CompanyService service = new CompanyService();
+        CompanyManageService service = new CompanyManageService();
 
         string ERROR = "错误：";
 
@@ -31,7 +30,7 @@ namespace Main
         /// 构析函数
         /// </summary>
         /// <param name="mainfm"></param>
-        public company(Main mainfm)
+        public CompanyManage(Main mainfm)
         {
             InitializeComponent();
             mainform = mainfm;
@@ -68,11 +67,11 @@ namespace Main
         /// 获得选中行公司
         /// </summary>
         /// <returns></returns>
-        private CompanyClass GetChooseCompany()
+        private Company GetChooseCompany()
         {
             int idx = dataGridView1.CurrentRow.Index;
             string name = dataGridView1.Rows[idx].Cells[1].Value.ToString();
-            CompanyClass comp = new CompanyClass();
+            Company comp = new Company();
             comp.Name = name;
             comp.ID = service.GetCompanyIdByCompanyName(name);
             return comp;
@@ -86,7 +85,7 @@ namespace Main
             changetextbox.Visible = true;
             okbutton.Visible = true;
             cancelbutton.Visible = true;
-            CompanyClass comp = GetChooseCompany();
+            Company comp = GetChooseCompany();
             changetextbox.Text = comp.Name.ToString();
             changetextbox.Focus();
         }
@@ -97,7 +96,7 @@ namespace Main
         /// <returns></returns>
         private bool ChangeCompany()
         {
-            CompanyClass comp = GetChooseCompany();
+            Company comp = GetChooseCompany();
             string newname = changetextbox.Text.ToString();
 
             if (newname == comp.Name)
@@ -143,7 +142,7 @@ namespace Main
         /// <returns></returns>
         private bool DeleteCompany()
         {
-            CompanyClass comp = GetChooseCompany();
+            Company comp = GetChooseCompany();
             DialogResult res = MessageBox.Show("删除动画制作企业前需要先在动画列表中删除所有该企业制作的动画。确定要删除该企业吗？", "确定删除",
                 MessageBoxButtons.OKCancel,MessageBoxIcon.Exclamation);
             if (res == DialogResult.OK)
@@ -177,7 +176,7 @@ namespace Main
         /// <param name="e"></param>
         private void searchbuttom_Click(object sender, EventArgs e)
         {
-            CompanyClass comp = GetChooseCompany();
+            Company comp = GetChooseCompany();
             try {
                 DataSet ds = service.LoadAnime(comp);
                 mainform.AnimeDataGridview.DataSource = ds.Tables[0].DefaultView;

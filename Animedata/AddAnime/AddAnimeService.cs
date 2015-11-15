@@ -50,7 +50,7 @@ namespace Main
             }
 
             //新规声优作成
-            CVClass cvc = new CVClass();
+            CV cvc = new CV();
             cvc.ID = dao.GetMaxInt("CV") + 1;
             cvc.Name = CVName;
 
@@ -134,9 +134,9 @@ namespace Main
         /// <returns></returns>
         public DateTime ConvertToDateTimeFromYYYYMM(string YYYYMM)
         {
-            DateTimeFormatInfo dtFormat = new DateTimeFormatInfo();
-            dtFormat.ShortDatePattern = "yyyyMM";
-            return Convert.ToDateTime(YYYYMM, dtFormat);
+            DateTime dt;
+            DateTime.TryParseExact(YYYYMM, "yyyyMM", null, DateTimeStyles.None, out dt);            
+            return dt;
         }
 
         #region 规则检查

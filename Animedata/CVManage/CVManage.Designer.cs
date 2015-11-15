@@ -1,6 +1,6 @@
 ﻿namespace Main
 {
-    partial class seiyuu
+    partial class CVManage
     {
         /// <summary>
         /// Required designer variable.
