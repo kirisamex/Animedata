@@ -217,7 +217,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
                 return false;
             }
 
@@ -269,7 +269,7 @@ namespace Main
                     pInfo.companyID = service.SetCompanyIDByCompanyName(companyName);
                     if (pInfo.companyID < 0)
                     {
-                        MessageBox.Show(ERROR + "未预料的COMPANY_ID", ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        service.ShowErrorMessage("未预料的COMPANY_ID");
                     }
                 }
 
@@ -425,7 +425,7 @@ namespace Main
                 {
                     if (c.Text == string.Empty)
                     {
-                        MessageBox.Show("基本信息填写不完整，请补充。", "基本信息不完整", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        service.ShowErrorMessage("基本信息填写不完整，请补充。", "基本信息不完整");
                         return false;
                     }
                     else
@@ -477,16 +477,14 @@ namespace Main
                 //放送内容Check
                 if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells[0].ToString()))
                 {
-                    MessageBox.Show("放送信息不完整：请填写第" + i + 1.ToString() + "行的放送内容！",
-                        ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    service.ShowErrorMessage("放送信息不完整：请填写第" + i + 1.ToString() + "行的放送内容！");
                     return false;
                 }
 
                 //状态check
                 if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells[3].ToString()))
                 {
-                    MessageBox.Show("放送信息不完整：请填写第" + i + 1.ToString() + "行的状态！",
-                        ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    service.ShowErrorMessage("放送信息不完整：请填写第" + i + 1.ToString() + "行的状态！");
                     return false;
                 }
 
@@ -501,11 +499,14 @@ namespace Main
                             byte tmpbyte = Convert.ToByte(seriesnum[j]);
                             if (tmpbyte < 48 || tmpbyte > 57)
                             {
-                                MessageBox.Show("放送信息中的话数必须为数字!",
-                               ERROR, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                service.ShowErrorMessage("放送信息中的话数必须为数字!");
                                 return false;
                             }
                         }
+                    }
+                    else
+                    {
+                        return false;
                     }
                 }
 
@@ -549,16 +550,14 @@ namespace Main
                 //放送内容Check
                 if (string.IsNullOrEmpty(CharacterInfoDataGridView.Rows[i].Cells[0].ToString()))
                 {
-                    MessageBox.Show("角色信息不完整：请填写第" + i + 1.ToString() + "行的角色！",
-                        ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    service.ShowErrorMessage("角色信息不完整：请填写第" + i + 1.ToString() + "行的角色！");
                     return false;
                 }
 
                 //放送内容Check
                 if (string.IsNullOrEmpty(CharacterInfoDataGridView.Rows[i].Cells[1].ToString()))
                 {
-                    MessageBox.Show("角色信息不完整：请填写第" + i + 1.ToString() + "行的声优！",
-                        ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                    service.ShowErrorMessage("角色信息不完整：请填写第" + i + 1.ToString() + "行的声优！");
                     return false;
                 }
             }
@@ -577,8 +576,7 @@ namespace Main
 
             if (!m1.Success)
             {
-                MessageBox.Show("格式错误：动画编号格式不正确！\n目前允许的编号格式为：大写字母+3位数字。", ERROR
-                    , MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                service.ShowErrorMessage("格式错误,动画编号格式不正确！\n目前允许的编号格式为：大写字母+3位数字。");
                 return false;
             }
 
@@ -586,8 +584,7 @@ namespace Main
             Match m2 = r2.Match(anime.Nickname);
             if (!m2.Success)
             {
-                MessageBox.Show("警告：动画简写格式不正确！\n简写需要是英文半角字母，且首字母大写。", ERROR
-                    , MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                service.ShowErrorMessage("动画简写格式不正确！\n简写需要是英文半角字母，且首字母大写。");
                 return false;
             }
 
@@ -618,10 +615,9 @@ namespace Main
             }
             else
             {
-                MessageBox.Show(ERROR + "填写的部分动画信息与以下信息重复，操作失败！" +
+                service.ShowErrorMessage("填写的部分动画信息与以下信息重复，操作失败！" +
                     "\n动画编号:" + repeatAnime.No + "\n中文名称:" + repeatAnime.CNName +
-                    "\n日文名称:" + repeatAnime.JPName + "\n动画简称:" + repeatAnime.Nickname + "",
-                    "信息重复", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    "\n日文名称:" + repeatAnime.JPName + "\n动画简称:" + repeatAnime.Nickname + "","信息重复");
                 return false;
             }
         }
@@ -665,7 +661,7 @@ namespace Main
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    service.ShowErrorMessage(ex.Message);
                     Application.Exit();
                 }
 
@@ -718,7 +714,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
                 Application.Exit();
             }
 
@@ -807,7 +803,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
             }
 
             //角色信息
@@ -837,7 +833,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
             }
             
         }

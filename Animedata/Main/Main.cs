@@ -81,8 +81,6 @@ namespace Main
                     //获取角色信息
                     ShowCharacterInfo(firstRowAnimeNo);
                 }              
-
-               
             }
             catch (Exception ex)
             {
@@ -102,8 +100,6 @@ namespace Main
                 dataGridView2.Rows.Clear();
 
                 //获得动画播放信息
-                DataSet ds = dao.LoadAnimePlayInfo(animeNo);
-
                 Animation anime = addanimeservice.GetAnimeFromAnimeNo(animeNo);
 
                 try

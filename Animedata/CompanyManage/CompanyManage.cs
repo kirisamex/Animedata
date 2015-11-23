@@ -25,7 +25,7 @@ namespace Main
 
         #endregion
 
-        #region
+        #region 构析
         /// <summary>
         /// 构析函数
         /// </summary>
