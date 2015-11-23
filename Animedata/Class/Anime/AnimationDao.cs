@@ -192,10 +192,7 @@ namespace Main
 		                            ,@playinfo
 		                            ,@status");
             sqlcmd.Append(cmd2);
-            sqlcmd.Append(@"
-		                            
-		                           
-		                            )");
+            sqlcmd.Append(@")");
             SqlParameter para1 = new SqlParameter("@id", pInfo.ID);
             SqlParameter para2 = new SqlParameter("@playinfo", pInfo.info);
             SqlParameter para3 = new SqlParameter("@animeNo", pInfo.animeNo);
@@ -205,6 +202,7 @@ namespace Main
             paras.Add(para2);
             paras.Add(para3);
             paras.Add(para4);
+
 
             cmd.CommandText = sqlcmd.ToString();
             cmd.Connection = conn;

@@ -7,14 +7,6 @@ namespace Main
 {
     public class CV
     {
-        #region 常量
-         public enum GenderType
-        { 
-            M,
-            F,
-        }
-        #endregion
-
         #region 变量
 
         /// <summary>
@@ -30,12 +22,12 @@ namespace Main
         /// <summary>
         /// 声优性别 [M]男 [F]女
         /// </summary>
-        public GenderType Gender;
+        public string Gender;
 
         /// <summary>
         /// 生日
         /// </summary>
-        public DateTime Bridhday;
+        public DateTime Brithday;
 
         /// <summary>
         /// 事务所id，预留，固定为0

@@ -148,20 +148,20 @@ namespace Main
         public bool YYYYMMFormatCheck(string YYYYMM)
         {
             //六位数字，年月
-            Regex yyyymm = new Regex(@"^(19[5-9][0-9]|20[0-9]{2})(0[0-9]|1(1,2))$");
+            Regex yyyymm = new Regex(@"^(19[5-9][0-9]|20[0-9]{2})((0[1-9])|(1[0-2]))$");
             Match ymmatch = yyyymm.Match(YYYYMM);
             if (!ymmatch.Success)
             {
-                MessageBox.Show(ERRORINFO + "\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。",
-                    ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ERROR + "\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。",
+                    ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 
             //是否超过今天
             if (ConvertToDateTimeFromYYYYMM(YYYYMM) > DateTime.Today)
             {
-                MessageBox.Show(ERRORINFO + "\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",
-                    ERROR, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MessageBox.Show(ERROR + "\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",
+                    ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
                 return false;
             }
 

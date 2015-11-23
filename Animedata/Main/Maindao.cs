@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data;
+using System.Text;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 
@@ -391,7 +392,7 @@ namespace Main
 
         #region INSERT系
         /// <summary>
-        /// 插入新规公司信息
+        /// 插入公司信息
         /// </summary>
         /// <param name="comp"></param>
         public void InsertCompanyInfo(Company comp)
@@ -414,6 +415,61 @@ namespace Main
             adp.SelectCommand.Parameters.Add(para2);
             DataSet ds = new DataSet();
             adp.Fill(ds);
+            conn.Close();
+        }
+
+        /// <summary>
+        /// 插入声优信息
+        /// </summary>
+        /// <param name="cvc"></param>
+        public void InsertCVInfo(CV cvInfo)
+        {
+            SqlConnection conn = Getconnection();
+
+            StringBuilder cmd1 = new StringBuilder();
+            StringBuilder cmd2 = new StringBuilder();
+            StringBuilder sqlcmd = new StringBuilder();
+            SqlCommand cmd = new SqlCommand();
+            SqlParameterCollection paras = cmd.Parameters;
+
+            if (cvInfo.Gender != null)
+            {
+                cmd1.Append(",CV_GENDER");
+                cmd2.Append(",@cvgender");
+                SqlParameter para = new SqlParameter("@cvgender", cvInfo.Gender);
+                paras.Add(para);
+            }
+
+            if (cvInfo.Brithday != DateTime.MinValue && cvInfo.Brithday != DateTime.MaxValue && cvInfo.Brithday != null)
+            {
+                cmd1.Append(",CV_BIRTH");
+                cmd2.Append(",@cvbirth");
+                SqlParameter para = new SqlParameter("@cvbirth", cvInfo.Brithday);
+                paras.Add(para);
+            }
+
+            sqlcmd.Append(  @"INSERT INTO ANIMEDATA.dbo.T_CV_TBL(
+                                        CV_ID,
+                                        CV_NAME");
+            sqlcmd.Append(cmd1);
+            sqlcmd.Append(@")
+										VALUES(
+										@cvid,
+										@cvname");
+            sqlcmd.Append(cmd2);
+            sqlcmd.Append(")");
+
+            SqlParameter para1 = new SqlParameter("@cvid", cvInfo.ID);
+            SqlParameter para2 = new SqlParameter("@cvname", cvInfo.Name);
+
+            paras.Add(para1);
+            paras.Add(para2);
+
+            cmd.CommandText = sqlcmd.ToString();
+            cmd.Connection = conn;
+
+            conn.Open();
+            cmd.ExecuteNonQuery();
             conn.Close();
         }
         #endregion

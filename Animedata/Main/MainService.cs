@@ -124,6 +124,17 @@ namespace Main
         }
 
         /// <summary>
+        /// 根据日期转换为YYYYMMDD格式
+        /// </summary>
+        /// <param name="dt"></param>
+        /// <returns></returns>
+        public string ConvertToYYYYMMDDFromDatetime(DateTime dt)
+        {
+            string YYYYMMDD = dt.ToString("yyyyMMdd");
+            return YYYYMMDD;
+        }
+
+        /// <summary>
         /// 根据动画编号获得动画信息
         /// </summary>
         /// <param name="animeID"></param>
@@ -185,6 +196,36 @@ namespace Main
             return dao.GetCompanyNameByCompanyId(companyNo);
         }
 
+        #endregion
+
+        #region 信息
+        /// <summary>
+        /// 显示错误信息对话框
+        /// </summary>
+        /// <param name="ErrorMessage">错误内容</param>
+        public void ShowErrorMessage(string ErrorMessage)
+        {
+            MessageBox.Show(ERROR + ErrorMessage, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        /// <summary>
+        /// 显示错误信息对话框
+        /// </summary>
+        /// <param name="ErrorMessage">错误内容</param>
+        /// <param name="ErrorTitle">错误框标题</param>
+        public void ShowErrorMessage(string ErrorMessage, string ErrorTitle)
+        {
+            MessageBox.Show(ERROR + ErrorMessage, ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
+
+        /// <summary>
+        /// 显示错误信息对话框
+        /// </summary>
+        public void ShowErrorMessage()
+        {
+            MessageBox.Show(ERROR + "未预料的错误。",
+                        ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+        }
         #endregion
 
         #region Main

@@ -143,33 +143,6 @@ namespace Main
         #endregion
 
         #region INSERT系
-
-        /// <summary>
-        /// 插入新规声优信息
-        /// </summary>
-        /// <param name="cvc"></param>
-        public void InsertCVInfo(CV cvc)
-        {
-            SqlConnection conn = Getconnection();
-
-            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_CV_TBL(
-                                        CV_ID,
-                                        CV_NAME)
-										VALUES(
-										@cvid,
-										@cvname)";
-
-            SqlParameter para1 = new SqlParameter("@cvid", cvc.ID);
-            SqlParameter para2 = new SqlParameter("@cvname", cvc.Name);
-
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para1);
-            adp.SelectCommand.Parameters.Add(para2);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-        }
         #endregion
 
         #region UPDATE系
