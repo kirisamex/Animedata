@@ -58,8 +58,8 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                service.ShowErrorMessage(ex.Message);
+                this.Close();
             }
         }
 
@@ -101,26 +101,23 @@ namespace Main
 
             if (newname == comp.Name)
             {
-                MessageBox.Show("企业名称未修改!", ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                service.ShowWarningMessage("企业名称未修改!");
                 return false;
             }
 
             if (newname == string.Empty)
             {
-                MessageBox.Show("企业名称不能为空！", ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                service.ShowWarningMessage("企业名称不能为空！");
                 return false;
             }
 
-            DialogResult res = MessageBox.Show("确定将名为 " + comp.Name +
-                " 的企业名称修改为 " + newname + "吗？", "修改企业名称",
-                MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
-            if (res == DialogResult.OK)
+            if (service.ShowYesNoMessage("确定将名为 " + comp.Name + " 的企业名称修改为 " + newname + "吗？", "修改企业名称"))
             {
                 try
                 {
                     if (service.UpdateCompanyInfo(newname, comp))
                     {
-                        MessageBox.Show("修改成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        service.ShowInfoMessage("修改成功！", "完成");
                         Loadcompany();
                         mainform.DataGridViewReload();
                         return true;
@@ -128,7 +125,7 @@ namespace Main
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    service.ShowErrorMessage(ex.Message);
                     return false;
                 }
             }
@@ -137,21 +134,20 @@ namespace Main
         }
 
         /// <summary>
-        /// 删除选定动画
+        /// 删除选定公司
         /// </summary>
         /// <returns></returns>
         private bool DeleteCompany()
         {
             Company comp = GetChooseCompany();
-            DialogResult res = MessageBox.Show("删除动画制作企业前需要先在动画列表中删除所有该企业制作的动画。确定要删除该企业吗？", "确定删除",
-                MessageBoxButtons.OKCancel,MessageBoxIcon.Exclamation);
-            if (res == DialogResult.OK)
+
+            if (service.ShowYesNoMessage("删除动画制作企业前需要先在动画列表中删除所有该企业制作的动画。确定要删除该企业吗？", "确定删除"))
             {
                 try
                 {
                     if (service.DeleteCompanyByCompanyID(comp.ID))
                     {
-                        MessageBox.Show("删除企业成功！", "完成", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                        service.ShowInfoMessage("删除企业成功！", "完成");
                         Loadcompany();
                         return true;
                     }
@@ -159,7 +155,7 @@ namespace Main
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    service.ShowErrorMessage(ex.Message);
                     return false;
                 }
             }
@@ -189,7 +185,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show("错误:" + ex.Message, "错误信息", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
                 Application.Exit();
             }
         }

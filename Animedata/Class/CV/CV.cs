@@ -7,6 +7,8 @@ namespace Main
 {
     public class CV
     {
+        CVDao dao = new CVDao();
+
         #region 变量
 
         /// <summary>
@@ -34,5 +36,23 @@ namespace Main
         /// </summary>
         public int office_id = 0;
         #endregion
+
+        /// <summary>
+        /// 使用检查
+        /// </summary>
+        /// <returns>true:未使用 false:有使用</returns>
+        public List<Character> UsedCheck()
+        {
+            return dao.IsUsedCheck(ID);
+        }
+
+        /// <summary>
+        /// 删除该公司
+        /// 删除前务必检查是否使用！！ 
+        /// </summary>
+        public void Delete()
+        {
+            dao.DeleteCVInfoByCVID(ID);
+        }
     }
 }

@@ -47,7 +47,7 @@ namespace Main
         /// <summary>
         /// 角色信息
         /// </summary>
-        public List<CharacterInfo> characterList { get; set; }
+        public List<Character> characterList { get; set; }
 
         #endregion
 
@@ -69,7 +69,7 @@ namespace Main
             {
                 this.No = animeNo;
                 this.playInfoList=new List<PlayInfo>();
-                this.characterList = new List<CharacterInfo>();
+                this.characterList = new List<Character>();
             }
             else
             {
@@ -207,16 +207,16 @@ namespace Main
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        private List<CharacterInfo> GetCharacterListByAnimeNo(string animeNo)
+        private List<Character> GetCharacterListByAnimeNo(string animeNo)
         {
             //获取动画信息DataTable
             DataTable dt = dao.GetCharacterListByAnimeNo(animeNo);
 
-            List<CharacterInfo> characherInfoList = new List<CharacterInfo>();
+            List<Character> characherInfoList = new List<Character>();
 
             for (int i = 1; i < dt.Rows.Count; i++)
             {
-                CharacterInfo chara = new CharacterInfo();
+                Character chara = new Character();
 
                 chara.No = dt.Rows[0][0].ToString();
                 chara.name = dt.Rows[0][1].ToString();
@@ -262,7 +262,7 @@ namespace Main
         /// 添加角色信息
         /// </summary>
         /// <param name="cinfo"></param>
-        public void AddCharacterInfo(CharacterInfo cinfo)
+        public void AddCharacterInfo(Character cinfo)
         {
             this.characterList.Add(cinfo);
         }

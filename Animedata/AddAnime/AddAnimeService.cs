@@ -62,29 +62,9 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage(ex.Message);
                 return -99;
             }
-        }
-
-        /// <summary>
-        /// 根据声优名返回声优ID
-        /// </summary>
-        /// <param name="CVName"></param>
-        /// <returns></returns>
-        public int GetCVIDByCVName(string CVName)
-        {
-            return dao.GetCVIDByCVName(CVName);
-        }
-
-        /// <summary>
-        /// 根据声优ID返回声优名
-        /// </summary>
-        /// <param name="CVID"></param>
-        /// <returns></returns>
-        public string GetCVNameByCVID(int CVID)
-        {
-            return dao.GetCVNameByCVID(CVID);
         }
 
         /// <summary>
@@ -92,7 +72,7 @@ namespace Main
         /// </summary>
         /// <param name="chara"></param>
         /// <returns></returns>
-        public string SetCharacterNoFromDB(CharacterInfo chara)
+        public string SetCharacterNoFromDB(Character chara)
         {
             string maxCharaNo = dao.GetMaxCharacterIDByCharacterInfo(chara);
             int leadingFlg = 0;
@@ -152,16 +132,14 @@ namespace Main
             Match ymmatch = yyyymm.Match(YYYYMM);
             if (!ymmatch.Success)
             {
-                MessageBox.Show(ERROR + "\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。",
-                    ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ShowErrorMessage("\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。", ERRORINFO);
                 return false;
             }
 
             //是否超过今天
             if (ConvertToDateTimeFromYYYYMM(YYYYMM) > DateTime.Today)
             {
-                MessageBox.Show(ERROR + "\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",
-                    ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                ShowErrorMessage("\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",ERRORINFO);
                 return false;
             }
 

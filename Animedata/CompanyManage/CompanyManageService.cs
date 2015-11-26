@@ -45,9 +45,8 @@ namespace Main
                     errorString += "编号：" + pInfo.animeNo + "; 名称：" + GetAnimeFromAnimeNo(pInfo.animeNo).CNName +
                         "; 内容：" + pInfo.info + ";\n";
                 }
-
-                MessageBox.Show(ERROR + "该制作公司正被以下动画使用\n" + errorString,
-                    ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                
+                ShowErrorMessage("该制作公司正被以下动画使用\n" + errorString);
                 return false;
             }
 

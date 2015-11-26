@@ -41,6 +41,51 @@ namespace Main
         }
 
         /// <summary>
+        /// 删除声优信息
+        /// </summary>
+        /// <param name="cvList"></param>
+        /// <returns></returns>
+        public bool DeleteCVInfo(List<CV> cvList)
+        {
+            string errorMessage = string.Empty;
+            bool repeatflg = false;
+
+            //检查是否使用
+            foreach (CV cvInfo in cvList)
+            {
+                List<Character> repeatCharacerInfo = cvInfo.UsedCheck();
+                
+                if (repeatCharacerInfo != null)
+                {
+                    string errorString = string.Empty;
+                    foreach (Character cInfo in repeatCharacerInfo)
+                    {
+                        errorString += "出自 " + GetAnimeFromAnimeNo(cInfo.animeNo).CNName + " 的 " + cInfo.name + ";\n";
+                        errorMessage += "声优:" + cvInfo.Name + " 为以下角色配音\n" + errorString + "";
+                    }
+                    repeatflg = true;
+                    
+                }
+                errorMessage += "\n";
+            }
+
+            if (repeatflg)
+            {
+                errorMessage += "若需要删除该声优请先删除上述角色信息。";
+                ShowErrorMessage(errorMessage);
+                return false;
+            }
+
+            //删除实行
+            foreach (CV cvInfo in cvList)
+            {
+                cvInfo.Delete();
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// 获得最大CV编号的下一编号
         /// </summary>
         /// <returns></returns>

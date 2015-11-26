@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Main
 {
-    public class CharacterInfo
+    public class Character
     {
         #region 变量
 

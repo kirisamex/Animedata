@@ -59,7 +59,7 @@ namespace Main
         /// </summary>
         /// <param name="chara"></param>
         /// <returns></returns>
-        public string GetMaxCharacterIDByCharacterInfo(CharacterInfo chara)
+        public string GetMaxCharacterIDByCharacterInfo(Character chara)
         {
             SqlConnection conn = Getconnection();
 

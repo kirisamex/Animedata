@@ -86,7 +86,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
                 Application.Exit();
             }
         }
@@ -187,6 +187,36 @@ namespace Main
         }
 
         /// <summary>
+        /// 删除声优信息
+        /// </summary>
+        /// <returns></returns>
+        private bool DeleteCVInfo()
+        {
+            if (service.ShowYesNoMessage("确认要删除选中的声优信息吗？如果有该声优有记录的配音角色，请先删除该角色。", "确认删除"))
+            {
+                List<CV> selectCVList = GetChooseCVs();
+                try
+                {
+                    if (service.DeleteCVInfo(selectCVList))
+                    {
+                        service.ShowInfoMessage("删除声优成功！", "完成");
+                        FormReset();
+                        return true;
+                    }
+                    return false;
+                }
+                catch (Exception ex)
+                {
+                    service.ShowErrorMessage(ex.Message);
+                    return false;
+                }
+            }
+            return false;
+        }
+            
+
+
+        /// <summary>
         /// 声优信息Null检查
         /// </summary>
         /// <returns></returns>
@@ -268,6 +298,29 @@ namespace Main
             }
 
             return true;
+        }
+
+        /// <summary>
+        /// 获得选中行声优ID列表
+        /// </summary>
+        /// <returns></returns>
+        private List<CV> GetChooseCVs()
+        {
+            List<CV> selectedCV = new List<CV>();
+
+            foreach (DataGridViewCell sdc in cvdataGridView.SelectedCells)
+            {
+                CV cvInfo = new CV();
+                cvInfo.ID = Convert.ToInt32(cvdataGridView.Rows[sdc.RowIndex].Cells[0].Value);
+                cvInfo.Name = service.GetCVNameByCVID(cvInfo.ID);
+
+                if (!selectedCV.Contains(cvInfo))
+                {
+                    selectedCV.Add(cvInfo);
+                }
+            }
+
+            return selectedCV;
         }
 
         #endregion
@@ -391,7 +444,7 @@ namespace Main
         /// <param name="e"></param>
         private void cancelbutton_Click(object sender, EventArgs e)
         {
-            this.Close();
+            FormReset();
         }
         
         /// <summary>
@@ -401,7 +454,7 @@ namespace Main
         /// <param name="e"></param>
         private void deletebutton_Click(object sender, EventArgs e)
         {
-
+            DeleteCVInfo();
         }
         #endregion
     }

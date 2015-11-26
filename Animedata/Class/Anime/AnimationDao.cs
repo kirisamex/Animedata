@@ -70,7 +70,7 @@ namespace Main
             //角色信息插入
             if (anime.characterList.Count > 0)
             {
-                foreach (CharacterInfo cInfo in anime.characterList)
+                foreach (Character cInfo in anime.characterList)
                 {
                     try
                     {
@@ -216,7 +216,7 @@ namespace Main
         /// 插入角色信息
         /// </summary>
         /// <param name="cInfo"></param>
-        private void InsertCharacterInfo(CharacterInfo cInfo)
+        private void InsertCharacterInfo(Character cInfo)
         {
             SqlConnection conn = Getconnection();
 
