@@ -16,9 +16,11 @@ namespace Main
 
         public const string DELETEANIMEINFO = "删除动画信息";
 
-        public const string ERROR = "错误：";
+        public const string ERRORINFO = "错误";
 
-        public const string ERRORINFO = "错误信息";
+        public const string WARNING = "警告";
+
+        public const string Info = "提示";
 
         #endregion
 
@@ -171,7 +173,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                ShowErrorMessage(ex.Message);
                 return -99;
             }
         }
@@ -184,6 +186,26 @@ namespace Main
         public int GetCompanyIdByCompanyName(string companyName)
         {
             return dao.GetCompanyIdByCompanyName(companyName);
+        }
+
+        /// <summary>
+        /// 根据声优名返回声优ID
+        /// </summary>
+        /// <param name="CVName"></param>
+        /// <returns></returns>
+        public int GetCVIDByCVName(string CVName)
+        {
+            return dao.GetCVIDByCVName(CVName);
+        }
+
+        /// <summary>
+        /// 根据声优ID返回声优名
+        /// </summary>
+        /// <param name="CVID"></param>
+        /// <returns></returns>
+        public string GetCVNameByCVID(int CVID)
+        {
+            return dao.GetCVNameByCVID(CVID);
         }
 
         /// <summary>
@@ -205,7 +227,7 @@ namespace Main
         /// <param name="ErrorMessage">错误内容</param>
         public void ShowErrorMessage(string ErrorMessage)
         {
-            MessageBox.Show(ERROR + ErrorMessage, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show( ErrorMessage, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
         /// <summary>
@@ -215,7 +237,7 @@ namespace Main
         /// <param name="ErrorTitle">错误框标题</param>
         public void ShowErrorMessage(string ErrorMessage, string ErrorTitle)
         {
-            MessageBox.Show(ERROR + ErrorMessage, ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+            MessageBox.Show( ErrorMessage, ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
 
         /// <summary>
@@ -223,9 +245,54 @@ namespace Main
         /// </summary>
         public void ShowErrorMessage()
         {
-            MessageBox.Show(ERROR + "未预料的错误。",
+            MessageBox.Show( "未预料的错误。",
                         ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
         }
+
+        /// <summary>
+        /// 显示警告信息对话框
+        /// </summary>
+        /// <param name="WarningMessage"></param>
+        public void ShowWarningMessage(string WarningMessage)
+        {
+            MessageBox.Show(WarningMessage, WARNING, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
+        }
+
+        /// <summary>
+        /// 显示信息对话框
+        /// </summary>
+        /// <param name="InfoMessage"></param>
+        public void ShowInfoMessage(string InfoMessage)
+        {
+            MessageBox.Show(InfoMessage, Info, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// 显示信息对话框
+        /// </summary>
+        /// <param name="InfoMessage">对话框内容</param>
+        /// <param name="Title">对话框标题</param>
+        public void ShowInfoMessage(string InfoMessage,string Title)
+        {
+            MessageBox.Show(InfoMessage, Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        /// <summary>
+        /// 显示确认对话框
+        /// </summary>
+        /// <param name="InfoMessage">对话框信息</param>
+        /// <param name="Title">对话框标题</param>
+        /// <returns></returns>
+        public bool ShowYesNoMessage(string InfoMessage, string Title)
+        {
+            DialogResult res = MessageBox.Show(InfoMessage, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
+            if (res == DialogResult.Yes)
+            {
+                return true;
+            }
+            return false;
+        }
+
         #endregion
 
         #region Main

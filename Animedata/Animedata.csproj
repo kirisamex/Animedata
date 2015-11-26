@@ -106,8 +106,9 @@
     <Compile Include="AddAnime\AddAnimeService.cs" />
     <Compile Include="Class\Anime\Animation.cs" />
     <Compile Include="Class\Anime\AnimationDao.cs" />
-    <Compile Include="Class\CharacterInfo\CharacterInfo.cs" />
+    <Compile Include="Class\Character\CharacterInfo.cs" />
     <Compile Include="Class\Company\CompanyDao.cs" />
+    <Compile Include="Class\CV\CVDao.cs" />
     <Compile Include="CompanyManage\CompanyManage.cs">
       <SubType>Form</SubType>
     </Compile>

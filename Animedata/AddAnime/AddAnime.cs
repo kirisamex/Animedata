@@ -301,9 +301,9 @@ namespace Main
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        private List<CharacterInfo> CharacterInfoSeries(string animeNo)
+        private List<Character> CharacterInfoSeries(string animeNo)
         {
-            List<CharacterInfo> cInfoList = new List<CharacterInfo>();
+            List<Character> cInfoList = new List<Character>();
 
             if (CharacterInfoDataGridView.RowCount == 1)
             {
@@ -319,7 +319,7 @@ namespace Main
 
             for (int i = 0; i < CharacterInfoDataGridView.RowCount - 1; i++)
             {
-                CharacterInfo chara = new CharacterInfo();
+                Character chara = new Character();
                 chara.animeNo = animeNo;
 
                 if (CharacterInfoDataGridView.Rows[i].Cells[0].Value != null)
@@ -813,7 +813,7 @@ namespace Main
                 {
                     for (int i = 0; i < anime.characterList.Count; i++)
                     {
-                        CharacterInfo cInfo = anime.characterList[i];
+                        Character cInfo = anime.characterList[i];
                         CharacterInfoDataGridView.Rows.Add();
 
                         DataGridViewRow dgvrow = CharacterInfoDataGridView.Rows[i];

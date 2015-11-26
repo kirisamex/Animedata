@@ -352,10 +352,10 @@ namespace Main
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        public List<CharacterInfo> GetCharacterListFromAnimeNo(string animeNo)
+        public List<Character> GetCharacterListFromAnimeNo(string animeNo)
         {
             SqlConnection conn = Getconnection();
-            List<CharacterInfo> cInfoList = new List<CharacterInfo>();
+            List<Character> cInfoList = new List<Character>();
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                 WHERE ANIME_NO = @animeNo
@@ -376,7 +376,7 @@ namespace Main
 
             foreach (DataRow dr in ds.Tables[0].Rows)
             {
-                CharacterInfo cInfo = new CharacterInfo();
+                Character cInfo = new Character();
                 cInfo.No = dr[0].ToString();
                 cInfo.name = dr[1].ToString();
                 cInfo.animeNo = animeNo;
