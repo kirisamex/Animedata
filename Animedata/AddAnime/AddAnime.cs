@@ -492,7 +492,7 @@ namespace Main
                 if (PlayInfoDataGridView.Rows[i].Cells[1].Value != null)
                 {
                     string seriesnum = PlayInfoDataGridView.Rows[i].Cells[1].Value.ToString();
-                    if (string.IsNullOrEmpty(seriesnum))
+                    if (!string.IsNullOrEmpty(seriesnum))
                     {
                         for (int j = 0; j < seriesnum.Length; j++)
                         {
@@ -519,7 +519,7 @@ namespace Main
                         return false;
                     }
                 }
-                if (PlayInfoDataGridView.Rows[i].Cells[5] != null)
+                if (PlayInfoDataGridView.Rows[i].Cells[5].Value != null)
                 {
                     if (!service.YYYYMMFormatCheck(PlayInfoDataGridView.Rows[i].Cells[5].Value.ToString()))
                     {
