@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle25 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle26 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle27 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle28 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle29 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle30 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,6 +43,7 @@
             this.查询动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询声优ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询动画制作企业ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,19 +58,17 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.deleteanimebutton = new System.Windows.Forms.Button();
-            this.changeanimebutton = new System.Windows.Forms.Button();
-            this.addanimebutton = new System.Windows.Forms.Button();
             this.PlayInfoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PartsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CompanyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.STTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.WTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.以上功能未实装ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.dataGridView3 = new System.Windows.Forms.DataGridView();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.deleteanimebutton = new System.Windows.Forms.Button();
+            this.changeanimebutton = new System.Windows.Forms.Button();
+            this.addanimebutton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -139,20 +138,26 @@
             // 查询动画ToolStripMenuItem
             // 
             this.查询动画ToolStripMenuItem.Name = "查询动画ToolStripMenuItem";
-            this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.查询动画ToolStripMenuItem.Text = "查询动画";
             // 
             // 查询声优ToolStripMenuItem
             // 
             this.查询声优ToolStripMenuItem.Name = "查询声优ToolStripMenuItem";
-            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.查询声优ToolStripMenuItem.Text = "查询声优";
             // 
             // 查询动画制作企业ToolStripMenuItem
             // 
             this.查询动画制作企业ToolStripMenuItem.Name = "查询动画制作企业ToolStripMenuItem";
-            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(170, 22);
+            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
             this.查询动画制作企业ToolStripMenuItem.Text = "查询动画制作企业";
+            // 
+            // 以上功能未实装ToolStripMenuItem
+            // 
+            this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
+            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
+            this.以上功能未实装ToolStripMenuItem.Text = "<!以上功能未实装!>";
             // 
             // 添加动画ToolStripMenuItem
             // 
@@ -189,8 +194,7 @@
             // 
             this.动画制作企业ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.声优列表SF3ToolStripMenuItem,
-            this.动画制作企业列表ToolStripMenuItem,
-            this.以上功能未实装ToolStripMenuItem1});
+            this.动画制作企业列表ToolStripMenuItem});
             this.动画制作企业ToolStripMenuItem.Name = "动画制作企业ToolStripMenuItem";
             this.动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(95, 20);
             this.动画制作企业ToolStripMenuItem.Text = "声优与企业(&C)";
@@ -220,7 +224,7 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
@@ -228,20 +232,20 @@
             // 
             this.AnimeDataGridview.AllowUserToAddRows = false;
             this.AnimeDataGridview.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle25.BackColor = System.Drawing.Color.Gainsboro;
-            this.AnimeDataGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle25;
+            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
+            this.AnimeDataGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
             this.AnimeDataGridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.AnimeDataGridview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.AnimeDataGridview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.AnimeDataGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle26.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle26.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle26.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle26.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle26.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle26.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle26.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AnimeDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle26;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AnimeDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.AnimeDataGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AnimeDataGridview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AnimeDataGridview.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
@@ -314,14 +318,14 @@
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle27.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle27.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle27.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle27.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle27.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle27.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle27.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle27;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PlayInfoColumn,
@@ -335,20 +339,56 @@
             this.dataGridView2.MultiSelect = false;
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
-            dataGridViewCellStyle28.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle28.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle28.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle28.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle28.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle28.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle28.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle28;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.dataGridView2.RowHeadersVisible = false;
-            dataGridViewCellStyle29.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle29;
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.dataGridView2.RowTemplate.Height = 23;
             this.dataGridView2.Size = new System.Drawing.Size(555, 277);
             this.dataGridView2.TabIndex = 0;
+            // 
+            // PlayInfoColumn
+            // 
+            this.PlayInfoColumn.HeaderText = "放送内容";
+            this.PlayInfoColumn.Name = "PlayInfoColumn";
+            this.PlayInfoColumn.ReadOnly = true;
+            // 
+            // StatusColumn
+            // 
+            this.StatusColumn.HeaderText = "话数";
+            this.StatusColumn.Name = "StatusColumn";
+            this.StatusColumn.ReadOnly = true;
+            // 
+            // PartsColumn
+            // 
+            this.PartsColumn.HeaderText = "制作公司";
+            this.PartsColumn.Name = "PartsColumn";
+            this.PartsColumn.ReadOnly = true;
+            // 
+            // CompanyColumn
+            // 
+            this.CompanyColumn.HeaderText = "状态";
+            this.CompanyColumn.Name = "CompanyColumn";
+            this.CompanyColumn.ReadOnly = true;
+            // 
+            // STTimeColumn
+            // 
+            this.STTimeColumn.HeaderText = "放送时间";
+            this.STTimeColumn.Name = "STTimeColumn";
+            this.STTimeColumn.ReadOnly = true;
+            // 
+            // WTimeColumn
+            // 
+            this.WTimeColumn.HeaderText = "收看时间";
+            this.WTimeColumn.Name = "WTimeColumn";
+            this.WTimeColumn.ReadOnly = true;
             // 
             // dataGridView3
             // 
@@ -356,14 +396,14 @@
             this.dataGridView3.AllowUserToDeleteRows = false;
             this.dataGridView3.BackgroundColor = System.Drawing.Color.LightPink;
             this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle30.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle30.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle30.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle30.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle30.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle30.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle30.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle30;
+            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
             this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView3.Location = new System.Drawing.Point(0, 0);
@@ -417,54 +457,6 @@
             this.addanimebutton.Text = "添加动画 (&D)";
             this.addanimebutton.UseVisualStyleBackColor = true;
             this.addanimebutton.Click += new System.EventHandler(this.addanimebutton_Click);
-            // 
-            // PlayInfoColumn
-            // 
-            this.PlayInfoColumn.HeaderText = "放送内容";
-            this.PlayInfoColumn.Name = "PlayInfoColumn";
-            this.PlayInfoColumn.ReadOnly = true;
-            // 
-            // StatusColumn
-            // 
-            this.StatusColumn.HeaderText = "话数";
-            this.StatusColumn.Name = "StatusColumn";
-            this.StatusColumn.ReadOnly = true;
-            // 
-            // PartsColumn
-            // 
-            this.PartsColumn.HeaderText = "制作公司";
-            this.PartsColumn.Name = "PartsColumn";
-            this.PartsColumn.ReadOnly = true;
-            // 
-            // CompanyColumn
-            // 
-            this.CompanyColumn.HeaderText = "状态";
-            this.CompanyColumn.Name = "CompanyColumn";
-            this.CompanyColumn.ReadOnly = true;
-            // 
-            // STTimeColumn
-            // 
-            this.STTimeColumn.HeaderText = "放送时间";
-            this.STTimeColumn.Name = "STTimeColumn";
-            this.STTimeColumn.ReadOnly = true;
-            // 
-            // WTimeColumn
-            // 
-            this.WTimeColumn.HeaderText = "收看时间";
-            this.WTimeColumn.Name = "WTimeColumn";
-            this.WTimeColumn.ReadOnly = true;
-            // 
-            // 以上功能未实装ToolStripMenuItem
-            // 
-            this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
-            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.以上功能未实装ToolStripMenuItem.Text = "<!以上功能未实装!>";
-            // 
-            // 以上功能未实装ToolStripMenuItem1
-            // 
-            this.以上功能未实装ToolStripMenuItem1.Name = "以上功能未实装ToolStripMenuItem1";
-            this.以上功能未实装ToolStripMenuItem1.Size = new System.Drawing.Size(203, 22);
-            this.以上功能未实装ToolStripMenuItem1.Text = "<以上功能未实装>";
             // 
             // Main
             // 
@@ -536,7 +528,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn STTimeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn WTimeColumn;
         private System.Windows.Forms.ToolStripMenuItem 以上功能未实装ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 以上功能未实装ToolStripMenuItem1;
     }
 }
 
