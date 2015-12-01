@@ -272,7 +272,7 @@
             this.companybox.Location = new System.Drawing.Point(255, 74);
             this.companybox.Name = "companybox";
             this.companybox.Size = new System.Drawing.Size(121, 20);
-            this.companybox.TabIndex = 2;
+            this.companybox.TabIndex = 1;
             this.companybox.Visible = false;
             this.companybox.Leave += new System.EventHandler(this.companybox_Leave);
             // 

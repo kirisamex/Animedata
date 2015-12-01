@@ -300,7 +300,8 @@ namespace Main
             List<PlayInfo> pInfoList = new List<PlayInfo>();
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
-                                WHERE ANIME_NO = @animeNo";
+                                WHERE ANIME_NO = @animeNo
+                                ORDER BY START_TIME";
             SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
