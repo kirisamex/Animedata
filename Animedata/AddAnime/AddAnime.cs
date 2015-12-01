@@ -635,13 +635,15 @@ namespace Main
         {
             DataGridViewCell CurrnetCell = this.PlayInfoDataGridView.CurrentCell;
 
+            string selectedcompany = string.Empty;
+
             //制作公司选择框
             if (CurrnetCell != null && CurrnetCell.OwningColumn.Name == "company")
             {
                 Rectangle TmpRect = this.PlayInfoDataGridView.GetCellDisplayRectangle(CurrnetCell.ColumnIndex, CurrnetCell.RowIndex, true);
-                if (CurrnetCell.Value != null)
+                if (PlayInfoDataGridView.Rows[PlayInfoDataGridView.CurrentRow.Index].Cells[2].Value != null)
                 {
-                    companybox.Text = CurrnetCell.Value.ToString();
+                    selectedcompany = PlayInfoDataGridView.Rows[PlayInfoDataGridView.CurrentRow.Index].Cells[2].Value.ToString();
                 }
 
                 companybox.Size = TmpRect.Size;
@@ -668,6 +670,8 @@ namespace Main
                 companybox.DisplayMember = "COMPANY_NAME";
                 companybox.ValueMember = "COMPANY_NAME";
                 companybox.DataSource = dt.DefaultView;
+                companybox.SelectedText = selectedcompany;
+                companybox.Focus();
             }
             else
             {
@@ -684,18 +688,22 @@ namespace Main
         {
             DataGridViewCell CurrnetCell = this.CharacterInfoDataGridView.CurrentCell;
 
+            string selectextest = string.Empty;
+
             //声优名称选择框
             if (CurrnetCell != null && CurrnetCell.OwningColumn.Name == "seiyuuname")
             {
                 Rectangle TmpRect = this.CharacterInfoDataGridView.GetCellDisplayRectangle(CurrnetCell.ColumnIndex, CurrnetCell.RowIndex, true);
-                if (CurrnetCell.Value != null)
+                
+                if (CharacterInfoDataGridView.Rows[CharacterInfoDataGridView.CurrentRow.Index].Cells[1].Value != null)
                 {
-                    this.CVbox.Text = CurrnetCell.Value.ToString();
+                    selectextest = CharacterInfoDataGridView.Rows[CharacterInfoDataGridView.CurrentRow.Index].Cells[1].Value.ToString();
                 }
                 this.CVbox.Size = TmpRect.Size;
                 this.CVbox.Top = TmpRect.Top;
                 this.CVbox.Left = TmpRect.Left;
                 this.CVbox.Visible = true;
+                this.CVbox.Focus();
             }
             else
             {
@@ -721,6 +729,7 @@ namespace Main
             CVbox.DisplayMember = "CV_NAME";
             CVbox.ValueMember = "CV_NAME";
             CVbox.DataSource = dt.DefaultView;
+            CVbox.SelectedText = selectextest;
         }
 
         /// <summary>
@@ -730,7 +739,7 @@ namespace Main
         /// <param name="e"></param>
         private void seiyuubox_Leave(object sender, EventArgs e)
         {
-            this.CharacterInfoDataGridView.CurrentCell.Value = this.CVbox.Text.ToString();
+            this.CharacterInfoDataGridView.Rows[CharacterInfoDataGridView.CurrentCell.RowIndex].Cells[1].Value = this.CVbox.Text.ToString();
         }
        
         /// <summary>
@@ -740,7 +749,7 @@ namespace Main
         /// <param name="e"></param>
         private void companybox_Leave(object sender, EventArgs e)
         {
-            this.PlayInfoDataGridView.CurrentCell.Value = this.companybox.Text.ToString();
+            this.PlayInfoDataGridView.Rows[PlayInfoDataGridView.CurrentCell.RowIndex].Cells[2].Value = this.companybox.Text.ToString();
         }
 
         /// <summary>
