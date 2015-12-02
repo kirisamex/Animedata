@@ -69,6 +69,25 @@ namespace Main
                     AnimeDataGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
+                foreach (DataGridViewRow dr in AnimeDataGridview.Rows)
+                {
+                    int status = service.GetStatusIntFromStatusText(dr.Cells[4].Value.ToString());
+
+                    switch(status)
+                    {
+                        case 1:
+                            dr.DefaultCellStyle.ForeColor = Color.Green;
+                            break;
+                        case 2:
+                            dr.DefaultCellStyle.ForeColor = Color.Green;
+                            break;
+                        case 9:
+                            dr.DefaultCellStyle.BackColor = Color.Green;
+                            break;
+                    }
+                }
+
+
                 string firstRowAnimeNo = null;
 
                 if (ds.Tables[0].Rows.Count != 0)
