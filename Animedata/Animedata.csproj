@@ -28,8 +28,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>0.1.2.%2a</ApplicationVersion>
+    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationVersion>0.1.4.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -104,33 +104,34 @@
     </Compile>
     <Compile Include="AddAnime\AddanimeDao.cs" />
     <Compile Include="AddAnime\AddAnimeService.cs" />
-    <Compile Include="Class\Anime\Animation.cs" />
-    <Compile Include="Class\Anime\AnimationDao.cs" />
-    <Compile Include="Class\Character\CharacterInfo.cs" />
-    <Compile Include="Class\Company\CompanyDao.cs" />
-    <Compile Include="Class\CV\CVDao.cs" />
+    <Compile Include="Lib\Class\Anime\Animation.cs" />
+    <Compile Include="Lib\Class\Anime\AnimationDao.cs" />
+    <Compile Include="Lib\Class\Character\CharacterInfo.cs" />
+    <Compile Include="Lib\Class\Company\CompanyDao.cs" />
+    <Compile Include="Lib\Class\CV\CVDao.cs" />
     <Compile Include="CompanyManage\CompanyManage.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="CompanyManage\CompanyManage.Designer.cs">
       <DependentUpon>CompanyManage.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class\Company\Company.cs" />
+    <Compile Include="Lib\Class\Company\Company.cs" />
     <Compile Include="CompanyManage\CompanyManageDao.cs" />
     <Compile Include="CompanyManage\CompanyManageService.cs" />
     <Compile Include="Connection.cs" />
     <Compile Include="CVManage\CVManageDao.cs" />
     <Compile Include="CVManage\CVManageService.cs" />
+    <Compile Include="Lib\Style\StatusStyle.cs" />
     <Compile Include="Main\Maindao.cs" />
-    <Compile Include="Class\CV\CV.cs" />
+    <Compile Include="Lib\Class\CV\CV.cs" />
     <Compile Include="Main\Main.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Main\Main.Designer.cs">
       <DependentUpon>Main.cs</DependentUpon>
     </Compile>
-    <Compile Include="Class\PlayInfo\Playinfo.cs" />
-    <Compile Include="Class\PlayInfo\PlayInfoDao.cs" />
+    <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
+    <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
     <Compile Include="Main\MainService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
