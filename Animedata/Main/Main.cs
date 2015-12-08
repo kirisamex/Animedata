@@ -7,6 +7,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
+using Main.Lib.Style;
+
 
 namespace Main
 {
@@ -24,13 +26,14 @@ namespace Main
         public string selectedRowID;
 
         /// <summary>
-        /// DAO
+        /// Service
         /// </summary>
-        Maindao dao = new Maindao();
-
         MainService service = new MainService();
 
-        AddAnimeService addanimeservice = new AddAnimeService();
+        /// <summary>
+        /// Style
+        /// </summary>
+        StatusStyle style = new StatusStyle();
 
         /// <summary>
         /// 文字
@@ -69,25 +72,6 @@ namespace Main
                     AnimeDataGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
-                foreach (DataGridViewRow dr in AnimeDataGridview.Rows)
-                {
-                    int status = service.GetStatusIntFromStatusText(dr.Cells[4].Value.ToString());
-
-                    switch(status)
-                    {
-                        case 1:
-                            dr.DefaultCellStyle.ForeColor = Color.Green;
-                            break;
-                        case 2:
-                            dr.DefaultCellStyle.ForeColor = Color.Green;
-                            break;
-                        case 9:
-                            dr.DefaultCellStyle.BackColor = Color.Green;
-                            break;
-                    }
-                }
-
-
                 string firstRowAnimeNo = null;
 
                 if (ds.Tables[0].Rows.Count != 0)
@@ -103,7 +87,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
                 Application.Exit();
             }
         }
@@ -119,7 +103,7 @@ namespace Main
                 dataGridView2.Rows.Clear();
 
                 //获得动画播放信息
-                Animation anime = addanimeservice.GetAnimeFromAnimeNo(animeNo);
+                Animation anime = service.GetAnimeFromAnimeNo(animeNo);
 
                 try
                 {
@@ -142,30 +126,35 @@ namespace Main
 
                             if (pInfo.companyID != 0)
                             {
-                                dgvrow.Cells[2].Value = addanimeservice.GetCompanyNameByCompanyNo(pInfo.companyID);
+                                dgvrow.Cells[2].Value = service.GetCompanyNameByCompanyNo(pInfo.companyID);
                             }
 
-                            dgvrow.Cells[3].Value = addanimeservice.GetStatusTextFromStatusInt(pInfo.status);
+                            dgvrow.Cells[3].Value = service.GetStatusTextFromStatusInt(pInfo.status);
 
                             if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
                             {
-                                dgvrow.Cells[4].Value = addanimeservice.ConvertToYYYYNianMMYueFromDatetime(pInfo.startTime);
+                                dgvrow.Cells[4].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.startTime);
                             }
 
                             if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
                             {
-                                dgvrow.Cells[5].Value = addanimeservice.ConvertToYYYYNianMMYueFromDatetime(pInfo.watchedTime);
+                                dgvrow.Cells[5].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.watchedTime);
                             }
+                        }
+
+                        //状态格式
+                        foreach (DataGridViewRow dr in dataGridView2.Rows)
+                        {
+                            int status = service.GetStatusIntFromStatusText(dr.Cells[3].Value.ToString());
+                            //dr.Cells[0].Style = style.GetStatusRowStyle(status);
+                            dr.Cells[3].Style = style.GetStatusRowStyle(status);
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    service.ShowErrorMessage(ex.Message);
                 }
-
-                //DGV2格式设置
-                //dataGridView2.DataSource = ds.Tables[0].DefaultView;
 
                 foreach(DataGridViewColumn dc in dataGridView2.Columns)
                 {
@@ -178,7 +167,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                service.ShowErrorMessage(ex.Message);
                 Application.Exit();
             }
         }
@@ -191,7 +180,7 @@ namespace Main
         {
             try
             {
-                DataSet ds = dao.LoadCharacterInfo(animeNo);
+                DataSet ds = service.LoadCharacterInfo(animeNo);
 
                 //DGV3格式设置
                 dataGridView3.DataSource = ds.Tables[0].DefaultView;

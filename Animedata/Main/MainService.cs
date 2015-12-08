@@ -318,15 +318,26 @@ namespace Main
 
         /// <summary>
         /// 载入动画
-        /// 指定声优
         /// </summary>
-        /// <param name="cv"></param>
+        /// <param name="cv">指定声优</param>
         /// <returns></returns>
         public DataSet LoadAnime(CV cv)
         {
             return dao.LoadAnime(cv);
         }
+
+        /// <summary>
+        /// 载入角色信息
+        /// </summary>
+        /// <param name="animeNo"></param>
+        /// <returns></returns>
+        public DataSet LoadCharacterInfo(string animeNo)
+        {
+            return dao.LoadCharacterInfo(animeNo);
+        }
         #endregion
+
+
 
 
     }
