@@ -54,27 +54,27 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AnimeDataGridview = new System.Windows.Forms.DataGridView();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
-            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
-            this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.PlayInfoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PartsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompanyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.STTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.dataGridView3 = new System.Windows.Forms.DataGridView();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.deleteanimebutton = new System.Windows.Forms.Button();
-            this.changeanimebutton = new System.Windows.Forms.Button();
-            this.addanimebutton = new System.Windows.Forms.Button();
             this.AnimeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeNiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer2 = new System.Windows.Forms.SplitContainer();
+            this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.PlayInfodataGridView = new System.Windows.Forms.DataGridView();
+            this.PlayInfoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PartsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompanyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.STTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CVdataGridView = new System.Windows.Forms.DataGridView();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.deleteanimebutton = new System.Windows.Forms.Button();
+            this.changeanimebutton = new System.Windows.Forms.Button();
+            this.addanimebutton = new System.Windows.Forms.Button();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -86,8 +86,8 @@
             this.splitContainer3.Panel1.SuspendLayout();
             this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayInfodataGridView)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CVdataGridView)).BeginInit();
             this.flowLayoutPanel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -272,6 +272,42 @@
             this.AnimeDataGridview.TabIndex = 1;
             this.AnimeDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
+            // AnimeName
+            // 
+            this.AnimeName.HeaderText = "编号";
+            this.AnimeName.Name = "AnimeName";
+            this.AnimeName.ReadOnly = true;
+            // 
+            // AnimeCNName
+            // 
+            this.AnimeCNName.HeaderText = "中文名";
+            this.AnimeCNName.Name = "AnimeCNName";
+            this.AnimeCNName.ReadOnly = true;
+            // 
+            // AnimeJPName
+            // 
+            this.AnimeJPName.HeaderText = "日文名";
+            this.AnimeJPName.Name = "AnimeJPName";
+            this.AnimeJPName.ReadOnly = true;
+            // 
+            // AnimeNiceName
+            // 
+            this.AnimeNiceName.HeaderText = "简写";
+            this.AnimeNiceName.Name = "AnimeNiceName";
+            this.AnimeNiceName.ReadOnly = true;
+            // 
+            // AnimeStatus
+            // 
+            this.AnimeStatus.HeaderText = "状态";
+            this.AnimeStatus.Name = "AnimeStatus";
+            this.AnimeStatus.ReadOnly = true;
+            // 
+            // AnimeOriginal
+            // 
+            this.AnimeOriginal.HeaderText = "原作";
+            this.AnimeOriginal.Name = "AnimeOriginal";
+            this.AnimeOriginal.ReadOnly = true;
+            // 
             // splitContainer1
             // 
             this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -316,21 +352,21 @@
             // 
             // splitContainer3.Panel1
             // 
-            this.splitContainer3.Panel1.Controls.Add(this.dataGridView2);
+            this.splitContainer3.Panel1.Controls.Add(this.PlayInfodataGridView);
             // 
             // splitContainer3.Panel2
             // 
-            this.splitContainer3.Panel2.Controls.Add(this.dataGridView3);
+            this.splitContainer3.Panel2.Controls.Add(this.CVdataGridView);
             this.splitContainer3.Size = new System.Drawing.Size(555, 600);
             this.splitContainer3.SplitterDistance = 277;
             this.splitContainer3.TabIndex = 0;
             // 
-            // dataGridView2
+            // PlayInfodataGridView
             // 
-            this.dataGridView2.AllowUserToAddRows = false;
-            this.dataGridView2.AllowUserToDeleteRows = false;
-            this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
-            this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.PlayInfodataGridView.AllowUserToAddRows = false;
+            this.PlayInfodataGridView.AllowUserToDeleteRows = false;
+            this.PlayInfodataGridView.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.PlayInfodataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -338,20 +374,20 @@
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
-            this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.PlayInfodataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            this.PlayInfodataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.PlayInfodataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PlayInfoColumn,
             this.StatusColumn,
             this.PartsColumn,
             this.CompanyColumn,
             this.STTimeColumn,
             this.WTimeColumn});
-            this.dataGridView2.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView2.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView2.MultiSelect = false;
-            this.dataGridView2.Name = "dataGridView2";
-            this.dataGridView2.ReadOnly = true;
+            this.PlayInfodataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.PlayInfodataGridView.Location = new System.Drawing.Point(0, 0);
+            this.PlayInfodataGridView.MultiSelect = false;
+            this.PlayInfodataGridView.Name = "PlayInfodataGridView";
+            this.PlayInfodataGridView.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -359,13 +395,13 @@
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView2.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.dataGridView2.RowHeadersVisible = false;
+            this.PlayInfodataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.PlayInfodataGridView.RowHeadersVisible = false;
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.dataGridView2.RowsDefaultCellStyle = dataGridViewCellStyle5;
-            this.dataGridView2.RowTemplate.Height = 23;
-            this.dataGridView2.Size = new System.Drawing.Size(555, 277);
-            this.dataGridView2.TabIndex = 0;
+            this.PlayInfodataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            this.PlayInfodataGridView.RowTemplate.Height = 23;
+            this.PlayInfodataGridView.Size = new System.Drawing.Size(555, 277);
+            this.PlayInfodataGridView.TabIndex = 0;
             // 
             // PlayInfoColumn
             // 
@@ -403,12 +439,12 @@
             this.WTimeColumn.Name = "WTimeColumn";
             this.WTimeColumn.ReadOnly = true;
             // 
-            // dataGridView3
+            // CVdataGridView
             // 
-            this.dataGridView3.AllowUserToAddRows = false;
-            this.dataGridView3.AllowUserToDeleteRows = false;
-            this.dataGridView3.BackgroundColor = System.Drawing.Color.LightPink;
-            this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.CVdataGridView.AllowUserToAddRows = false;
+            this.CVdataGridView.AllowUserToDeleteRows = false;
+            this.CVdataGridView.BackgroundColor = System.Drawing.Color.LightPink;
+            this.CVdataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -416,17 +452,17 @@
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView3.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
-            this.dataGridView3.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView3.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dataGridView3.Location = new System.Drawing.Point(0, 0);
-            this.dataGridView3.MultiSelect = false;
-            this.dataGridView3.Name = "dataGridView3";
-            this.dataGridView3.ReadOnly = true;
-            this.dataGridView3.RowHeadersVisible = false;
-            this.dataGridView3.RowTemplate.Height = 23;
-            this.dataGridView3.Size = new System.Drawing.Size(555, 319);
-            this.dataGridView3.TabIndex = 0;
+            this.CVdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            this.CVdataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CVdataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CVdataGridView.Location = new System.Drawing.Point(0, 0);
+            this.CVdataGridView.MultiSelect = false;
+            this.CVdataGridView.Name = "CVdataGridView";
+            this.CVdataGridView.ReadOnly = true;
+            this.CVdataGridView.RowHeadersVisible = false;
+            this.CVdataGridView.RowTemplate.Height = 23;
+            this.CVdataGridView.Size = new System.Drawing.Size(555, 319);
+            this.CVdataGridView.TabIndex = 0;
             // 
             // flowLayoutPanel1
             // 
@@ -471,42 +507,6 @@
             this.addanimebutton.UseVisualStyleBackColor = true;
             this.addanimebutton.Click += new System.EventHandler(this.addanimebutton_Click);
             // 
-            // AnimeName
-            // 
-            this.AnimeName.HeaderText = "编号";
-            this.AnimeName.Name = "AnimeName";
-            this.AnimeName.ReadOnly = true;
-            // 
-            // AnimeCNName
-            // 
-            this.AnimeCNName.HeaderText = "中文名";
-            this.AnimeCNName.Name = "AnimeCNName";
-            this.AnimeCNName.ReadOnly = true;
-            // 
-            // AnimeJPName
-            // 
-            this.AnimeJPName.HeaderText = "日文名";
-            this.AnimeJPName.Name = "AnimeJPName";
-            this.AnimeJPName.ReadOnly = true;
-            // 
-            // AnimeNiceName
-            // 
-            this.AnimeNiceName.HeaderText = "简写";
-            this.AnimeNiceName.Name = "AnimeNiceName";
-            this.AnimeNiceName.ReadOnly = true;
-            // 
-            // AnimeStatus
-            // 
-            this.AnimeStatus.HeaderText = "状态";
-            this.AnimeStatus.Name = "AnimeStatus";
-            this.AnimeStatus.ReadOnly = true;
-            // 
-            // AnimeOriginal
-            // 
-            this.AnimeOriginal.HeaderText = "原作";
-            this.AnimeOriginal.Name = "AnimeOriginal";
-            this.AnimeOriginal.ReadOnly = true;
-            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -534,8 +534,8 @@
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel2.ResumeLayout(false);
             this.splitContainer3.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dataGridView3)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PlayInfodataGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CVdataGridView)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -569,8 +569,6 @@
         private System.Windows.Forms.ToolStripMenuItem 声优列表SF3ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.DataGridView dataGridView2;
-        private System.Windows.Forms.DataGridView dataGridView3;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayInfoColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn StatusColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn PartsColumn;
@@ -584,6 +582,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNiceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
+        public System.Windows.Forms.DataGridView PlayInfodataGridView;
+        public System.Windows.Forms.DataGridView CVdataGridView;
     }
 }
 
