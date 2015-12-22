@@ -300,9 +300,9 @@ namespace Main
         /// 载入动画
         /// </summary>
         /// <returns></returns>
-        public DataSet LoadAnime()
+        public DataSet Getanime()
         {
-            return dao.LoadAnime();
+            return dao.Getanime();
         }
 
         /// <summary>
@@ -311,9 +311,9 @@ namespace Main
         /// </summary>
         /// <param name="comp"></param>
         /// <returns></returns>
-        public DataSet LoadAnime(Company comp)
+        public DataSet Getanime(Company comp)
         {
-            return dao.LoadAnime(comp);
+            return dao.Getanime(comp);
         }
 
         /// <summary>
@@ -321,9 +321,9 @@ namespace Main
         /// </summary>
         /// <param name="cv">指定声优</param>
         /// <returns></returns>
-        public DataSet LoadAnime(CV cv)
+        public DataSet Getanime(CV cv)
         {
-            return dao.LoadAnime(cv);
+            return dao.Getanime(cv);
         }
 
         /// <summary>

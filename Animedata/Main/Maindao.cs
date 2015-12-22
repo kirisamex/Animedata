@@ -6,6 +6,9 @@ using System.Collections.Generic;
 
 namespace Main
 {
+    /// <summary>
+    /// 数据库底层类
+    /// </summary>
     public class Maindao
     {
         public Maindao()
@@ -484,33 +487,17 @@ namespace Main
         /// 默认
         /// </summary>
         /// <returns></returns>
-        public DataSet LoadAnime()
+        public DataSet Getanime()
         {
             SqlConnection conn = Getconnection();
 
             const string sqlcmd = @"SELECT 
-                                    ANIME_NO AS '编号',
-                                    ANIME_CHN_NAME AS '动画名称', 
-                                    ANIME_JPN_NAME AS '动画原名',
-                                    ANIME_NN AS '动画简称',
-                                    CASE (STATUS) 
-										WHEN 1 THEN '放送中'
-										WHEN 2 THEN '完结'
-										WHEN 3 THEN '新企划'
-										WHEN 9 THEN '弃置'
-										ELSE '其他'
-										END
-									    AS '状态',
-									CASE(ORIGINAL)
-										WHEN 1 THEN '漫画'
-										WHEN 2 THEN '小说'
-										WHEN 3 THEN '原创'
-										WHEN 4 THEN '影视'
-										WHEN 5 THEN '游戏'
-										WHEN 9 THEN '其他'
-										ELSE '其他'
-										END
-									    AS '原作'
+                                    ANIME_NO,
+                                    ANIME_CHN_NAME, 
+                                    ANIME_JPN_NAME,
+                                    ANIME_NN,
+                                    STATUS,
+									ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL
                                     ORDER BY ANIME_NO";
 
@@ -528,33 +515,17 @@ namespace Main
         /// </summary>
         /// <param name="comp"></param>
         /// <returns></returns>
-        public DataSet LoadAnime(Company comp)
+        public DataSet Getanime(Company comp)
         {
             SqlConnection conn = Getconnection();
 
             string sqlcmd = @"SELECT DISTINCT
-                                    AT.ANIME_NO AS '编号',
-                                    AT.ANIME_CHN_NAME AS '动画名称', 
-                                    AT.ANIME_JPN_NAME AS '动画原名',
-                                    AT.ANIME_NN AS '动画简称',
-                                    CASE (AT.STATUS) 
-										WHEN 1 THEN '放送中'
-										WHEN 2 THEN '完结'
-										WHEN 3 THEN '新企划'
-										WHEN 9 THEN '弃置'
-										ELSE '其他'
-										END
-									    AS '状态',
-									CASE(AT.ORIGINAL)
-										WHEN 1 THEN '漫画'
-										WHEN 2 THEN '小说'
-										WHEN 3 THEN '原创'
-										WHEN 4 THEN '影视'
-										WHEN 5 THEN '游戏'
-										WHEN 9 THEN '其他'
-										ELSE '其他'
-										END
-									    AS '原作'
+                                    AT.ANIME_NO,
+                                    AT.ANIME_CHN_NAME, 
+                                    AT.ANIME_JPN_NAME,
+                                    AT.ANIME_NN,
+                                    AT.STATUS,
+									AT.ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
 									LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO=PT.ANIME_NO
                                     WHERE PT.COMPANY_ID	= @companyid
@@ -576,7 +547,7 @@ namespace Main
         /// </summary>
         /// <param name="cv"></param>
         /// <returns></returns>
-        public DataSet LoadAnime(CV cv)
+        public DataSet Getanime(CV cv)
         {
             SqlConnection conn = Getconnection();
 

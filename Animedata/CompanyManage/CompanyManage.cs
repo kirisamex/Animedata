@@ -173,15 +173,12 @@ namespace Main
         private void searchbuttom_Click(object sender, EventArgs e)
         {
             Company comp = GetChooseCompany();
-            try {
-                DataSet ds = service.LoadAnime(comp);
-                mainform.AnimeDataGridview.DataSource = ds.Tables[0].DefaultView;
-                for (int i = 0; i < dataGridView1.ColumnCount; i++)
-                {
-                    mainform.AnimeDataGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    mainform.AnimeDataGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
-                //mainform.ShowAnimeInfo(ds.Tables[0].Rows[0][0].ToString());
+
+            try
+            {
+                DataSet ds = service.Getanime(comp);
+
+                mainform.LoadAnimeMain(ds);
             }
             catch (Exception ex)
             {

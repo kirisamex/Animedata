@@ -56,40 +56,84 @@ namespace Main
         /// <summary>
         /// 主窗口载入动画操作
         /// </summary>
-        public void LoadAnime()
+        public void ShowAnime()
         {
             try
             {
                 //获取动画信息
-                DataSet ds = service.LoadAnime();
+                DataSet ds = service.Getanime();
 
-                AnimeDataGridview.DataSource = ds.Tables[0].DefaultView;
-
-                //动画窗口格式设置
-                for (int i = 0; i < AnimeDataGridview.ColumnCount; i++)
-                {
-                    AnimeDataGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    AnimeDataGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                }
-
-                string firstRowAnimeNo = null;
-
-                if (ds.Tables[0].Rows.Count != 0)
-                {
-                    firstRowAnimeNo = ds.Tables[0].Rows[0][0].ToString();
-
-                    //获取播放信息
-                    ShowAnimeInfo(firstRowAnimeNo);
-
-                    //获取角色信息
-                    ShowCharacterInfo(firstRowAnimeNo);
-                }              
+                LoadAnimeMain(ds);         
             }
             catch (Exception ex)
             {
                 service.ShowErrorMessage(ex.Message);
                 Application.Exit();
             }
+        }
+
+        /// <summary>
+        /// 载入动画主要内容
+        /// </summary>
+        /// <param name="ds"></param>
+        public void LoadAnimeMain(DataSet ds)
+        {
+            AnimeDataGridview.Rows.Clear();
+
+            DataTable animedt = ds.Tables[0];
+
+            for (int i = 0; i < animedt.Rows.Count; i++)
+            {
+                AnimeDataGridview.Rows.Add();
+
+                DataGridViewRow dgvrow = AnimeDataGridview.Rows[i];
+
+                //编号
+                dgvrow.Cells[0].Value = animedt.Rows[i][0].ToString();
+
+                //中文名
+                dgvrow.Cells[1].Value = animedt.Rows[i][1].ToString();
+
+                //日文名
+                dgvrow.Cells[2].Value = animedt.Rows[i][2].ToString();
+
+                //简称
+                dgvrow.Cells[3].Value = animedt.Rows[i][3].ToString();
+
+                //状态
+                dgvrow.Cells[4].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(animedt.Rows[i][4].ToString()));
+
+                //原作
+                dgvrow.Cells[5].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(animedt.Rows[i][5].ToString()));
+            }
+
+            //动画窗口格式设置
+            for (int i = 0; i < AnimeDataGridview.ColumnCount; i++)
+            {
+                AnimeDataGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                AnimeDataGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            }
+
+            //状态格式
+            foreach (DataGridViewRow dr in AnimeDataGridview.Rows)
+            {
+                int status = service.GetStatusIntFromStatusText(dr.Cells[4].Value.ToString());
+                
+                dr.Cells[4].Style = style.GetStatusRowStyle(status);
+            }
+
+            string firstRowAnimeNo = null;
+
+            if (ds.Tables[0].Rows.Count != 0)
+            {
+                firstRowAnimeNo = ds.Tables[0].Rows[0][0].ToString();
+
+                //获取播放信息
+                ShowAnimeInfo(firstRowAnimeNo);
+
+                //获取角色信息
+                ShowCharacterInfo(firstRowAnimeNo);
+            }   
         }
 
         /// <summary>
@@ -282,7 +326,7 @@ namespace Main
         {
             InitializeComponent();
             this.Text += Version;
-            this.LoadAnime();
+            this.ShowAnime();
         }
 
         /// <summary>
@@ -292,7 +336,7 @@ namespace Main
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            LoadAnime();
+            ShowAnime();
         }
 
         /// <summary>
@@ -300,7 +344,7 @@ namespace Main
         /// </summary>
         public void DataGridViewReload()
         {
-            this.LoadAnime();
+            this.ShowAnime();
         }
 
         private void main_Load(object sender, EventArgs e)
@@ -318,7 +362,7 @@ namespace Main
         /// <param name="e"></param>
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            LoadAnime();
+            ShowAnime();
         }
 
         /// <summary>
@@ -436,13 +480,11 @@ namespace Main
                     动画制作企业列表ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F5:
-                    LoadAnime();
+                    ShowAnime();
                     break;
 
             }
         }
-
-
 
         #endregion
 

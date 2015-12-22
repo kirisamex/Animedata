@@ -69,6 +69,12 @@
             this.deleteanimebutton = new System.Windows.Forms.Button();
             this.changeanimebutton = new System.Windows.Forms.Button();
             this.addanimebutton = new System.Windows.Forms.Button();
+            this.AnimeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeNiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -240,13 +246,20 @@
             this.AnimeDataGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.AnimeDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.AnimeDataGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AnimeDataGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AnimeName,
+            this.AnimeCNName,
+            this.AnimeJPName,
+            this.AnimeNiceName,
+            this.AnimeStatus,
+            this.AnimeOriginal});
             this.AnimeDataGridview.Dock = System.Windows.Forms.DockStyle.Fill;
             this.AnimeDataGridview.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.AnimeDataGridview.Location = new System.Drawing.Point(0, 0);
@@ -320,7 +333,7 @@
             this.dataGridView2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -341,7 +354,7 @@
             this.dataGridView2.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -398,7 +411,7 @@
             this.dataGridView3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -457,6 +470,42 @@
             this.addanimebutton.Text = "添加动画 (&D)";
             this.addanimebutton.UseVisualStyleBackColor = true;
             this.addanimebutton.Click += new System.EventHandler(this.addanimebutton_Click);
+            // 
+            // AnimeName
+            // 
+            this.AnimeName.HeaderText = "编号";
+            this.AnimeName.Name = "AnimeName";
+            this.AnimeName.ReadOnly = true;
+            // 
+            // AnimeCNName
+            // 
+            this.AnimeCNName.HeaderText = "中文名";
+            this.AnimeCNName.Name = "AnimeCNName";
+            this.AnimeCNName.ReadOnly = true;
+            // 
+            // AnimeJPName
+            // 
+            this.AnimeJPName.HeaderText = "日文名";
+            this.AnimeJPName.Name = "AnimeJPName";
+            this.AnimeJPName.ReadOnly = true;
+            // 
+            // AnimeNiceName
+            // 
+            this.AnimeNiceName.HeaderText = "简写";
+            this.AnimeNiceName.Name = "AnimeNiceName";
+            this.AnimeNiceName.ReadOnly = true;
+            // 
+            // AnimeStatus
+            // 
+            this.AnimeStatus.HeaderText = "状态";
+            this.AnimeStatus.Name = "AnimeStatus";
+            this.AnimeStatus.ReadOnly = true;
+            // 
+            // AnimeOriginal
+            // 
+            this.AnimeOriginal.HeaderText = "原作";
+            this.AnimeOriginal.Name = "AnimeOriginal";
+            this.AnimeOriginal.ReadOnly = true;
             // 
             // Main
             // 
@@ -529,6 +578,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn STTimeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn WTimeColumn;
         private System.Windows.Forms.ToolStripMenuItem 以上功能未实装ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeCNName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeJPName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNiceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
     }
 }
 
