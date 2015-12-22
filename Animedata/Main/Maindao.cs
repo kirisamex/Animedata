@@ -545,42 +545,38 @@ namespace Main
         /// 动画界面加载
         /// 指定声优
         /// </summary>
-        /// <param name="cv"></param>
+        /// <param name="cvList"></param>
         /// <returns></returns>
-        public DataSet Getanime(CV cv)
+        public DataSet Getanime(List<CV> cvList)
         {
             SqlConnection conn = Getconnection();
 
+            StringBuilder cvDic = new StringBuilder();
+
+            cvDic.Append(cvList[0].ID.ToString());
+            if (cvList.Count > 1)
+            {
+                for (int i = 1; i < cvList.Count; i++)
+                {
+                    cvDic.Append(",");
+                    cvDic.Append(cvList[i].ToString());
+                }
+            }
+
             string sqlcmd = @"SELECT DISTINCT
-                                    AT.ANIME_NO AS '编号',
-                                    AT.ANIME_CHN_NAME AS '动画名称', 
-                                    AT.ANIME_JPN_NAME AS '动画原名',
-                                    AT.ANIME_NN AS '动画简称',
-                                    CASE (AT.STATUS) 
-										WHEN 1 THEN '放送中'
-										WHEN 2 THEN '完结'
-										WHEN 3 THEN '新企划'
-										WHEN 9 THEN '弃置'
-										ELSE '其他'
-										END
-									    AS '状态',
-									CASE(AT.ORIGINAL)
-										WHEN 1 THEN '漫画'
-										WHEN 2 THEN '小说'
-										WHEN 3 THEN '原创'
-										WHEN 4 THEN '影视'
-										WHEN 5 THEN '游戏'
-										WHEN 9 THEN '其他'
-										ELSE '其他'
-										END
-									    AS '原作'
+                                    AT.ANIME_NO,
+                                    AT.ANIME_CHN_NAME, 
+                                    AT.ANIME_JPN_NAME,
+                                    AT.ANIME_NN,
+                                    AT.STATUS,
+									AT.ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
 									LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CHT ON CHT.ANIME_NO=AT.ANIME_NO
 									LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID=CHT.CV_ID
-                                    WHERE CVT.CV_ID	= @CVID
+                                    WHERE CVT.CV_ID	IN (@CVID)
                                     ORDER BY AT.ANIME_NO";
 
-            SqlParameter para = new SqlParameter("@CVID", cv.ID);
+            SqlParameter para = new SqlParameter("@CVID", cvDic.ToString());
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
             adp.SelectCommand.Parameters.Add(para);
