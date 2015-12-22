@@ -144,7 +144,7 @@ namespace Main
         {
             try
             {
-                dataGridView2.Rows.Clear();
+                PlayInfodataGridView.Rows.Clear();
 
                 //获得动画播放信息
                 Animation anime = service.GetAnimeFromAnimeNo(animeNo);
@@ -157,9 +157,9 @@ namespace Main
                         {
                             PlayInfo pInfo = anime.playInfoList[i];
 
-                            dataGridView2.Rows.Add();
+                            PlayInfodataGridView.Rows.Add();
 
-                            DataGridViewRow dgvrow = dataGridView2.Rows[i];
+                            DataGridViewRow dgvrow = PlayInfodataGridView.Rows[i];
 
                             dgvrow.Cells[0].Value = pInfo.info;
 
@@ -187,7 +187,7 @@ namespace Main
                         }
 
                         //状态格式
-                        foreach (DataGridViewRow dr in dataGridView2.Rows)
+                        foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
                         {
                             int status = service.GetStatusIntFromStatusText(dr.Cells[3].Value.ToString());
                             //dr.Cells[0].Style = style.GetStatusRowStyle(status);
@@ -200,7 +200,7 @@ namespace Main
                     service.ShowErrorMessage(ex.Message);
                 }
 
-                foreach(DataGridViewColumn dc in dataGridView2.Columns)
+                foreach(DataGridViewColumn dc in PlayInfodataGridView.Columns)
                 {
                     dc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -227,11 +227,11 @@ namespace Main
                 DataSet ds = service.LoadCharacterInfo(animeNo);
 
                 //DGV3格式设置
-                dataGridView3.DataSource = ds.Tables[0].DefaultView;
-                for (int i = 0; i < dataGridView3.ColumnCount; i++)
+                CVdataGridView.DataSource = ds.Tables[0].DefaultView;
+                for (int i = 0; i < CVdataGridView.ColumnCount; i++)
                 {
-                    dataGridView3.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView3.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    CVdataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    CVdataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
             }
@@ -416,7 +416,7 @@ namespace Main
 
         private void 声优列表SF3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CVManage fm = new CVManage();
+            CVManage fm = new CVManage(this);
             fm.Show();
         }
 

@@ -319,11 +319,11 @@ namespace Main
         /// <summary>
         /// 载入动画
         /// </summary>
-        /// <param name="cv">指定声优</param>
+        /// <param name="cvList">指定声优</param>
         /// <returns></returns>
-        public DataSet Getanime(CV cv)
+        public DataSet Getanime(List<CV> cvList)
         {
-            return dao.Getanime(cv);
+            return dao.Getanime(cvList);
         }
 
         /// <summary>

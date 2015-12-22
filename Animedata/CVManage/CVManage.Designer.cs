@@ -28,9 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.searchbutton = new System.Windows.Forms.Button();
             this.addbutton = new System.Windows.Forms.Button();
             this.changebutton = new System.Windows.Forms.Button();
             this.deletebutton = new System.Windows.Forms.Button();
@@ -68,6 +69,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.LightPink;
+            this.flowLayoutPanel1.Controls.Add(this.searchbutton);
             this.flowLayoutPanel1.Controls.Add(this.addbutton);
             this.flowLayoutPanel1.Controls.Add(this.changebutton);
             this.flowLayoutPanel1.Controls.Add(this.deletebutton);
@@ -80,42 +82,52 @@
             this.flowLayoutPanel1.Size = new System.Drawing.Size(190, 379);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
+            // searchbutton
+            // 
+            this.searchbutton.Location = new System.Drawing.Point(5, 3);
+            this.searchbutton.Name = "searchbutton";
+            this.searchbutton.Size = new System.Drawing.Size(182, 23);
+            this.searchbutton.TabIndex = 0;
+            this.searchbutton.Text = "(&B)查看声优出演动画";
+            this.searchbutton.UseVisualStyleBackColor = true;
+            this.searchbutton.Click += new System.EventHandler(this.searchbutton_Click);
+            // 
             // addbutton
             // 
-            this.addbutton.Location = new System.Drawing.Point(5, 3);
+            this.addbutton.Location = new System.Drawing.Point(5, 32);
             this.addbutton.Name = "addbutton";
             this.addbutton.Size = new System.Drawing.Size(182, 23);
-            this.addbutton.TabIndex = 0;
+            this.addbutton.TabIndex = 1;
             this.addbutton.Text = "添加信息(&A)";
             this.addbutton.UseVisualStyleBackColor = true;
             this.addbutton.Click += new System.EventHandler(this.addbutton_Click);
             // 
             // changebutton
             // 
-            this.changebutton.Location = new System.Drawing.Point(5, 32);
+            this.changebutton.Location = new System.Drawing.Point(5, 61);
             this.changebutton.Name = "changebutton";
             this.changebutton.Size = new System.Drawing.Size(182, 23);
-            this.changebutton.TabIndex = 1;
+            this.changebutton.TabIndex = 2;
             this.changebutton.Text = "修改信息(&C)";
             this.changebutton.UseVisualStyleBackColor = true;
             this.changebutton.Click += new System.EventHandler(this.changebutton_Click);
             // 
             // deletebutton
             // 
-            this.deletebutton.Location = new System.Drawing.Point(5, 61);
+            this.deletebutton.Location = new System.Drawing.Point(5, 90);
             this.deletebutton.Name = "deletebutton";
             this.deletebutton.Size = new System.Drawing.Size(182, 23);
-            this.deletebutton.TabIndex = 2;
+            this.deletebutton.TabIndex = 3;
             this.deletebutton.Text = "删除信息(&D)";
             this.deletebutton.UseVisualStyleBackColor = true;
             this.deletebutton.Click += new System.EventHandler(this.deletebutton_Click);
             // 
             // okbutton
             // 
-            this.okbutton.Location = new System.Drawing.Point(99, 90);
+            this.okbutton.Location = new System.Drawing.Point(99, 119);
             this.okbutton.Name = "okbutton";
             this.okbutton.Size = new System.Drawing.Size(88, 23);
-            this.okbutton.TabIndex = 3;
+            this.okbutton.TabIndex = 5;
             this.okbutton.Text = "确认(&E)";
             this.okbutton.UseVisualStyleBackColor = true;
             this.okbutton.Visible = false;
@@ -123,7 +135,7 @@
             // 
             // cancelbutton
             // 
-            this.cancelbutton.Location = new System.Drawing.Point(5, 90);
+            this.cancelbutton.Location = new System.Drawing.Point(5, 119);
             this.cancelbutton.Name = "cancelbutton";
             this.cancelbutton.Size = new System.Drawing.Size(88, 23);
             this.cancelbutton.TabIndex = 4;
@@ -137,14 +149,14 @@
             this.cvdataGridView.AllowUserToAddRows = false;
             this.cvdataGridView.AllowUserToDeleteRows = false;
             this.cvdataGridView.BackgroundColor = System.Drawing.Color.LightPink;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.cvdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.cvdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.cvdataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.cvdataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NoColumn,
@@ -223,5 +235,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn sexColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn BirthdayColumn;
+        private System.Windows.Forms.Button searchbutton;
     }
 }
