@@ -49,11 +49,6 @@ namespace Main
             ctr = control;
         }
 
-        string ERROR = "错误：";
-
-        string ERRORINFO = "错误信息";
-
-
         Main mainform = new Main();
         AddanimeDao dao = new AddanimeDao();
         AddAnimeService service = new AddAnimeService();
