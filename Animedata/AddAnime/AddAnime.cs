@@ -105,7 +105,7 @@ namespace Main
             if (CommandAnimeInfo(ctr) == true)
             {
                 this.Close();
-                mainform.DataGridViewReload();
+                //mainform.DataGridViewReload();
             }
 
         }
