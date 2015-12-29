@@ -81,7 +81,7 @@
             this.AnimeNoBox.Location = new System.Drawing.Point(96, 10);
             this.AnimeNoBox.Name = "AnimeNoBox";
             this.AnimeNoBox.Size = new System.Drawing.Size(144, 19);
-            this.AnimeNoBox.TabIndex = 2;
+            this.AnimeNoBox.TabIndex = 1;
             // 
             // AnimeCNNamebox
             // 
@@ -120,14 +120,14 @@
             this.AnimeNNBox.Location = new System.Drawing.Point(96, 100);
             this.AnimeNNBox.Name = "AnimeNNBox";
             this.AnimeNNBox.Size = new System.Drawing.Size(144, 19);
-            this.AnimeNNBox.TabIndex = 4;
+            this.AnimeNNBox.TabIndex = 6;
             // 
             // AnimeCNNameSearchTypeButton
             // 
             this.AnimeCNNameSearchTypeButton.Location = new System.Drawing.Point(246, 38);
             this.AnimeCNNameSearchTypeButton.Name = "AnimeCNNameSearchTypeButton";
             this.AnimeCNNameSearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.AnimeCNNameSearchTypeButton.TabIndex = 5;
+            this.AnimeCNNameSearchTypeButton.TabIndex = 3;
             this.AnimeCNNameSearchTypeButton.Text = "部分一致";
             this.AnimeCNNameSearchTypeButton.UseVisualStyleBackColor = true;
             this.AnimeCNNameSearchTypeButton.Click += new System.EventHandler(this.AnimeCNNameSearchTypeButton_Click);
@@ -137,7 +137,7 @@
             this.AnimeJPNameSearcyTypeButton.Location = new System.Drawing.Point(246, 68);
             this.AnimeJPNameSearcyTypeButton.Name = "AnimeJPNameSearcyTypeButton";
             this.AnimeJPNameSearcyTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.AnimeJPNameSearcyTypeButton.TabIndex = 6;
+            this.AnimeJPNameSearcyTypeButton.TabIndex = 5;
             this.AnimeJPNameSearcyTypeButton.Text = "部分一致";
             this.AnimeJPNameSearcyTypeButton.UseVisualStyleBackColor = true;
             this.AnimeJPNameSearcyTypeButton.Click += new System.EventHandler(this.AnimeJPNameSearcyTypeButton_Click);
@@ -172,7 +172,7 @@
             this.StatusCheckedListBox.Location = new System.Drawing.Point(373, 10);
             this.StatusCheckedListBox.Name = "StatusCheckedListBox";
             this.StatusCheckedListBox.Size = new System.Drawing.Size(98, 60);
-            this.StatusCheckedListBox.TabIndex = 10;
+            this.StatusCheckedListBox.TabIndex = 13;
             // 
             // OriginalCheckedListBox
             // 
@@ -188,7 +188,7 @@
             this.OriginalCheckedListBox.Location = new System.Drawing.Point(373, 91);
             this.OriginalCheckedListBox.Name = "OriginalCheckedListBox";
             this.OriginalCheckedListBox.Size = new System.Drawing.Size(98, 88);
-            this.OriginalCheckedListBox.TabIndex = 11;
+            this.OriginalCheckedListBox.TabIndex = 14;
             // 
             // label7
             // 
@@ -204,14 +204,14 @@
             this.PlaytimeToBox.Location = new System.Drawing.Point(183, 130);
             this.PlaytimeToBox.Name = "PlaytimeToBox";
             this.PlaytimeToBox.Size = new System.Drawing.Size(57, 19);
-            this.PlaytimeToBox.TabIndex = 13;
+            this.PlaytimeToBox.TabIndex = 8;
             // 
             // PlaytimeSearchTypeButton
             // 
             this.PlaytimeSearchTypeButton.Location = new System.Drawing.Point(246, 128);
             this.PlaytimeSearchTypeButton.Name = "PlaytimeSearchTypeButton";
             this.PlaytimeSearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.PlaytimeSearchTypeButton.TabIndex = 14;
+            this.PlaytimeSearchTypeButton.TabIndex = 9;
             this.PlaytimeSearchTypeButton.Text = "在此期间";
             this.PlaytimeSearchTypeButton.UseVisualStyleBackColor = true;
             this.PlaytimeSearchTypeButton.Visible = false;
@@ -222,7 +222,7 @@
             this.PlaytimeFromBox.Location = new System.Drawing.Point(96, 130);
             this.PlaytimeFromBox.Name = "PlaytimeFromBox";
             this.PlaytimeFromBox.Size = new System.Drawing.Size(57, 19);
-            this.PlaytimeFromBox.TabIndex = 15;
+            this.PlaytimeFromBox.TabIndex = 7;
             // 
             // label8
             // 
@@ -247,14 +247,14 @@
             this.WatchtimeFromBox.Location = new System.Drawing.Point(96, 160);
             this.WatchtimeFromBox.Name = "WatchtimeFromBox";
             this.WatchtimeFromBox.Size = new System.Drawing.Size(57, 19);
-            this.WatchtimeFromBox.TabIndex = 20;
+            this.WatchtimeFromBox.TabIndex = 10;
             // 
             // WatchtimeSearchTypeButton
             // 
             this.WatchtimeSearchTypeButton.Location = new System.Drawing.Point(246, 158);
             this.WatchtimeSearchTypeButton.Name = "WatchtimeSearchTypeButton";
             this.WatchtimeSearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.WatchtimeSearchTypeButton.TabIndex = 19;
+            this.WatchtimeSearchTypeButton.TabIndex = 12;
             this.WatchtimeSearchTypeButton.Text = "在此期间";
             this.WatchtimeSearchTypeButton.UseVisualStyleBackColor = true;
             this.WatchtimeSearchTypeButton.Visible = false;
@@ -265,7 +265,7 @@
             this.WatchtimeToBox.Location = new System.Drawing.Point(183, 160);
             this.WatchtimeToBox.Name = "WatchtimeToBox";
             this.WatchtimeToBox.Size = new System.Drawing.Size(57, 19);
-            this.WatchtimeToBox.TabIndex = 18;
+            this.WatchtimeToBox.TabIndex = 11;
             // 
             // label10
             // 
@@ -278,30 +278,31 @@
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(78, 196);
+            this.SearchButton.Location = new System.Drawing.Point(183, 196);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
-            this.SearchButton.TabIndex = 22;
-            this.SearchButton.Text = "搜索";
+            this.SearchButton.TabIndex = 15;
+            this.SearchButton.Text = "搜索(&S)";
             this.SearchButton.UseVisualStyleBackColor = true;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // ClearButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(183, 196);
+            this.ClearButton.Location = new System.Drawing.Point(278, 196);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(75, 23);
-            this.ClearButton.TabIndex = 22;
-            this.ClearButton.Text = "清空";
+            this.ClearButton.TabIndex = 16;
+            this.ClearButton.Text = "重置(&R)";
             this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(292, 196);
+            this.CancelButton.Location = new System.Drawing.Point(373, 196);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 23;
-            this.CancelButton.Text = "取消";
+            this.CancelButton.TabIndex = 17;
+            this.CancelButton.Text = "取消(&C)";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
