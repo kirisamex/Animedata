@@ -215,7 +215,14 @@ namespace Main
             try
             {
                 DataSet ds = service.Getanime(search);
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    service.ShowInfoMessage("未搜索到对应数据", "无结果");
+                    return;
+                }
+
                 mainform.LoadAnimeMain(ds);
+                mainform.Focus();
             }
             catch (Exception ex)
             {
@@ -232,6 +239,39 @@ namespace Main
         private void CancelButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        /// <summary>
+        /// 重置按钮
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            this.AnimeNoBox.Text = string.Empty;
+            this.AnimeCNNamebox.Text = string.Empty;
+            this.AnimeJPNameBox.Text = string.Empty;
+            this.AnimeNNBox.Text = string.Empty;
+            this.PlaytimeFromBox.Text = string.Empty;
+            this.PlaytimeToBox.Text = string.Empty;
+            this.WatchtimeFromBox.Text = string.Empty;
+            this.WatchtimeToBox.Text = string.Empty;
+
+            this.AnimeCNNameSearchTypeButton.Text = "部分一致";
+            this.AnimeJPNameSearcyTypeButton.Text = "部分一致";
+
+            PlaytimeSearchTypeButton.Text = "在此期间";
+            WatchtimeSearchTypeButton.Text = "在此期间";
+
+
+            for (int j = 0; j < StatusCheckedListBox.Items.Count; j++)
+            {
+                StatusCheckedListBox.SetItemChecked(j, true);
+            }
+            for (int j = 0; j < OriginalCheckedListBox.Items.Count; j++)
+            {
+                OriginalCheckedListBox.SetItemChecked(j, true);
+            }
         }
 
         /// <summary>
@@ -323,6 +363,20 @@ namespace Main
         }
         #endregion
 
+        #region 键盘
+        /// <summary>
+        /// 键盘功能键控制
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MainSearch_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        
+        #endregion
+
         #region 界面
         /// <summary>
         /// 载入
@@ -339,6 +393,12 @@ namespace Main
                 OriginalCheckedListBox.SetItemChecked(j, true);
         }
         #endregion
+
+
+
+
+
+
 
     }
 }

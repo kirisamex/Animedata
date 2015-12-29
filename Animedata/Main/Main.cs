@@ -465,7 +465,7 @@ namespace Main
         #region 键盘
 
         /// <summary>
-        /// 
+        /// 键盘功能键控制
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>

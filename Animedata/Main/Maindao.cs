@@ -609,7 +609,7 @@ namespace Main
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    INNER JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO 
+                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO 
 									");
 
             
@@ -660,8 +660,8 @@ namespace Main
 
             #region 播放时间
             //播放时间
-            if (!(search.animePlaytimeFrom == DateTime.MinValue || search.animePlaytimeFrom == DateTime.MaxValue
-                    || search.animePlaytimeTo == DateTime.MinValue || search.animePlaytimeTo == DateTime.MaxValue))
+            if ((search.animePlaytimeFrom != DateTime.MinValue || search.animePlaytimeFrom != DateTime.MaxValue
+                    || search.animePlaytimeTo != DateTime.MinValue || search.animePlaytimeTo != DateTime.MaxValue))
             {
                 AddWhereAnd(joincmd);
 
@@ -674,18 +674,20 @@ namespace Main
                     cmd.Parameters.Add(AddParam("anime_playtimefrom", search.animePlaytimeFrom));
                     cmd.Parameters.Add(AddParam("anime_playtimeto", search.animePlaytimeTo));
                 }
-
-                //From
-                if (search.animePlaytimeFrom != DateTime.MaxValue && search.animePlaytimeFrom != DateTime.MinValue)
-                {
-                    search.animePlaytimeSearchRule = SearchModule.DateTimeSearchRule.From;
-                    cmd.Parameters.Add(AddParam("anime_playtimefrom", search.animePlaytimeFrom));
-                }
-                //To
                 else
                 {
-                    search.animePlaytimeSearchRule = SearchModule.DateTimeSearchRule.To;
-                    cmd.Parameters.Add(AddParam("anime_playtimeto", search.animePlaytimeTo));
+                    //From
+                    if (search.animePlaytimeFrom != DateTime.MaxValue && search.animePlaytimeFrom != DateTime.MinValue)
+                    {
+                        search.animePlaytimeSearchRule = SearchModule.DateTimeSearchRule.From;
+                        cmd.Parameters.Add(AddParam("anime_playtimefrom", search.animePlaytimeFrom));
+                    }
+                    //To
+                    else
+                    {
+                        search.animePlaytimeSearchRule = SearchModule.DateTimeSearchRule.To;
+                        cmd.Parameters.Add(AddParam("anime_playtimeto", search.animePlaytimeTo));
+                    }
                 }
 
                 joincmd.Append(SQLAndBuilder(search.animePlaytimeSearchWay, search.animePlaytimeSearchRule,
@@ -697,8 +699,8 @@ namespace Main
 
             #region 收看时间
             //收看时间
-            if (!(search.animeWatchtimeFrom == DateTime.MinValue || search.animeWatchtimeFrom == DateTime.MaxValue
-                    || search.animeWatchtimeTo == DateTime.MinValue || search.animeWatchtimeTo == DateTime.MaxValue))
+            if (!(search.animeWatchtimeFrom != DateTime.MinValue || search.animeWatchtimeFrom != DateTime.MaxValue
+                    || search.animeWatchtimeTo != DateTime.MinValue || search.animeWatchtimeTo != DateTime.MaxValue))
             {
                 AddWhereAnd(joincmd);
 
@@ -711,18 +713,20 @@ namespace Main
                     cmd.Parameters.Add(AddParam("anime_watchtimefrom", search.animeWatchtimeFrom));
                     cmd.Parameters.Add(AddParam("anime_watchtimeto", search.animeWatchtimeTo));
                 }
-
-                //From
-                if (search.animeWatchtimeFrom != DateTime.MaxValue && search.animeWatchtimeFrom != DateTime.MinValue)
-                {
-                    search.animeWatchtimeSearchRule = SearchModule.DateTimeSearchRule.From;
-                    cmd.Parameters.Add(AddParam("anime_watchtimefrom", search.animeWatchtimeFrom));
-                }
-                //To
                 else
                 {
-                    search.animeWatchtimeSearchRule = SearchModule.DateTimeSearchRule.To;
-                    cmd.Parameters.Add(AddParam("anime_watchtimeto", search.animeWatchtimeTo));
+                    //From
+                    if (search.animeWatchtimeFrom != DateTime.MaxValue && search.animeWatchtimeFrom != DateTime.MinValue)
+                    {
+                        search.animeWatchtimeSearchRule = SearchModule.DateTimeSearchRule.From;
+                        cmd.Parameters.Add(AddParam("anime_watchtimefrom", search.animeWatchtimeFrom));
+                    }
+                    //To
+                    else
+                    {
+                        search.animeWatchtimeSearchRule = SearchModule.DateTimeSearchRule.To;
+                        cmd.Parameters.Add(AddParam("anime_watchtimeto", search.animeWatchtimeTo));
+                    }
                 }
 
                 joincmd.Append(SQLAndBuilder(search.animeWatchtimeSearchWay, search.animeWatchtimeSearchRule,
@@ -774,32 +778,32 @@ namespace Main
             if (search.animeOriginal.fromComic)
             {
                 AddComma(originalincmd);
-                statusincmd.Append(AnimeOriginalModule.COMIC.ToString());
+                originalincmd.Append(AnimeOriginalModule.COMIC.ToString());
             }
             if (search.animeOriginal.fromNovel)
             {
                 AddComma(originalincmd);
-                statusincmd.Append(AnimeOriginalModule.NOVEL.ToString());
+                originalincmd.Append(AnimeOriginalModule.NOVEL.ToString());
             }
             if (search.animeOriginal.isoriginal)
             {
                 AddComma(originalincmd);
-                statusincmd.Append(AnimeOriginalModule.ORIGINAL.ToString());
+                originalincmd.Append(AnimeOriginalModule.ORIGINAL.ToString());
             }
             if (search.animeOriginal.fromvideo)
             {
                 AddComma(originalincmd);
-                statusincmd.Append(AnimeOriginalModule.VIDEO.ToString());
+                originalincmd.Append(AnimeOriginalModule.VIDEO.ToString());
             }
             if (search.animeOriginal.fromgame)
             {
                 AddComma(originalincmd);
-                statusincmd.Append(AnimeOriginalModule.GAME.ToString());
+                originalincmd.Append(AnimeOriginalModule.GAME.ToString());
             }
             if (search.animeOriginal.fromothers)
             {
                 AddComma(originalincmd);
-                statusincmd.Append(AnimeOriginalModule.OTHERS.ToString());
+                originalincmd.Append(AnimeOriginalModule.OTHERS.ToString());
             }
 
             joincmd.Append(originalincmd);
