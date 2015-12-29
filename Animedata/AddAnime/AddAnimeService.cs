@@ -107,45 +107,6 @@ namespace Main
             return nextCharaNo;
         }
  
-        /// <summary>
-        /// 根据YYYYMM转换为日期
-        /// </summary>
-        /// <param name="YYYYMM"></param>
-        /// <returns></returns>
-        public DateTime ConvertToDateTimeFromYYYYMM(string YYYYMM)
-        {
-            DateTime dt;
-            DateTime.TryParseExact(YYYYMM, "yyyyMM", null, DateTimeStyles.None, out dt);            
-            return dt;
-        }
-
-        #region 规则检查
-        /// <summary>
-        /// YYYYMM格式检查
-        /// </summary>
-        /// <param name="YYYYMM"></param>
-        /// <returns></returns>
-        public bool YYYYMMFormatCheck(string YYYYMM)
-        {
-            //六位数字，年月
-            Regex yyyymm = new Regex(@"^(19[5-9][0-9]|20[0-9]{2})((0[1-9])|(1[0-2]))$");
-            Match ymmatch = yyyymm.Match(YYYYMM);
-            if (!ymmatch.Success)
-            {
-                ShowErrorMessage("\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。", ERRORINFO);
-                return false;
-            }
-
-            //是否超过今天
-            if (ConvertToDateTimeFromYYYYMM(YYYYMM) > DateTime.Today)
-            {
-                ShowErrorMessage("\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",ERRORINFO);
-                return false;
-            }
-
-            return true;
-        }
-        #endregion
     }
 
 

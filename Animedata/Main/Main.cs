@@ -425,6 +425,12 @@ namespace Main
             AboutBox about = new AboutBox();
             about.Show();
         }
+
+        private void 查询动画ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainSearch search = new MainSearch(this);
+            search.Show();
+        }
         #endregion
 
         #region 按键
@@ -482,12 +488,13 @@ namespace Main
                 case Keys.F5:
                     ShowAnime();
                     break;
-
+                case Keys.F6:
+                    查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
+                    break;
             }
         }
 
         #endregion
-
 
     }
 }
