@@ -12,8 +12,6 @@ namespace Main
         {
         }
 
-        #region Anime类
-
         /// <summary>
         /// 删除对应animeNo的动画、播放、角色信息
         /// </summary>
@@ -344,6 +342,5 @@ namespace Main
             return dt;
         }
 
-        #endregion
     }
 }
