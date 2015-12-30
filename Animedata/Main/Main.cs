@@ -104,7 +104,7 @@ namespace Main
                 dgvrow.Cells[4].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(animedt.Rows[i][4].ToString()));
 
                 //原作
-                dgvrow.Cells[5].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(animedt.Rows[i][5].ToString()));
+                dgvrow.Cells[5].Value = service.GetOriginalTextFromOriginalInt(Convert.ToInt32(animedt.Rows[i][5].ToString()));
             }
 
             //动画窗口格式设置
@@ -425,6 +425,12 @@ namespace Main
             AboutBox about = new AboutBox();
             about.Show();
         }
+
+        private void 查询动画ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainSearch search = new MainSearch(this);
+            search.Show();
+        }
         #endregion
 
         #region 按键
@@ -459,7 +465,7 @@ namespace Main
         #region 键盘
 
         /// <summary>
-        /// 
+        /// 键盘功能键控制
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -482,12 +488,13 @@ namespace Main
                 case Keys.F5:
                     ShowAnime();
                     break;
-
+                case Keys.F6:
+                    查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
+                    break;
             }
         }
 
         #endregion
-
 
     }
 }

@@ -31,10 +31,6 @@ namespace Main
         /// </summary>
         CVManageService service = new CVManageService();
 
-        string ERROR = "错误：";
-
-        string ERRORINFO = "错误信息";
-
         /// <summary>
         /// 操作种类
         /// </summary>

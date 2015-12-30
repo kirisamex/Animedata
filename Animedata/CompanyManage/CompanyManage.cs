@@ -20,10 +20,6 @@ namespace Main
         /// </summary>
         CompanyManageService service = new CompanyManageService();
 
-        string ERROR = "错误：";
-
-        string ERRORINFO = "错误信息";
-
         #endregion
 
         #region 构析

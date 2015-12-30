@@ -145,7 +145,8 @@
             // 
             this.查询动画ToolStripMenuItem.Name = "查询动画ToolStripMenuItem";
             this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(178, 22);
-            this.查询动画ToolStripMenuItem.Text = "查询动画";
+            this.查询动画ToolStripMenuItem.Text = "查询动画(&A) F6";
+            this.查询动画ToolStripMenuItem.Click += new System.EventHandler(this.查询动画ToolStripMenuItem_Click);
             // 
             // 查询声优ToolStripMenuItem
             // 

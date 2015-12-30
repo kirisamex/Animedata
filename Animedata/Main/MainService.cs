@@ -4,6 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Data;
+using System.Globalization;
+using System.Text.RegularExpressions;
+using Main.Lib.Model;
 
 namespace Main
 {
@@ -218,6 +221,46 @@ namespace Main
             return dao.GetCompanyNameByCompanyId(companyNo);
         }
 
+                /// <summary>
+        /// 根据YYYYMM转换为日期
+        /// </summary>
+        /// <param name="YYYYMM"></param>
+        /// <returns></returns>
+        public DateTime ConvertToDateTimeFromYYYYMM(string YYYYMM)
+        {
+            DateTime dt;
+            DateTime.TryParseExact(YYYYMM, "yyyyMM", null, DateTimeStyles.None, out dt);            
+            return dt;
+        }
+
+        /// <summary>
+        /// YYYYMM格式检查
+        /// </summary>
+        /// <param name="YYYYMM"></param>
+        /// <returns></returns>
+        public bool YYYYMMFormatCheck(string YYYYMM)
+        {
+            //六位数字，年月
+            Regex yyyymm = new Regex(@"^(19[5-9][0-9]|20[0-9]{2})((0[1-9])|(1[0-2]))$");
+            Match ymmatch = yyyymm.Match(YYYYMM);
+            if (!ymmatch.Success)
+            {
+                ShowErrorMessage("\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。", ERRORINFO);
+                return false;
+            }
+
+            //▼#3_考虑到登记新企划以及搜索的需要，不使用该检查
+            //是否超过今天
+            //if (ConvertToDateTimeFromYYYYMM(YYYYMM) > DateTime.Today)
+            //{
+            //    ShowErrorMessage("\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",ERRORINFO);
+            //    return false;
+            //}
+            //▲#3
+
+            return true;
+        }
+
         #endregion
 
         #region 信息
@@ -327,6 +370,16 @@ namespace Main
         }
 
         /// <summary>
+        /// 载入动画
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public DataSet Getanime(SearchModule search)
+        {
+            return dao.Getanime(search);
+        }
+
+        /// <summary>
         /// 载入角色信息
         /// </summary>
         /// <param name="animeNo"></param>
@@ -337,8 +390,81 @@ namespace Main
         }
         #endregion
 
+        #region MainSearch
+        /// <summary>
+        /// 字符型格式检查
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public bool StringFormatCheck(MainSearch search)
+        {
+            if (!string.IsNullOrEmpty(search.AnimeNoBox.Text.ToString()))
+            {
+                //动画编号格式
+                Regex r1 = new Regex(@"^[A-Z][0-9]{3}$");
+                Match m1 = r1.Match(search.AnimeNoBox.Text.ToString());
 
+                if (!m1.Success)
+                {
+                    ShowErrorMessage("格式错误,动画编号格式不正确！\n目前允许的编号格式为：大写字母+3位数字。");
+                    return false;
+                }
+            }
 
+            if (!string.IsNullOrEmpty(search.AnimeNNBox.Text.ToString()))
+            {
+                Regex r2 = new Regex(@"^[A-Z]+[a-zA-Z]");
+                Match m2 = r2.Match(search.AnimeNNBox.Text.ToString());
+                if (!m2.Success)
+                {
+                    ShowErrorMessage("动画简写格式不正确！\n简写需要是英文半角字母，且首字母大写。");
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 日期格式检查
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public bool DateTimeFormatCheck(MainSearch search)
+        {
+            if ((!string.IsNullOrEmpty(search.PlaytimeFromBox.Text.ToString()) && !YYYYMMFormatCheck(search.PlaytimeFromBox.Text.ToString())) ||
+                (!string.IsNullOrEmpty(search.PlaytimeToBox.Text.ToString()) && !YYYYMMFormatCheck(search.PlaytimeToBox.Text.ToString()))||
+                (!string.IsNullOrEmpty(search.WatchtimeFromBox.Text.ToString())&&!YYYYMMFormatCheck(search.WatchtimeFromBox.Text.ToString()))||
+                (!string.IsNullOrEmpty(search.WatchtimeToBox.Text.ToString())&&!YYYYMMFormatCheck(search.WatchtimeToBox.Text.ToString()))
+                )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 复选列表检查
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public bool CheckedListBoxCheck(MainSearch search)
+        {
+            if (search.StatusCheckedListBox.CheckedItems.Count == 0)
+            {
+                ShowInfoMessage("至少选择一个播放状态进行搜索！");
+                return false;
+            }
+
+            if (search.OriginalCheckedListBox.CheckedItems.Count == 0)
+            {
+                ShowInfoMessage("至少选择一个原作种类进行搜索！");
+                return false;
+            }
+            return true;
+        }
+        #endregion
 
     }
 }
