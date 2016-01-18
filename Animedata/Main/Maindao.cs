@@ -546,7 +546,7 @@ namespace Main
         /// 动画界面加载
         /// 指定声优
         /// </summary>
-        /// <param name="cvList"></param>
+        /// <param name="cvList">声优列表</param>
         /// <returns></returns>
         public DataSet Getanime(List<CV> cvList)
         {
@@ -591,7 +591,7 @@ namespace Main
         /// 动画界面加载
         /// 搜索
         /// </summary>
-        /// <param name="search"></param>
+        /// <param name="search">搜索窗体</param>
         /// <returns></returns>
         public DataSet Getanime(SearchModule search)
         {
@@ -812,6 +812,52 @@ namespace Main
 
 
             cmd.CommandText = sqlmaincmd.Append(joincmd.ToString()).ToString();
+            cmd.Connection = Getconnection();
+            adp.SelectCommand = cmd;
+
+            cmd.Connection.Open();
+            DataSet ds = new DataSet();
+            adp.Fill(ds);
+            cmd.Connection.Close();
+
+            return ds;
+        }
+
+        /// <summary>
+        /// 动画界面加载
+        /// 简易搜索
+        /// </summary>
+        /// <param name="searchString">搜索字符</param>
+        /// <returns></returns>
+        public DataSet Getanime(string searchString)
+        {
+
+            SqlDataAdapter adp = new SqlDataAdapter();
+            SqlCommand cmd = new SqlCommand();
+
+            string sql = @"SELECT DISTINCT
+                                    AT.ANIME_NO,
+                                    AT.ANIME_CHN_NAME, 
+                                    AT.ANIME_JPN_NAME,
+                                    AT.ANIME_NN,
+                                    AT.STATUS,
+									AT.ORIGINAL
+                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
+                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO
+                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO
+                                    LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID
+                                    LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID
+									WHERE AT.ANIME_NO LIKE @target OR
+									AT.ANIME_CHN_NAME LIKE @target OR
+									AT.ANIME_JPN_NAME LIKE @target OR
+									AT.ANIME_NN LIKE @target OR 
+									CCT.CHARACTER_NAME LIKE @target OR 
+									CPT.COMPANY_NAME LIKE @target OR 
+									CVT.CV_NAME LIKE @target
+									";
+
+            cmd.CommandText = sql;
+            cmd.Parameters.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", searchString));
             cmd.Connection = Getconnection();
             adp.SelectCommand = cmd;
 
