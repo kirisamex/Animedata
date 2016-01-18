@@ -75,6 +75,8 @@
             this.deleteanimebutton = new System.Windows.Forms.Button();
             this.changeanimebutton = new System.Windows.Forms.Button();
             this.addanimebutton = new System.Windows.Forms.Button();
+            this.simpleSearchButton = new System.Windows.Forms.Button();
+            this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -471,6 +473,8 @@
             this.flowLayoutPanel1.Controls.Add(this.deleteanimebutton);
             this.flowLayoutPanel1.Controls.Add(this.changeanimebutton);
             this.flowLayoutPanel1.Controls.Add(this.addanimebutton);
+            this.flowLayoutPanel1.Controls.Add(this.simpleSearchButton);
+            this.flowLayoutPanel1.Controls.Add(this.simpleSearchTextBox);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -508,6 +512,24 @@
             this.addanimebutton.UseVisualStyleBackColor = true;
             this.addanimebutton.Click += new System.EventHandler(this.addanimebutton_Click);
             // 
+            // simpleSearchButton
+            // 
+            this.simpleSearchButton.Location = new System.Drawing.Point(867, 3);
+            this.simpleSearchButton.Name = "simpleSearchButton";
+            this.simpleSearchButton.Size = new System.Drawing.Size(94, 23);
+            this.simpleSearchButton.TabIndex = 4;
+            this.simpleSearchButton.Text = "搜索(&S)";
+            this.simpleSearchButton.UseVisualStyleBackColor = true;
+            this.simpleSearchButton.Click += new System.EventHandler(this.simpleSearchButton_Click);
+            // 
+            // simpleSearchTextBox
+            // 
+            this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 3);
+            this.simpleSearchTextBox.Name = "simpleSearchTextBox";
+            this.simpleSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
+            this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
+            this.simpleSearchTextBox.TabIndex = 3;
+            // 
             // Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -538,6 +560,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.PlayInfodataGridView)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CVdataGridView)).EndInit();
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -585,6 +608,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
         public System.Windows.Forms.DataGridView PlayInfodataGridView;
         public System.Windows.Forms.DataGridView CVdataGridView;
+        private System.Windows.Forms.Button simpleSearchButton;
+        private System.Windows.Forms.TextBox simpleSearchTextBox;
     }
 }
 
