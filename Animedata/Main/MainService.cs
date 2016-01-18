@@ -352,7 +352,7 @@ namespace Main
         /// 载入动画
         /// 指定公司制作
         /// </summary>
-        /// <param name="comp"></param>
+        /// <param name="comp">制作公司</param>
         /// <returns></returns>
         public DataSet Getanime(Company comp)
         {
@@ -361,8 +361,9 @@ namespace Main
 
         /// <summary>
         /// 载入动画
+        /// 指定声优
         /// </summary>
-        /// <param name="cvList">指定声优</param>
+        /// <param name="cvList">声优列表</param>
         /// <returns></returns>
         public DataSet Getanime(List<CV> cvList)
         {
@@ -371,12 +372,24 @@ namespace Main
 
         /// <summary>
         /// 载入动画
+        /// 搜索
         /// </summary>
-        /// <param name="search"></param>
+        /// <param name="search">搜索窗体</param>
         /// <returns></returns>
         public DataSet Getanime(SearchModule search)
         {
             return dao.Getanime(search);
+        }
+
+        /// <summary>
+        /// 载入动画
+        /// 简易搜索
+        /// </summary>
+        /// <param name="searchText">搜索字符</param>
+        /// <returns></returns>
+        public DataSet Getanime(string searchText)
+        {
+            return dao.Getanime(searchText);
         }
 
         /// <summary>

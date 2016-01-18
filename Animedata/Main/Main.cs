@@ -315,6 +315,35 @@ namespace Main
             }
         }
 
+        /// <summary>
+        /// 简易搜索
+        /// </summary>
+        private void SimpleSearch()
+        {
+            if(simpleSearchTextBox.Text==null ||string.IsNullOrEmpty(simpleSearchTextBox.Text.ToString()))
+            {
+                service.ShowInfoMessage("搜索内容为空！");
+                return;
+            }
+
+            try
+            {
+                DataSet ds = service.Getanime(simpleSearchTextBox.Text.ToString());
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    service.ShowInfoMessage("未搜索到对应数据", "无结果");
+                    return;
+                }
+
+                LoadAnimeMain(ds);
+            }
+            catch (Exception ex)
+            {
+                service.ShowErrorMessage(ex.Message);
+                Application.Exit();
+            }
+        }
+
         #endregion
 
         #region 窗体
@@ -460,6 +489,12 @@ namespace Main
             删除动画信息ToolStripMenuItem_Click(this, EventArgs.Empty);
         }
 
+        private void simpleSearchButton_Click(object sender, EventArgs e)
+        {
+            SimpleSearch();
+        }
+
+
         #endregion
 
         #region 键盘
@@ -495,6 +530,5 @@ namespace Main
         }
 
         #endregion
-
     }
 }
