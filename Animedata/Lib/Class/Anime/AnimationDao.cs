@@ -13,7 +13,7 @@ namespace Main
         }
 
         /// <summary>
-        /// 删除对应animeNo的动画、播放、角色信息
+        /// 物理删除对应animeNo的动画、播放、角色信息
         /// </summary>
         /// <param name="animeNo"></param>
         public void DeleteSelectedAnimeInfo(string animeNo)
@@ -92,6 +92,8 @@ namespace Main
                             		,ANIME_NN
 	                            	,STATUS
                             		,ORIGINAL
+                                    ,ENABLE_FLG
+                                    ,LAST_UPDATE_DATETIME
                             		)
                             	VALUES (
                             		@animeNo
@@ -100,6 +102,8 @@ namespace Main
 	                            	,@animeNickName
 	                            	,@status
 	                            	,@original
+	                            	,1
+	                            	,GETDATE()
 	                            	)";
 
             SqlParameter para1 = new SqlParameter("@animeNo", anime.No);
@@ -181,6 +185,8 @@ namespace Main
                             	,ANIME_NO
 	                            ,ANIME_PLAYINFO
 	                            ,STATUS
+	                            ,ENABLE_FLG
+	                            ,LAST_UPDATE_DATETIME
 	                           ");
             sqlcmd.Append(cmd1);
             sqlcmd.Append(@")
@@ -188,7 +194,9 @@ namespace Main
                                     @id
 		                            ,@animeNo
 		                            ,@playinfo
-		                            ,@status");
+		                            ,@status
+	                                ,1
+	                                ,GETDATE() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
             SqlParameter para1 = new SqlParameter("@id", pInfo.ID);
@@ -224,6 +232,8 @@ namespace Main
 	                            ,ANIME_NO
 	                            ,CV_ID
 	                            ,LEADING_FLG
+	                            ,ENABLE_FLG
+	                            ,LAST_UPDATE_DATETIME
 	                            )
                             VALUES (
                             	@characterNo
@@ -231,6 +241,8 @@ namespace Main
 	                            ,@animeNo
 	                            ,@CVID
 	                            ,@leadingFlg
+	                            ,1
+	                            ,GETDATE()
 	                            )";
             SqlParameter para1 = new SqlParameter("@characterNo", cInfo.No);
             SqlParameter para2 = new SqlParameter("@charactername", cInfo.name);
@@ -297,6 +309,7 @@ namespace Main
 	                                    ,TPT.WATCH_TIME
                                     FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
                                     WHERE TPT.ANIME_NO = @animeNo
+                                    AND TPT.ENABLE_FLG = 1 
                                     ORDER BY TPT.PLAYINFO_ID";
 
             SqlParameter para = new SqlParameter("@animeNo", animeNo);
@@ -327,6 +340,7 @@ namespace Main
 	                                    ,LEADING_FLG
                                     FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                     WHERE ANIME_NO = @animeNo
+                                    AND ENABLE_FLG = 1
                                     ORDER BY CHARACTER_NO";
 
             SqlParameter para = new SqlParameter("@animeNo", animeNo);

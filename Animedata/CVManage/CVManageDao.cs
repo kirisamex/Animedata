@@ -23,6 +23,7 @@ namespace Main
 									CV_GENDER,
 									CV_BIRTH 
                                     FROM ANIMEDATA.dbo.T_CV_TBL
+                                    WHERE ENABLE_FLG = 1
                                     ORDER BY CV_ID";
 
             conn.Open();
@@ -64,8 +65,10 @@ namespace Main
                 paras.Add(para);
             }
 
+            cmd1.Append(",LAST_UPDATE_DATETIME = GETDATE() ");
+
             sqlcmd.Append(cmd1);
-            sqlcmd.Append(@" WHERE CV_ID =@cvid");
+            sqlcmd.Append(@" WHERE CV_ID =@cvid ");
 
             SqlParameter para1 = new SqlParameter("@cvname",cvInfo.Name );
             SqlParameter para2 = new SqlParameter("@cvid", cvInfo.ID);

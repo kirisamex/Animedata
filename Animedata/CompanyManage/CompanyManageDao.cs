@@ -23,7 +23,8 @@ namespace Main
                                     COMPANY_ID AS 编号,
                                     COMPANY_NAME AS 公司名称
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
-                                    ORDER BY COMPANY_ID";
+                                    ORDER BY COMPANY_ID
+                                    AND ENABLE_FLG = 1 ";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
@@ -47,6 +48,7 @@ namespace Main
                             ANIMEDATA.dbo.T_COMPANY_TBL
                             SET
                             COMPANY_NAME = @newName
+                            LAST_UPDATE_DATETIME = GETDATE()
                             WHERE COMPANY_ID = @companyID";
 
             SqlParameter para1 = new SqlParameter("@newName", newName);
