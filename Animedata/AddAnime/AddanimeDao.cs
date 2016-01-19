@@ -25,7 +25,8 @@ namespace Main
             SqlConnection conn = Getconnection();
 
             string sqlcmd = @"SELECT COMPANY_NAME
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL";
+                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    WHERE ENABLE_FLG = 1 ";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
@@ -44,7 +45,8 @@ namespace Main
             SqlConnection conn = Getconnection();
 
             string sqlcmd = @"SELECT CV_NAME
-                                    FROM ANIMEDATA.dbo.T_CV_TBL";
+                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    WHERE ENABLE_FLG = 1";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);

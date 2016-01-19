@@ -45,7 +45,8 @@ namespace Main
             SqlConnection conn = Getconnection();
             string sqlcmd = @"SELECT TOP 1 *
                                 FROM ANIMEDATA.dbo.T_ANIME_TBL
-                                WHERE ANIME_NO = @animeNo";
+                                WHERE ANIME_NO = @animeNo
+                                AND ENABLE_FLG = 1 ";
             SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
 
             conn.Open();
@@ -88,7 +89,8 @@ namespace Main
             string sqlcmd = @"SELECT 
                                     COMPANY_ID 
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
-                                    WHERE COMPANY_NAME=  @companyName ";
+                                    WHERE COMPANY_NAME=  @companyName 
+                                    AND ENABLE_FLG = 1 ";
 
             SqlParameter para = new SqlParameter("@companyName", companyName);
 
@@ -127,7 +129,8 @@ namespace Main
             string sqlcmd = @"SELECT 
                                     CV_ID 
                                     FROM ANIMEDATA.dbo.T_CV_TBL
-                                    WHERE CV_NAME=  @CVName ";
+                                    WHERE CV_NAME=  @CVName 
+                                    AND ENABLE_FLG = 1 ";
 
             SqlParameter para = new SqlParameter("@CVName", CVName);
 
@@ -164,7 +167,8 @@ namespace Main
             string sqlcmd = @"SELECT 
                                     CV_NAME 
                                     FROM ANIMEDATA.dbo.T_CV_TBL
-                                    WHERE CV_ID=  @cvId ";
+                                    WHERE CV_ID=  @cvId 
+                                    AND ENABLE_FLG = 1 ";
 
             SqlParameter para = new SqlParameter("@cvId", CVID);
 
@@ -200,7 +204,8 @@ namespace Main
             string sqlcmd = @"SELECT 
                                     COMPANY_NAME 
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
-                                    WHERE COMPANY_ID=  @companyId ";
+                                    WHERE COMPANY_ID=  @companyId 
+                                    AND ENABLE_FLG = 1 ";
 
             SqlParameter para = new SqlParameter("@companyId", companyId);
 
@@ -305,6 +310,7 @@ namespace Main
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
                                 WHERE ANIME_NO = @animeNo
+                                AND ENABLE_FLG = 1 
                                 ORDER BY START_TIME";
             SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
             conn.Open();
@@ -364,6 +370,7 @@ namespace Main
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                 WHERE ANIME_NO = @animeNo
+                                AND ENABLE_FLG = 1 
                                 ORDER BY LEADING_FLG DESC";
             SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
             conn.Open();
@@ -406,10 +413,14 @@ namespace Main
 
             string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_COMPANY_TBL(
                                         COMPANY_ID,
-                                        COMPANY_NAME)
+                                        COMPANY_NAME,
+                                        ENABLE_FLG,
+                                        LAST_UPDATE_DATETIME)
 										VALUES(
 										@companyid,
-										@companyname)";
+										@companyname,
+                                        1,
+                                        GETDATE())";
 
             SqlParameter para1 = new SqlParameter("@companyid", comp.ID);
             SqlParameter para2 = new SqlParameter("@companyname", comp.Name);
@@ -455,12 +466,16 @@ namespace Main
 
             sqlcmd.Append(  @"INSERT INTO ANIMEDATA.dbo.T_CV_TBL(
                                         CV_ID,
-                                        CV_NAME");
+                                        CV_NAME,
+                                        ENABLE_FLG,
+                                        LAST_UPDATE_DATETIME ");
             sqlcmd.Append(cmd1);
             sqlcmd.Append(@")
 										VALUES(
 										@cvid,
-										@cvname");
+										@cvname,
+                                        1,
+                                        GETDATE() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(")");
 
@@ -500,6 +515,7 @@ namespace Main
                                     STATUS,
 									ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL
+                                    WHERE ENABLE_FLG = 1 
                                     ORDER BY ANIME_NO";
 
             conn.Open();
@@ -530,6 +546,8 @@ namespace Main
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
 									LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO=PT.ANIME_NO
                                     WHERE PT.COMPANY_ID	= @companyid
+                                    AND AT.ENABLE_FLG = 1
+                                    AND PT.ENALE_FLG = 1
                                     ORDER BY AT.ANIME_NO";
 
             SqlParameter para = new SqlParameter("@companyid", comp.ID);
@@ -575,6 +593,9 @@ namespace Main
 									LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CHT ON CHT.ANIME_NO=AT.ANIME_NO
 									LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID=CHT.CV_ID
                                     WHERE CVT.CV_ID	IN (@CVID)
+                                    AND AT.ENABLE_FLG = 1 
+                                    AND CHT.ENABLE_FLG = 1
+                                    AND CVT.ENABLE_FLG = 1
                                     ORDER BY AT.ANIME_NO";
 
             SqlParameter para = new SqlParameter("@CVID", cvDic.ToString());
@@ -810,6 +831,11 @@ namespace Main
             joincmd.Append(" )");
             #endregion
 
+            #region FLAG
+            AddWhereAnd(joincmd);
+            joincmd.Append(" AT.ENABLE_FLG = 1 AND PT.ENABLE_FLG = 1");
+            #endregion
+
 
             cmd.CommandText = sqlmaincmd.Append(joincmd.ToString()).ToString();
             cmd.Connection = Getconnection();
@@ -847,13 +873,18 @@ namespace Main
                                     LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO
                                     LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID
                                     LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID
-									WHERE AT.ANIME_NO LIKE @target OR
+									WHERE (AT.ANIME_NO LIKE @target OR
 									AT.ANIME_CHN_NAME LIKE @target OR
 									AT.ANIME_JPN_NAME LIKE @target OR
 									AT.ANIME_NN LIKE @target OR 
 									CCT.CHARACTER_NAME LIKE @target OR 
 									CPT.COMPANY_NAME LIKE @target OR 
-									CVT.CV_NAME LIKE @target
+									CVT.CV_NAME LIKE @target)
+                                    AND AT.ENABLE_FLG = 1
+                                    AND CCT.ENABLE_FLG = 1
+                                    AND PLT.ENABLE_FLG = 1
+                                    AND CPT.ENABLE_FLG = 1
+                                    AND CVT.ENABLE_FLG = 1
 									";
 
             cmd.CommandText = sql;
@@ -894,6 +925,8 @@ namespace Main
                                     FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
 	                                LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL TCT ON TPT.COMPANY_ID = TCT.COMPANY_ID
                                     WHERE TPT.ANIME_NO = @animeNo
+                                    AND TPT.ENABLE_FLG = 1
+                                    AND TCT.ENABLE_FLG = 1
                                     ORDER BY TPT.PLAYINFO_ID";
 
             SqlParameter para = new SqlParameter("@animeNo", animeNo);
@@ -925,6 +958,8 @@ namespace Main
                                     FROM ANIMEDATA.dbo.T_CHARACTER_TBL TCHT
 	                                INNER JOIN T_CV_TBL TCVT ON TCHT.CV_ID=TCVT.CV_ID
                                     WHERE TCHT.ANIME_NO=@animeNo
+                                    AND TCHT.ENABLE_FLG = 1
+                                    AND TCVT.ENABLE_FLG = 1
                                     ORDER BY TCHT.LEADING_FLG DESC";
 
             SqlParameter para = new SqlParameter("@animeNo", animeNo);
@@ -940,7 +975,7 @@ namespace Main
 
         #endregion
 
-        #region MainService
+        #region 方法
         /// <summary>
         /// 字符型检索用SQL文
         /// </summary>
