@@ -8,7 +8,7 @@ using System.Configuration;
 namespace Main
 {
     /// <summary>
-    /// 在下方设置SqlServer连接参数
+    /// SqlServer连接
     /// </summary>
     public class Connection
     {
