@@ -124,7 +124,7 @@
     <Compile Include="Lib\Class\Company\Company.cs" />
     <Compile Include="CompanyManage\CompanyManageDao.cs" />
     <Compile Include="CompanyManage\CompanyManageService.cs" />
-    <Compile Include="Connection.cs" />
+    <Compile Include="Lib\Connection\Connection.cs" />
     <Compile Include="CVManage\CVManageDao.cs" />
     <Compile Include="CVManage\CVManageService.cs" />
     <Compile Include="Lib\Model\AnimeOriginalModule.cs" />
@@ -148,6 +148,12 @@
     <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
     <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
     <Compile Include="Main\MainService.cs" />
+    <Compile Include="MusicManage\MusicManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MusicManage\MusicManage.Designer.cs">
+      <DependentUpon>MusicManage.cs</DependentUpon>
+    </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CVManage\CVManage.cs">
@@ -171,6 +177,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main\MainSearch.resx">
       <DependentUpon>MainSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MusicManage\MusicManage.resx">
+      <DependentUpon>MusicManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
