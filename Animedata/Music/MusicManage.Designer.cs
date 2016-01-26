@@ -28,21 +28,21 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.statusStrip1 = new System.Windows.Forms.StatusStrip();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.DiscNoTextBox = new System.Windows.Forms.TextBox();
+            this.TrackNoTextBox = new System.Windows.Forms.TextBox();
+            this.AlbumNameTextBox = new System.Windows.Forms.TextBox();
+            this.ArtistTextBox = new System.Windows.Forms.TextBox();
+            this.TrackNameTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.vocalortypelabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.AlbumPircureBox = new System.Windows.Forms.PictureBox();
             this.MusicDataGridView = new System.Windows.Forms.DataGridView();
             this.TrackNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlbumNameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,7 +57,7 @@
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlbumPircureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MusicDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -85,17 +85,17 @@
             // 
             // splitContainer1.Panel1
             // 
-            this.splitContainer1.Panel1.Controls.Add(this.textBox5);
-            this.splitContainer1.Panel1.Controls.Add(this.textBox4);
-            this.splitContainer1.Panel1.Controls.Add(this.textBox2);
-            this.splitContainer1.Panel1.Controls.Add(this.textBox3);
-            this.splitContainer1.Panel1.Controls.Add(this.textBox1);
-            this.splitContainer1.Panel1.Controls.Add(this.label4);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
+            this.splitContainer1.Panel1.Controls.Add(this.DiscNoTextBox);
+            this.splitContainer1.Panel1.Controls.Add(this.TrackNoTextBox);
+            this.splitContainer1.Panel1.Controls.Add(this.AlbumNameTextBox);
+            this.splitContainer1.Panel1.Controls.Add(this.ArtistTextBox);
+            this.splitContainer1.Panel1.Controls.Add(this.TrackNameTextBox);
+            this.splitContainer1.Panel1.Controls.Add(this.label4);
             this.splitContainer1.Panel1.Controls.Add(this.vocalortypelabel);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.pictureBox1);
+            this.splitContainer1.Panel1.Controls.Add(this.AlbumPircureBox);
             // 
             // splitContainer1.Panel2
             // 
@@ -104,40 +104,40 @@
             this.splitContainer1.SplitterDistance = 431;
             this.splitContainer1.TabIndex = 2;
             // 
-            // textBox5
+            // DiscNoTextBox
             // 
-            this.textBox5.Location = new System.Drawing.Point(332, 190);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(82, 19);
-            this.textBox5.TabIndex = 2;
+            this.DiscNoTextBox.Location = new System.Drawing.Point(332, 190);
+            this.DiscNoTextBox.Name = "DiscNoTextBox";
+            this.DiscNoTextBox.Size = new System.Drawing.Size(82, 21);
+            this.DiscNoTextBox.TabIndex = 2;
             // 
-            // textBox4
+            // TrackNoTextBox
             // 
-            this.textBox4.Location = new System.Drawing.Point(233, 190);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(82, 19);
-            this.textBox4.TabIndex = 2;
+            this.TrackNoTextBox.Location = new System.Drawing.Point(233, 190);
+            this.TrackNoTextBox.Name = "TrackNoTextBox";
+            this.TrackNoTextBox.Size = new System.Drawing.Size(82, 21);
+            this.TrackNoTextBox.TabIndex = 2;
             // 
-            // textBox2
+            // AlbumNameTextBox
             // 
-            this.textBox2.Location = new System.Drawing.Point(233, 140);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(181, 19);
-            this.textBox2.TabIndex = 2;
+            this.AlbumNameTextBox.Location = new System.Drawing.Point(233, 140);
+            this.AlbumNameTextBox.Name = "AlbumNameTextBox";
+            this.AlbumNameTextBox.Size = new System.Drawing.Size(181, 21);
+            this.AlbumNameTextBox.TabIndex = 2;
             // 
-            // textBox3
+            // ArtistTextBox
             // 
-            this.textBox3.Location = new System.Drawing.Point(233, 90);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(181, 19);
-            this.textBox3.TabIndex = 2;
+            this.ArtistTextBox.Location = new System.Drawing.Point(233, 90);
+            this.ArtistTextBox.Name = "ArtistTextBox";
+            this.ArtistTextBox.Size = new System.Drawing.Size(181, 21);
+            this.ArtistTextBox.TabIndex = 2;
             // 
-            // textBox1
+            // TrackNameTextBox
             // 
-            this.textBox1.Location = new System.Drawing.Point(233, 40);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(181, 19);
-            this.textBox1.TabIndex = 2;
+            this.TrackNameTextBox.Location = new System.Drawing.Point(233, 40);
+            this.TrackNameTextBox.Name = "TrackNameTextBox";
+            this.TrackNameTextBox.Size = new System.Drawing.Size(181, 21);
+            this.TrackNameTextBox.TabIndex = 2;
             // 
             // label4
             // 
@@ -189,26 +189,26 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "曲名";
             // 
-            // pictureBox1
+            // AlbumPircureBox
             // 
-            this.pictureBox1.BackColor = System.Drawing.Color.White;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(200, 200);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 0;
-            this.pictureBox1.TabStop = false;
+            this.AlbumPircureBox.BackColor = System.Drawing.Color.White;
+            this.AlbumPircureBox.Location = new System.Drawing.Point(12, 12);
+            this.AlbumPircureBox.Name = "AlbumPircureBox";
+            this.AlbumPircureBox.Size = new System.Drawing.Size(200, 200);
+            this.AlbumPircureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.AlbumPircureBox.TabIndex = 0;
+            this.AlbumPircureBox.TabStop = false;
             // 
             // MusicDataGridView
             // 
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.TrackNameColumn,
@@ -289,7 +289,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlbumPircureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MusicDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -302,15 +302,15 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView MusicDataGridView;
-        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox AlbumPircureBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label vocalortypelabel;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox4;
+        private System.Windows.Forms.TextBox AlbumNameTextBox;
+        private System.Windows.Forms.TextBox ArtistTextBox;
+        private System.Windows.Forms.TextBox TrackNameTextBox;
+        private System.Windows.Forms.TextBox DiscNoTextBox;
+        private System.Windows.Forms.TextBox TrackNoTextBox;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackNameColumn;

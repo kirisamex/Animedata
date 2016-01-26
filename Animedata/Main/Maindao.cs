@@ -869,10 +869,10 @@ namespace Main
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO
-                                    LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID
-                                    LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID
+                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO AND CCT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO AND PLT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID AND CPT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID AND CVT.ENABLE_FLG = 1
 									WHERE (AT.ANIME_NO LIKE @target OR
 									AT.ANIME_CHN_NAME LIKE @target OR
 									AT.ANIME_JPN_NAME LIKE @target OR
@@ -881,10 +881,6 @@ namespace Main
 									CPT.COMPANY_NAME LIKE @target OR 
 									CVT.CV_NAME LIKE @target)
                                     AND AT.ENABLE_FLG = 1
-                                    AND CCT.ENABLE_FLG = 1
-                                    AND PLT.ENABLE_FLG = 1
-                                    AND CPT.ENABLE_FLG = 1
-                                    AND CVT.ENABLE_FLG = 1
 									";
 
             cmd.CommandText = sql;

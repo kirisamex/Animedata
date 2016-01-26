@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.IO;
 using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Shell32;
 
 namespace Main.Music
 {
@@ -76,6 +78,27 @@ namespace Main.Music
                 MusicDataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 MusicDataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
+
+
+            //----test
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.Filter = "MP3 Files(.mp3)|*.mp3|WMA Files(*.wma)|*.WMA|ALL Files(*.*)|*.*";
+            ofd.Multiselect = true;         //允许多选  
+            ofd.RestoreDirectory = true;    //记住上一次的文件路径  
+            ofd.ShowDialog();               //显示打开文件的窗口  
+            string filePath = ofd.FileName;        //获取文件的完整的路径  
+
+            FileInfo fInfo = new FileInfo(filePath);
+
+            ShellClass sh = new ShellClass();
+            Folder dir = sh.NameSpace(Path.GetDirectoryName(filePath));
+            FolderItem item = dir.ParseName(Path.GetFileName(filePath));
+            StringBuilder sb = new StringBuilder();
+
+            TrackNameTextBox.Text = dir.GetDetailsOf(item, 21);
+            ArtistTextBox.Text = dir.GetDetailsOf(item, 13);
+            AlbumNameTextBox.Text = dir.GetDetailsOf(item, 14);
+            TrackNoTextBox.Text = dir.GetDetailsOf(item, 26);
         }
     }
 }
