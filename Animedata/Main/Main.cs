@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using Main.Lib.Style;
+using Main.Music;
 
 
 namespace Main
@@ -383,32 +384,22 @@ namespace Main
         #endregion
 
         #region 菜单
+        private void 音乐管理MToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Music.MusicManage music = new Music.MusicManage();
+            music.Show();
+        }
 
-        /// <summary>
-        /// 菜单栏：刷新
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowAnime();
         }
 
-        /// <summary>
-        /// 菜单栏：退出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        /// <summary>
-        /// 菜单栏：添加动画信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 添加动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddAnime fm = new AddAnime(0, null, this);
@@ -416,22 +407,12 @@ namespace Main
             //this.LoadAnime();
         }
 
-        /// <summary>
-        /// 菜单栏：修改动画信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 修改动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddAnime cgem = new AddAnime(1, GetSelectedRow(), this);
             cgem.Show();
         }
 
-        /// <summary>
-        /// 菜单栏：删除动画信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 删除动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteSelectedRowsAnimeInfo();
@@ -526,9 +507,13 @@ namespace Main
                 case Keys.F6:
                     查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
+                case Keys.F7:
+                    音乐管理MToolStripMenuItem_Click(this, EventArgs.Empty);
+                    break;
             }
         }
 
         #endregion
+
     }
 }
