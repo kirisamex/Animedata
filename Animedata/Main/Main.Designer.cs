@@ -34,16 +34,16 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.音乐管理MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询声优ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询动画制作企业ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,8 +77,7 @@
             this.addanimebutton = new System.Windows.Forms.Button();
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
-            this.音乐管理MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
+            this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -125,6 +124,18 @@
             this.开始ToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.开始ToolStripMenuItem.Text = "开始(&S)";
             // 
+            // 音乐管理MToolStripMenuItem
+            // 
+            this.音乐管理MToolStripMenuItem.Name = "音乐管理MToolStripMenuItem";
+            this.音乐管理MToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.音乐管理MToolStripMenuItem.Text = "音乐管理(&M)　　　F7";
+            this.音乐管理MToolStripMenuItem.Click += new System.EventHandler(this.音乐管理MToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(193, 6);
+            // 
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
@@ -168,12 +179,6 @@
             this.查询动画制作企业ToolStripMenuItem.Name = "查询动画制作企业ToolStripMenuItem";
             this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.查询动画制作企业ToolStripMenuItem.Text = "查询动画制作企业";
-            // 
-            // 以上功能未实装ToolStripMenuItem
-            // 
-            this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
-            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.以上功能未实装ToolStripMenuItem.Text = "<!以上功能未实装!>";
             // 
             // 添加动画ToolStripMenuItem
             // 
@@ -537,17 +542,10 @@
             this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
             this.simpleSearchTextBox.TabIndex = 3;
             // 
-            // 音乐管理MToolStripMenuItem
+            // 以上功能未实装ToolStripMenuItem
             // 
-            this.音乐管理MToolStripMenuItem.Name = "音乐管理MToolStripMenuItem";
-            this.音乐管理MToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
-            this.音乐管理MToolStripMenuItem.Text = "音乐管理(&M)　　　F7";
-            this.音乐管理MToolStripMenuItem.Click += new System.EventHandler(this.音乐管理MToolStripMenuItem_Click);
-            // 
-            // toolStripMenuItem1
-            // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(193, 6);
+            this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
+            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(180, 6);
             // 
             // Main
             // 
@@ -557,7 +555,6 @@
             this.ClientSize = new System.Drawing.Size(1264, 661);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
-            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Main";
@@ -621,7 +618,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn STTimeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn WTimeColumn;
-        private System.Windows.Forms.ToolStripMenuItem 以上功能未实装ToolStripMenuItem;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeCNName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeJPName;
@@ -634,6 +630,7 @@
         private System.Windows.Forms.TextBox simpleSearchTextBox;
         private System.Windows.Forms.ToolStripMenuItem 音乐管理MToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
+        private System.Windows.Forms.ToolStripSeparator 以上功能未实装ToolStripMenuItem;
     }
 }
 

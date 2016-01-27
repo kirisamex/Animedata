@@ -8,12 +8,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using ID3;
+using ID3.ID3v2Frames.BinaryFrames;
 using Shell32;
 
 namespace Main.Music
 {
     public partial class MusicManage : Form
     {
+        #region 常量
         MusicManageService service = new MusicManageService();
 
         public MusicManage()
@@ -21,18 +24,23 @@ namespace Main.Music
             InitializeComponent();
         }
 
-        private void MusicManage_Load(object sender, EventArgs e)
+        #endregion
+
+        #region 载入
+        /// <summary>
+        /// 默认载入曲目
+        /// </summary>
+        private void ShowTracks()
         {
-            ShowMusic();
+            DataSet ds = service.GetTracks();
+            LoadTrackMain(ds);
         }
 
-        private void ShowMusic()
-        {
-            DataSet ds = service.GetMusic();
-            LoadMusicMain(ds);
-        }
-
-        public void LoadMusicMain(DataSet ds)
+        /// <summary>
+        /// 曲目部分载入
+        /// </summary>
+        /// <param name="ds"></param>
+        public void LoadTrackMain(DataSet ds)
         {
             MusicDataGridView.Rows.Clear();
 
@@ -44,32 +52,41 @@ namespace Main.Music
 
                 DataGridViewRow dgvrow = MusicDataGridView.Rows[i];
 
+                //既有编号
+                dgvrow.Cells["OldTrackNoColumn"].Value = musicdt.Rows[i]["ANIME_NO"].ToString() +
+                    "_" + musicdt.Rows[i]["ALBUM_ANIME_TYPE"].ToString().Trim() +
+                    musicdt.Rows[i]["ALBUM_INANIME_NO"].ToString().PadLeft(2, '0') +
+                    "_" + musicdt.Rows[i]["TRACK_NO"].ToString().PadLeft(3, '0');
+
                 //曲名
-                dgvrow.Cells[0].Value = musicdt.Rows[i][0].ToString();
+                dgvrow.Cells["TrackNameColumn"].Value = musicdt.Rows[i]["TRACK_TITLE_NAME"].ToString();
 
                 //专辑
-                dgvrow.Cells[1].Value = musicdt.Rows[i][1].ToString().Trim();
+                dgvrow.Cells["AlbumNameColumn"].Value = musicdt.Rows[i]["ALBUM_TITLE_NAME"].ToString().Trim();
 
                 //演唱者
-                dgvrow.Cells[2].Value = musicdt.Rows[i][2].ToString();
+                dgvrow.Cells["VocalColumn"].Value = musicdt.Rows[i]["ARTIST_NAME"].ToString();
 
                 //所属动画
-                dgvrow.Cells[3].Value = musicdt.Rows[i][3].ToString();
+                dgvrow.Cells["AnimeColumn"].Value = musicdt.Rows[i]["ANIME_JPN_NAME"].ToString();
+
+                //曲目ID
+                dgvrow.Cells["TrackIDColumn"].Value = musicdt.Rows[i]["TRACK_ID"].ToString();
 
                 //碟号
-                dgvrow.Cells[4].Value = musicdt.Rows[i][4].ToString();
+                dgvrow.Cells["DiscNoColumn"].Value = musicdt.Rows[i]["DISC_NO"].ToString();
 
                 //音轨
-                dgvrow.Cells[5].Value = musicdt.Rows[i][5].ToString();
+                dgvrow.Cells["TrackNoColumn"].Value = musicdt.Rows[i]["TRACK_NO"].ToString();
 
                 //发售年份
-                dgvrow.Cells[6].Value = musicdt.Rows[i][6].ToString();
+                dgvrow.Cells["YearColumn"].Value = musicdt.Rows[i]["SALES_YEAR"].ToString();
 
                 //资源地址
-                dgvrow.Cells[7].Value = musicdt.Rows[i][7].ToString();
+                dgvrow.Cells["ResourcePathColumn"].Value = musicdt.Rows[i]["RESOURCE_FILE_PATH"].ToString();
 
                 //描述
-                dgvrow.Cells[8].Value = musicdt.Rows[i][8].ToString();
+                dgvrow.Cells["DescriptionColumn"].Value = musicdt.Rows[i]["DESCRIPTION"].ToString();
             }
 
             //动画窗口格式设置
@@ -79,26 +96,87 @@ namespace Main.Music
                 MusicDataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
+            //TEST
+            ShowMP3TagInfo(@"C:\Users\huangyh.HYRON-JS\Downloads\smileY inc. - 花雪.mp3");
 
-            //----test
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.Filter = "MP3 Files(.mp3)|*.mp3|WMA Files(*.wma)|*.WMA|ALL Files(*.*)|*.*";
-            ofd.Multiselect = true;         //允许多选  
-            ofd.RestoreDirectory = true;    //记住上一次的文件路径  
-            ofd.ShowDialog();               //显示打开文件的窗口  
-            string filePath = ofd.FileName;        //获取文件的完整的路径  
-
-            FileInfo fInfo = new FileInfo(filePath);
-
-            ShellClass sh = new ShellClass();
-            Folder dir = sh.NameSpace(Path.GetDirectoryName(filePath));
-            FolderItem item = dir.ParseName(Path.GetFileName(filePath));
-            StringBuilder sb = new StringBuilder();
-
-            TrackNameTextBox.Text = dir.GetDetailsOf(item, 21);
-            ArtistTextBox.Text = dir.GetDetailsOf(item, 13);
-            AlbumNameTextBox.Text = dir.GetDetailsOf(item, 14);
-            TrackNoTextBox.Text = dir.GetDetailsOf(item, 26);
         }
+
+        #endregion
+
+        #region 窗体
+        private void MusicManage_Load(object sender, EventArgs e)
+        {
+            ShowTracks();
+        }
+        #endregion
+
+        #region 服务
+        /// <summary>
+        /// 显示指定路径的MP3Tag信息
+        /// </summary>
+        /// <param name="filePath">文件路径</param>
+        public void ShowMP3TagInfo(string filePath)
+        {
+            ID3Info info = new ID3Info(filePath, true);
+            foreach (AttachedPictureFrame AP in info.ID3v2Info.AttachedPictureFrames.Items)
+            {
+                AlbumPircureBox.Image = Image.FromStream(AP.Data);
+            }
+            
+            //曲名
+            TrackNameTextBox.Text = info.ID3v2Info.GetTextFrame("TIT2");
+            //艺术家
+            ArtistTextBox.Text = info.ID3v2Info.GetTextFrame("TPE1");
+            //专辑
+            AlbumNameTextBox.Text = info.ID3v2Info.GetTextFrame("TALB");
+            //音轨
+            TrackNoTextBox.Text = info.ID3v2Info.GetTextFrame("TRCK");
+            //碟号
+            DiscNoTextBox.Text = info.ID3v2Info.GetTextFrame("TPOS");
+        }
+        #endregion
+
+        #region 按键
+        private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ShowTracks();
+        }
+
+        private void 查询SＦ６ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void 关闭CToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+        #endregion
+
+        #region 键盘
+
+        /// <summary>
+        /// 键盘功能键控制
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void main_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F5:
+                    ShowTracks();
+                    break;
+                case Keys.F12:
+                    this.Close();
+                    break;
+            }
+        }
+
+        #endregion
+
+        
+
+        
     }
 }
