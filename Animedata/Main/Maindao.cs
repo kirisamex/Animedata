@@ -630,7 +630,7 @@ namespace Main
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO 
+                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
 									");
 
             
@@ -681,8 +681,8 @@ namespace Main
 
             #region 播放时间
             //播放时间
-            if ((search.animePlaytimeFrom != DateTime.MinValue || search.animePlaytimeFrom != DateTime.MaxValue
-                    || search.animePlaytimeTo != DateTime.MinValue || search.animePlaytimeTo != DateTime.MaxValue))
+            if ((search.animePlaytimeFrom != DateTime.MinValue && search.animePlaytimeFrom != DateTime.MaxValue)
+                    || (search.animePlaytimeTo != DateTime.MinValue && search.animePlaytimeTo != DateTime.MaxValue))
             {
                 AddWhereAnd(joincmd);
 
@@ -720,8 +720,8 @@ namespace Main
 
             #region 收看时间
             //收看时间
-            if (!(search.animeWatchtimeFrom != DateTime.MinValue || search.animeWatchtimeFrom != DateTime.MaxValue
-                    || search.animeWatchtimeTo != DateTime.MinValue || search.animeWatchtimeTo != DateTime.MaxValue))
+            if ((search.animeWatchtimeFrom != DateTime.MinValue && search.animeWatchtimeFrom != DateTime.MaxValue)
+                    || (search.animeWatchtimeTo != DateTime.MinValue && search.animeWatchtimeTo != DateTime.MaxValue))
             {
                 AddWhereAnd(joincmd);
 
@@ -833,7 +833,7 @@ namespace Main
 
             #region FLAG
             AddWhereAnd(joincmd);
-            joincmd.Append(" AT.ENABLE_FLG = 1 AND PT.ENABLE_FLG = 1");
+            joincmd.Append(" AT.ENABLE_FLG = 1");
             #endregion
 
 

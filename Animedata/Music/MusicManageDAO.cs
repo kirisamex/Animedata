@@ -12,28 +12,33 @@ namespace Main.Music
     {
         public MusicManageDAO() : base() { }
 
-        public DataSet GetMusic()
+        /// <summary>
+        /// 获得所有曲目
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetTracks()
         {
             SqlConnection conn = Getconnection();
 
             const string sqlcmd = @"SELECT 
-                                    TRT.TRACK_TITLE_NAME,
-                                    ALT.ALBUM_TITLE_NAME,
-                                    ART.ARTIST_NAME,
-                                    ANT.ANIME_JPN_NAME,
-                                    TRT.DISC_NO,
-                                    TRT.TRACK_NO,
-                                    TRT.SALES_YEAR,
-                                    '未実装' AS RESOURCE_FILE_PATH,
-                                    TRT.DESCRIPTION
+                                        TRT.TRACK_TITLE_NAME,
+                                        ALT.ALBUM_TITLE_NAME,
+                                        ART.ARTIST_NAME,
+                                        ANT.ANIME_JPN_NAME,
+                                        TRT.TRACK_ID,
+                                        TRT.DISC_NO,
+                                        TRT.TRACK_NO,
+                                        TRT.SALES_YEAR,
+                                        '未実装' AS RESOURCE_FILE_PATH,
+                                        TRT.DESCRIPTION,    --<-直接使用部分 合成部分->
+                                        ALT.ANIME_NO,
+                                        ALT.ALBUM_ANIME_TYPE,
+                                        ALT.ALBUM_INANIME_NO
                                     FROM ANIMEDATA.dbo.T_TRACK_TBL TRT
-                                    INNER JOIN ANIMEDATA.dbo.T_ALBUM_TBL ALT ON TRT.P_ALBUM_ID=ALT.ALBUM_ID
-                                    INNER JOIN ANIMEDATA.dbo.T_ARTIST_TBL ART ON TRT.ARTIST_ID=ART.ARTIST_ID
-                                    INNER JOIN ANIMEDATA.dbo.T_ANIME_TBL ANT ON ANT.ANIME_NO=TRT.ANIME_NO
-                                    WHERE TRT.ENABLE_FLG = 1
-                                    AND ART.ENABLE_FLG = 1
-                                    AND ART.ENABLE_FLG = 1
-                                    AND ANT.ENABLE_FLG = 1";
+                                    INNER JOIN ANIMEDATA.dbo.T_ALBUM_TBL ALT ON TRT.P_ALBUM_ID = ALT.ALBUM_ID AND ALT.ENABLE_FLG = 1
+                                    INNER JOIN ANIMEDATA.dbo.T_ARTIST_TBL ART ON TRT.ARTIST_ID = ART.ARTIST_ID AND ART.ENABLE_FLG = 1
+                                    INNER JOIN ANIMEDATA.dbo.T_ANIME_TBL ANT ON ANT.ANIME_NO=TRT.ANIME_NO AND ANT.ENABLE_FLG = 1
+                                    WHERE TRT.ENABLE_FLG = 1";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);

@@ -11,9 +11,9 @@ namespace Main.Music
     {
         MusicManageDAO dao = new MusicManageDAO();
 
-        public DataSet GetMusic()
+        public DataSet GetTracks()
         {
-            return dao.GetMusic();
+            return dao.GetTracks();
         }
     }
 }
