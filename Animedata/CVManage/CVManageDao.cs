@@ -23,7 +23,7 @@ namespace Main
 									CV_GENDER,
 									CV_BIRTH 
                                     FROM ANIMEDATA.dbo.T_CV_TBL
-                                    ORDER BY CV_ID";
+                                    ORDER BY CV_NAME";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);

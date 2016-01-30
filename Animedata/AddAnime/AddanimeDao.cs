@@ -25,7 +25,8 @@ namespace Main
             SqlConnection conn = Getconnection();
 
             string sqlcmd = @"SELECT COMPANY_NAME
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL";
+                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    ORDER BY COMPANY_NAME";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
@@ -44,7 +45,8 @@ namespace Main
             SqlConnection conn = Getconnection();
 
             string sqlcmd = @"SELECT CV_NAME
-                                    FROM ANIMEDATA.dbo.T_CV_TBL";
+                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                ORDER BY CV_NAME";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);

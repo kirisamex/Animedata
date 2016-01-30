@@ -23,7 +23,7 @@ namespace Main
                                     COMPANY_ID AS 编号,
                                     COMPANY_NAME AS 公司名称
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
-                                    ORDER BY COMPANY_ID";
+                                    ORDER BY COMPANY_NAME";
 
             conn.Open();
             SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
