@@ -104,7 +104,7 @@ namespace Main
                 dgvrow.Cells[4].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(animedt.Rows[i][4].ToString()));
 
                 //原作
-                dgvrow.Cells[5].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(animedt.Rows[i][5].ToString()));
+                dgvrow.Cells[5].Value = service.GetOriginalTextFromOriginalInt(Convert.ToInt32(animedt.Rows[i][5].ToString()));
             }
 
             //动画窗口格式设置
@@ -144,7 +144,7 @@ namespace Main
         {
             try
             {
-                dataGridView2.Rows.Clear();
+                PlayInfodataGridView.Rows.Clear();
 
                 //获得动画播放信息
                 Animation anime = service.GetAnimeFromAnimeNo(animeNo);
@@ -157,9 +157,9 @@ namespace Main
                         {
                             PlayInfo pInfo = anime.playInfoList[i];
 
-                            dataGridView2.Rows.Add();
+                            PlayInfodataGridView.Rows.Add();
 
-                            DataGridViewRow dgvrow = dataGridView2.Rows[i];
+                            DataGridViewRow dgvrow = PlayInfodataGridView.Rows[i];
 
                             dgvrow.Cells[0].Value = pInfo.info;
 
@@ -187,7 +187,7 @@ namespace Main
                         }
 
                         //状态格式
-                        foreach (DataGridViewRow dr in dataGridView2.Rows)
+                        foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
                         {
                             int status = service.GetStatusIntFromStatusText(dr.Cells[3].Value.ToString());
                             //dr.Cells[0].Style = style.GetStatusRowStyle(status);
@@ -200,7 +200,7 @@ namespace Main
                     service.ShowErrorMessage(ex.Message);
                 }
 
-                foreach(DataGridViewColumn dc in dataGridView2.Columns)
+                foreach(DataGridViewColumn dc in PlayInfodataGridView.Columns)
                 {
                     dc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -227,11 +227,11 @@ namespace Main
                 DataSet ds = service.LoadCharacterInfo(animeNo);
 
                 //DGV3格式设置
-                dataGridView3.DataSource = ds.Tables[0].DefaultView;
-                for (int i = 0; i < dataGridView3.ColumnCount; i++)
+                CVdataGridView.DataSource = ds.Tables[0].DefaultView;
+                for (int i = 0; i < CVdataGridView.ColumnCount; i++)
                 {
-                    dataGridView3.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                    dataGridView3.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    CVdataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    CVdataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
 
             }
@@ -312,6 +312,35 @@ namespace Main
                 {
                     MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
+            }
+        }
+
+        /// <summary>
+        /// 简易搜索
+        /// </summary>
+        private void SimpleSearch()
+        {
+            if(simpleSearchTextBox.Text==null ||string.IsNullOrEmpty(simpleSearchTextBox.Text.ToString()))
+            {
+                service.ShowInfoMessage("搜索内容为空！");
+                return;
+            }
+
+            try
+            {
+                DataSet ds = service.Getanime(simpleSearchTextBox.Text.ToString());
+                if (ds.Tables[0].Rows.Count == 0)
+                {
+                    service.ShowInfoMessage("未搜索到对应数据", "无结果");
+                    return;
+                }
+
+                LoadAnimeMain(ds);
+            }
+            catch (Exception ex)
+            {
+                service.ShowErrorMessage(ex.Message);
+                Application.Exit();
             }
         }
 
@@ -416,7 +445,7 @@ namespace Main
 
         private void 声优列表SF3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CVManage fm = new CVManage();
+            CVManage fm = new CVManage(this);
             fm.Show();
         }
 
@@ -424,6 +453,12 @@ namespace Main
         {
             AboutBox about = new AboutBox();
             about.Show();
+        }
+
+        private void 查询动画ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            MainSearch search = new MainSearch(this);
+            search.Show();
         }
         #endregion
 
@@ -454,12 +489,18 @@ namespace Main
             删除动画信息ToolStripMenuItem_Click(this, EventArgs.Empty);
         }
 
+        private void simpleSearchButton_Click(object sender, EventArgs e)
+        {
+            SimpleSearch();
+        }
+
+
         #endregion
 
         #region 键盘
 
         /// <summary>
-        /// 
+        /// 键盘功能键控制
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -482,12 +523,12 @@ namespace Main
                 case Keys.F5:
                     ShowAnime();
                     break;
-
+                case Keys.F6:
+                    查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
+                    break;
             }
         }
 
         #endregion
-
-
     }
 }

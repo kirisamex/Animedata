@@ -13,9 +13,10 @@ namespace Main
 {
     public partial class CVManage : Form
     {
-        public CVManage()
+        public CVManage(Main mainfm)
         {
             InitializeComponent();
+            mainform = mainfm;
         }
 
         #region 常量
@@ -29,10 +30,6 @@ namespace Main
         /// 服务传递
         /// </summary>
         CVManageService service = new CVManageService();
-
-        string ERROR = "错误：";
-
-        string ERRORINFO = "错误信息";
 
         /// <summary>
         /// 操作种类
@@ -355,6 +352,34 @@ namespace Main
 
         #region 按钮
         /// <summary>
+        /// 搜索
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void searchbutton_Click(object sender, EventArgs e)
+        {
+            List<CV> choosedCV = GetChooseCVs();
+
+            //未选择则返回
+            if (choosedCV == null || choosedCV.Count == 0)
+            {
+                service.ShowInfoMessage("未选中声优");
+                return;
+            }
+
+            try
+            {
+                DataSet ds = service.Getanime(choosedCV);
+                mainform.LoadAnimeMain(ds);
+            }
+            catch (Exception ex)
+            {
+                service.ShowErrorMessage(ex.Message);
+                Application.Exit();
+            }
+        }
+
+        /// <summary>
         /// 添加
         /// </summary>
         /// <param name="sender"></param>
@@ -457,6 +482,7 @@ namespace Main
             DeleteCVInfo();
         }
         #endregion
+
     }
 
 }
