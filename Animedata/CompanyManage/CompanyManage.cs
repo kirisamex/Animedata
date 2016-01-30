@@ -2,6 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 using System.Data.OleDb;
+using System.Drawing;
 
 namespace Main
 {
@@ -18,10 +19,6 @@ namespace Main
         /// 服务传递
         /// </summary>
         CompanyManageService service = new CompanyManageService();
-
-        string ERROR = "错误：";
-
-        string ERRORINFO = "错误信息";
 
         #endregion
 
