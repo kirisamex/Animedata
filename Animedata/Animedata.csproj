@@ -79,7 +79,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ID3">
-      <HintPath>C:\Users\huangyh.HYRON-JS\Downloads\ID3\ID3.dll</HintPath>
+      <HintPath>dll\ID3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />

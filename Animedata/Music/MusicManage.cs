@@ -97,7 +97,7 @@ namespace Main.Music
             }
 
             //TEST
-            ShowMP3TagInfo(@"C:\Users\huangyh.HYRON-JS\Downloads\smileY inc. - 花雪.mp3");
+            ShowMP3TagInfo(@"G:\music\ver3\Rhodanthe＊\Jumping!!／Your Voice/Rhodanthe＊ - Jumping!!.mp3");
 
         }
 
@@ -117,22 +117,29 @@ namespace Main.Music
         /// <param name="filePath">文件路径</param>
         public void ShowMP3TagInfo(string filePath)
         {
-            ID3Info info = new ID3Info(filePath, true);
-            foreach (AttachedPictureFrame AP in info.ID3v2Info.AttachedPictureFrames.Items)
+            try
             {
-                AlbumPircureBox.Image = Image.FromStream(AP.Data);
+                ID3Info info = new ID3Info(filePath, true);
+                foreach (AttachedPictureFrame AP in info.ID3v2Info.AttachedPictureFrames.Items)
+                {
+                    AlbumPircureBox.Image = Image.FromStream(AP.Data);
+                }
+
+                //曲名
+                TrackNameTextBox.Text = info.ID3v2Info.GetTextFrame("TIT2");
+                //艺术家
+                ArtistTextBox.Text = info.ID3v2Info.GetTextFrame("TPE1");
+                //专辑
+                AlbumNameTextBox.Text = info.ID3v2Info.GetTextFrame("TALB");
+                //音轨
+                TrackNoTextBox.Text = info.ID3v2Info.GetTextFrame("TRCK").Trim();
+                //碟号
+                DiscNoTextBox.Text = info.ID3v2Info.GetTextFrame("TPOS");
             }
-            
-            //曲名
-            TrackNameTextBox.Text = info.ID3v2Info.GetTextFrame("TIT2");
-            //艺术家
-            ArtistTextBox.Text = info.ID3v2Info.GetTextFrame("TPE1");
-            //专辑
-            AlbumNameTextBox.Text = info.ID3v2Info.GetTextFrame("TALB");
-            //音轨
-            TrackNoTextBox.Text = info.ID3v2Info.GetTextFrame("TRCK");
-            //碟号
-            DiscNoTextBox.Text = info.ID3v2Info.GetTextFrame("TPOS");
+            catch (Exception ex)
+            {
+                service.ShowErrorMessage(ex.ToString());
+            }
         }
         #endregion
 
