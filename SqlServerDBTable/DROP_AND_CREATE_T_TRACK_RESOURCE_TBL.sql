@@ -1,7 +1,14 @@
 USE [ANIMEDATA]
 GO
 
-/****** Object:  Table [dbo].[T_TRACK_RESOURCE_TBL]    Script Date: 2016/1/31 23:13:52 ******/
+ALTER TABLE [dbo].[T_TRACK_RESOURCE_TBL] DROP CONSTRAINT [DF__T_TRACK_R__LAST___160F4887]
+GO
+
+/****** Object:  Table [dbo].[T_TRACK_RESOURCE_TBL]    Script Date: 2016/2/1 23:16:51 ******/
+DROP TABLE [dbo].[T_TRACK_RESOURCE_TBL]
+GO
+
+/****** Object:  Table [dbo].[T_TRACK_RESOURCE_TBL]    Script Date: 2016/2/1 23:16:51 ******/
 SET ANSI_NULLS ON
 GO
 
