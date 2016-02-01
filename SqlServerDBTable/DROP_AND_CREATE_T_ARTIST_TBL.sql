@@ -1,7 +1,11 @@
 USE [ANIMEDATA]
 GO
 
-/****** Object:  Table [dbo].[T_ARTIST_TBL]    Script Date: 2016/1/31 23:15:01 ******/
+/****** Object:  Table [dbo].[T_ARTIST_TBL]    Script Date: 2016/2/1 23:14:54 ******/
+DROP TABLE [dbo].[T_ARTIST_TBL]
+GO
+
+/****** Object:  Table [dbo].[T_ARTIST_TBL]    Script Date: 2016/2/1 23:14:54 ******/
 SET ANSI_NULLS ON
 GO
 
