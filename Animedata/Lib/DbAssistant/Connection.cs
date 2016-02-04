@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Configuration;
 
-namespace Main
+namespace Main.Lib.DbAssistant
 {
     /// <summary>
     /// SqlServer连接

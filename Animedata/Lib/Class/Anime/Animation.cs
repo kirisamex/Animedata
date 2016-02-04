@@ -90,9 +90,6 @@ namespace Main
 
         #endregion
 
-        /// <summary>
-        /// 
-        /// </summary>
         AnimationDao dao = new AnimationDao();
 
         #region 函数
@@ -234,19 +231,30 @@ namespace Main
         #region 方法
 
         /// <summary>
-        /// 向数据库插入动画信息
+        /// 插入动画信息
         /// </summary>
-        public void Insert()
+        public bool Insert()
         {
-            dao.InsertAnime(this);
+            return dao.InsertAnime(this);
         }
 
         /// <summary>
-        /// 从数据库删除动画信息
+        /// 更新动画信息
         /// </summary>
-        public void Delete()
+        /// <returns></returns>
+        public bool Update()
         {
-            dao.DeleteSelectedAnimeInfo(No);
+            Delete();
+            return Insert();
+            //return dao.UpdateAnime(this);
+        }
+
+        /// <summary>
+        /// 物理删除动画信息
+        /// </summary>
+        public bool Delete()
+        {
+            return dao.DeleteSelectedAnimeInfo(No);
         }
 
         /// <summary>

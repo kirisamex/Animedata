@@ -253,9 +253,13 @@ namespace Main
         /// <returns></returns>
         public DataGridViewRow GetSelectedRow()
         {
-            DataGridViewRow dr = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[0].RowIndex];
+            if (AnimeDataGridview.SelectedCells.Count > 0)
+            {
+                DataGridViewRow dr = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[0].RowIndex];
+                return dr;
+            }
 
-            return dr;
+            return null;
         }
 
         /// <summary>
@@ -402,15 +406,22 @@ namespace Main
 
         private void 添加动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddAnime fm = new AddAnime(0, null, this);
+            AddAnime fm = new AddAnime(AddAnime.command.Add, null, this);
             fm.Show();
             //this.LoadAnime();
         }
 
         private void 修改动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddAnime cgem = new AddAnime(1, GetSelectedRow(), this);
-            cgem.Show();
+            if (GetSelectedRow() != null)
+            {
+                AddAnime cgem = new AddAnime(AddAnime.command.Update, GetSelectedRow(), this);
+                cgem.Show();
+            }
+            else
+            {
+                service.ShowWarningMessage("请先选择需要修改的动画信息！");
+            }
         }
 
         private void 删除动画信息ToolStripMenuItem_Click(object sender, EventArgs e)

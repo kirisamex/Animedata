@@ -298,7 +298,7 @@ namespace Main
         /// <param name="WarningMessage"></param>
         public void ShowWarningMessage(string WarningMessage)
         {
-            MessageBox.Show(WarningMessage, WARNING, MessageBoxButtons.AbortRetryIgnore, MessageBoxIcon.Warning);
+            MessageBox.Show(WarningMessage, WARNING, MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
 
         /// <summary>

@@ -16,9 +16,20 @@ namespace Main
         #region 常量与构造
 
         /// <summary>
-        /// 状态FLAG:0-添加;1-修改;2-删除
+        /// 操作种类
         /// </summary>
-        public int ctr;
+        public enum command
+        {
+            //添加
+            Add = 0,
+            //修改
+            Update = 1,
+            //删除
+            Delete = 2,
+        };
+
+        //全局
+        public command cmd;
 
         /// <summary>
         /// 
@@ -28,13 +39,13 @@ namespace Main
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="control">状态FLAG:0-添加;1-修改;2-删除</param>
+        /// <param name="control">操作种类</param>
         /// <param name="rownum">选中行动画ID</param>
         /// <param name="mainfm"></param>
-        public AddAnime(int control, DataGridViewRow selecteddr, Main mainfm)
+        public AddAnime(command command, DataGridViewRow selecteddr, Main mainfm)
         {
             InitializeComponent();
-            ctr = control;
+            cmd = command;
             sdr = selecteddr;
             mainform = mainfm;
         }
@@ -42,11 +53,11 @@ namespace Main
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="control">状态FLAG:0-添加;1-修改;2-删除</param>
-        public AddAnime(int control)
+        /// <param name="control">操作种类</param>
+        public AddAnime(command control)
         {
             InitializeComponent();
-            ctr = control;
+            cmd = control;
         }
 
         Main mainform = new Main();
@@ -67,25 +78,25 @@ namespace Main
             this.CharacterInfoDataGridView.Controls.Add(this.CVbox);
 
             //根据操作种类进行窗口内容调整
-            LoadFormWithAdd(ctr);
+            LoadFormWithAdd(cmd);
         }
 
         /// <summary>
         /// 文本框信息设定
         /// </summary>
-        public void LoadFormWithAdd(int ctr)
+        public void LoadFormWithAdd(command ctr)
         {
             switch (ctr)
             {
-                case 0:
+                case command.Add:
                     Animation newAnime = new Animation(null);
                     this.numbox.Text = newAnime.No;
                     break;
-                case 1:
+                case command.Update:
                     Animation toChangeAnime = service.GetAnimeFromAnimeNo(sdr.Cells[0].Value.ToString());
                     this.SetAnimeWindowWithAnime(toChangeAnime);
                     break;
-                case 2:
+                case command.Delete:
                     break;
                 default:
                     break;
@@ -102,7 +113,7 @@ namespace Main
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            if (CommandAnimeInfo(ctr) == true)
+            if (CommandAnimeInfo(cmd) == true)
             {
                 this.Close();
                 //mainform.DataGridViewReload();
@@ -127,7 +138,7 @@ namespace Main
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            if (CommandAnimeInfo(ctr) == true)
+            if (CommandAnimeInfo(cmd) == true)
             {
                 mainform.DataGridViewReload();
 
@@ -176,8 +187,9 @@ namespace Main
         /// <summary>
         /// 操作动画信息(添加或修改)
         /// </summary>
+        /// <param name="ctr">操作类型</param>
         /// <returns></returns>
-        private bool CommandAnimeInfo(int ctr)
+        private bool CommandAnimeInfo(command ctr)
         {
             //填写完整性检查以及格式检查
             if (!AllFillAndFormatCheck())
@@ -204,19 +216,28 @@ namespace Main
 
             try
             {
-                if (ctr == 1)
+                if (ctr == command.Add)
                 {
-                    anime.Delete();
+                    if (anime.Insert())
+                    {
+                        return true;
+                    }
                 }
-                anime.Insert();
+                else if (ctr == command.Update)
+                {
+                    if (anime.Update())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+
             }
             catch (Exception ex)
             {
                 service.ShowErrorMessage(ex.Message);
                 return false;
             }
-
-            return true;
         }
 
         /// <summary>
@@ -244,8 +265,12 @@ namespace Main
             for (int i = 0; i < PlayInfoDataGridView.RowCount - 1; i++)
             {
                 PlayInfo pInfo = new PlayInfo();
-
-                pInfo.ID = nextPlayInfoID + i;
+                if (cmd == command.Add)
+                {
+                    pInfo.ID = nextPlayInfoID + i;
+                }
+                
+                
                 pInfo.animeNo = animeNo;
 
                 if (PlayInfoDataGridView.Rows[i].Cells[0].Value != null)
@@ -283,6 +308,11 @@ namespace Main
                 {
                     string watchedTimeString = PlayInfoDataGridView.Rows[i].Cells[5].Value.ToString();
                     pInfo.watchedTime = service.ConvertToDateTimeFromYYYYMM(watchedTimeString);
+                }
+
+                if (PlayInfoDataGridView.Rows[i].Cells["PlayinfoIDColumn"].Value != null || cmd == command.Update)
+                {
+                    pInfo.ID = Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells["PlayinfoIDColumn"].Value);
                 }
 
                 pInfoList.Add(pInfo);
@@ -489,14 +519,13 @@ namespace Main
                     string seriesnum = PlayInfoDataGridView.Rows[i].Cells[1].Value.ToString();
                     if (!string.IsNullOrEmpty(seriesnum))
                     {
-                        for (int j = 0; j < seriesnum.Length; j++)
+                        Regex reg = new Regex(@"^[0-9]+$");
+                        Match mth = reg.Match(seriesnum);
+
+                        if (!mth.Success)
                         {
-                            byte tmpbyte = Convert.ToByte(seriesnum[j]);
-                            if (tmpbyte < 48 || tmpbyte > 57)
-                            {
-                                service.ShowErrorMessage("放送信息中的话数必须为数字!");
-                                return false;
-                            }
+                            service.ShowErrorMessage("放送信息中的话数必须为数字!");
+                            return false;
                         }
                     }
                     else
@@ -563,7 +592,7 @@ namespace Main
         /// 动画格式与规则检查
         /// </summary>
         /// <returns></returns>
-        public bool AnimeInfoFormatAndRuleCheck(int ctr, Animation anime)
+        public bool AnimeInfoFormatAndRuleCheck(command ctr, Animation anime)
         {
             //动画编号格式
             Regex r1 = new Regex(@"^[A-Z][0-9]{3}$");
@@ -599,7 +628,7 @@ namespace Main
         /// <param name="anime"></param>
         /// <param name="ctr"></param>
         /// <returns>true:不重复 false:重复</returns>
-        private bool AnimationRepeatCheck(Animation anime, int ctr)
+        private bool AnimationRepeatCheck(Animation anime, command ctr)
         {
             //重复性检查
             Animation repeatAnime = service.SearchRepeatAnimeInfo(anime, ctr);
@@ -802,6 +831,8 @@ namespace Main
                             dgvrow.Cells[5].Value = service.ConvertToYYYYMMFromDatetime(pInfo.watchedTime);
                         }
 
+                        dgvrow.Cells["PlayinfoIDColumn"].Value = pInfo.ID.ToString();
+
                     }
                 }
             }
@@ -821,7 +852,6 @@ namespace Main
                         CharacterInfoDataGridView.Rows.Add();
 
                         DataGridViewRow dgvrow = CharacterInfoDataGridView.Rows[i];
-
 
                         dgvrow.Cells[0].Value = cInfo.name.ToString();
 

@@ -180,7 +180,6 @@ namespace Main
             catch (Exception ex)
             {
                 service.ShowErrorMessage(ex.Message);
-                Application.Exit();
             }
         }
 

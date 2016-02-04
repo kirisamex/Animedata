@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.searchbuttom = new System.Windows.Forms.Button();
@@ -39,6 +39,7 @@
             this.cancelbutton = new System.Windows.Forms.Button();
             this.okbutton = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -59,7 +60,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.dataGridView1);
-            this.splitContainer1.Size = new System.Drawing.Size(363, 303);
+            this.splitContainer1.Size = new System.Drawing.Size(559, 303);
             this.splitContainer1.SplitterDistance = 177;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -87,7 +88,7 @@
             this.searchbuttom.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.searchbuttom.Size = new System.Drawing.Size(168, 23);
             this.searchbuttom.TabIndex = 1;
-            this.searchbuttom.Text = "查看选定企业制作的动画(&S)";
+            this.searchbuttom.Text = "选定企业动画(&S)";
             this.searchbuttom.UseVisualStyleBackColor = true;
             this.searchbuttom.Click += new System.EventHandler(this.searchbuttom_Click);
             // 
@@ -128,12 +129,12 @@
             this.changetextbox.Location = new System.Drawing.Point(8, 119);
             this.changetextbox.Name = "changetextbox";
             this.changetextbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.changetextbox.Size = new System.Drawing.Size(166, 21);
+            this.changetextbox.Size = new System.Drawing.Size(166, 19);
             this.changetextbox.TabIndex = 3;
             // 
             // cancelbutton
             // 
-            this.cancelbutton.Location = new System.Drawing.Point(94, 146);
+            this.cancelbutton.Location = new System.Drawing.Point(94, 144);
             this.cancelbutton.Name = "cancelbutton";
             this.cancelbutton.Size = new System.Drawing.Size(80, 23);
             this.cancelbutton.TabIndex = 5;
@@ -143,7 +144,7 @@
             // 
             // okbutton
             // 
-            this.okbutton.Location = new System.Drawing.Point(8, 146);
+            this.okbutton.Location = new System.Drawing.Point(8, 144);
             this.okbutton.Name = "okbutton";
             this.okbutton.Size = new System.Drawing.Size(80, 23);
             this.okbutton.TabIndex = 4;
@@ -159,14 +160,14 @@
             this.dataGridView1.AllowUserToResizeRows = false;
             this.dataGridView1.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.ColumnHeader;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridView1.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dataGridView1.GridColor = System.Drawing.SystemColors.ActiveCaption;
             this.dataGridView1.Location = new System.Drawing.Point(0, 0);
@@ -174,24 +175,25 @@
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.RowTemplate.Height = 23;
-            this.dataGridView1.Size = new System.Drawing.Size(182, 303);
+            this.dataGridView1.Size = new System.Drawing.Size(378, 303);
             this.dataGridView1.TabIndex = 0;
             // 
-            // company
+            // CompanyManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.ClientSize = new System.Drawing.Size(363, 303);
+            this.ClientSize = new System.Drawing.Size(559, 303);
             this.Controls.Add(this.splitContainer1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "company";
+            this.Name = "CompanyManage";
             this.Text = "动画制作企业";
             this.Load += new System.EventHandler(this.company_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.company_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
