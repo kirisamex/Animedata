@@ -52,18 +52,19 @@
             this.playinfotab = new System.Windows.Forms.TabPage();
             this.companybox = new System.Windows.Forms.ComboBox();
             this.PlayInfoDataGridView = new System.Windows.Forms.DataGridView();
-            this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.playcounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.company = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.playstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.watchtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.charainfotab = new System.Windows.Forms.TabPage();
             this.CVbox = new System.Windows.Forms.ComboBox();
             this.CharacterInfoDataGridView = new System.Windows.Forms.DataGridView();
             this.charactername = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.seiyuuname = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ismaincharacter = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.playcounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.company = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.playstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.watchtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayinfoIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.basicinfotab.SuspendLayout();
             this.playinfotab.SuspendLayout();
@@ -296,7 +297,8 @@
             this.company,
             this.status,
             this.playstarttime,
-            this.watchtime});
+            this.watchtime,
+            this.PlayinfoIDColumn});
             this.PlayInfoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PlayInfoDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.PlayInfoDataGridView.Location = new System.Drawing.Point(3, 3);
@@ -305,41 +307,6 @@
             this.PlayInfoDataGridView.Size = new System.Drawing.Size(673, 221);
             this.PlayInfoDataGridView.TabIndex = 0;
             this.PlayInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
-            // 
-            // playinfo
-            // 
-            this.playinfo.HeaderText = "放送内容";
-            this.playinfo.Name = "playinfo";
-            // 
-            // playcounts
-            // 
-            this.playcounts.HeaderText = "话数";
-            this.playcounts.Name = "playcounts";
-            // 
-            // company
-            // 
-            this.company.HeaderText = "制作公司";
-            this.company.Name = "company";
-            // 
-            // status
-            // 
-            this.status.HeaderText = "状态";
-            this.status.Items.AddRange(new object[] {
-            "放送中",
-            "完结",
-            "新企划",
-            "弃置"});
-            this.status.Name = "status";
-            // 
-            // playstarttime
-            // 
-            this.playstarttime.HeaderText = "放送开始时间";
-            this.playstarttime.Name = "playstarttime";
-            // 
-            // watchtime
-            // 
-            this.watchtime.HeaderText = "收看时间";
-            this.watchtime.Name = "watchtime";
             // 
             // charainfotab
             // 
@@ -422,6 +389,47 @@
             this.ismaincharacter.HeaderText = "是否主要角色";
             this.ismaincharacter.Name = "ismaincharacter";
             // 
+            // playinfo
+            // 
+            this.playinfo.HeaderText = "放送内容";
+            this.playinfo.Name = "playinfo";
+            // 
+            // playcounts
+            // 
+            this.playcounts.HeaderText = "话数";
+            this.playcounts.Name = "playcounts";
+            // 
+            // company
+            // 
+            this.company.HeaderText = "制作公司";
+            this.company.Name = "company";
+            // 
+            // status
+            // 
+            this.status.HeaderText = "状态";
+            this.status.Items.AddRange(new object[] {
+            "放送中",
+            "完结",
+            "新企划",
+            "弃置"});
+            this.status.Name = "status";
+            // 
+            // playstarttime
+            // 
+            this.playstarttime.HeaderText = "放送开始时间";
+            this.playstarttime.Name = "playstarttime";
+            // 
+            // watchtime
+            // 
+            this.watchtime.HeaderText = "收看时间";
+            this.watchtime.Name = "watchtime";
+            // 
+            // PlayinfoIDColumn
+            // 
+            this.PlayinfoIDColumn.HeaderText = "PLAYINFO_ID";
+            this.PlayinfoIDColumn.Name = "PlayinfoIDColumn";
+            this.PlayinfoIDColumn.Visible = false;
+            // 
             // AddAnime
             // 
             this.AcceptButton = this.button3;
@@ -486,5 +494,6 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn status;
         private System.Windows.Forms.DataGridViewTextBoxColumn playstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn watchtime;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlayinfoIDColumn;
     }
 }

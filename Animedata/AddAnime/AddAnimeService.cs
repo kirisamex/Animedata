@@ -19,9 +19,9 @@ namespace Main
         /// </summary>
         /// <param name="anime"></param>
         /// <returns></returns>
-        public Animation SearchRepeatAnimeInfo(Animation anime,int ctr)
+        public Animation SearchRepeatAnimeInfo(Animation anime, AddAnime.command ctr)
         {
-            return dao.SearchRepeatAnimeInfo(anime,ctr);
+            return dao.SearchRepeatAnimeInfo(anime, ctr);
         }
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace Main
         /// <param name="anime"></param>
         /// <param name="ctr"></param>
         /// <returns></returns>
-        public Animation SearchChangedAnimeInfo(Animation anime,int ctr)
+        public Animation SearchChangedAnimeInfo(Animation anime, AddAnime.command ctr)
         {
             return dao.SearchRepeatAnimeInfo(anime,ctr);
         }

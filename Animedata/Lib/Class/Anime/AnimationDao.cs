@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text;
+
 
 namespace Main
 {
@@ -14,12 +18,11 @@ namespace Main
 
         /// <summary>
         /// 物理删除对应animeNo的动画、播放、角色信息
+        /// TO DO:停用，改为伦理删除
         /// </summary>
         /// <param name="animeNo"></param>
-        public void DeleteSelectedAnimeInfo(string animeNo)
+        public bool DeleteSelectedAnimeInfo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"DELETE 
                             FROM ANIMEDATA.dbo.T_ANIME_TBL
                             WHERE ANIME_NO=@animeNo
@@ -32,23 +35,27 @@ namespace Main
                             FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
                             WHERE ANIME_NO=@animeNo";
 
+            Collection<DbParameter> paras = new Collection<DbParameter>();
             SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
-            SqlCommand cmd = new SqlCommand(sqlcmd, conn);
-            cmd.Parameters.Add(para1);
+            paras.Add(para1);
 
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            try
+            {
+                DbCmd.DoCommand(sqlcmd, paras);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
         /// 插入动画信息以及对应的播放、角色信息
         /// </summary>
         /// <param name="anime"></param>
-        public void InsertAnime(Animation anime)
+        public bool InsertAnime(Animation anime)
         {
-            SqlConnection conn = Getconnection();
-
             //动画播放信息插入
             if (anime.playInfoList.Count > 0)
             {
@@ -72,13 +79,10 @@ namespace Main
                 {
                     try
                     {
-                        conn.Open();
                         InsertCharacterInfo(cInfo);
-                        conn.Close();
                     }
                     catch (Exception ex)
                     {
-                        conn.Close();
                         throw ex;
                     }
                 }
@@ -106,31 +110,29 @@ namespace Main
 	                            	,GETDATE()
 	                            	)";
 
-            SqlParameter para1 = new SqlParameter("@animeNo", anime.No);
-            SqlParameter para2 = new SqlParameter("@animeCNName", anime.CNName);
-            SqlParameter para3 = new SqlParameter("@animeJPName", anime.JPName);
-            SqlParameter para4 = new SqlParameter("@animeNickName", anime.Nickname);
-            SqlParameter para5 = new SqlParameter("@status", anime.status);
-            SqlParameter para6 = new SqlParameter("@original", anime.original);
-            SqlCommand cmd = new SqlCommand(sqlcmd, conn);
-            cmd.Parameters.Add(para1);
-            cmd.Parameters.Add(para2);
-            cmd.Parameters.Add(para3);
-            cmd.Parameters.Add(para4);
-            cmd.Parameters.Add(para5);
-            cmd.Parameters.Add(para6);
-
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", anime.No));
+            paras.Add(new SqlParameter("@animeCNName", anime.CNName));
+            paras.Add(new SqlParameter("@animeJPName", anime.JPName));
+            paras.Add(new SqlParameter("@animeNickName", anime.Nickname));
+            paras.Add(new SqlParameter("@status", anime.status));
+            paras.Add(new SqlParameter("@original", anime.original));
+            
             try
             {
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                DbCmd.DoCommand(sqlcmd, paras);
+                return true;
             }
             catch (Exception ex)
             {
-                conn.Close();
                 throw ex;
             }
+        }
+
+        public bool UpdateAnime(Animation anime)
+        {
+            //Todo
+            return true;
         }
 
         /// <summary>
@@ -139,46 +141,40 @@ namespace Main
         /// <param name="pInfo"></param>
         private void InsertPlayInfo(PlayInfo pInfo)
         {
-            SqlConnection conn = Getconnection();
-
             StringBuilder cmd1 = new StringBuilder();
             StringBuilder cmd2 = new StringBuilder();
             StringBuilder sqlcmd = new StringBuilder();
-            SqlCommand cmd = new SqlCommand();
-            SqlParameterCollection paras = cmd.Parameters;
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
 
             if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
             {
                 cmd1.Append(",START_TIME");
                 cmd2.Append(",@starttime");
-                SqlParameter para = new SqlParameter("@starttime", pInfo.startTime);
-                paras.Add(para);
+                paras.Add(new SqlParameter("@starttime", pInfo.startTime));
             }
 
             if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
             {
                 cmd1.Append(",WATCH_TIME");
                 cmd2.Append(",@watchtime");
-                SqlParameter para = new SqlParameter("@watchtime", pInfo.watchedTime);
-                paras.Add(para);
+                paras.Add(new SqlParameter("@watchtime", pInfo.watchedTime));
             }
 
             if (pInfo.parts != 0)
             {
                 cmd1.Append(",PARTS");
                 cmd2.Append(",@parts");
-                SqlParameter para = new SqlParameter("@parts", pInfo.parts);
-                paras.Add(para);
+                paras.Add(new SqlParameter("@parts", pInfo.parts));
             }
 
             if (pInfo.companyID != 0)
             {
                 cmd1.Append(",COMPANY_ID");
                 cmd2.Append(",@company_ID");
-                SqlParameter para = new SqlParameter("@company_ID", pInfo.companyID);
-                paras.Add(para);
+                paras.Add(new SqlParameter("@company_ID", pInfo.companyID));
             }
-            
+
 
             sqlcmd.Append(@"INSERT INTO ANIMEDATA.dbo.T_PLAYINFO_TBL (
                                  PLAYINFO_ID
@@ -199,23 +195,12 @@ namespace Main
 	                                ,GETDATE() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
-            SqlParameter para1 = new SqlParameter("@id", pInfo.ID);
-            SqlParameter para2 = new SqlParameter("@playinfo", pInfo.info);
-            SqlParameter para3 = new SqlParameter("@animeNo", pInfo.animeNo);
-            SqlParameter para4 = new SqlParameter("@status", pInfo.status);
+            paras.Add(new SqlParameter("@id", pInfo.ID));
+            paras.Add(new SqlParameter("@playinfo", pInfo.info));
+            paras.Add(new SqlParameter("@animeNo", pInfo.animeNo));
+            paras.Add(new SqlParameter("@status", pInfo.status));
 
-            paras.Add(para1);
-            paras.Add(para2);
-            paras.Add(para3);
-            paras.Add(para4);
-
-
-            cmd.CommandText = sqlcmd.ToString();
-            cmd.Connection = conn;
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            DbCmd.DoCommand(sqlcmd.ToString(), paras);
         }
 
         /// <summary>
@@ -224,8 +209,6 @@ namespace Main
         /// <param name="cInfo"></param>
         private void InsertCharacterInfo(Character cInfo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_CHARACTER_TBL (
 	                            CHARACTER_NO
 	                            ,CHARACTER_NAME
@@ -244,23 +227,15 @@ namespace Main
 	                            ,1
 	                            ,GETDATE()
 	                            )";
-            SqlParameter para1 = new SqlParameter("@characterNo", cInfo.No);
-            SqlParameter para2 = new SqlParameter("@charactername", cInfo.name);
-            SqlParameter para3 = new SqlParameter("@animeNo", cInfo.animeNo);
-            SqlParameter para4 = new SqlParameter("@CVID", cInfo.CVID);
-            SqlParameter para5 = new SqlParameter("@leadingFlg", cInfo.leadingFLG);
 
-            SqlCommand cmd = new SqlCommand(sqlcmd, conn);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@characterNo", cInfo.No));
+            paras.Add(new SqlParameter("@charactername", cInfo.name));
+            paras.Add(new SqlParameter("@animeNo", cInfo.animeNo));
+            paras.Add(new SqlParameter("@CVID", cInfo.CVID));
+            paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
 
-            cmd.Parameters.Add(para1);
-            cmd.Parameters.Add(para2);
-            cmd.Parameters.Add(para3);
-            cmd.Parameters.Add(para4);
-            cmd.Parameters.Add(para5);
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            DbCmd.DoCommand(sqlcmd, paras);
         }
 
         /// <summary>
@@ -269,23 +244,15 @@ namespace Main
         /// <returns></returns>
         public string GetMaxAnimeNo()
         {
-            string MaxAnimeNo;
-            SqlConnection conn = Getconnection();
-
             const string sqlcmd = @"SELECT 
                                     MAX(ANIME_NO)
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL ";
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd);
 
             if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
             {
-                MaxAnimeNo = ds.Tables[0].Rows[0][0].ToString();
-                return MaxAnimeNo;
+                return ds.Tables[0].Rows[0][0].ToString();
             }
             else
                 return null;
@@ -298,8 +265,6 @@ namespace Main
         /// <returns></returns>
         public DataTable GetPlayInfoDataTableByAnimeNo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT TPT.PLAYINFO_ID
                                         ,TPT.ANIME_PLAYINFO
                                         ,TPT.STATUS
@@ -312,15 +277,10 @@ namespace Main
                                     AND TPT.ENABLE_FLG = 1 
                                     ORDER BY TPT.PLAYINFO_ID";
 
-            SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
             DataTable dt = ds.Tables[0];
             return dt;
         }
@@ -332,8 +292,6 @@ namespace Main
         /// <returns></returns>
         public DataTable GetCharacterListByAnimeNo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT CHARACTER_NO
                                         ,CHARACTER_NAME
 	                                    ,CV_ID
@@ -343,17 +301,11 @@ namespace Main
                                     AND ENABLE_FLG = 1
                                     ORDER BY CHARACTER_NO";
 
-            SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-
-            DataTable dt = ds.Tables[0];
-            return dt;
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            return ds.Tables[0];
         }
 
     }

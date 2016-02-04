@@ -98,7 +98,7 @@ namespace Main
         /// </summary>
         /// <param name="anime"></param>
         /// <returns>重复的动画信息，如无则为null</returns>
-        public Animation SearchRepeatAnimeInfo(Animation anime, int ctr)
+        public Animation SearchRepeatAnimeInfo(Animation anime, AddAnime.command ctr)
         {
             SqlConnection conn = Getconnection();
 
@@ -129,7 +129,7 @@ namespace Main
                 return null;
             }
 
-            if (ctr == 1 && ds.Tables[0].Rows[0][0].ToString().Equals(anime.No))
+            if (ctr == AddAnime.command.Update && ds.Tables[0].Rows[0][0].ToString().Equals(anime.No))
             {
                 return null;
             }
