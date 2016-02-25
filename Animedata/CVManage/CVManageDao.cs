@@ -78,8 +78,6 @@ namespace Main
         /// <returns></returns>
         public bool CVIDRepeatCheck(int CVID)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_CV_TBL
                                 WHERE CV_ID = @cvID";

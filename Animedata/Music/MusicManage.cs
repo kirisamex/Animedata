@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using ID3;
 using ID3.ID3v2Frames.BinaryFrames;
+using Main.Lib.Message;
 using Shell32;
 
 namespace Main.Music
@@ -18,6 +19,9 @@ namespace Main.Music
     {
         #region 常量
         MusicManageService service = new MusicManageService();
+
+        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        const string MSG_COMMON_001 = "MSG-COMMON-001";
 
         public MusicManage()
         {
@@ -138,7 +142,7 @@ namespace Main.Music
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.ToString());
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
             }
         }
         #endregion

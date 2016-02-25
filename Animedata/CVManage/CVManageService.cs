@@ -23,15 +23,6 @@ namespace Main
         }
 
         /// <summary>
-        /// 插入声优信息
-        /// </summary>
-        /// <param name="cvInfo"></param>
-        public void InsertCVInfo(CV cvInfo)
-        {
-            dao.InsertCVInfo(cvInfo);
-        }
-
-        /// <summary>
         /// 更新声优信息
         /// </summary>
         /// <param name="cvInfo"></param>
@@ -44,10 +35,11 @@ namespace Main
         /// 删除声优信息
         /// </summary>
         /// <param name="cvList"></param>
+        /// <param name="errorstring">错误信息</param>
         /// <returns></returns>
-        public bool DeleteCVInfo(List<CV> cvList)
+        public bool DeleteCVInfo(List<CV> cvList, out string errorMessage)
         {
-            string errorMessage = string.Empty;
+            errorMessage = string.Empty;
             bool repeatflg = false;
 
             //检查是否使用
@@ -66,13 +58,10 @@ namespace Main
                     repeatflg = true;
                     
                 }
-                errorMessage += "\n";
             }
 
             if (repeatflg)
             {
-                errorMessage += "若需要删除该声优请先删除上述角色信息。";
-                ShowErrorMessage(errorMessage);
                 return false;
             }
 
@@ -174,21 +163,24 @@ namespace Main
         /// </summary>
         /// <param name="YYYYMMDD"></param>
         /// <returns></returns>
-        public bool YYYYMMDDFormatCheck(string YYYYMMDD)
+        public bool YYYYMMDDFormatCheck(string YYYYMMDD,out int errortype)
         {
             //8位数字，年月日，考虑闰年
             Regex yyyymmdd = new Regex(@"^([12]\d{3}((0[1-9]|1[012])(0[1-9]|1\d|2[0-8])|(0[13456789]|1[012])(29|30)|(0[13578]|1[02])31)|(([12]\d)(0[48]|[2468][048]|[13579][26])|(([2468][048]|[3579][26])00))0229)$");
             Match ymdmatch = yyyymmdd.Match(YYYYMMDD);
+
+            errortype = 0;
+            
             if (!ymdmatch.Success)
             {
-                ShowErrorMessage("\n[ " + YYYYMMDD + " ]的年月日格式或日期不正确！时间格式：yyyyMMdd。");
+                errortype = 1;
                 return false;
             }
 
             //是否超过今天
             if (ConvertToDateTimeFromYYYYMMdd(YYYYMMDD) > DateTime.Today)
             {
-                ShowErrorMessage("\n[ " + YYYYMMDD + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！");
+                errortype = 2;
                 return false;
             }
 

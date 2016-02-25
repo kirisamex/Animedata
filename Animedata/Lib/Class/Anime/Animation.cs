@@ -244,9 +244,7 @@ namespace Main
         /// <returns></returns>
         public bool Update()
         {
-            Delete();
-            return Insert();
-            //return dao.UpdateAnime(this);
+            return dao.UpdateAnime(this);
         }
 
         /// <summary>
@@ -254,7 +252,7 @@ namespace Main
         /// </summary>
         public bool Delete()
         {
-            return dao.DeleteSelectedAnimeInfo(No);
+            return dao.DeleteAnime(No);
         }
 
         /// <summary>

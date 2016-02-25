@@ -52,19 +52,22 @@
             this.playinfotab = new System.Windows.Forms.TabPage();
             this.companybox = new System.Windows.Forms.ComboBox();
             this.PlayInfoDataGridView = new System.Windows.Forms.DataGridView();
-            this.charainfotab = new System.Windows.Forms.TabPage();
-            this.CVbox = new System.Windows.Forms.ComboBox();
-            this.CharacterInfoDataGridView = new System.Windows.Forms.DataGridView();
-            this.charactername = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.seiyuuname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ismaincharacter = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.playcounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.company = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.status = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.playstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.watchtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlayinfoIDColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayinfoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.charainfotab = new System.Windows.Forms.TabPage();
+            this.CVbox = new System.Windows.Forms.ComboBox();
+            this.CharacterInfoDataGridView = new System.Windows.Forms.DataGridView();
+            this.AddRowButton = new System.Windows.Forms.Button();
+            this.RemoveRowButton = new System.Windows.Forms.Button();
+            this.charactername = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.seiyuuname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ismaincharacter = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.characterNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.basicinfotab.SuspendLayout();
             this.playinfotab.SuspendLayout();
@@ -107,9 +110,9 @@
             // button2
             // 
             this.button2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-            this.button2.Location = new System.Drawing.Point(358, 278);
+            this.button2.Location = new System.Drawing.Point(238, 278);
             this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(75, 23);
+            this.button2.Size = new System.Drawing.Size(100, 25);
             this.button2.TabIndex = 23;
             this.button2.Text = "取消";
             this.button2.UseVisualStyleBackColor = true;
@@ -119,7 +122,7 @@
             // 
             this.button1.Location = new System.Drawing.Point(115, 278);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.Size = new System.Drawing.Size(100, 25);
             this.button1.TabIndex = 21;
             this.button1.Text = "确定";
             this.button1.UseVisualStyleBackColor = true;
@@ -172,7 +175,8 @@
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(196, 278);
+            this.button3.Enabled = false;
+            this.button3.Location = new System.Drawing.Point(536, 278);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(156, 23);
             this.button3.TabIndex = 22;
@@ -280,6 +284,7 @@
             // 
             // PlayInfoDataGridView
             // 
+            this.PlayInfoDataGridView.AllowUserToAddRows = false;
             this.PlayInfoDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PlayInfoDataGridView.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
@@ -298,7 +303,7 @@
             this.status,
             this.playstarttime,
             this.watchtime,
-            this.PlayinfoIDColumn});
+            this.PlayinfoID});
             this.PlayInfoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.PlayInfoDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.PlayInfoDataGridView.Location = new System.Drawing.Point(3, 3);
@@ -307,87 +312,6 @@
             this.PlayInfoDataGridView.Size = new System.Drawing.Size(673, 221);
             this.PlayInfoDataGridView.TabIndex = 0;
             this.PlayInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
-            // 
-            // charainfotab
-            // 
-            this.charainfotab.Controls.Add(this.CVbox);
-            this.charainfotab.Controls.Add(this.CharacterInfoDataGridView);
-            this.charainfotab.Location = new System.Drawing.Point(4, 22);
-            this.charainfotab.Name = "charainfotab";
-            this.charainfotab.Padding = new System.Windows.Forms.Padding(3);
-            this.charainfotab.Size = new System.Drawing.Size(679, 227);
-            this.charainfotab.TabIndex = 2;
-            this.charainfotab.Text = "角色信息";
-            this.charainfotab.UseVisualStyleBackColor = true;
-            // 
-            // CVbox
-            // 
-            this.CVbox.FormattingEnabled = true;
-            this.CVbox.Location = new System.Drawing.Point(258, 25);
-            this.CVbox.Name = "CVbox";
-            this.CVbox.Size = new System.Drawing.Size(204, 20);
-            this.CVbox.TabIndex = 1;
-            this.CVbox.Visible = false;
-            this.CVbox.Leave += new System.EventHandler(this.seiyuubox_Leave);
-            // 
-            // CharacterInfoDataGridView
-            // 
-            this.CharacterInfoDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.CharacterInfoDataGridView.BackgroundColor = System.Drawing.Color.LightPink;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CharacterInfoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.CharacterInfoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.CharacterInfoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.charactername,
-            this.seiyuuname,
-            this.ismaincharacter});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.CharacterInfoDataGridView.DefaultCellStyle = dataGridViewCellStyle3;
-            this.CharacterInfoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.CharacterInfoDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
-            this.CharacterInfoDataGridView.Location = new System.Drawing.Point(3, 3);
-            this.CharacterInfoDataGridView.MultiSelect = false;
-            this.CharacterInfoDataGridView.Name = "CharacterInfoDataGridView";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CharacterInfoDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
-            this.CharacterInfoDataGridView.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.CharacterInfoDataGridView.RowTemplate.Height = 23;
-            this.CharacterInfoDataGridView.Size = new System.Drawing.Size(673, 221);
-            this.CharacterInfoDataGridView.TabIndex = 0;
-            this.CharacterInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView2_CurrentCellChanged);
-            // 
-            // charactername
-            // 
-            this.charactername.HeaderText = "角色";
-            this.charactername.Name = "charactername";
-            // 
-            // seiyuuname
-            // 
-            this.seiyuuname.HeaderText = "声优";
-            this.seiyuuname.Name = "seiyuuname";
-            // 
-            // ismaincharacter
-            // 
-            this.ismaincharacter.HeaderText = "是否主要角色";
-            this.ismaincharacter.Name = "ismaincharacter";
             // 
             // playinfo
             // 
@@ -424,11 +348,120 @@
             this.watchtime.HeaderText = "收看时间";
             this.watchtime.Name = "watchtime";
             // 
-            // PlayinfoIDColumn
+            // PlayinfoID
             // 
-            this.PlayinfoIDColumn.HeaderText = "PLAYINFO_ID";
-            this.PlayinfoIDColumn.Name = "PlayinfoIDColumn";
-            this.PlayinfoIDColumn.Visible = false;
+            this.PlayinfoID.HeaderText = "PLAYINFO_ID";
+            this.PlayinfoID.Name = "PlayinfoID";
+            this.PlayinfoID.Visible = false;
+            // 
+            // charainfotab
+            // 
+            this.charainfotab.Controls.Add(this.CVbox);
+            this.charainfotab.Controls.Add(this.CharacterInfoDataGridView);
+            this.charainfotab.Location = new System.Drawing.Point(4, 22);
+            this.charainfotab.Name = "charainfotab";
+            this.charainfotab.Padding = new System.Windows.Forms.Padding(3);
+            this.charainfotab.Size = new System.Drawing.Size(679, 227);
+            this.charainfotab.TabIndex = 2;
+            this.charainfotab.Text = "角色信息";
+            this.charainfotab.UseVisualStyleBackColor = true;
+            // 
+            // CVbox
+            // 
+            this.CVbox.FormattingEnabled = true;
+            this.CVbox.Location = new System.Drawing.Point(258, 25);
+            this.CVbox.Name = "CVbox";
+            this.CVbox.Size = new System.Drawing.Size(204, 20);
+            this.CVbox.TabIndex = 1;
+            this.CVbox.Visible = false;
+            this.CVbox.Leave += new System.EventHandler(this.seiyuubox_Leave);
+            // 
+            // CharacterInfoDataGridView
+            // 
+            this.CharacterInfoDataGridView.AllowUserToAddRows = false;
+            this.CharacterInfoDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.CharacterInfoDataGridView.BackgroundColor = System.Drawing.Color.LightPink;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CharacterInfoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.CharacterInfoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.CharacterInfoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.charactername,
+            this.seiyuuname,
+            this.ismaincharacter,
+            this.characterNo});
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.CharacterInfoDataGridView.DefaultCellStyle = dataGridViewCellStyle3;
+            this.CharacterInfoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.CharacterInfoDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
+            this.CharacterInfoDataGridView.Location = new System.Drawing.Point(3, 3);
+            this.CharacterInfoDataGridView.MultiSelect = false;
+            this.CharacterInfoDataGridView.Name = "CharacterInfoDataGridView";
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CharacterInfoDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            this.CharacterInfoDataGridView.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.CharacterInfoDataGridView.RowTemplate.Height = 23;
+            this.CharacterInfoDataGridView.Size = new System.Drawing.Size(673, 221);
+            this.CharacterInfoDataGridView.TabIndex = 0;
+            this.CharacterInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView2_CurrentCellChanged);
+            // 
+            // AddRowButton
+            // 
+            this.AddRowButton.Location = new System.Drawing.Point(385, 278);
+            this.AddRowButton.Name = "AddRowButton";
+            this.AddRowButton.Size = new System.Drawing.Size(20, 25);
+            this.AddRowButton.TabIndex = 32;
+            this.AddRowButton.Text = "+(&+)";
+            this.AddRowButton.UseVisualStyleBackColor = true;
+            this.AddRowButton.Click += new System.EventHandler(this.AddRowButton_Click);
+            // 
+            // RemoveRowButton
+            // 
+            this.RemoveRowButton.Location = new System.Drawing.Point(411, 278);
+            this.RemoveRowButton.Name = "RemoveRowButton";
+            this.RemoveRowButton.Size = new System.Drawing.Size(20, 25);
+            this.RemoveRowButton.TabIndex = 32;
+            this.RemoveRowButton.Text = "-(&-)";
+            this.RemoveRowButton.UseVisualStyleBackColor = true;
+            this.RemoveRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
+            // 
+            // charactername
+            // 
+            this.charactername.HeaderText = "角色";
+            this.charactername.Name = "charactername";
+            // 
+            // seiyuuname
+            // 
+            this.seiyuuname.HeaderText = "声优";
+            this.seiyuuname.Name = "seiyuuname";
+            // 
+            // ismaincharacter
+            // 
+            this.ismaincharacter.HeaderText = "是否主要角色";
+            this.ismaincharacter.Name = "ismaincharacter";
+            // 
+            // characterNo
+            // 
+            this.characterNo.HeaderText = "CHARACTER_NO";
+            this.characterNo.Name = "characterNo";
+            this.characterNo.Visible = false;
             // 
             // AddAnime
             // 
@@ -437,6 +470,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.button2;
             this.ClientSize = new System.Drawing.Size(711, 313);
+            this.Controls.Add(this.RemoveRowButton);
+            this.Controls.Add(this.AddRowButton);
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
@@ -482,9 +517,6 @@
         private System.Windows.Forms.DataGridView PlayInfoDataGridView;
         private System.Windows.Forms.DataGridView CharacterInfoDataGridView;
         private System.Windows.Forms.ComboBox CVbox;
-        private System.Windows.Forms.DataGridViewTextBoxColumn charactername;
-        private System.Windows.Forms.DataGridViewTextBoxColumn seiyuuname;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ismaincharacter;
         private System.Windows.Forms.ComboBox companybox;
         private System.Windows.Forms.TextBox jpnamebox;
         private System.Windows.Forms.Label label6;
@@ -494,6 +526,12 @@
         private System.Windows.Forms.DataGridViewComboBoxColumn status;
         private System.Windows.Forms.DataGridViewTextBoxColumn playstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn watchtime;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PlayinfoIDColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlayinfoID;
+        private System.Windows.Forms.Button AddRowButton;
+        private System.Windows.Forms.Button RemoveRowButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn charactername;
+        private System.Windows.Forms.DataGridViewTextBoxColumn seiyuuname;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ismaincharacter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn characterNo;
     }
 }

@@ -57,13 +57,12 @@ namespace Main
             //CV表插入
             try
             {
-                dao.InsertCVInfo(cvc);
+                cvc.Insert();
                 return cvc.ID;
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex.Message);
-                return -99;
+                throw ex;
             }
         }
 
