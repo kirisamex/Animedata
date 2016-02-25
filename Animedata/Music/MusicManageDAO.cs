@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,8 +20,6 @@ namespace Main.Music
         /// <returns></returns>
         public DataSet GetTracks()
         {
-            SqlConnection conn = Getconnection();
-
             const string sqlcmd = @"SELECT 
                                         TRT.TRACK_TITLE_NAME,
                                         ALT.ALBUM_TITLE_NAME,
@@ -40,12 +40,7 @@ namespace Main.Music
                                     INNER JOIN ANIMEDATA.dbo.T_ANIME_TBL ANT ON ANT.ANIME_NO=TRT.ANIME_NO AND ANT.ENABLE_FLG = 1
                                     WHERE TRT.ENABLE_FLG = 1";
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            return DbCmd.DoSelect(sqlcmd);
         }
     }
 }

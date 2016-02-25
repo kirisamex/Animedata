@@ -7,14 +7,14 @@ using System.Data;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using Main.Lib.Model;
+using Main.Lib.Message;
 
 namespace Main
 {
     public class MainService
     {
         #region 常量
-        public string selectedRowID;
-        
+        //实例
         Maindao dao = new Maindao();
 
         public const string DELETEANIMEINFO = "删除动画信息";
@@ -24,6 +24,11 @@ namespace Main
         public const string WARNING = "警告";
 
         public const string Info = "提示";
+
+        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        const string MSG_COMMON_001 = "MSG-COMMON-001";
+        /// <summary>[ {0} ]的年月格式不正确！时间格式：yyyyMM。</summary>
+        const string MSG_COMMON_006 = "MSG-COMMON-006";
 
         #endregion
 
@@ -176,8 +181,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                ShowErrorMessage(ex.Message);
-                return -99;
+                throw ex;
             }
         }
 
@@ -237,7 +241,7 @@ namespace Main
         /// YYYYMM格式检查
         /// </summary>
         /// <param name="YYYYMM"></param>
-        /// <returns></returns>
+        /// <returns>null-true;YYYYMM-false</returns>
         public bool YYYYMMFormatCheck(string YYYYMM)
         {
             //六位数字，年月
@@ -245,7 +249,7 @@ namespace Main
             Match ymmatch = yyyymm.Match(YYYYMM);
             if (!ymmatch.Success)
             {
-                ShowErrorMessage("\n[ " + YYYYMM + " ]的年月格式不正确！时间格式：yyyyMM。", ERRORINFO);
+                MsgBox.Show(MSG_COMMON_006, YYYYMM);
                 return false;
             }
 
@@ -261,79 +265,41 @@ namespace Main
             return true;
         }
 
-        #endregion
-
-        #region 信息
         /// <summary>
-        /// 显示错误信息对话框
+        /// 动画编号格式检查
         /// </summary>
-        /// <param name="ErrorMessage">错误内容</param>
-        public void ShowErrorMessage(string ErrorMessage)
-        {
-            MessageBox.Show( ErrorMessage, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-        }
-
-        /// <summary>
-        /// 显示错误信息对话框
-        /// </summary>
-        /// <param name="ErrorMessage">错误内容</param>
-        /// <param name="ErrorTitle">错误框标题</param>
-        public void ShowErrorMessage(string ErrorMessage, string ErrorTitle)
-        {
-            MessageBox.Show( ErrorMessage, ErrorTitle, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-
-        /// <summary>
-        /// 显示错误信息对话框
-        /// </summary>
-        public void ShowErrorMessage()
-        {
-            MessageBox.Show( "未预料的错误。",
-                        ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-        }
-
-        /// <summary>
-        /// 显示警告信息对话框
-        /// </summary>
-        /// <param name="WarningMessage"></param>
-        public void ShowWarningMessage(string WarningMessage)
-        {
-            MessageBox.Show(WarningMessage, WARNING, MessageBoxButtons.OK, MessageBoxIcon.Warning);
-        }
-
-        /// <summary>
-        /// 显示信息对话框
-        /// </summary>
-        /// <param name="InfoMessage"></param>
-        public void ShowInfoMessage(string InfoMessage)
-        {
-            MessageBox.Show(InfoMessage, Info, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        /// <summary>
-        /// 显示信息对话框
-        /// </summary>
-        /// <param name="InfoMessage">对话框内容</param>
-        /// <param name="Title">对话框标题</param>
-        public void ShowInfoMessage(string InfoMessage,string Title)
-        {
-            MessageBox.Show(InfoMessage, Title, MessageBoxButtons.OK, MessageBoxIcon.Information);
-        }
-
-        /// <summary>
-        /// 显示确认对话框
-        /// </summary>
-        /// <param name="InfoMessage">对话框信息</param>
-        /// <param name="Title">对话框标题</param>
+        /// <param name="AnimeNo">动画编号</param>
         /// <returns></returns>
-        public bool ShowYesNoMessage(string InfoMessage, string Title)
+        public bool AnimeNoCheck(string AnimeNo)
         {
-            DialogResult res = MessageBox.Show(InfoMessage, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-            if (res == DialogResult.Yes)
+            //编号格式：大写英文字母开头+3位阿拉伯数字
+            Regex rg = new Regex(@"^[A-Z][0-9]{3}$");
+            Match mt = rg.Match(AnimeNo);
+
+            if (!mt.Success)
             {
-                return true;
+                return false;
             }
-            return false;
+
+            return true;
+        }
+
+        /// <summary>
+        /// 动画简写格式检查
+        /// </summary>
+        /// <param name="AnimeNN">动画简写</param>
+        /// <returns></returns>
+        public bool AnimeNNCheck(string AnimeNN)
+        {
+            //简写格式：大写英文字母开头+若干位字母
+            Regex rg = new Regex(@"^[A-Z]+[a-zA-Z]+$");
+            Match mt = rg.Match(AnimeNN);
+
+            if (!mt.Success)
+            {
+                return false;
+            }
+            return true;
         }
 
         #endregion
@@ -400,82 +366,6 @@ namespace Main
         public DataSet LoadCharacterInfo(string animeNo)
         {
             return dao.LoadCharacterInfo(animeNo);
-        }
-        #endregion
-
-        #region MainSearch
-        /// <summary>
-        /// 字符型格式检查
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public bool StringFormatCheck(MainSearch search)
-        {
-            if (!string.IsNullOrEmpty(search.AnimeNoBox.Text.ToString()))
-            {
-                //动画编号格式
-                Regex r1 = new Regex(@"^[A-Z][0-9]{3}$");
-                Match m1 = r1.Match(search.AnimeNoBox.Text.ToString());
-
-                if (!m1.Success)
-                {
-                    ShowErrorMessage("格式错误,动画编号格式不正确！\n目前允许的编号格式为：大写字母+3位数字。");
-                    return false;
-                }
-            }
-
-            if (!string.IsNullOrEmpty(search.AnimeNNBox.Text.ToString()))
-            {
-                Regex r2 = new Regex(@"^[A-Z]+[a-zA-Z]");
-                Match m2 = r2.Match(search.AnimeNNBox.Text.ToString());
-                if (!m2.Success)
-                {
-                    ShowErrorMessage("动画简写格式不正确！\n简写需要是英文半角字母，且首字母大写。");
-                    return false;
-                }
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// 日期格式检查
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public bool DateTimeFormatCheck(MainSearch search)
-        {
-            if ((!string.IsNullOrEmpty(search.PlaytimeFromBox.Text.ToString()) && !YYYYMMFormatCheck(search.PlaytimeFromBox.Text.ToString())) ||
-                (!string.IsNullOrEmpty(search.PlaytimeToBox.Text.ToString()) && !YYYYMMFormatCheck(search.PlaytimeToBox.Text.ToString()))||
-                (!string.IsNullOrEmpty(search.WatchtimeFromBox.Text.ToString())&&!YYYYMMFormatCheck(search.WatchtimeFromBox.Text.ToString()))||
-                (!string.IsNullOrEmpty(search.WatchtimeToBox.Text.ToString())&&!YYYYMMFormatCheck(search.WatchtimeToBox.Text.ToString()))
-                )
-            {
-                return false;
-            }
-
-            return true;
-        }
-
-        /// <summary>
-        /// 复选列表检查
-        /// </summary>
-        /// <param name="search"></param>
-        /// <returns></returns>
-        public bool CheckedListBoxCheck(MainSearch search)
-        {
-            if (search.StatusCheckedListBox.CheckedItems.Count == 0)
-            {
-                ShowInfoMessage("至少选择一个播放状态进行搜索！");
-                return false;
-            }
-
-            if (search.OriginalCheckedListBox.CheckedItems.Count == 0)
-            {
-                ShowInfoMessage("至少选择一个原作种类进行搜索！");
-                return false;
-            }
-            return true;
         }
         #endregion
 

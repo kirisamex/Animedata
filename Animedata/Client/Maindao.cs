@@ -26,13 +26,6 @@ namespace Main
         /// </summary>
         public MainDbCommand DbCmd = new MainDbCommand();
 
-        public SqlConnection Getconnection()
-        {
-            Connection connect = new Connection();
-            SqlConnection conn = connect.Getconnection();
-            return conn;
-        }
-
         #endregion
 
         #region 共通
@@ -377,51 +370,6 @@ namespace Main
             DbCmd.DoCommand(sqlcmd, paras);
         }
 
-        /// <summary>
-        /// 插入声优信息
-        /// </summary>
-        /// <param name="cvc"></param>
-        public void InsertCVInfo(CV cvInfo)
-        {
-            StringBuilder cmd1 = new StringBuilder();
-            StringBuilder cmd2 = new StringBuilder();
-            StringBuilder sqlcmd = new StringBuilder();
-
-            Collection<DbParameter> paras = new Collection<DbParameter>();
-
-            if (cvInfo.Gender != null)
-            {
-                cmd1.Append(",CV_GENDER");
-                cmd2.Append(",@cvgender");
-                paras.Add(new SqlParameter("@cvgender", cvInfo.Gender));
-                
-            }
-
-            if (cvInfo.Brithday != DateTime.MinValue && cvInfo.Brithday != DateTime.MaxValue && cvInfo.Brithday != null)
-            {
-                cmd1.Append(",CV_BIRTH");
-                cmd2.Append(",@cvbirth");
-                paras.Add(new SqlParameter("@cvbirth", cvInfo.Brithday));
-            }
-
-            sqlcmd.Append(  @"INSERT INTO ANIMEDATA.dbo.T_CV_TBL(
-                                        CV_ID,
-                                        CV_NAME,
-                                        ENABLE_FLG,
-                                        LAST_UPDATE_DATETIME ");
-            sqlcmd.Append(cmd1);
-            sqlcmd.Append(@")
-										VALUES(
-										@cvid,
-										@cvname,
-                                        1,
-                                        GETDATE() ");
-            sqlcmd.Append(cmd2);
-            sqlcmd.Append(")");
-
-            DbCmd.DoCommand(sqlcmd.ToString(), paras);
-
-        }
         #endregion
 
         #endregion

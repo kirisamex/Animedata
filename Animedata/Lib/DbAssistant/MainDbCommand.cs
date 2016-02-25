@@ -19,8 +19,8 @@ namespace Main.Lib.DbAssistant
         /// <summary>
         /// 带变量的Select操作
         /// </summary>
-        /// <param name="sqlcmd"></param>
-        /// <param name="paras"></param>
+        /// <param name="sqlcmd">操作语句</param>
+        /// <param name="paras">变量</param>
         /// <returns></returns>
         public DataSet DoSelect(string sqlcmd,Collection<DbParameter> paras)
         {
@@ -45,7 +45,7 @@ namespace Main.Lib.DbAssistant
         /// <summary>
         /// 不带变量的Select操作
         /// </summary>
-        /// <param name="sqlcmd"></param>
+        /// <param name="sqlcmd">操作语句</param>
         /// <returns></returns>
         public DataSet DoSelect(string sqlcmd)
         {
@@ -62,19 +62,22 @@ namespace Main.Lib.DbAssistant
         /// <summary>
         /// Insert/Update/Delete等操作
         /// </summary>
-        /// <param name="sqlcmd"></param>
-        /// <param name="paras"></param>
+        /// <param name="sqlcmd">操作语句</param>
+        /// <param name="paras">变量</param>
         /// <returns>影响行数</returns>
         public int DoCommand(string sqlcmd, Collection<DbParameter> paras)
         {
             SqlCommand cmd = new SqlCommand();
-            SqlConnection conn = Getconnection();
             cmd.Connection = Getconnection();
             cmd.CommandText = sqlcmd;
+            foreach (DbParameter para in paras)
+            {
+                cmd.Parameters.Add(para);
+            }
 
-            conn.Open();
+            cmd.Connection.Open();
             int res = cmd.ExecuteNonQuery();
-            conn.Close();
+            cmd.Connection.Close();
             return res;
         }
     }

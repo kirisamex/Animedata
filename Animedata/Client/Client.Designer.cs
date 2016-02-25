@@ -44,6 +44,7 @@
             this.查询动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询声优ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询动画制作企业ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.添加动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.修改动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -54,12 +55,6 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AnimeDataGridview = new System.Windows.Forms.DataGridView();
-            this.AnimeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeNiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -77,7 +72,12 @@
             this.addanimebutton = new System.Windows.Forms.Button();
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
-            this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
+            this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeNiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -180,6 +180,11 @@
             this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.查询动画制作企业ToolStripMenuItem.Text = "查询动画制作企业";
             // 
+            // 以上功能未实装ToolStripMenuItem
+            // 
+            this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
+            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(180, 6);
+            // 
             // 添加动画ToolStripMenuItem
             // 
             this.添加动画ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -245,7 +250,7 @@
             // 关于ToolStripMenuItem
             // 
             this.关于ToolStripMenuItem.Name = "关于ToolStripMenuItem";
-            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.关于ToolStripMenuItem.Size = new System.Drawing.Size(98, 22);
             this.关于ToolStripMenuItem.Text = "关于";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
@@ -269,7 +274,7 @@
             this.AnimeDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.AnimeDataGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AnimeDataGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.AnimeName,
+            this.AnimeNo,
             this.AnimeCNName,
             this.AnimeJPName,
             this.AnimeNiceName,
@@ -286,42 +291,6 @@
             this.AnimeDataGridview.Size = new System.Drawing.Size(705, 600);
             this.AnimeDataGridview.TabIndex = 1;
             this.AnimeDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
-            // 
-            // AnimeName
-            // 
-            this.AnimeName.HeaderText = "编号";
-            this.AnimeName.Name = "AnimeName";
-            this.AnimeName.ReadOnly = true;
-            // 
-            // AnimeCNName
-            // 
-            this.AnimeCNName.HeaderText = "中文名";
-            this.AnimeCNName.Name = "AnimeCNName";
-            this.AnimeCNName.ReadOnly = true;
-            // 
-            // AnimeJPName
-            // 
-            this.AnimeJPName.HeaderText = "日文名";
-            this.AnimeJPName.Name = "AnimeJPName";
-            this.AnimeJPName.ReadOnly = true;
-            // 
-            // AnimeNiceName
-            // 
-            this.AnimeNiceName.HeaderText = "简写";
-            this.AnimeNiceName.Name = "AnimeNiceName";
-            this.AnimeNiceName.ReadOnly = true;
-            // 
-            // AnimeStatus
-            // 
-            this.AnimeStatus.HeaderText = "状态";
-            this.AnimeStatus.Name = "AnimeStatus";
-            this.AnimeStatus.ReadOnly = true;
-            // 
-            // AnimeOriginal
-            // 
-            this.AnimeOriginal.HeaderText = "原作";
-            this.AnimeOriginal.Name = "AnimeOriginal";
-            this.AnimeOriginal.ReadOnly = true;
             // 
             // splitContainer1
             // 
@@ -542,10 +511,41 @@
             this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
             this.simpleSearchTextBox.TabIndex = 3;
             // 
-            // 以上功能未实装ToolStripMenuItem
+            // AnimeNo
             // 
-            this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
-            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(180, 6);
+            this.AnimeNo.HeaderText = "编号";
+            this.AnimeNo.Name = "AnimeNo";
+            this.AnimeNo.ReadOnly = true;
+            // 
+            // AnimeCNName
+            // 
+            this.AnimeCNName.HeaderText = "中文名";
+            this.AnimeCNName.Name = "AnimeCNName";
+            this.AnimeCNName.ReadOnly = true;
+            // 
+            // AnimeJPName
+            // 
+            this.AnimeJPName.HeaderText = "日文名";
+            this.AnimeJPName.Name = "AnimeJPName";
+            this.AnimeJPName.ReadOnly = true;
+            // 
+            // AnimeNiceName
+            // 
+            this.AnimeNiceName.HeaderText = "简写";
+            this.AnimeNiceName.Name = "AnimeNiceName";
+            this.AnimeNiceName.ReadOnly = true;
+            // 
+            // AnimeStatus
+            // 
+            this.AnimeStatus.HeaderText = "状态";
+            this.AnimeStatus.Name = "AnimeStatus";
+            this.AnimeStatus.ReadOnly = true;
+            // 
+            // AnimeOriginal
+            // 
+            this.AnimeOriginal.HeaderText = "原作";
+            this.AnimeOriginal.Name = "AnimeOriginal";
+            this.AnimeOriginal.ReadOnly = true;
             // 
             // Main
             // 
@@ -618,12 +618,6 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn CompanyColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn STTimeColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn WTimeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeCNName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeJPName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNiceName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeStatus;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
         public System.Windows.Forms.DataGridView PlayInfodataGridView;
         public System.Windows.Forms.DataGridView CVdataGridView;
         private System.Windows.Forms.Button simpleSearchButton;
@@ -631,6 +625,12 @@
         private System.Windows.Forms.ToolStripMenuItem 音乐管理MToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
         private System.Windows.Forms.ToolStripSeparator 以上功能未实装ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeCNName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeJPName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNiceName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeStatus;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
     }
 }
 
