@@ -136,7 +136,7 @@ namespace Main
                 sqlcmd.Append(", WATCH_TIME = NULL");
             }
 
-            if (pInfo.parts != 0 && pInfo.parts != null)
+            if (pInfo.parts != 0)
             {
                 sqlcmd.Append(@" ,PARTS = @parts ");
                 paras.Add(new SqlParameter("@parts", pInfo.parts));
@@ -146,7 +146,7 @@ namespace Main
                 sqlcmd.Append(", PARTS = NULL");
             }
 
-            if (pInfo.companyID != 0&&pInfo.companyID!=null)
+            if (pInfo.companyID != 0)
             {
                 sqlcmd.Append(@" ,COMPANY_ID = @company_ID ");
                 paras.Add(new SqlParameter("@company_ID", pInfo.companyID));

@@ -113,8 +113,10 @@
     </Compile>
     <Compile Include="AddAnime\AddanimeDao.cs" />
     <Compile Include="AddAnime\AddAnimeService.cs" />
+    <Compile Include="Lib\Class\Album\AlbumSeries.cs" />
     <Compile Include="Lib\Class\Anime\Animation.cs" />
     <Compile Include="Lib\Class\Anime\AnimationDao.cs" />
+    <Compile Include="Lib\Class\Artist\Artist.cs" />
     <Compile Include="Lib\Class\Character\CharacterInfo.cs" />
     <Compile Include="Lib\Class\Character\CharacterInfoDao.cs" />
     <Compile Include="Lib\Class\Company\CompanyDao.cs" />
@@ -128,6 +130,10 @@
     <Compile Include="Lib\Class\Company\Company.cs" />
     <Compile Include="CompanyManage\CompanyManageDao.cs" />
     <Compile Include="CompanyManage\CompanyManageService.cs" />
+    <Compile Include="Lib\Class\Resource\MusicResource.cs" />
+    <Compile Include="Lib\Class\Resource\MusicResourceDao.cs" />
+    <Compile Include="Lib\Class\Track\TrackSeries.cs" />
+    <Compile Include="Lib\Class\Track\TrackSeriesDao.cs" />
     <Compile Include="Lib\Const\FormText.cs" />
     <Compile Include="Lib\Const\TableName.cs" />
     <Compile Include="Lib\DbAssistant\AbstractDbCommand.cs" />
@@ -242,11 +248,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Lib\Class\Album\" />
-    <Folder Include="Lib\Class\Artist\" />
-    <Folder Include="Lib\Class\Track\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <COMReference Include="Shell32">
       <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
