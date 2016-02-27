@@ -18,7 +18,7 @@ GO
 USE [ANIMEDATA]
 GO
 
-/****** Object:  Table [dbo].[T_ARTIST_MAPPING_TBL]    Script Date: 02/25/2016 21:11:01 ******/
+/****** Object:  Table [dbo].[T_ARTIST_MAPPING_TBL]    Script Date: 02/26/2016 11:08:13 ******/
 IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[T_ARTIST_MAPPING_TBL]') AND type in (N'U'))
 DROP TABLE [dbo].[T_ARTIST_MAPPING_TBL]
 GO
@@ -26,7 +26,7 @@ GO
 USE [ANIMEDATA]
 GO
 
-/****** Object:  Table [dbo].[T_ARTIST_MAPPING_TBL]    Script Date: 02/25/2016 21:11:01 ******/
+/****** Object:  Table [dbo].[T_ARTIST_MAPPING_TBL]    Script Date: 02/26/2016 11:08:13 ******/
 SET ANSI_NULLS ON
 GO
 
@@ -39,7 +39,7 @@ GO
 CREATE TABLE [dbo].[T_ARTIST_MAPPING_TBL](
 	[ARTIST_ID] [nchar](10) NOT NULL,
 	[MAPPING_TYPE] [tinyint] NOT NULL,
-	[CHARACTER_ID] [varchar](10) NULL,
+	[CHARACTER_NO] [varchar](10) NULL,
 	[CVID] [int] NOT NULL,
 	[ENABLE_FLG] [bit] NOT NULL,
 	[LAST_UPDATE_DATETIME] [datetime] NOT NULL

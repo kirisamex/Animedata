@@ -52,6 +52,15 @@
             this.playinfotab = new System.Windows.Forms.TabPage();
             this.companybox = new System.Windows.Forms.ComboBox();
             this.PlayInfoDataGridView = new System.Windows.Forms.DataGridView();
+            this.charainfotab = new System.Windows.Forms.TabPage();
+            this.CVbox = new System.Windows.Forms.ComboBox();
+            this.CharacterInfoDataGridView = new System.Windows.Forms.DataGridView();
+            this.charactername = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.seiyuuname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ismaincharacter = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.characterNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AddRowButton = new System.Windows.Forms.Button();
+            this.RemoveRowButton = new System.Windows.Forms.Button();
             this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.playcounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.company = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -59,15 +68,6 @@
             this.playstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.watchtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayinfoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.charainfotab = new System.Windows.Forms.TabPage();
-            this.CVbox = new System.Windows.Forms.ComboBox();
-            this.CharacterInfoDataGridView = new System.Windows.Forms.DataGridView();
-            this.AddRowButton = new System.Windows.Forms.Button();
-            this.RemoveRowButton = new System.Windows.Forms.Button();
-            this.charactername = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.seiyuuname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ismaincharacter = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.characterNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.basicinfotab.SuspendLayout();
             this.playinfotab.SuspendLayout();
@@ -313,47 +313,6 @@
             this.PlayInfoDataGridView.TabIndex = 0;
             this.PlayInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
             // 
-            // playinfo
-            // 
-            this.playinfo.HeaderText = "放送内容";
-            this.playinfo.Name = "playinfo";
-            // 
-            // playcounts
-            // 
-            this.playcounts.HeaderText = "话数";
-            this.playcounts.Name = "playcounts";
-            // 
-            // company
-            // 
-            this.company.HeaderText = "制作公司";
-            this.company.Name = "company";
-            // 
-            // status
-            // 
-            this.status.HeaderText = "状态";
-            this.status.Items.AddRange(new object[] {
-            "放送中",
-            "完结",
-            "新企划",
-            "弃置"});
-            this.status.Name = "status";
-            // 
-            // playstarttime
-            // 
-            this.playstarttime.HeaderText = "放送开始时间";
-            this.playstarttime.Name = "playstarttime";
-            // 
-            // watchtime
-            // 
-            this.watchtime.HeaderText = "收看时间";
-            this.watchtime.Name = "watchtime";
-            // 
-            // PlayinfoID
-            // 
-            this.PlayinfoID.HeaderText = "PLAYINFO_ID";
-            this.PlayinfoID.Name = "PlayinfoID";
-            this.PlayinfoID.Visible = false;
-            // 
             // charainfotab
             // 
             this.charainfotab.Controls.Add(this.CVbox);
@@ -422,26 +381,6 @@
             this.CharacterInfoDataGridView.TabIndex = 0;
             this.CharacterInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView2_CurrentCellChanged);
             // 
-            // AddRowButton
-            // 
-            this.AddRowButton.Location = new System.Drawing.Point(385, 278);
-            this.AddRowButton.Name = "AddRowButton";
-            this.AddRowButton.Size = new System.Drawing.Size(20, 25);
-            this.AddRowButton.TabIndex = 32;
-            this.AddRowButton.Text = "+(&+)";
-            this.AddRowButton.UseVisualStyleBackColor = true;
-            this.AddRowButton.Click += new System.EventHandler(this.AddRowButton_Click);
-            // 
-            // RemoveRowButton
-            // 
-            this.RemoveRowButton.Location = new System.Drawing.Point(411, 278);
-            this.RemoveRowButton.Name = "RemoveRowButton";
-            this.RemoveRowButton.Size = new System.Drawing.Size(20, 25);
-            this.RemoveRowButton.TabIndex = 32;
-            this.RemoveRowButton.Text = "-(&-)";
-            this.RemoveRowButton.UseVisualStyleBackColor = true;
-            this.RemoveRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
-            // 
             // charactername
             // 
             this.charactername.HeaderText = "角色";
@@ -462,6 +401,68 @@
             this.characterNo.HeaderText = "CHARACTER_NO";
             this.characterNo.Name = "characterNo";
             this.characterNo.Visible = false;
+            // 
+            // AddRowButton
+            // 
+            this.AddRowButton.Location = new System.Drawing.Point(385, 278);
+            this.AddRowButton.Name = "AddRowButton";
+            this.AddRowButton.Size = new System.Drawing.Size(20, 25);
+            this.AddRowButton.TabIndex = 32;
+            this.AddRowButton.Text = "+(&+)";
+            this.AddRowButton.UseVisualStyleBackColor = true;
+            this.AddRowButton.Click += new System.EventHandler(this.AddRowButton_Click);
+            // 
+            // RemoveRowButton
+            // 
+            this.RemoveRowButton.Location = new System.Drawing.Point(411, 278);
+            this.RemoveRowButton.Name = "RemoveRowButton";
+            this.RemoveRowButton.Size = new System.Drawing.Size(20, 25);
+            this.RemoveRowButton.TabIndex = 32;
+            this.RemoveRowButton.Text = "-(&-)";
+            this.RemoveRowButton.UseVisualStyleBackColor = true;
+            this.RemoveRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
+            // 
+            // playinfo
+            // 
+            this.playinfo.HeaderText = "放送内容";
+            this.playinfo.Name = "playinfo";
+            // 
+            // playcounts
+            // 
+            this.playcounts.HeaderText = "话数";
+            this.playcounts.Name = "playcounts";
+            // 
+            // company
+            // 
+            this.company.HeaderText = "制作公司";
+            this.company.Name = "company";
+            // 
+            // status
+            // 
+            this.status.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.status.HeaderText = "状态";
+            this.status.Items.AddRange(new object[] {
+            "放送中",
+            "完结",
+            "新企划",
+            "弃置"});
+            this.status.Name = "status";
+            // 
+            // playstarttime
+            // 
+            this.playstarttime.HeaderText = "放送开始时间";
+            this.playstarttime.Name = "playstarttime";
+            // 
+            // watchtime
+            // 
+            this.watchtime.HeaderText = "收看时间";
+            this.watchtime.Name = "watchtime";
+            // 
+            // PlayinfoID
+            // 
+            this.PlayinfoID.HeaderText = "PLAYINFO_ID";
+            this.PlayinfoID.Name = "PlayinfoID";
+            this.PlayinfoID.Visible = false;
             // 
             // AddAnime
             // 
@@ -520,6 +521,12 @@
         private System.Windows.Forms.ComboBox companybox;
         private System.Windows.Forms.TextBox jpnamebox;
         private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Button AddRowButton;
+        private System.Windows.Forms.Button RemoveRowButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn charactername;
+        private System.Windows.Forms.DataGridViewTextBoxColumn seiyuuname;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ismaincharacter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn characterNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn playinfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn playcounts;
         private System.Windows.Forms.DataGridViewTextBoxColumn company;
@@ -527,11 +534,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn playstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn watchtime;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayinfoID;
-        private System.Windows.Forms.Button AddRowButton;
-        private System.Windows.Forms.Button RemoveRowButton;
-        private System.Windows.Forms.DataGridViewTextBoxColumn charactername;
-        private System.Windows.Forms.DataGridViewTextBoxColumn seiyuuname;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ismaincharacter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn characterNo;
     }
 }

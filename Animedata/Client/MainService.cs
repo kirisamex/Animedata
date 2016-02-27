@@ -225,7 +225,7 @@ namespace Main
             return dao.GetCompanyNameByCompanyId(companyNo);
         }
 
-                /// <summary>
+        /// <summary>
         /// 根据YYYYMM转换为日期
         /// </summary>
         /// <param name="YYYYMM"></param>
@@ -300,6 +300,40 @@ namespace Main
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        /// 获得专辑动画类型描述
+        /// </summary>
+        /// <param name="type">字符</param>
+        /// <returns></returns>
+        public string GetAlbumAnimeTypeStringByChar(string type)
+        {
+            switch (type)
+            {
+                case "A": return "OP/ED";
+                case "B": return "角色歌";
+                case "C": return "OST";
+                case "Z": return "其他";
+                default: return "未知";
+            }
+        }
+
+        /// <summary>
+        /// 获得专辑动画类型字符
+        /// </summary>
+        /// <param name="type">描述</param>
+        /// <returns></returns>
+        public string GetAlbumAnimeTypeCharByString(string type)
+        {
+            switch (type)
+            {
+                case "OP/ED": return "A";
+                case "角色歌": return "B";
+                case "OST": return "C";
+                case "其他": return "Z";
+                default: throw new Exception("未知的专辑类型");
+            }
         }
 
         #endregion
