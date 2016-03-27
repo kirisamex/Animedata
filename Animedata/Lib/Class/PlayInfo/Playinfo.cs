@@ -61,5 +61,44 @@ namespace Main
         public PlayInfo()
         {
         }
+
+        /// <summary>
+        /// 构造函数
+        /// ！！注意：空壳类，仅用于删除播放信息！！
+        /// </summary>
+        /// <param name="id">播放信息ID</param>
+        /// <param name="animeN">动画No</param>
+        public PlayInfo(int id,string animeN)
+        {
+            animeNo = animeN;
+            ID = id;
+        }
+
+        /// <summary>
+        /// 插入播放信息
+        /// </summary>
+        /// <returns></returns>
+        public bool Insert()
+        {
+            return dao.Insert(this);
+        }
+
+        /// <summary>
+        /// 更新播放信息
+        /// </summary>
+        /// <returns></returns>
+        public bool Update()
+        {
+            return dao.Update(this);
+        }
+
+        /// <summary>
+        /// 删除播放信息(伦理)
+        /// </summary>
+        /// <returns></returns>
+        public bool Delete()
+        {
+            return dao.Delete(this);
+        }
     }
 }

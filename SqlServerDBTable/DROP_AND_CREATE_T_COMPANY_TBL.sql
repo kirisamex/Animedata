@@ -1,17 +1,25 @@
 USE [ANIMEDATA]
 GO
 
+/****** Object:  Table [dbo].[T_COMPANY_TBL]    Script Date: 2016/2/1 23:15:26 ******/
 DROP TABLE [dbo].[T_COMPANY_TBL]
-/****** Object:  Table [dbo].[T_COMPANY_TBL]    Script Date: 2015/11/15 1:08:45 ******/
+GO
+
+/****** Object:  Table [dbo].[T_COMPANY_TBL]    Script Date: 2016/2/1 23:15:26 ******/
 SET ANSI_NULLS ON
 GO
 
 SET QUOTED_IDENTIFIER ON
 GO
 
+SET ANSI_PADDING ON
+GO
+
 CREATE TABLE [dbo].[T_COMPANY_TBL](
 	[COMPANY_ID] [int] NOT NULL,
 	[COMPANY_NAME] [varchar](255) NOT NULL,
+	[ENABLE_FLG] [bit] NOT NULL DEFAULT ((1)),
+	[LAST_UPDATE_DATETIME] [datetime] NOT NULL DEFAULT (getdate()),
  CONSTRAINT [PK_T_COMPANY_TBL] PRIMARY KEY CLUSTERED 
 (
 	[COMPANY_ID] ASC
@@ -19,3 +27,8 @@ CREATE TABLE [dbo].[T_COMPANY_TBL](
 ) ON [PRIMARY]
 
 GO
+
+SET ANSI_PADDING OFF
+GO
+
+

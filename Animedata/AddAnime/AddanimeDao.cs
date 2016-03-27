@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Data;
+using System.Data.Common;
 using System.Text;
 using System.Data.SqlClient;
 
@@ -22,18 +24,11 @@ namespace Main
         /// <returns></returns>
         public DataSet LoadCompanyName()
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT COMPANY_NAME
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
+ 									WHERE ENABLE_FLG = 1 
                                     ORDER BY COMPANY_NAME";
-
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            return DbCmd.DoSelect(sqlcmd);
         }
 
         /// <summary>
@@ -42,18 +37,12 @@ namespace Main
         /// <returns></returns>
         public DataSet LoadCVName()
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT CV_NAME
                                     FROM ANIMEDATA.dbo.T_CV_TBL
-                                ORDER BY CV_NAME";
+                                    WHERE ENABLE_FLG = 1
+									ORDER BY CV_NAME";
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            return DbCmd.DoSelect(sqlcmd);
         }
 
         /// <summary>
@@ -63,24 +52,17 @@ namespace Main
         /// <returns></returns>
         public string GetMaxCharacterIDByCharacterInfo(Character chara)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT 
                                     MAX(CHARACTER_NO)
                                     FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                     WHERE ANIME_NO = @animeNo
                                     AND LEADING_FLG = @leadingflg";
 
-            SqlParameter para1 = new SqlParameter("@animeNo", chara.animeNo);
-            SqlParameter para2 = new SqlParameter("@leadingflg", chara.leadingFLG);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", chara.animeNo));
+            paras.Add(new SqlParameter("@leadingflg", chara.leadingFLG));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para1);
-            adp.SelectCommand.Parameters.Add(para2);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -98,10 +80,8 @@ namespace Main
         /// </summary>
         /// <param name="anime"></param>
         /// <returns>重复的动画信息，如无则为null</returns>
-        public Animation SearchRepeatAnimeInfo(Animation anime, int ctr)
+        public Animation SearchRepeatAnimeInfo(Animation anime, AddAnime.command ctr)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_ANIME_TBL
                                 WHERE ANIME_NO = @animeNo
@@ -109,27 +89,20 @@ namespace Main
 	                                OR ANIME_JPN_NAME = @animeJPName
 	                                OR ANIME_NN = @nickname";
 
-            SqlParameter para1 = new SqlParameter("@animeNo", anime.No);
-            SqlParameter para2 = new SqlParameter("@animeCNName", anime.CNName);
-            SqlParameter para3 = new SqlParameter("@animeJPName", anime.JPName);
-            SqlParameter para4 = new SqlParameter("@nickname", anime.Nickname);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", anime.No));
+            paras.Add(new SqlParameter("@animeCNName", anime.CNName));
+            paras.Add(new SqlParameter("@animeJPName", anime.JPName));
+            paras.Add(new SqlParameter("@nickname", anime.Nickname));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para1);
-            adp.SelectCommand.Parameters.Add(para2);
-            adp.SelectCommand.Parameters.Add(para3);
-            adp.SelectCommand.Parameters.Add(para4);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
                 return null;
             }
 
-            if (ctr == 1 && ds.Tables[0].Rows[0][0].ToString().Equals(anime.No))
+            if (ctr == AddAnime.command.Update && ds.Tables[0].Rows[0][0].ToString().Equals(anime.No))
             {
                 return null;
             }

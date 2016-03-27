@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 
 namespace Main
@@ -17,20 +19,14 @@ namespace Main
         /// <returns></returns>
         public DataSet LoadCompany()
         {
-            SqlConnection conn = Getconnection();
-
             const string sqlcmd = @"SELECT 
                                     COMPANY_ID AS 编号,
-                                    COMPANY_NAME AS 公司名称
+                                    COMPANY_NAME AS 公司名称,
+                                    LAST_UPDATE_DATETIME AS 更新时间
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    WHERE ENABLE_FLG = 1
                                     ORDER BY COMPANY_NAME";
-
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            return DbCmd.DoSelect(sqlcmd);
         }
 
         /// <summary>
@@ -41,25 +37,20 @@ namespace Main
         /// <returns></returns>
         public bool UpdateCompanyName(string newName, Company company)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"UPDATE 
                             ANIMEDATA.dbo.T_COMPANY_TBL
                             SET
-                            COMPANY_NAME = @newName
+                            COMPANY_NAME = @newName ,
+                            LAST_UPDATE_DATETIME = GETDATE()
                             WHERE COMPANY_ID = @companyID";
 
-            SqlParameter para1 = new SqlParameter("@newName", newName);
-            SqlParameter para2 = new SqlParameter("@companyID", company.ID);
-            SqlCommand cmd = new SqlCommand(sqlcmd, conn);
-            cmd.Parameters.Add(para1);
-            cmd.Parameters.Add(para2);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add( new SqlParameter("@newName", newName));
+            paras.Add( new SqlParameter("@companyID", company.ID));
 
             try
             {
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                DbCmd.DoCommand(sqlcmd, paras);
             }
             catch (Exception ex)
             {
