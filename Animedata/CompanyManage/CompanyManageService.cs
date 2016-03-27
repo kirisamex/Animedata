@@ -26,11 +26,12 @@ namespace Main
         /// </summary>
         /// <param name="companyID"></param>
         /// <returns></returns>
-        public bool DeleteCompanyByCompanyID(int companyID)
+        public bool DeleteCompanyByCompanyID(int companyID, out string errorString)
         {
             Company company = new Company();
             company.ID = companyID;
             company.Name = dao.GetCompanyNameByCompanyId(companyID);
+            errorString = string.Empty;
 
             //使用检查
             List<PlayInfo> repeatPlayinfoList = company.UsedCheck();
@@ -38,15 +39,12 @@ namespace Main
             //若使用则报出使用的播放信息
             if (repeatPlayinfoList != null)
             {
-                string errorString = string.Empty;
-
                 foreach (PlayInfo pInfo in repeatPlayinfoList)
                 {
                     errorString += "编号：" + pInfo.animeNo + "; 名称：" + GetAnimeFromAnimeNo(pInfo.animeNo).CNName +
                         "; 内容：" + pInfo.info + ";\n";
                 }
-                
-                ShowErrorMessage("该制作公司正被以下动画使用\n" + errorString);
+
                 return false;
             }
 

@@ -3,22 +3,35 @@ using System.Data;
 using System.Windows.Forms;
 using System.Data.OleDb;
 using System.Drawing;
+using Main.Lib.Message;
 
 namespace Main
 {
     public partial class CompanyManage : Form
     {
         #region 常量
-
-        /// <summary>
-        /// 主窗口传递
-        /// </summary>
+        //传递
         private Main mainform;
 
-        /// <summary>
-        /// 服务传递
-        /// </summary>
+        //实例
         CompanyManageService service = new CompanyManageService();
+
+        //信息
+        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        const string MSG_COMMON_001 = "MSG-COMMON-001";
+        /// <summary>操作成功！</summary>
+        const string MSG_COMMON_003 = "MSG-COMMON-003";
+
+        /// <summary>企业名称未修改！</summary>
+        const string MSG_COMPANYMANAGE_001 = "MSG-COMPANYMANAGE-001";
+        /// <summary>企业名称不能为空！</summary>
+        const string MSG_COMPANYMANAGE_002 = "MSG-COMPANYMANAGE-002";
+        /// <summary>确定将名为 {0} 的企业名称修改为 {1} 吗？</summary>
+        const string MSG_COMPANYMANAGE_003 = "MSG-COMPANYMANAGE-003";
+        /// <summary>删除动画制作企业前需要先在动画列表中删除所有该企业制作的动画。确定要删除企业 {0} 吗？</summary>
+        const string MSG_COMPANYMANAGE_004 = "MSG-COMPANYMANAGE-004";
+        /// <summary>该制作公司正被以下动画使用\n{0}</summary>
+        const string MSG_COMPANYMANAGE_005 = "MSG-COMPANYMANAGE-005";
 
         #endregion
 
@@ -55,7 +68,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
                 this.Close();
             }
         }
@@ -98,23 +111,22 @@ namespace Main
 
             if (newname == comp.Name)
             {
-                service.ShowWarningMessage("企业名称未修改!");
+                MsgBox.Show(MSG_COMPANYMANAGE_001);
                 return false;
             }
 
             if (newname == string.Empty)
             {
-                service.ShowWarningMessage("企业名称不能为空！");
+                MsgBox.Show(MSG_COMPANYMANAGE_002);
                 return false;
             }
-
-            if (service.ShowYesNoMessage("确定将名为 " + comp.Name + " 的企业名称修改为 " + newname + "吗？", "修改企业名称"))
+            if(MsgBox.Show(MSG_COMPANYMANAGE_003,comp.Name,newname)==DialogResult.Yes)
             {
                 try
                 {
                     if (service.UpdateCompanyInfo(newname, comp))
                     {
-                        service.ShowInfoMessage("修改成功！", "完成");
+                        MsgBox.Show(MSG_COMMON_003);
                         Loadcompany();
                         mainform.DataGridViewReload();
                         return true;
@@ -122,7 +134,7 @@ namespace Main
                 }
                 catch (Exception ex)
                 {
-                    service.ShowErrorMessage(ex.Message);
+                    MsgBox.Show(MSG_COMMON_001, ex.ToString());
                     return false;
                 }
             }
@@ -137,22 +149,27 @@ namespace Main
         private bool DeleteCompany()
         {
             Company comp = GetChooseCompany();
+            string errorString = string.Empty;
 
-            if (service.ShowYesNoMessage("删除动画制作企业前需要先在动画列表中删除所有该企业制作的动画。确定要删除该企业吗？", "确定删除"))
+            if (MsgBox.Show(MSG_COMPANYMANAGE_004, comp.Name) == DialogResult.Yes)
             {
                 try
                 {
-                    if (service.DeleteCompanyByCompanyID(comp.ID))
+                    if (service.DeleteCompanyByCompanyID(comp.ID, out errorString))
                     {
-                        service.ShowInfoMessage("删除企业成功！", "完成");
+                        MsgBox.Show(MSG_COMMON_003);
                         Loadcompany();
                         return true;
+                    }
+                    else
+                    {
+                        MsgBox.Show(MSG_COMPANYMANAGE_005, errorString);
                     }
                     return false;
                 }
                 catch (Exception ex)
                 {
-                    service.ShowErrorMessage(ex.Message);
+                    MsgBox.Show(MSG_COMMON_001, ex.ToString());
                     return false;
                 }
             }
@@ -179,8 +196,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
-                Application.Exit();
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
             }
         }
 

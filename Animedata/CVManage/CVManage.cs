@@ -6,8 +6,8 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Windows.Forms;
-using System.Data.OleDb;
 using Main;
+using Main.Lib.Message;
 
 namespace Main
 {
@@ -20,37 +20,78 @@ namespace Main
         }
 
         #region 常量
-
-        /// <summary>
-        /// 主窗口传递
-        /// </summary>
+        //全局变量
         private Main mainform;
+        cmdtype cmd = new cmdtype();
 
-        /// <summary>
-        /// 服务传递
-        /// </summary>
+        //实例化
         CVManageService service = new CVManageService();
+
+        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        const string MSG_COMMON_001 = "MSG-COMMON-001";
+        /// <summary>操作成功！</summary>
+        const string MSG_COMMON_003 = "MSG-COMMON-003";
+
+        /// <summary>[ {0} ]的年月日格式或日期不正确！时间格式：yyyyMMdd。</summary>
+        const string MSG_CVMANAGE_001 = "MSG-CVMANAGE-001";
+        /// <summary>[ {0} ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！</summary>
+        const string MSG_CVMANAGE_002 = "MSG-CVMANAGE-002";
+        /// <summary>{0}\n若需要删除该声优请先删除上述角色信息。</summary>
+        const string MSG_CVMANAGE_003 = "MSG-CVMANAGE-003";
+        /// <summary>确认要删除选中的声优信息吗？如果有该声优有记录的配音角色，请先删除该角色。</summary>
+        const string MSG_CVMANAGE_004 = "MSG-CVMANAGE-004";
+        /// <summary>有未填写的声优编号！</summary>
+        const string MSG_CVMANAGE_005 = "MSG-CVMANAGE-005";
+        /// <summary>有未填写的声优姓名！</summary>
+        const string MSG_CVMANAGE_006 = "MSG-CVMANAGE-006";
+        /// <summary>[ {0} ]的格式不正确。编号必须为半角数字!</summary>
+        const string MSG_CVMANAGE_007 = "MSG-CVMANAGE-007";
+        /// <summary>声优编号与现有编号重复，操作失败！\n重复声优编号:{0} \n姓名:{1}</summary>
+        const string MSG_CVMANAGE_008 = "MSG-CVMANAGE-008";
+        /// <summary>未选中声优！</summary>
+        const string MSG_CVMANAGE_009 = "MSG-CVMANAGE-009";
 
         /// <summary>
         /// 操作种类
         /// </summary>
         enum cmdtype : byte
         {
-            Add, Change
+            //增加
+            Add, //增加
+            //修改
+            Change//修改
         };
-
-        cmdtype cmd = new cmdtype();
 
         #endregion
 
         #region 方法
 
         /// <summary>
-        /// 载入声优信息
+        /// 展示声优信息
         /// </summary>
-        public void LoadCVInfo()
+        public void ShowCVInfo()
         {
             DataSet ds = service.LoadCVInfo();
+            LoadCVInfo(ds);
+        }
+
+        /// <summary>
+        /// 展示声优信息
+        /// 简易搜索
+        /// </summary>
+        /// <param name="target"></param>
+        public void ShowCVInfo(string target)
+        {
+            DataSet ds = service.LoadCVInfo(target);
+            LoadCVInfo(ds);
+        }
+
+        /// <summary>
+        /// 载入声优信息
+        /// </summary>
+        private void LoadCVInfo(DataSet ds)
+        {
+            cvdataGridView.Rows.Clear();
 
             //格式设置
             foreach (DataGridViewColumn dc in cvdataGridView.Columns)
@@ -83,8 +124,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
-                Application.Exit();
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
             }
         }
 
@@ -131,7 +171,7 @@ namespace Main
                 }
                 catch (Exception ex)
                 {
-                    service.ShowErrorMessage(ex.ToString());
+                    MsgBox.Show(MSG_COMMON_001, ex.ToString());
                     return false;
                 }
             }
@@ -173,11 +213,11 @@ namespace Main
 
             try
             {
-                service.InsertCVInfo(cvInfo);
+                cvInfo.Insert();
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
                 return false;
             }
             return true;
@@ -189,22 +229,27 @@ namespace Main
         /// <returns></returns>
         private bool DeleteCVInfo()
         {
-            if (service.ShowYesNoMessage("确认要删除选中的声优信息吗？如果有该声优有记录的配音角色，请先删除该角色。", "确认删除"))
+            if (MsgBox.Show(MSG_CVMANAGE_004)==DialogResult.Yes)
             {
                 List<CV> selectCVList = GetChooseCVs();
+                string errorstring = string.Empty;
                 try
                 {
-                    if (service.DeleteCVInfo(selectCVList))
+                    if (service.DeleteCVInfo(selectCVList, out errorstring))
                     {
-                        service.ShowInfoMessage("删除声优成功！", "完成");
+                        MsgBox.Show(MSG_COMMON_003);
                         FormReset();
                         return true;
                     }
-                    return false;
+                    else
+                    {
+                        MsgBox.Show(MSG_CVMANAGE_003, errorstring);
+                        return false;
+                    }
                 }
                 catch (Exception ex)
                 {
-                    service.ShowErrorMessage(ex.Message);
+                    MsgBox.Show(MSG_COMMON_001, ex.ToString());
                     return false;
                 }
             }
@@ -224,14 +269,14 @@ namespace Main
                 //编号空检查
                 if (dr.Cells[0].Value == null || string.IsNullOrEmpty(dr.Cells[0].Value.ToString()))
                 {
-                    service.ShowErrorMessage("有未填写的声优编号！");
+                    MsgBox.Show(MSG_CVMANAGE_005);
                     return false;
                 }
 
                 //姓名空检查
                 if (dr.Cells[1].Value == null || string.IsNullOrEmpty(dr.Cells[1].Value.ToString()))
                 {
-                    service.ShowErrorMessage("有未填写的声优姓名！");
+                    MsgBox.Show(MSG_CVMANAGE_006);
                     return false;
                 }
             }
@@ -257,7 +302,7 @@ namespace Main
                             byte tmpbyte = Convert.ToByte(nonum[j]);
                             if (tmpbyte < 48 || tmpbyte > 57)
                             {
-                                service.ShowErrorMessage("编号必须为半角数字!");
+                                MsgBox.Show(MSG_CVMANAGE_007, nonum);
                                 return false;
                             }
                         }
@@ -268,10 +313,20 @@ namespace Main
                 if (dr.Cells[3].Value != null)
                 {
                     string ymd = dr.Cells[3].Value.ToString();
+                    int errortype = 0;
                     if (!string.IsNullOrEmpty(ymd))
                     {
-                        if (!service.YYYYMMDDFormatCheck(ymd))
+                        if (!service.YYYYMMDDFormatCheck(ymd,out errortype))
                         {
+                            switch (errortype)
+                            {
+                                case 1:
+                                    MsgBox.Show(MSG_CVMANAGE_001, ymd);
+                                    break;
+                                case 2:
+                                    MsgBox.Show(MSG_CVMANAGE_002, ymd);
+                                    break;
+                            }
                             return false;
                         }
                     }
@@ -287,10 +342,11 @@ namespace Main
         /// <returns></returns>
         private bool CVIDRepeatCheck(int cvid)
         {            
-            //编号空检查
+            //编号重复检查
             if (!service.CVIDRepeatCheck(cvid))
             {
-                service.ShowErrorMessage("声优编号与现有编号重复！");
+                string cvName = service.GetCVNameByCVID(cvid);
+                MsgBox.Show(MSG_CVMANAGE_008, cvid, cvName);
                 return false;
             }
 
@@ -330,7 +386,7 @@ namespace Main
         /// <param name="e"></param>
         private void seiyuu_Load(object sender, EventArgs e)
         {
-            LoadCVInfo();
+            ShowCVInfo();
         }
 
         /// <summary>
@@ -344,9 +400,38 @@ namespace Main
             cancelbutton.Visible = false;
             addbutton.Enabled = true;
             changebutton.Enabled = true;
-            LoadCVInfo();
+            ShowCVInfo();
         }
 
+        /// <summary>
+        /// 简易搜索
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SearchBox.Text != null && SearchBox.Text.ToString() != string.Empty)
+            {
+                ShowCVInfo(SearchBox.Text.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 简易搜索
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (SearchBox.Text != null && SearchBox.Text.ToString() != string.Empty)
+                {
+                    ShowCVInfo(SearchBox.Text.ToString());
+                }
+                e.Handled = true;
+            }
+        }
 
         #endregion
 
@@ -363,7 +448,7 @@ namespace Main
             //未选择则返回
             if (choosedCV == null || choosedCV.Count == 0)
             {
-                service.ShowInfoMessage("未选中声优");
+                MsgBox.Show(MSG_CVMANAGE_009);
                 return;
             }
 
@@ -374,8 +459,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
-                Application.Exit();
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
             }
         }
 
@@ -482,6 +566,7 @@ namespace Main
             DeleteCVInfo();
         }
         #endregion
+
 
     }
 

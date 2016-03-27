@@ -78,7 +78,11 @@
     <ApplicationIcon>futaba.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="ID3">
+      <HintPath>C:\Users\huangyh.HYRON-JS\Downloads\ID3\ID3.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -109,9 +113,12 @@
     </Compile>
     <Compile Include="AddAnime\AddanimeDao.cs" />
     <Compile Include="AddAnime\AddAnimeService.cs" />
+    <Compile Include="Lib\Class\Album\AlbumSeries.cs" />
     <Compile Include="Lib\Class\Anime\Animation.cs" />
     <Compile Include="Lib\Class\Anime\AnimationDao.cs" />
+    <Compile Include="Lib\Class\Artist\Artist.cs" />
     <Compile Include="Lib\Class\Character\CharacterInfo.cs" />
+    <Compile Include="Lib\Class\Character\CharacterInfoDao.cs" />
     <Compile Include="Lib\Class\Company\CompanyDao.cs" />
     <Compile Include="Lib\Class\CV\CVDao.cs" />
     <Compile Include="CompanyManage\CompanyManage.cs">
@@ -123,30 +130,47 @@
     <Compile Include="Lib\Class\Company\Company.cs" />
     <Compile Include="CompanyManage\CompanyManageDao.cs" />
     <Compile Include="CompanyManage\CompanyManageService.cs" />
-    <Compile Include="Connection.cs" />
+    <Compile Include="Lib\Class\Resource\MusicResource.cs" />
+    <Compile Include="Lib\Class\Resource\MusicResourceDao.cs" />
+    <Compile Include="Lib\Class\Track\TrackSeries.cs" />
+    <Compile Include="Lib\Class\Track\TrackSeriesDao.cs" />
+    <Compile Include="Lib\Const\FormText.cs" />
+    <Compile Include="Lib\Const\TableName.cs" />
+    <Compile Include="Lib\DbAssistant\AbstractDbCommand.cs" />
+    <Compile Include="Lib\DbAssistant\Connection.cs" />
     <Compile Include="CVManage\CVManageDao.cs" />
     <Compile Include="CVManage\CVManageService.cs" />
+    <Compile Include="Lib\DbAssistant\MainDbCommand.cs" />
+    <Compile Include="Lib\Message\MsgBox.cs" />
     <Compile Include="Lib\Model\AnimeOriginalModule.cs" />
     <Compile Include="Lib\Model\AnimeStatusModule.cs" />
     <Compile Include="Lib\Model\SearchModule.cs" />
     <Compile Include="Lib\Style\StatusStyle.cs" />
-    <Compile Include="Main\MainSearch.cs">
+    <Compile Include="Client\MainSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\MainSearch.Designer.cs">
+    <Compile Include="Client\MainSearch.Designer.cs">
       <DependentUpon>MainSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Main\Maindao.cs" />
+    <Compile Include="Client\Maindao.cs" />
     <Compile Include="Lib\Class\CV\CV.cs" />
-    <Compile Include="Main\Main.cs">
+    <Compile Include="Client\Client.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
+    <Compile Include="Client\Client.Designer.cs">
+      <DependentUpon>Client.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
     <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
-    <Compile Include="Main\MainService.cs" />
+    <Compile Include="Client\MainService.cs" />
+    <Compile Include="Music\MusicManage.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Music\MusicManage.Designer.cs">
+      <DependentUpon>MusicManage.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Music\MusicManageDAO.cs" />
+    <Compile Include="Music\MusicManageService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="CVManage\CVManage.cs">
@@ -164,12 +188,15 @@
     <EmbeddedResource Include="CompanyManage\CompanyManage.resx">
       <DependentUpon>CompanyManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
+    <EmbeddedResource Include="Client\Client.resx">
+      <DependentUpon>Client.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\MainSearch.resx">
+    <EmbeddedResource Include="Client\MainSearch.resx">
       <DependentUpon>MainSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Music\MusicManage.resx">
+      <DependentUpon>MusicManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -184,7 +211,9 @@
     <EmbeddedResource Include="CVManage\CVManage.resx">
       <DependentUpon>CVManage.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -214,6 +243,25 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="futaba.ico" />
+    <Content Include="Message.xml">
+      <SubType>Designer</SubType>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <COMReference Include="Shell32">
+      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,33 +8,102 @@ using System.Text;
 using System.Globalization;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Main.Lib.Message;
+using Main.Lib.Const;
 
 namespace Main
 {
     public partial class AddAnime : Form
     {
-        #region 常量与构造
+        #region 常量
 
-        /// <summary>
-        /// 状态FLAG:0-添加;1-修改;2-删除
-        /// </summary>
-        public int ctr;
-
-        /// <summary>
-        /// 
-        /// </summary>
+        //全局变量
+        public command cmd;
         public DataGridViewRow sdr;
+
+        //实例
+        Main mainform = new Main();
+        AddanimeDao dao = new AddanimeDao();
+        AddAnimeService service = new AddAnimeService();
+
+        #region 信息框
+        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        const string MSG_COMMON_001 = "MSG-COMMON-001";
+        /// <summary>动画编号 {0} 格式不正确！\n目前允许的编号格式为：大写字母+3位数字。</summary>
+        const string MSG_COMMON_004 = "MSG-COMMON-004";
+        /// <summary>动画简写 {0} 格式不正确！\n简写需要是英文半角字母，且首字母大写。</summary>
+        const string MSG_COMMON_005 = "MSG-COMMON-005";
+
+        /// <summary>基本信息填写不完整，请补充。</summary>
+        const string MSG_ADDANIME_001 = "MSG-ADDANIME-001";
+        /// <summary>放送信息不完整：请填写第{0}行的放送内容！</summary>
+        const string MSG_ADDANIME_002 = "MSG-ADDANIME-002";
+        /// <summary>放送信息不完整：请填写第{0}行的状态！</summary>
+        const string MSG_ADDANIME_003 = "MSG-ADDANIME-003";
+        /// <summary>第{0}行的话数格式不正确，话数必须为半角数字！</summary>
+        const string MSG_ADDANIME_004 = "MSG-ADDANIME-004";
+        /// <summary>请填写第{0}行的角色！</summary>
+        const string MSG_ADDANIME_005 = "MSG-ADDANIME-005";
+        /// <summary>请填写第{0}行的声优！</summary>
+        const string MSG_ADDANIME_006 = "MSG-ADDANIME-006";
+        /// <summary>填写的部分动画基本信息与以下信息重复，操作失败！\n动画编号:{0} \n中文名称:{1} \n日文名称:{2} \n动画简称:{3}</summary>
+        const string MSG_ADDANIME_007 = "MSG-ADDANIME-007";
+        /// <summary>放送信息或声优信息未填写，是否继续？</summary>
+        const string MSG_ADDANIME_008 = "MSG-ADDANIME-008";
+        #endregion
+
+        #region 列名
+        /// <summary>放送内容 </summary>
+        const string PLAYINFOCLN = "playinfo";
+        /// <summary>话数 </summary>
+        const string PLAYCOUNTSCLN = "playcounts";
+        /// <summary>制作公司 </summary>
+        const string COMPANYCLN = "company";
+        /// <summary>状态 </summary>
+        const string STATUSCLN = "status";
+        /// <summary>播放时间 </summary>
+        const string PLAYSTARTTIMECLN = "playstarttime";
+        /// <summary>收看时间 </summary>
+        const string WATCHEDTIMECLN = "watchtime";
+        /// <summary>播放信息ID </summary>
+        const string PLAYINFOIDCLN = "PlayInfoID";
+        /// <summary>角色名 </summary>
+        const string CHARACTERNAMECLN = "charactername";
+        /// <summary>声优名 </summary>
+        const string SEIYUUNAMECLN = "seiyuuname";
+        /// <summary>是否主角 </summary>
+        const string ISMAINCHARACTERCLN = "ismaincharacter";
+        /// <summary>角色编号 </summary>
+        const string CHARACTERNOCLN = "characterNo";
+        #endregion
+
+        /// <summary>
+        /// 操作种类
+        /// </summary>
+        public enum command
+        {
+            //添加
+            Add = 0,
+            //修改
+            Update = 1,
+            //删除
+            Delete = 2,
+        };
+
+        #endregion
+
+        #region 构造
 
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="control">状态FLAG:0-添加;1-修改;2-删除</param>
+        /// <param name="control">操作种类</param>
         /// <param name="rownum">选中行动画ID</param>
         /// <param name="mainfm"></param>
-        public AddAnime(int control, DataGridViewRow selecteddr, Main mainfm)
+        public AddAnime(command command, DataGridViewRow selecteddr, Main mainfm)
         {
             InitializeComponent();
-            ctr = control;
+            cmd = command;
             sdr = selecteddr;
             mainform = mainfm;
         }
@@ -42,16 +111,12 @@ namespace Main
         /// <summary>
         /// 构造函数
         /// </summary>
-        /// <param name="control">状态FLAG:0-添加;1-修改;2-删除</param>
-        public AddAnime(int control)
+        /// <param name="control">操作种类</param>
+        public AddAnime(command control)
         {
             InitializeComponent();
-            ctr = control;
+            cmd = control;
         }
-
-        Main mainform = new Main();
-        AddanimeDao dao = new AddanimeDao();
-        AddAnimeService service = new AddAnimeService();
 
         #endregion 
 
@@ -67,25 +132,25 @@ namespace Main
             this.CharacterInfoDataGridView.Controls.Add(this.CVbox);
 
             //根据操作种类进行窗口内容调整
-            LoadFormWithAdd(ctr);
+            LoadFormWithAdd(cmd);
         }
 
         /// <summary>
         /// 文本框信息设定
         /// </summary>
-        public void LoadFormWithAdd(int ctr)
+        public void LoadFormWithAdd(command ctr)
         {
             switch (ctr)
             {
-                case 0:
+                case command.Add:
                     Animation newAnime = new Animation(null);
                     this.numbox.Text = newAnime.No;
                     break;
-                case 1:
+                case command.Update:
                     Animation toChangeAnime = service.GetAnimeFromAnimeNo(sdr.Cells[0].Value.ToString());
                     this.SetAnimeWindowWithAnime(toChangeAnime);
                     break;
-                case 2:
+                case command.Delete:
                     break;
                 default:
                     break;
@@ -102,10 +167,11 @@ namespace Main
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
-            if (CommandAnimeInfo(ctr) == true)
+            if (CommandAnimeInfo(cmd) == true)
             {
                 this.Close();
                 //mainform.DataGridViewReload();
+                //ToDO:静态修改数据
             }
 
         }
@@ -127,7 +193,7 @@ namespace Main
         /// <param name="e"></param>
         private void button3_Click(object sender, EventArgs e)
         {
-            if (CommandAnimeInfo(ctr) == true)
+            if (CommandAnimeInfo(cmd) == true)
             {
                 mainform.DataGridViewReload();
 
@@ -161,6 +227,52 @@ namespace Main
         }
 
         /// <summary>
+        /// 移除当前行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RemoveRowButton_Click(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedTab.Text)
+            {
+                case FormText.BASIC_INFO:
+                    break;
+                case FormText.PLAY_INFO:
+                    if (PlayInfoDataGridView.CurrentRow != null)
+                    {
+                        PlayInfoDataGridView.Rows.RemoveAt(PlayInfoDataGridView.CurrentRow.Index);
+                    }
+                    break;
+                case FormText.CHARACTER_INFO:
+                    if (CharacterInfoDataGridView.CurrentRow != null)
+                    {
+                        CharacterInfoDataGridView.Rows.RemoveAt(CharacterInfoDataGridView.CurrentRow.Index);
+                    }
+                    break;
+            }
+        }
+
+        /// <summary>
+        /// 增加行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AddRowButton_Click(object sender, EventArgs e)
+        {
+            switch (tabControl1.SelectedTab.Text)
+            {
+                case FormText.BASIC_INFO:
+                    break;
+                case FormText.PLAY_INFO:
+                    PlayInfoDataGridView.Rows.Add();
+                    break;
+                case FormText.CHARACTER_INFO:
+                    CharacterInfoDataGridView.Rows.Add();
+                    break;
+            }
+        }
+
+        /// <summary>
         /// 键盘事件预留
         /// </summary>
         /// <param name="sender"></param>
@@ -176,8 +288,9 @@ namespace Main
         /// <summary>
         /// 操作动画信息(添加或修改)
         /// </summary>
+        /// <param name="ctr">操作类型</param>
         /// <returns></returns>
-        private bool CommandAnimeInfo(int ctr)
+        private bool CommandAnimeInfo(command ctr)
         {
             //填写完整性检查以及格式检查
             if (!AllFillAndFormatCheck())
@@ -194,29 +307,38 @@ namespace Main
             anime.original=service.GetOriginalIntFromOriginalText(originalbox.Text.ToString());
 
             //动画信息规则检查
-            if (!this.AnimeInfoFormatAndRuleCheck(ctr,anime))
+            if (!AnimeInfoFormatAndRuleCheck(ctr,anime))
             {
                 return false;
             }
-
-            anime.playInfoList = this.PlayInfoSeries(anime.No);
-            anime.characterList = this.CharacterInfoSeries(anime.No);
 
             try
             {
-                if (ctr == 1)
+                anime.playInfoList = this.PlayInfoSeries(anime.No);
+                anime.characterList = this.CharacterInfoSeries(anime.No);
+
+                if (ctr == command.Add)
                 {
-                    anime.Delete();
+                    if (anime.Insert())
+                    {
+                        return true;
+                    }
                 }
-                anime.Insert();
+                else if (ctr == command.Update)
+                {
+                    if (anime.Update())
+                    {
+                        return true;
+                    }
+                }
+                return false;
+
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
                 return false;
             }
-
-            return true;
         }
 
         /// <summary>
@@ -228,61 +350,75 @@ namespace Main
         {
             List<PlayInfo> pInfoList = new List<PlayInfo>();
 
-            if (PlayInfoDataGridView.RowCount == 1)
+            if (PlayInfoDataGridView.Rows.Count == 0)
             {
-                DialogResult diares = MessageBox.Show("动画放送信息未填写，是否继续？", "放送信息未填写",
-                    MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (diares == DialogResult.No)
-                {
-                    return pInfoList;
-                }
+                return pInfoList;
             }
 
-            int nextPlayInfoID = dao.GetMaxInt("PLAYINFO", animeNo) + 1;
+            int nextPlayInfoID = dao.GetMaxInt(FormText.PLAYINFO, animeNo) + 1;
 
             //信息作成
-            for (int i = 0; i < PlayInfoDataGridView.RowCount - 1; i++)
+            for (int i = 0; i < PlayInfoDataGridView.RowCount; i++)
             {
-                PlayInfo pInfo = new PlayInfo();
+                //空行则不处理
+                if (PlayInfoDataGridView.Rows[i].IsNewRow ||
+                    PlayInfoDataGridView.Rows[i].Cells[PLAYINFOCLN].Value == null)
+                {
+                    continue;
+                }
 
-                pInfo.ID = nextPlayInfoID + i;
+                PlayInfo pInfo = new PlayInfo();
+                if (cmd == command.Add)
+                {
+                    pInfo.ID = nextPlayInfoID + i;
+                }
+                
+                
                 pInfo.animeNo = animeNo;
 
-                if (PlayInfoDataGridView.Rows[i].Cells[0].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOCLN].Value != null)
                 {
-                    pInfo.info = PlayInfoDataGridView.Rows[i].Cells[0].Value.ToString();
+                    pInfo.info = PlayInfoDataGridView.Rows[i].Cells[PLAYINFOCLN].Value.ToString();
                 }
 
-                if (PlayInfoDataGridView.Rows[i].Cells[1].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells[PLAYCOUNTSCLN].Value != null)
                 {
-                    pInfo.parts = Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[1].Value);
+                    pInfo.parts = Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYCOUNTSCLN].Value);
                 }
 
-                if (PlayInfoDataGridView.Rows[i].Cells[2].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells[COMPANYCLN].Value != null)
                 {
-                    string companyName = PlayInfoDataGridView.Rows[i].Cells[2].Value.ToString();
-                    pInfo.companyID = service.SetCompanyIDByCompanyName(companyName);
-                    if (pInfo.companyID < 0)
+                    string companyName = PlayInfoDataGridView.Rows[i].Cells[COMPANYCLN].Value.ToString();
+                    try
                     {
-                        service.ShowErrorMessage("未预料的COMPANY_ID");
+                        pInfo.companyID = service.SetCompanyIDByCompanyName(companyName);
+                    }
+                    catch(Exception ex)
+                    {
+                        MsgBox.Show(MSG_COMMON_001, ex.ToString());
                     }
                 }
 
-                if (PlayInfoDataGridView.Rows[i].Cells[3].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells[STATUSCLN].Value != null)
                 {
-                    pInfo.status=service.GetStatusIntFromStatusText(PlayInfoDataGridView.Rows[i].Cells[3].Value.ToString());
+                    pInfo.status=service.GetStatusIntFromStatusText(PlayInfoDataGridView.Rows[i].Cells[STATUSCLN].Value.ToString());
                 }
 
-                if (PlayInfoDataGridView.Rows[i].Cells[4].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells[PLAYSTARTTIMECLN].Value != null)
                 {
-                    string startTimeString = PlayInfoDataGridView.Rows[i].Cells[4].Value.ToString();
+                    string startTimeString = PlayInfoDataGridView.Rows[i].Cells[PLAYSTARTTIMECLN].Value.ToString();
                     pInfo.startTime = service.ConvertToDateTimeFromYYYYMM(startTimeString);
                 }
 
-                if (PlayInfoDataGridView.Rows[i].Cells[5].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells[WATCHEDTIMECLN].Value != null)
                 {
-                    string watchedTimeString = PlayInfoDataGridView.Rows[i].Cells[5].Value.ToString();
+                    string watchedTimeString = PlayInfoDataGridView.Rows[i].Cells[WATCHEDTIMECLN].Value.ToString();
                     pInfo.watchedTime = service.ConvertToDateTimeFromYYYYMM(watchedTimeString);
+                }
+
+                if (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value != null && cmd == command.Update)
+                {
+                    pInfo.ID = Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value);
                 }
 
                 pInfoList.Add(pInfo);
@@ -300,7 +436,7 @@ namespace Main
         {
             List<Character> cInfoList = new List<Character>();
 
-            if (CharacterInfoDataGridView.RowCount == 1)
+            if (CharacterInfoDataGridView.RowCount == 0)
             {
                 return cInfoList;
             }
@@ -312,26 +448,44 @@ namespace Main
             string lastLeadingCharaNo = null;
             string lastNonLeadingCharaNo = null;
 
-            for (int i = 0; i < CharacterInfoDataGridView.RowCount - 1; i++)
+            for (int i = 0; i < CharacterInfoDataGridView.RowCount; i++)
             {
+                //空行则不处理
+                if (CharacterInfoDataGridView.Rows[i].IsNewRow ||
+                    CharacterInfoDataGridView.Rows[i].Cells[CHARACTERNAMECLN].Value == null)
+                {
+                    continue;
+                }
+
                 Character chara = new Character();
                 chara.animeNo = animeNo;
 
-                if (CharacterInfoDataGridView.Rows[i].Cells[0].Value != null)
+                if (CharacterInfoDataGridView.Rows[i].Cells[CHARACTERNAMECLN].Value != null)
                 {
-                    chara.name = CharacterInfoDataGridView.Rows[i].Cells[0].Value.ToString();
+                    chara.name = CharacterInfoDataGridView.Rows[i].Cells[CHARACTERNAMECLN].Value.ToString();
                 }
 
-                if (CharacterInfoDataGridView.Rows[i].Cells[1].Value != null)
+                if (CharacterInfoDataGridView.Rows[i].Cells[SEIYUUNAMECLN].Value != null)
                 {
-                    string CVName = CharacterInfoDataGridView.Rows[i].Cells[1].Value.ToString();
-                    chara.CVID = service.SetCVIDByCVName(CVName);
+                    string CVName = CharacterInfoDataGridView.Rows[i].Cells[SEIYUUNAMECLN].Value.ToString();
+                    try
+                    {
+                        chara.CVID = service.SetCVIDByCVName(CVName);
+                    }
+                    catch(Exception ex)
+                    {
+                        MsgBox.Show(MSG_COMMON_001, ex.ToString());
+                    }
                 }
 
-                chara.leadingFLG = Convert.ToBoolean(CharacterInfoDataGridView.Rows[i].Cells[2].Value);
+                chara.leadingFLG = Convert.ToBoolean(CharacterInfoDataGridView.Rows[i].Cells[ISMAINCHARACTERCLN].Value);
 
                 //设定编号
-                try
+                if (CharacterInfoDataGridView.Rows[i].Cells[CHARACTERNOCLN].Value != null && cmd == command.Update)
+                {
+                    chara.No = CharacterInfoDataGridView.Rows[i].Cells[CHARACTERNOCLN].Value.ToString();
+                }
+                else try
                 {
                     if (chara.leadingFLG)
                     {
@@ -420,7 +574,7 @@ namespace Main
                 {
                     if (c.Text == string.Empty)
                     {
-                        service.ShowErrorMessage("基本信息填写不完整，请补充。", "基本信息不完整");
+                        MsgBox.Show(MSG_ADDANIME_001);
                         return false;
                     }
                     else
@@ -442,11 +596,9 @@ namespace Main
         /// <returns>false:继续添加 true:返回</returns>
         private bool PlayInfoAndCharacterInfoFullChekc()
         {
-            if (this.PlayInfoDataGridView.Rows.Count == 1 || CharacterInfoDataGridView.Rows.Count == 1)
+            if (this.PlayInfoDataGridView.Rows.Count == 0 || CharacterInfoDataGridView.Rows.Count == 0)
             {
-                DialogResult res = MessageBox.Show("放送信息或声优信息未填写，是否继续？",
-                    "信息不完整", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation);
-                if (res == DialogResult.Yes)
+                if (MsgBox.Show(MSG_ADDANIME_008) == DialogResult.Yes)
                 {
                     return true;
                 }
@@ -466,37 +618,42 @@ namespace Main
         {
             int rowscount = PlayInfoDataGridView.Rows.Count;
 
-            //除最后一行新规行以外检查
-            for (int i = 0; i < rowscount - 1; i++)
+            //新规行检查
+            for (int i = 0; i < rowscount; i++)
             {
-                //放送内容Check
-                if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells[0].ToString()))
+                //空行则跳过
+                if (PlayInfoDataGridView.Rows[i].IsNewRow)
                 {
-                    service.ShowErrorMessage("放送信息不完整：请填写第" + i + 1.ToString() + "行的放送内容！");
+                    continue;
+                }   
+
+                //放送内容Check
+                if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells["playinfo"].ToString()))
+                {
+                    MsgBox.Show(MSG_ADDANIME_002, (i + 1).ToString());
                     return false;
                 }
 
                 //状态check
-                if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells[3].ToString()))
+                if (string.IsNullOrEmpty(PlayInfoDataGridView.Rows[i].Cells["status"].ToString()))
                 {
-                    service.ShowErrorMessage("放送信息不完整：请填写第" + i + 1.ToString() + "行的状态！");
+                    MsgBox.Show(MSG_ADDANIME_003, (i + 1).ToString());
                     return false;
                 }
 
                 //规则检查：话数必须为数字
-                if (PlayInfoDataGridView.Rows[i].Cells[1].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells["playcounts"].Value != null)
                 {
-                    string seriesnum = PlayInfoDataGridView.Rows[i].Cells[1].Value.ToString();
+                    string seriesnum = PlayInfoDataGridView.Rows[i].Cells["playcounts"].Value.ToString();
                     if (!string.IsNullOrEmpty(seriesnum))
                     {
-                        for (int j = 0; j < seriesnum.Length; j++)
+                        Regex reg = new Regex(@"^[0-9]+$");
+                        Match mth = reg.Match(seriesnum);
+
+                        if (!mth.Success)
                         {
-                            byte tmpbyte = Convert.ToByte(seriesnum[j]);
-                            if (tmpbyte < 48 || tmpbyte > 57)
-                            {
-                                service.ShowErrorMessage("放送信息中的话数必须为数字!");
-                                return false;
-                            }
+                            MsgBox.Show(MSG_ADDANIME_004, (i + 1).ToString());
+                            return false;
                         }
                     }
                     else
@@ -508,17 +665,17 @@ namespace Main
                 //规则检查：播放时间与收看时间不能超过本月
                 if (PlayInfoDataGridView.Rows[i].Cells[4].Value != null)
                 {
-                    if (!service.YYYYMMFormatCheck(PlayInfoDataGridView.Rows[i].Cells[4].Value.ToString()))
+                    if (!service.YYYYMMFormatCheck(PlayInfoDataGridView.Rows[i].Cells["playstarttime"].Value.ToString()))
                     {
-                        PlayInfoDataGridView.CurrentCell = PlayInfoDataGridView.Rows[i].Cells[4];
+                        PlayInfoDataGridView.CurrentCell = PlayInfoDataGridView.Rows[i].Cells["playstarttime"];
                         return false;
                     }
                 }
-                if (PlayInfoDataGridView.Rows[i].Cells[5].Value != null)
+                if (PlayInfoDataGridView.Rows[i].Cells["watchtime"].Value != null)
                 {
-                    if (!service.YYYYMMFormatCheck(PlayInfoDataGridView.Rows[i].Cells[5].Value.ToString()))
+                    if (!service.YYYYMMFormatCheck(PlayInfoDataGridView.Rows[i].Cells["watchtime"].Value.ToString()))
                     {
-                        PlayInfoDataGridView.CurrentCell = PlayInfoDataGridView.Rows[i].Cells[5];
+                        PlayInfoDataGridView.CurrentCell = PlayInfoDataGridView.Rows[i].Cells["watchtime"];
                         return false;
                     }
                 }
@@ -534,25 +691,26 @@ namespace Main
         {
             int rowscount = CharacterInfoDataGridView.Rows.Count;
 
-            if (rowscount == 1)
+            //新规行检查
+            for (int i = 0; i < rowscount; i++)
             {
-                return true;
-            }
-
-            //除最后一行新规行以外检查
-            for (int i = 0; i < rowscount - 1; i++)
-            {
-                //放送内容Check
-                if (string.IsNullOrEmpty(CharacterInfoDataGridView.Rows[i].Cells[0].ToString()))
+                //空行跳过
+                if (CharacterInfoDataGridView.Rows[i].IsNewRow)
                 {
-                    service.ShowErrorMessage("角色信息不完整：请填写第" + i + 1.ToString() + "行的角色！");
+                    continue;
+                }
+
+                //放送内容Check
+                if (string.IsNullOrEmpty(CharacterInfoDataGridView.Rows[i].Cells[CHARACTERNAMECLN].ToString()))
+                {
+                    MsgBox.Show(MSG_ADDANIME_005, (i + 1).ToString());
                     return false;
                 }
 
                 //放送内容Check
-                if (string.IsNullOrEmpty(CharacterInfoDataGridView.Rows[i].Cells[1].ToString()))
+                if (string.IsNullOrEmpty(CharacterInfoDataGridView.Rows[i].Cells[SEIYUUNAMECLN].ToString()))
                 {
-                    service.ShowErrorMessage("角色信息不完整：请填写第" + i + 1.ToString() + "行的声优！");
+                    MsgBox.Show(MSG_ADDANIME_006, (i + 1).ToString());
                     return false;
                 }
             }
@@ -563,26 +721,20 @@ namespace Main
         /// 动画格式与规则检查
         /// </summary>
         /// <returns></returns>
-        public bool AnimeInfoFormatAndRuleCheck(int ctr, Animation anime)
+        public bool AnimeInfoFormatAndRuleCheck(command ctr, Animation anime)
         {
             //动画编号格式
-            Regex r1 = new Regex(@"^[A-Z][0-9]{3}$");
-            Match m1 = r1.Match(anime.No);
-
-            if (!m1.Success)
+            if (!service.AnimeNoCheck(anime.No))
             {
-                service.ShowErrorMessage("格式错误,动画编号格式不正确！\n目前允许的编号格式为：大写字母+3位数字。");
+                MsgBox.Show(MSG_COMMON_004, anime.No);
                 return false;
             }
 
-            Regex r2 = new Regex(@"^[A-Z]+[a-zA-Z]");
-            Match m2 = r2.Match(anime.Nickname);
-            if (!m2.Success)
+            if (!service.AnimeNNCheck(anime.Nickname))
             {
-                service.ShowErrorMessage("动画简写格式不正确！\n简写需要是英文半角字母，且首字母大写。");
+                MsgBox.Show(MSG_COMMON_005, anime.Nickname);
                 return false;
             }
-
 
             //动画信息唯一性
             if (!AnimationRepeatCheck(anime, ctr))
@@ -599,7 +751,7 @@ namespace Main
         /// <param name="anime"></param>
         /// <param name="ctr"></param>
         /// <returns>true:不重复 false:重复</returns>
-        private bool AnimationRepeatCheck(Animation anime, int ctr)
+        private bool AnimationRepeatCheck(Animation anime, command ctr)
         {
             //重复性检查
             Animation repeatAnime = service.SearchRepeatAnimeInfo(anime, ctr);
@@ -610,9 +762,7 @@ namespace Main
             }
             else
             {
-                service.ShowErrorMessage("填写的部分动画信息与以下信息重复，操作失败！" +
-                    "\n动画编号:" + repeatAnime.No + "\n中文名称:" + repeatAnime.CNName +
-                    "\n日文名称:" + repeatAnime.JPName + "\n动画简称:" + repeatAnime.Nickname + "","信息重复");
+                MsgBox.Show(MSG_ADDANIME_007, repeatAnime.No, repeatAnime.CNName, repeatAnime.JPName, repeatAnime.Nickname);
                 return false;
             }
         }
@@ -658,8 +808,7 @@ namespace Main
                 }
                 catch (Exception ex)
                 {
-                    service.ShowErrorMessage(ex.Message);
-                    Application.Exit();
+                    MsgBox.Show(MSG_COMMON_001, ex.ToString());
                 }
 
                 companybox.DisplayMember = "COMPANY_NAME";
@@ -690,9 +839,9 @@ namespace Main
             {
                 Rectangle TmpRect = this.CharacterInfoDataGridView.GetCellDisplayRectangle(CurrnetCell.ColumnIndex, CurrnetCell.RowIndex, true);
                 
-                if (CharacterInfoDataGridView.Rows[CharacterInfoDataGridView.CurrentRow.Index].Cells[1].Value != null)
+                if (CharacterInfoDataGridView.Rows[CharacterInfoDataGridView.CurrentRow.Index].Cells[SEIYUUNAMECLN].Value != null)
                 {
-                    selectextest = CharacterInfoDataGridView.Rows[CharacterInfoDataGridView.CurrentRow.Index].Cells[1].Value.ToString();
+                    selectextest = CharacterInfoDataGridView.Rows[CharacterInfoDataGridView.CurrentRow.Index].Cells[SEIYUUNAMECLN].Value.ToString();
                 }
                 this.CVbox.Size = TmpRect.Size;
                 this.CVbox.Top = TmpRect.Top;
@@ -717,8 +866,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
-                Application.Exit();
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
             }
 
             CVbox.DisplayMember = "CV_NAME";
@@ -778,36 +926,38 @@ namespace Main
 
                         DataGridViewRow dgvrow = PlayInfoDataGridView.Rows[i];
 
-                        dgvrow.Cells[0].Value = pInfo.info;
+                        dgvrow.Cells[PLAYINFOCLN].Value = pInfo.info;
 
                         if (pInfo.parts != 0)
                         {
-                            dgvrow.Cells[1].Value = pInfo.parts.ToString();
+                            dgvrow.Cells[PLAYCOUNTSCLN].Value = pInfo.parts.ToString();
                         }
 
                         if (pInfo.companyID != 0)
                         {
-                            dgvrow.Cells[2].Value = service.GetCompanyNameByCompanyNo(pInfo.companyID);
+                            dgvrow.Cells[COMPANYCLN].Value = service.GetCompanyNameByCompanyNo(pInfo.companyID);
                         }
 
-                        dgvrow.Cells[3].Value = service.GetStatusTextFromStatusInt(pInfo.status);
+                        dgvrow.Cells[STATUSCLN].Value = service.GetStatusTextFromStatusInt(pInfo.status);
 
                         if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
                         {
-                            dgvrow.Cells[4].Value = service.ConvertToYYYYMMFromDatetime(pInfo.startTime);
+                            dgvrow.Cells[PLAYSTARTTIMECLN].Value = service.ConvertToYYYYMMFromDatetime(pInfo.startTime);
                         }
 
                         if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
                         {
-                            dgvrow.Cells[5].Value = service.ConvertToYYYYMMFromDatetime(pInfo.watchedTime);
+                            dgvrow.Cells[WATCHEDTIMECLN].Value = service.ConvertToYYYYMMFromDatetime(pInfo.watchedTime);
                         }
+
+                        dgvrow.Cells[PLAYINFOIDCLN].Value = pInfo.ID.ToString();
 
                     }
                 }
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
             }
 
             //角色信息
@@ -822,26 +972,28 @@ namespace Main
 
                         DataGridViewRow dgvrow = CharacterInfoDataGridView.Rows[i];
 
-
-                        dgvrow.Cells[0].Value = cInfo.name.ToString();
+                        dgvrow.Cells[CHARACTERNAMECLN].Value = cInfo.name.ToString();
 
                         if (cInfo.CVID != 0)
                         {
-                            dgvrow.Cells[1].Value = service.GetCVNameByCVID(cInfo.CVID);
+                            dgvrow.Cells[SEIYUUNAMECLN].Value = service.GetCVNameByCVID(cInfo.CVID);
                         }
 
-                        dgvrow.Cells[2].Value = Convert.ToBoolean(cInfo.leadingFLG);
+                        dgvrow.Cells[ISMAINCHARACTERCLN].Value = Convert.ToBoolean(cInfo.leadingFLG);
+
+                        dgvrow.Cells[CHARACTERNOCLN].Value = cInfo.No.ToString();
 
                     }
                 }
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
             }
             
         }
   
         #endregion
+
     }
 }

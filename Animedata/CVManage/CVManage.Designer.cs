@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.searchbutton = new System.Windows.Forms.Button();
@@ -37,11 +37,13 @@
             this.deletebutton = new System.Windows.Forms.Button();
             this.okbutton = new System.Windows.Forms.Button();
             this.cancelbutton = new System.Windows.Forms.Button();
+            this.SearchBox = new System.Windows.Forms.TextBox();
             this.cvdataGridView = new System.Windows.Forms.DataGridView();
             this.NoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.sexColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
             this.BirthdayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -75,6 +77,7 @@
             this.flowLayoutPanel1.Controls.Add(this.deletebutton);
             this.flowLayoutPanel1.Controls.Add(this.okbutton);
             this.flowLayoutPanel1.Controls.Add(this.cancelbutton);
+            this.flowLayoutPanel1.Controls.Add(this.SearchBox);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
@@ -144,19 +147,28 @@
             this.cancelbutton.Visible = false;
             this.cancelbutton.Click += new System.EventHandler(this.cancelbutton_Click);
             // 
+            // SearchBox
+            // 
+            this.SearchBox.Location = new System.Drawing.Point(5, 148);
+            this.SearchBox.Name = "SearchBox";
+            this.SearchBox.Size = new System.Drawing.Size(182, 21);
+            this.SearchBox.TabIndex = 6;
+            this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.SearchBox_KeyPress);
+            // 
             // cvdataGridView
             // 
             this.cvdataGridView.AllowUserToAddRows = false;
             this.cvdataGridView.AllowUserToDeleteRows = false;
             this.cvdataGridView.BackgroundColor = System.Drawing.Color.LightPink;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.cvdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.cvdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.cvdataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.cvdataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.NoColumn,
@@ -187,6 +199,8 @@
             // 
             // sexColumn
             // 
+            this.sexColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.sexColumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.sexColumn.HeaderText = "性别";
             this.sexColumn.Items.AddRange(new object[] {
             "男",
@@ -214,8 +228,10 @@
             this.Load += new System.EventHandler(this.seiyuu_Load);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.flowLayoutPanel1.ResumeLayout(false);
+            this.flowLayoutPanel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.cvdataGridView)).EndInit();
             this.ResumeLayout(false);
 
@@ -231,10 +247,11 @@
         private System.Windows.Forms.Button deletebutton;
         private System.Windows.Forms.Button okbutton;
         private System.Windows.Forms.Button cancelbutton;
+        private System.Windows.Forms.Button searchbutton;
         private System.Windows.Forms.DataGridViewTextBoxColumn NoColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
         private System.Windows.Forms.DataGridViewComboBoxColumn sexColumn;
         private System.Windows.Forms.DataGridViewTextBoxColumn BirthdayColumn;
-        private System.Windows.Forms.Button searchbutton;
+        private System.Windows.Forms.TextBox SearchBox;
     }
 }
