@@ -67,11 +67,31 @@ namespace Main
         #region 方法
 
         /// <summary>
-        /// 载入声优信息
+        /// 展示声优信息
         /// </summary>
-        public void LoadCVInfo()
+        public void ShowCVInfo()
         {
             DataSet ds = service.LoadCVInfo();
+            LoadCVInfo(ds);
+        }
+
+        /// <summary>
+        /// 展示声优信息
+        /// 简易搜索
+        /// </summary>
+        /// <param name="target"></param>
+        public void ShowCVInfo(string target)
+        {
+            DataSet ds = service.LoadCVInfo(target);
+            LoadCVInfo(ds);
+        }
+
+        /// <summary>
+        /// 载入声优信息
+        /// </summary>
+        private void LoadCVInfo(DataSet ds)
+        {
+            cvdataGridView.Rows.Clear();
 
             //格式设置
             foreach (DataGridViewColumn dc in cvdataGridView.Columns)
@@ -366,7 +386,7 @@ namespace Main
         /// <param name="e"></param>
         private void seiyuu_Load(object sender, EventArgs e)
         {
-            LoadCVInfo();
+            ShowCVInfo();
         }
 
         /// <summary>
@@ -380,9 +400,38 @@ namespace Main
             cancelbutton.Visible = false;
             addbutton.Enabled = true;
             changebutton.Enabled = true;
-            LoadCVInfo();
+            ShowCVInfo();
         }
 
+        /// <summary>
+        /// 简易搜索
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_TextChanged(object sender, EventArgs e)
+        {
+            if (SearchBox.Text != null && SearchBox.Text.ToString() != string.Empty)
+            {
+                ShowCVInfo(SearchBox.Text.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 简易搜索
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                if (SearchBox.Text != null && SearchBox.Text.ToString() != string.Empty)
+                {
+                    ShowCVInfo(SearchBox.Text.ToString());
+                }
+                e.Handled = true;
+            }
+        }
 
         #endregion
 
@@ -517,6 +566,7 @@ namespace Main
             DeleteCVInfo();
         }
         #endregion
+
 
     }
 

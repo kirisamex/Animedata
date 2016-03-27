@@ -23,6 +23,17 @@ namespace Main
         }
 
         /// <summary>
+        /// 载入声优信息
+        /// 简易搜索
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public DataSet LoadCVInfo(string target)
+        {
+            return dao.LoadCVInfo(target);
+        }
+
+        /// <summary>
         /// 更新声优信息
         /// </summary>
         /// <param name="cvInfo"></param>
@@ -53,8 +64,8 @@ namespace Main
                     foreach (Character cInfo in repeatCharacerInfo)
                     {
                         errorString += "出自 " + GetAnimeFromAnimeNo(cInfo.animeNo).CNName + " 的 " + cInfo.name + ";\n";
-                        errorMessage += "声优:" + cvInfo.Name + " 为以下角色配音\n" + errorString + "";
                     }
+                    errorMessage += "声优:" + cvInfo.Name + " 为以下角色配音\n" + errorString + "";
                     repeatflg = true;
                     
                 }

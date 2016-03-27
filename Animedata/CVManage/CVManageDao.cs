@@ -6,6 +6,8 @@ using System.Text;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Main.Lib.DbAssistant;
+using Main.Lib.Model;
 
 namespace Main
 {
@@ -27,6 +29,28 @@ namespace Main
                                     ORDER BY CV_ID";
 
             return DbCmd.DoSelect(sqlcmd);
+        }
+
+        /// <summary>
+        /// 载入声优信息-简单搜索
+        /// </summary>
+        /// <returns></returns>
+        public DataSet LoadCVInfo(string target)
+        {
+            string sql = @"SELECT 
+                                    CV_ID ,
+                                    CV_NAME,
+									CV_GENDER,
+									CV_BIRTH 
+                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    WHERE ENABLE_FLG = 1
+                                    AND CV_NAME LIKE @target
+                                    ORDER BY CV_ID";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", target));
+
+            return DbCmd.DoSelect(sql, paras);
         }
 
         /// <summary>

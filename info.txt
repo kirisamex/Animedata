@@ -1,10 +1,6 @@
-改进点 Animedata
+﻿改进点 Animedata
 1.下拉框 if(t.tostring.trim == string.empty) continue
 
 2.添加/修改页面 esc不exit
-
-3.右侧栏目向下
-
-4.声优查找
 
 5.主页面反向
