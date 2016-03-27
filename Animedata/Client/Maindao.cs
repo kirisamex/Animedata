@@ -1,8 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Text;
 using System.Data.SqlClient;
-using System.Collections.Generic;
+using Main.Lib.DbAssistant;
 using Main.Lib.Model;
 
 namespace Main
@@ -17,18 +20,11 @@ namespace Main
         {
         }
 
-        #region 数据库连接
-
+        #region 数据库操作
         /// <summary>
-        /// 数据库连接
+        /// 数据库操作
         /// </summary>
-        /// <returns></returns>
-        public SqlConnection Getconnection()
-        {
-            Connection connect = new Connection();
-            SqlConnection conn = connect.Getconnection();
-            return conn;
-        }
+        public MainDbCommand DbCmd = new MainDbCommand();
 
         #endregion
 
@@ -42,18 +38,15 @@ namespace Main
         /// <returns></returns>
         public Animation GetAnimeFromAnimeNo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
             string sqlcmd = @"SELECT TOP 1 *
                                 FROM ANIMEDATA.dbo.T_ANIME_TBL
-                                WHERE ANIME_NO = @animeNo";
-            SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
+                                WHERE ANIME_NO = @animeNo
+                                AND ENABLE_FLG = 1 ";
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para1);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
+
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -81,24 +74,16 @@ namespace Main
         /// <returns></returns>
         public int GetCompanyIdByCompanyName(string companyName)
         {
-            int companyId;
-
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT 
                                     COMPANY_ID 
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
-                                    WHERE COMPANY_NAME=  @companyName ";
+                                    WHERE COMPANY_NAME=  @companyName 
+                                    AND ENABLE_FLG = 1 ";
 
-            SqlParameter para = new SqlParameter("@companyName", companyName);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@companyName", companyName));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -106,8 +91,7 @@ namespace Main
             }
             else if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
             {
-                companyId = Convert.ToInt16(ds.Tables[0].Rows[0][0].ToString());
-                return companyId;
+                return Convert.ToInt16(ds.Tables[0].Rows[0][0].ToString());
             }
             else
                 return -99;
@@ -120,24 +104,17 @@ namespace Main
         /// <returns></returns>
         public int GetCVIDByCVName(string CVName)
         {
-            int companyId;
-
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT 
                                     CV_ID 
                                     FROM ANIMEDATA.dbo.T_CV_TBL
-                                    WHERE CV_NAME=  @CVName ";
+                                    WHERE CV_NAME=  @CVName 
+                                    AND ENABLE_FLG = 1 ";
 
+            Collection<DbParameter> paras = new Collection<DbParameter>();
             SqlParameter para = new SqlParameter("@CVName", CVName);
+            paras.Add(para);
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -145,8 +122,7 @@ namespace Main
             }
             else if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
             {
-                companyId = Convert.ToInt16(ds.Tables[0].Rows[0][0].ToString());
-                return companyId;
+                return Convert.ToInt16(ds.Tables[0].Rows[0][0].ToString());
             }
             else
                 return -99;
@@ -159,21 +135,17 @@ namespace Main
         /// <returns></returns>
         public string GetCVNameByCVID(int CVID)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT 
                                     CV_NAME 
                                     FROM ANIMEDATA.dbo.T_CV_TBL
-                                    WHERE CV_ID=  @cvId ";
+                                    WHERE CV_ID=  @cvId 
+                                    AND ENABLE_FLG = 1 ";
 
             SqlParameter para = new SqlParameter("@cvId", CVID);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(para);
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -194,22 +166,17 @@ namespace Main
         /// <returns></returns>
         public string GetCompanyNameByCompanyId(int companyId)
         {
-            string companyName;
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT 
                                     COMPANY_NAME 
                                     FROM ANIMEDATA.dbo.T_COMPANY_TBL
-                                    WHERE COMPANY_ID=  @companyId ";
+                                    WHERE COMPANY_ID=  @companyId 
+                                    AND ENABLE_FLG = 1 ";
 
             SqlParameter para = new SqlParameter("@companyId", companyId);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(para);
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -217,8 +184,7 @@ namespace Main
             }
             else if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
             {
-                companyName = ds.Tables[0].Rows[0][0].ToString();
-                return companyName;
+                return ds.Tables[0].Rows[0][0].ToString();
             }
             else
             {
@@ -233,17 +199,11 @@ namespace Main
         /// <returns></returns>
         public int GetMaxInt(string tableName)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT " +
                                     "MAX(" + tableName + "_ID) " +
                                     "FROM ANIMEDATA.dbo.T_" + tableName + "_TBL";
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd);
 
             if (Convert.IsDBNull(ds.Tables[0].Rows[0][0]) || Convert.ToInt32(ds.Tables[0].Rows[0][0]) == 0)
             {
@@ -266,21 +226,16 @@ namespace Main
         /// <returns></returns>
         public int GetMaxInt(string tableName, string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT " +
                                     "MAX(" + tableName + "_ID)" +
                                     "FROM ANIMEDATA.dbo.T_" + tableName + "_TBL "+
                                     "WHERE ANIME_NO = @animeNo";
 
             SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(para);
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (Convert.IsDBNull(ds.Tables[0].Rows[0][0]))
             {
@@ -300,20 +255,17 @@ namespace Main
         /// <returns></returns>
         public List<PlayInfo> GetPlayInfoListFromAnimeNo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
             List<PlayInfo> pInfoList = new List<PlayInfo>();
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
                                 WHERE ANIME_NO = @animeNo
+                                AND ENABLE_FLG = 1 
                                 ORDER BY START_TIME";
-            SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para1);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
 
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
+
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -359,20 +311,18 @@ namespace Main
         /// <returns></returns>
         public List<Character> GetCharacterListFromAnimeNo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
             List<Character> cInfoList = new List<Character>();
+
             string sqlcmd = @"SELECT *
                                 FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                 WHERE ANIME_NO = @animeNo
+                                AND ENABLE_FLG = 1 
                                 ORDER BY LEADING_FLG DESC";
-            SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para1);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
 
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
+
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -402,81 +352,24 @@ namespace Main
         /// <param name="comp"></param>
         public void InsertCompanyInfo(Company comp)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_COMPANY_TBL(
                                         COMPANY_ID,
-                                        COMPANY_NAME)
+                                        COMPANY_NAME,
+                                        ENABLE_FLG,
+                                        LAST_UPDATE_DATETIME)
 										VALUES(
 										@companyid,
-										@companyname)";
+										@companyname,
+                                        1,
+                                        GETDATE())";
 
-            SqlParameter para1 = new SqlParameter("@companyid", comp.ID);
-            SqlParameter para2 = new SqlParameter("@companyname", comp.Name);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@companyid", comp.ID));
+            paras.Add(new SqlParameter("@companyname", comp.Name));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para1);
-            adp.SelectCommand.Parameters.Add(para2);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DbCmd.DoCommand(sqlcmd, paras);
         }
 
-        /// <summary>
-        /// 插入声优信息
-        /// </summary>
-        /// <param name="cvc"></param>
-        public void InsertCVInfo(CV cvInfo)
-        {
-            SqlConnection conn = Getconnection();
-
-            StringBuilder cmd1 = new StringBuilder();
-            StringBuilder cmd2 = new StringBuilder();
-            StringBuilder sqlcmd = new StringBuilder();
-            SqlCommand cmd = new SqlCommand();
-            SqlParameterCollection paras = cmd.Parameters;
-
-            if (cvInfo.Gender != null)
-            {
-                cmd1.Append(",CV_GENDER");
-                cmd2.Append(",@cvgender");
-                SqlParameter para = new SqlParameter("@cvgender", cvInfo.Gender);
-                paras.Add(para);
-            }
-
-            if (cvInfo.Brithday != DateTime.MinValue && cvInfo.Brithday != DateTime.MaxValue && cvInfo.Brithday != null)
-            {
-                cmd1.Append(",CV_BIRTH");
-                cmd2.Append(",@cvbirth");
-                SqlParameter para = new SqlParameter("@cvbirth", cvInfo.Brithday);
-                paras.Add(para);
-            }
-
-            sqlcmd.Append(  @"INSERT INTO ANIMEDATA.dbo.T_CV_TBL(
-                                        CV_ID,
-                                        CV_NAME");
-            sqlcmd.Append(cmd1);
-            sqlcmd.Append(@")
-										VALUES(
-										@cvid,
-										@cvname");
-            sqlcmd.Append(cmd2);
-            sqlcmd.Append(")");
-
-            SqlParameter para1 = new SqlParameter("@cvid", cvInfo.ID);
-            SqlParameter para2 = new SqlParameter("@cvname", cvInfo.Name);
-
-            paras.Add(para1);
-            paras.Add(para2);
-
-            cmd.CommandText = sqlcmd.ToString();
-            cmd.Connection = conn;
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
-        }
         #endregion
 
         #endregion
@@ -490,8 +383,6 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime()
         {
-            SqlConnection conn = Getconnection();
-
             const string sqlcmd = @"SELECT 
                                     ANIME_NO,
                                     ANIME_CHN_NAME, 
@@ -500,14 +391,10 @@ namespace Main
                                     STATUS,
 									ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL
+                                    WHERE ENABLE_FLG = 1 
                                     ORDER BY ANIME_NO";
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            return DbCmd.DoSelect(sqlcmd);
         }
 
         /// <summary>
@@ -518,8 +405,6 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime(Company comp)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT DISTINCT
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
@@ -530,16 +415,13 @@ namespace Main
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
 									LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO=PT.ANIME_NO
                                     WHERE PT.COMPANY_ID	= @companyid
+                                    AND AT.ENABLE_FLG = 1
+                                    AND PT.ENABLE_FLG = 1
                                     ORDER BY AT.ANIME_NO";
 
-            SqlParameter para = new SqlParameter("@companyid", comp.ID);
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@companyid", comp.ID));
+            return DbCmd.DoSelect(sqlcmd, paras);
         }
 
         /// <summary>
@@ -550,8 +432,6 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime(List<CV> cvList)
         {
-            SqlConnection conn = Getconnection();
-
             StringBuilder cvDic = new StringBuilder();
 
             cvDic.Append(cvList[0].ID.ToString());
@@ -575,16 +455,15 @@ namespace Main
 									LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CHT ON CHT.ANIME_NO=AT.ANIME_NO
 									LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID=CHT.CV_ID
                                     WHERE CVT.CV_ID	IN (@CVID)
+                                    AND AT.ENABLE_FLG = 1 
+                                    AND CHT.ENABLE_FLG = 1
+                                    AND CVT.ENABLE_FLG = 1
                                     ORDER BY AT.ANIME_NO";
 
+            Collection<DbParameter> paras = new Collection<DbParameter>();
             SqlParameter para = new SqlParameter("@CVID", cvDic.ToString());
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            paras.Add(para);
+            return DbCmd.DoSelect(sqlcmd,paras) ;
         }
 
         /// <summary>
@@ -595,8 +474,7 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime(SearchModule search)
         {
-            SqlDataAdapter adp = new SqlDataAdapter();
-            SqlCommand cmd = new SqlCommand();
+            Collection<DbParameter> paras = new Collection<DbParameter>();
 
             StringBuilder sqlmaincmd = new StringBuilder();
             StringBuilder joincmd = new StringBuilder();
@@ -609,7 +487,7 @@ namespace Main
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO 
+                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
 									");
 
             
@@ -621,7 +499,7 @@ namespace Main
                 AddWhereAnd(joincmd);
                 joincmd.Append(@" AT.ANIME_NO = @anime_no ");
 
-                cmd.Parameters.Add("@anime_no", search.animeNo);
+                paras.Add(new SqlParameter("@anime_no", search.animeNo));
             }
             #endregion
 
@@ -632,7 +510,7 @@ namespace Main
                 AddWhereAnd(joincmd);
                 joincmd.Append(SQLAndBuilder(search.animeCNNameSearchWay, "AT.ANIME_CHN_NAME", "anime_cn_name"));
 
-                cmd.Parameters.Add(AddParam(search.animeCNNameSearchWay, "anime_cn_name", search.animeCNName));
+                paras.Add(AddParam(search.animeCNNameSearchWay, "anime_cn_name", search.animeCNName));
             }
             #endregion
 
@@ -643,7 +521,7 @@ namespace Main
                 AddWhereAnd(joincmd);
                 joincmd.Append(SQLAndBuilder(search.animeCNNameSearchWay, "AT.ANIME_JPN_NAME", "anime_jp_name"));
 
-                cmd.Parameters.Add(AddParam(search.animeJPNameSearchWay, "anime_jp_name", search.animeJPName));
+                paras.Add(AddParam(search.animeJPNameSearchWay, "anime_jp_name", search.animeJPName));
             }
             #endregion
 
@@ -654,14 +532,14 @@ namespace Main
                 AddWhereAnd(joincmd);
                 joincmd.Append(@" AT.ANIME_NN = @anime_nn ");
 
-                cmd.Parameters.Add("@anime_no", search.animeNN);
+                paras.Add(new SqlParameter("@anime_no", search.animeNN));
             }
             #endregion
 
             #region 播放时间
             //播放时间
-            if ((search.animePlaytimeFrom != DateTime.MinValue || search.animePlaytimeFrom != DateTime.MaxValue
-                    || search.animePlaytimeTo != DateTime.MinValue || search.animePlaytimeTo != DateTime.MaxValue))
+            if ((search.animePlaytimeFrom != DateTime.MinValue && search.animePlaytimeFrom != DateTime.MaxValue)
+                    || (search.animePlaytimeTo != DateTime.MinValue && search.animePlaytimeTo != DateTime.MaxValue))
             {
                 AddWhereAnd(joincmd);
 
@@ -671,8 +549,8 @@ namespace Main
                         (search.animePlaytimeTo != DateTime.MinValue && search.animePlaytimeTo != DateTime.MaxValue))
                 {
                     search.animePlaytimeSearchRule = SearchModule.DateTimeSearchRule.FromTo;
-                    cmd.Parameters.Add(AddParam("anime_playtimefrom", search.animePlaytimeFrom));
-                    cmd.Parameters.Add(AddParam("anime_playtimeto", search.animePlaytimeTo));
+                    paras.Add(AddParam("anime_playtimefrom", search.animePlaytimeFrom));
+                    paras.Add(AddParam("anime_playtimeto", search.animePlaytimeTo));
                 }
                 else
                 {
@@ -680,13 +558,13 @@ namespace Main
                     if (search.animePlaytimeFrom != DateTime.MaxValue && search.animePlaytimeFrom != DateTime.MinValue)
                     {
                         search.animePlaytimeSearchRule = SearchModule.DateTimeSearchRule.From;
-                        cmd.Parameters.Add(AddParam("anime_playtimefrom", search.animePlaytimeFrom));
+                        paras.Add(AddParam("anime_playtimefrom", search.animePlaytimeFrom));
                     }
                     //To
                     else
                     {
                         search.animePlaytimeSearchRule = SearchModule.DateTimeSearchRule.To;
-                        cmd.Parameters.Add(AddParam("anime_playtimeto", search.animePlaytimeTo));
+                        paras.Add(AddParam("anime_playtimeto", search.animePlaytimeTo));
                     }
                 }
 
@@ -699,8 +577,8 @@ namespace Main
 
             #region 收看时间
             //收看时间
-            if (!(search.animeWatchtimeFrom != DateTime.MinValue || search.animeWatchtimeFrom != DateTime.MaxValue
-                    || search.animeWatchtimeTo != DateTime.MinValue || search.animeWatchtimeTo != DateTime.MaxValue))
+            if ((search.animeWatchtimeFrom != DateTime.MinValue && search.animeWatchtimeFrom != DateTime.MaxValue)
+                    || (search.animeWatchtimeTo != DateTime.MinValue && search.animeWatchtimeTo != DateTime.MaxValue))
             {
                 AddWhereAnd(joincmd);
 
@@ -710,8 +588,8 @@ namespace Main
                         (search.animeWatchtimeTo != DateTime.MinValue && search.animeWatchtimeTo != DateTime.MaxValue))
                 {
                     search.animeWatchtimeSearchRule = SearchModule.DateTimeSearchRule.FromTo;
-                    cmd.Parameters.Add(AddParam("anime_watchtimefrom", search.animeWatchtimeFrom));
-                    cmd.Parameters.Add(AddParam("anime_watchtimeto", search.animeWatchtimeTo));
+                    paras.Add(AddParam("anime_watchtimefrom", search.animeWatchtimeFrom));
+                    paras.Add(AddParam("anime_watchtimeto", search.animeWatchtimeTo));
                 }
                 else
                 {
@@ -719,13 +597,13 @@ namespace Main
                     if (search.animeWatchtimeFrom != DateTime.MaxValue && search.animeWatchtimeFrom != DateTime.MinValue)
                     {
                         search.animeWatchtimeSearchRule = SearchModule.DateTimeSearchRule.From;
-                        cmd.Parameters.Add(AddParam("anime_watchtimefrom", search.animeWatchtimeFrom));
+                        paras.Add(AddParam("anime_watchtimefrom", search.animeWatchtimeFrom));
                     }
                     //To
                     else
                     {
                         search.animeWatchtimeSearchRule = SearchModule.DateTimeSearchRule.To;
-                        cmd.Parameters.Add(AddParam("anime_watchtimeto", search.animeWatchtimeTo));
+                        paras.Add(AddParam("anime_watchtimeto", search.animeWatchtimeTo));
                     }
                 }
 
@@ -810,17 +688,14 @@ namespace Main
             joincmd.Append(" )");
             #endregion
 
+            #region FLAG
+            AddWhereAnd(joincmd);
+            joincmd.Append(" AT.ENABLE_FLG = 1");
+            #endregion
 
-            cmd.CommandText = sqlmaincmd.Append(joincmd.ToString()).ToString();
-            cmd.Connection = Getconnection();
-            adp.SelectCommand = cmd;
+            string sql = sqlmaincmd.Append(joincmd.ToString()).ToString();
 
-            cmd.Connection.Open();
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            cmd.Connection.Close();
-
-            return ds;
+            return DbCmd.DoSelect(sql, paras);
         }
 
         /// <summary>
@@ -831,10 +706,6 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime(string searchString)
         {
-
-            SqlDataAdapter adp = new SqlDataAdapter();
-            SqlCommand cmd = new SqlCommand();
-
             string sql = @"SELECT DISTINCT
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
@@ -843,30 +714,24 @@ namespace Main
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO
-                                    LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID
-                                    LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID
-									WHERE AT.ANIME_NO LIKE @target OR
+                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO AND CCT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO AND PLT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID AND CPT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID AND CVT.ENABLE_FLG = 1
+									WHERE (AT.ANIME_NO LIKE @target OR
 									AT.ANIME_CHN_NAME LIKE @target OR
 									AT.ANIME_JPN_NAME LIKE @target OR
 									AT.ANIME_NN LIKE @target OR 
 									CCT.CHARACTER_NAME LIKE @target OR 
 									CPT.COMPANY_NAME LIKE @target OR 
-									CVT.CV_NAME LIKE @target
+									CVT.CV_NAME LIKE @target)
+                                    AND AT.ENABLE_FLG = 1
 									";
 
-            cmd.CommandText = sql;
-            cmd.Parameters.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", searchString));
-            cmd.Connection = Getconnection();
-            adp.SelectCommand = cmd;
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", searchString));
 
-            cmd.Connection.Open();
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            cmd.Connection.Close();
-
-            return ds;
+            return DbCmd.DoSelect(sql,paras);
         }
 
         /// <summary>
@@ -876,8 +741,6 @@ namespace Main
         /// <returns></returns>
         public DataSet LoadAnimePlayInfo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT TPT.ANIME_PLAYINFO AS 放送内容,
                                         CASE (TPT.STATUS) 
 										WHEN 1 THEN '放送中'
@@ -894,17 +757,14 @@ namespace Main
                                     FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
 	                                LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL TCT ON TPT.COMPANY_ID = TCT.COMPANY_ID
                                     WHERE TPT.ANIME_NO = @animeNo
+                                    AND TPT.ENABLE_FLG = 1
+                                    AND TCT.ENABLE_FLG = 1
                                     ORDER BY TPT.PLAYINFO_ID";
 
-            SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            return DbCmd.DoSelect(sqlcmd, paras);
         }
 
         /// <summary>
@@ -914,8 +774,6 @@ namespace Main
         /// <returns></returns>
         public DataSet LoadCharacterInfo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             const string sqlcmd = @"SELECT TCHT.CHARACTER_NAME AS 角色,
 	                                    TCVT.CV_NAME AS 声优,
 	                                       CASE TCHT.LEADING_FLG
@@ -925,22 +783,19 @@ namespace Main
                                     FROM ANIMEDATA.dbo.T_CHARACTER_TBL TCHT
 	                                INNER JOIN T_CV_TBL TCVT ON TCHT.CV_ID=TCVT.CV_ID
                                     WHERE TCHT.ANIME_NO=@animeNo
+                                    AND TCHT.ENABLE_FLG = 1
+                                    AND TCVT.ENABLE_FLG = 1
                                     ORDER BY TCHT.LEADING_FLG DESC";
 
-            SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-            return ds;
+            return DbCmd.DoSelect(sqlcmd, paras);
         }
 
         #endregion
 
-        #region MainService
+        #region 方法
         /// <summary>
         /// 字符型检索用SQL文
         /// </summary>

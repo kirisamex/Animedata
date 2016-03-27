@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Main.Lib.Model;
+using Main.Lib.Message;
 
 namespace Main
 {
@@ -19,15 +20,25 @@ namespace Main
         }
 
         #region 常量
-        /// <summary>
-        /// Service
-        /// </summary>
+        //实例
         MainService service = new MainService();
-
-        /// <summary>
-        /// 主窗口传递
-        /// </summary>
         private Main mainform;
+
+        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        const string MSG_COMMON_001 = "MSG-COMMON-001";
+        /// <summary>动画编号 {0} 格式不正确！\n目前允许的编号格式为：大写字母+3位数字。</summary>
+        const string MSG_COMMON_004 = "MSG-COMMON-004";
+        /// <summary>动画简写 {0} 格式不正确！\n简写需要是英文半角字母，且首字母大写。</summary>
+        const string MSG_COMMON_005 = "MSG-COMMON-005";
+        /// <summary>[ {0} ]的年月格式不正确！时间格式：yyyyMM。</summary>
+        const string MSG_COMMON_006 = "MSG-COMMON-006";
+        /// <summary>未搜索到对应结果。</summary>
+        const string MSG_COMMON_007 = "MSG-COMMON-007";
+
+        /// <summary>至少选择一个播放状态进行搜索！</summary>
+        const string MSG_MAINSEARCH_001 = "MSG-MAINSEARCH-001";
+        /// <summary>至少选择一个原作种类进行搜索！</summary>
+        const string MSG_MAINSEARCH_002 = "MSG-MAINSEARCH-002";
         #endregion
 
         #region 方法
@@ -115,7 +126,7 @@ namespace Main
 
             if (StatusCheckedListBox.GetItemChecked(2))
             {
-                mainSearch.animeStatue.newproject= true;
+                mainSearch.animeStatue.newproject = true;
             }
             else
             {
@@ -165,7 +176,7 @@ namespace Main
 
             if (OriginalCheckedListBox.GetItemChecked(3))
             {
-                mainSearch.animeOriginal.fromgame= true;
+                mainSearch.animeOriginal.fromgame = true;
             }
             else
             {
@@ -192,6 +203,72 @@ namespace Main
             #endregion
         }
 
+        /// <summary>
+        /// 日期格式检查
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public bool DateTimeFormatCheck()
+        {
+            if ((!string.IsNullOrEmpty(PlaytimeFromBox.Text.ToString()) && !service.YYYYMMFormatCheck(PlaytimeFromBox.Text.ToString())) ||
+                (!string.IsNullOrEmpty(PlaytimeToBox.Text.ToString()) && !service.YYYYMMFormatCheck(PlaytimeToBox.Text.ToString()))||
+                (!string.IsNullOrEmpty(WatchtimeFromBox.Text.ToString())&&!service.YYYYMMFormatCheck(WatchtimeFromBox.Text.ToString()))||
+                (!string.IsNullOrEmpty(WatchtimeToBox.Text.ToString())&&!service.YYYYMMFormatCheck(WatchtimeToBox.Text.ToString()))
+                )
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 复选列表检查
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public bool CheckedListBoxCheck()
+        {
+            if (StatusCheckedListBox.CheckedItems.Count == 0)
+            {
+                MsgBox.Show(MSG_MAINSEARCH_001);
+                return false;
+            }
+
+            if (OriginalCheckedListBox.CheckedItems.Count == 0)
+            {
+                MsgBox.Show(MSG_MAINSEARCH_002);
+                return false;
+            }
+            return true;
+        }
+
+        /// <summary>
+        /// 字符格式检查
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public int StringFormatCheck()
+        {
+            if (!string.IsNullOrEmpty(AnimeNoBox.Text.ToString()))
+            {
+                if (!service.AnimeNoCheck(AnimeNoBox.Text.ToString()))
+                {
+                    return -1;
+                }
+            }
+
+            if (!string.IsNullOrEmpty(AnimeNNBox.Text.ToString()))
+            {
+                if (!service.AnimeNNCheck(AnimeNNBox.Text.ToString()))
+                {
+                    return -2;
+                }
+            }
+
+            return 0;
+        }
+
         #endregion
 
         #region 按钮
@@ -202,8 +279,22 @@ namespace Main
         /// <param name="e"></param>
         private void SearchButton_Click(object sender, EventArgs e)
         {
+            //字符格式检查
+            int StrCheckRes = StringFormatCheck();
+            
+            if (StrCheckRes == -1)//编号格式不正
+            {
+                MsgBox.Show(MSG_COMMON_004, AnimeNoBox.Text.ToString());
+                return;
+            }
+            else if (StrCheckRes == -2)//简写格式不正
+            {
+                MsgBox.Show(MSG_COMMON_005, AnimeNNBox.Text.ToString());
+                return;
+            }
+
             //格式检查
-            if (!service.StringFormatCheck(this) || !service.DateTimeFormatCheck(this) || !service.CheckedListBoxCheck(this))
+            if ( !DateTimeFormatCheck() || !CheckedListBoxCheck())
             {
                 return;
             }
@@ -217,7 +308,7 @@ namespace Main
                 DataSet ds = service.Getanime(search);
                 if (ds.Tables[0].Rows.Count == 0)
                 {
-                    service.ShowInfoMessage("未搜索到对应数据", "无结果");
+                    MsgBox.Show(MSG_COMMON_007);
                     return;
                 }
 
@@ -226,8 +317,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
-                Application.Exit();
+                MsgBox.Show(MSG_COMMON_001, ex.Message);
             }
         }
 

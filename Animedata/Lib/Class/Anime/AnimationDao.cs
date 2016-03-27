@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.ObjectModel;
+using System.Collections.Generic;
 using System.Data;
-using System.Text;
+using System.Data.Common;
 using System.Data.SqlClient;
+using System.Text;
+
 
 namespace Main
 {
@@ -13,42 +17,11 @@ namespace Main
         }
 
         /// <summary>
-        /// 删除对应animeNo的动画、播放、角色信息
-        /// </summary>
-        /// <param name="animeNo"></param>
-        public void DeleteSelectedAnimeInfo(string animeNo)
-        {
-            SqlConnection conn = Getconnection();
-
-            string sqlcmd = @"DELETE 
-                            FROM ANIMEDATA.dbo.T_ANIME_TBL
-                            WHERE ANIME_NO=@animeNo
-                            
-                            DELETE 
-                            FROM ANIMEDATA.dbo.T_CHARACTER_TBL
-                            WHERE ANIME_NO=@animeNo
-
-                            DELETE 
-                            FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
-                            WHERE ANIME_NO=@animeNo";
-
-            SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
-            SqlCommand cmd = new SqlCommand(sqlcmd, conn);
-            cmd.Parameters.Add(para1);
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
-        }
-
-        /// <summary>
         /// 插入动画信息以及对应的播放、角色信息
         /// </summary>
         /// <param name="anime"></param>
-        public void InsertAnime(Animation anime)
+        public bool InsertAnime(Animation anime)
         {
-            SqlConnection conn = Getconnection();
-
             //动画播放信息插入
             if (anime.playInfoList.Count > 0)
             {
@@ -56,7 +29,7 @@ namespace Main
                 {
                     try
                     {
-                        InsertPlayInfo(pInfo);
+                        pInfo.Insert();
                     }
                     catch (Exception ex)
                     {
@@ -72,13 +45,10 @@ namespace Main
                 {
                     try
                     {
-                        conn.Open();
-                        InsertCharacterInfo(cInfo);
-                        conn.Close();
+                        cInfo.Insert();
                     }
                     catch (Exception ex)
                     {
-                        conn.Close();
                         throw ex;
                     }
                 }
@@ -92,6 +62,8 @@ namespace Main
                             		,ANIME_NN
 	                            	,STATUS
                             		,ORIGINAL
+                                    ,ENABLE_FLG
+                                    ,LAST_UPDATE_DATETIME
                             		)
                             	VALUES (
                             		@animeNo
@@ -100,114 +72,268 @@ namespace Main
 	                            	,@animeNickName
 	                            	,@status
 	                            	,@original
+	                            	,1
+	                            	,GETDATE()
 	                            	)";
 
-            SqlParameter para1 = new SqlParameter("@animeNo", anime.No);
-            SqlParameter para2 = new SqlParameter("@animeCNName", anime.CNName);
-            SqlParameter para3 = new SqlParameter("@animeJPName", anime.JPName);
-            SqlParameter para4 = new SqlParameter("@animeNickName", anime.Nickname);
-            SqlParameter para5 = new SqlParameter("@status", anime.status);
-            SqlParameter para6 = new SqlParameter("@original", anime.original);
-            SqlCommand cmd = new SqlCommand(sqlcmd, conn);
-            cmd.Parameters.Add(para1);
-            cmd.Parameters.Add(para2);
-            cmd.Parameters.Add(para3);
-            cmd.Parameters.Add(para4);
-            cmd.Parameters.Add(para5);
-            cmd.Parameters.Add(para6);
-
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", anime.No));
+            paras.Add(new SqlParameter("@animeCNName", anime.CNName));
+            paras.Add(new SqlParameter("@animeJPName", anime.JPName));
+            paras.Add(new SqlParameter("@animeNickName", anime.Nickname));
+            paras.Add(new SqlParameter("@status", anime.status));
+            paras.Add(new SqlParameter("@original", anime.original));
+            
             try
             {
-                conn.Open();
-                cmd.ExecuteNonQuery();
-                conn.Close();
+                DbCmd.DoCommand(sqlcmd, paras);
+                return true;
             }
             catch (Exception ex)
             {
-                conn.Close();
                 throw ex;
             }
         }
 
         /// <summary>
-        /// 插入播放信息
+        /// 更新动画信息
         /// </summary>
-        /// <param name="pInfo"></param>
-        private void InsertPlayInfo(PlayInfo pInfo)
+        /// <param name="anime"></param>
+        /// <returns></returns>
+        public bool UpdateAnime(Animation anime)
         {
-            SqlConnection conn = Getconnection();
+            #region 播放信息更新
 
-            StringBuilder cmd1 = new StringBuilder();
-            StringBuilder cmd2 = new StringBuilder();
-            StringBuilder sqlcmd = new StringBuilder();
-            SqlCommand cmd = new SqlCommand();
-            SqlParameterCollection paras = cmd.Parameters;
+            //所有既存该动画的播放信息
+            string sql1 = @"SELECT PLAYINFO_ID 
+                            FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+                            WHERE ANIME_NO = @animeNo";
 
-            if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
+            Collection<DbParameter> paras1 = new Collection<DbParameter>();
+            paras1.Add(new SqlParameter("@animeNo",anime.No));
+
+            DataSet ds1 = DbCmd.DoSelect(sql1, paras1);
+            List<int> ToDelPlayinfoIds = new List<int>();
+
+            foreach (DataRow dr in ds1.Tables[0].Rows)
             {
-                cmd1.Append(",START_TIME");
-                cmd2.Append(",@starttime");
-                SqlParameter para = new SqlParameter("@starttime", pInfo.startTime);
-                paras.Add(para);
+                if (dr[0].ToString().Equals(string.Empty))
+                {
+                    continue;
+                }
+                ToDelPlayinfoIds.Add(Convert.ToInt32(dr[0]));
             }
 
-            if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
+            //播放信息全走查确认，更新
+            foreach (PlayInfo pInfo in anime.playInfoList)
             {
-                cmd1.Append(",WATCH_TIME");
-                cmd2.Append(",@watchtime");
-                SqlParameter para = new SqlParameter("@watchtime", pInfo.watchedTime);
-                paras.Add(para);
+                //确认播放是否存在
+                string sql = @"SELECT PLAYINFO_ID
+                                FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+                                WHERE PLAYINFO_ID = @playinfoID
+                                AND ANIME_NO = @animeno ";
+
+                Collection<DbParameter> paras = new Collection<DbParameter>();
+                paras.Add(new SqlParameter("@playinfoID", pInfo.ID));
+                paras.Add(new SqlParameter("@animeno", anime.No));
+
+                try
+                {
+                    DataSet ds = DbCmd.DoSelect(sql, paras);
+
+                    if (ds.Tables[0].Rows.Count > 0 && Convert.ToInt32(ds.Tables[0].Rows[0][0]) == pInfo.ID)
+                    {
+                        pInfo.Update();
+
+                        //将已更新的播放信息从待删除列表中移除
+                        if (ToDelPlayinfoIds.Contains(pInfo.ID))
+                        {
+                            ToDelPlayinfoIds.Remove(pInfo.ID);
+                        }
+                    }
+                    else
+                    {
+                        pInfo.Insert();
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
 
-            if (pInfo.parts != 0)
+            //删除更新后不存在的播放信息
+            foreach(int toDelPlayinfoId in ToDelPlayinfoIds)
             {
-                cmd1.Append(",PARTS");
-                cmd2.Append(",@parts");
-                SqlParameter para = new SqlParameter("@parts", pInfo.parts);
-                paras.Add(para);
+                PlayInfo pInfo = new PlayInfo(toDelPlayinfoId, anime.No);
+                pInfo.Delete();
             }
 
-            if (pInfo.companyID != 0)
+            #endregion
+
+            #region 角色信息更新
+
+            //所有既存该动画的角色信息
+            string sql2 = @"SELECT CHARACTER_NO
+                            FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                            WHERE ANIME_NO = @animeNo ";
+
+            Collection<DbParameter> paras2 = new Collection<DbParameter>();
+            paras2.Add(new SqlParameter("@animeNo", anime.No));
+
+            DataSet ds2 = DbCmd.DoSelect(sql2, paras2);
+            List<string> ToDelCharacterNos = new List<string>();
+
+            foreach (DataRow dr in ds2.Tables[0].Rows)
             {
-                cmd1.Append(",COMPANY_ID");
-                cmd2.Append(",@company_ID");
-                SqlParameter para = new SqlParameter("@company_ID", pInfo.companyID);
-                paras.Add(para);
+                if (dr[0].ToString().Equals(string.Empty))
+                {
+                    continue;
+                }
+                ToDelCharacterNos.Add(dr[0].ToString());
             }
-            
 
-            sqlcmd.Append(@"INSERT INTO ANIMEDATA.dbo.T_PLAYINFO_TBL (
-                                 PLAYINFO_ID
-                            	,ANIME_NO
-	                            ,ANIME_PLAYINFO
-	                            ,STATUS
-	                           ");
-            sqlcmd.Append(cmd1);
-            sqlcmd.Append(@")
-                            VALUES (
-                                    @id
-		                            ,@animeNo
-		                            ,@playinfo
-		                            ,@status");
-            sqlcmd.Append(cmd2);
-            sqlcmd.Append(@")");
-            SqlParameter para1 = new SqlParameter("@id", pInfo.ID);
-            SqlParameter para2 = new SqlParameter("@playinfo", pInfo.info);
-            SqlParameter para3 = new SqlParameter("@animeNo", pInfo.animeNo);
-            SqlParameter para4 = new SqlParameter("@status", pInfo.status);
+            //角色信息全走查确认，更新
+            foreach (Character cInfo in anime.characterList)
+            {
 
+                string sql = @"SELECT CHARACTER_NO
+                                FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                                WHERE CHARACTER_NO = @characterNo";
+
+                Collection<DbParameter> paras = new Collection<DbParameter>();
+                paras.Add(new SqlParameter("@characterNo", cInfo.No));
+
+                try
+                {
+                    DataSet ds = DbCmd.DoSelect(sql, paras);
+                    if (ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0][0].ToString().Equals(cInfo.No))
+                    {
+                        cInfo.Update();
+                        //将已更新的角色信息从待删除列表中移除
+                        if (ToDelCharacterNos.Contains(cInfo.No))
+                        {
+                            ToDelCharacterNos.Remove(cInfo.No);
+                        }
+                    }
+                    else
+                    {
+                        cInfo.Insert();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
+            }
+
+
+            //删除更新后不存在的播放信息
+            foreach (string toDelCharacterNo in ToDelCharacterNos)
+            {
+                Character cInfo = new Character(toDelCharacterNo);
+                cInfo.Delete();
+            }
+            #endregion
+
+            #region 基本信息更新
+            //动画信息插入
+            string sqlcmd = @"UPDATE ANIMEDATA.dbo.T_ANIME_TBL SET 
+	                            	ANIME_CHN_NAME = @animeCNName
+                            		,ANIME_JPN_NAME = @animeJPName
+                            		,ANIME_NN = @animeNickName
+	                            	,STATUS = @status
+                            		,ORIGINAL = @original
+                                    ,LAST_UPDATE_DATETIME = GETDATE()
+                               WHERE ANIME_NO = @animeNo
+                             ";
+
+            Collection<DbParameter> paras0 = new Collection<DbParameter>();
+            paras0.Add(new SqlParameter("@animeNo", anime.No));
+            paras0.Add(new SqlParameter("@animeCNName", anime.CNName));
+            paras0.Add(new SqlParameter("@animeJPName", anime.JPName));
+            paras0.Add(new SqlParameter("@animeNickName", anime.Nickname));
+            paras0.Add(new SqlParameter("@status", anime.status));
+            paras0.Add(new SqlParameter("@original", anime.original));
+
+            try
+            {
+                DbCmd.DoCommand(sqlcmd, paras0);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            #endregion
+        }
+
+        /// <summary>
+        /// 删除动画信息(伦理)
+        /// </summary>
+        /// <param name="animeNo"></param>
+        /// <returns></returns>
+        public bool DeleteAnime(string animeNo)
+        {
+            string sqlcmd = @"UPDATE ANIMEDATA.dbo.T_ANIME_TBL SET 
+	                           ENABLE_FLG = 0
+                               WHERE ANIME_NO = @animeNo
+
+                              UPDATE ANIMEDATA.dbo.T_CHARACTER_TBL SET 
+	                           ENABLE_FLG = 0
+                               WHERE ANIME_NO = @animeNo
+
+                              UPDATE ANIMEDATA.dbo.T_PLAYINFO_TBL SET 
+	                           ENABLE_FLG = 0
+                               WHERE ANIME_NO = @animeNo ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
+
+            try
+            {
+                DbCmd.DoCommand(sqlcmd, paras);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+
+        /// <summary>
+        /// 物理删除对应animeNo的动画、播放、角色信息
+        /// 停用，改为伦理删除
+        /// </summary>
+        /// <param name="animeNo"></param>
+        public bool DeleteSelectedAnimeInfo(string animeNo)
+        {
+            string sqlcmd = @"DELETE 
+                            FROM ANIMEDATA.dbo.T_ANIME_TBL
+                            WHERE ANIME_NO=@animeNo
+                            
+                            DELETE 
+                            FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                            WHERE ANIME_NO=@animeNo
+
+                            DELETE 
+                            FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+                            WHERE ANIME_NO=@animeNo";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
             paras.Add(para1);
-            paras.Add(para2);
-            paras.Add(para3);
-            paras.Add(para4);
 
-
-            cmd.CommandText = sqlcmd.ToString();
-            cmd.Connection = conn;
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            try
+            {
+                DbCmd.DoCommand(sqlcmd, paras);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
         }
 
         /// <summary>
@@ -216,14 +342,14 @@ namespace Main
         /// <param name="cInfo"></param>
         private void InsertCharacterInfo(Character cInfo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_CHARACTER_TBL (
 	                            CHARACTER_NO
 	                            ,CHARACTER_NAME
 	                            ,ANIME_NO
 	                            ,CV_ID
 	                            ,LEADING_FLG
+	                            ,ENABLE_FLG
+	                            ,LAST_UPDATE_DATETIME
 	                            )
                             VALUES (
                             	@characterNo
@@ -231,24 +357,18 @@ namespace Main
 	                            ,@animeNo
 	                            ,@CVID
 	                            ,@leadingFlg
+	                            ,1
+	                            ,GETDATE()
 	                            )";
-            SqlParameter para1 = new SqlParameter("@characterNo", cInfo.No);
-            SqlParameter para2 = new SqlParameter("@charactername", cInfo.name);
-            SqlParameter para3 = new SqlParameter("@animeNo", cInfo.animeNo);
-            SqlParameter para4 = new SqlParameter("@CVID", cInfo.CVID);
-            SqlParameter para5 = new SqlParameter("@leadingFlg", cInfo.leadingFLG);
 
-            SqlCommand cmd = new SqlCommand(sqlcmd, conn);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@characterNo", cInfo.No));
+            paras.Add(new SqlParameter("@charactername", cInfo.name));
+            paras.Add(new SqlParameter("@animeNo", cInfo.animeNo));
+            paras.Add(new SqlParameter("@CVID", cInfo.CVID));
+            paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
 
-            cmd.Parameters.Add(para1);
-            cmd.Parameters.Add(para2);
-            cmd.Parameters.Add(para3);
-            cmd.Parameters.Add(para4);
-            cmd.Parameters.Add(para5);
-
-            conn.Open();
-            cmd.ExecuteNonQuery();
-            conn.Close();
+            DbCmd.DoCommand(sqlcmd, paras);
         }
 
         /// <summary>
@@ -257,23 +377,15 @@ namespace Main
         /// <returns></returns>
         public string GetMaxAnimeNo()
         {
-            string MaxAnimeNo;
-            SqlConnection conn = Getconnection();
-
             const string sqlcmd = @"SELECT 
                                     MAX(ANIME_NO)
                                     FROM ANIMEDATA.dbo.T_ANIME_TBL ";
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
+            DataSet ds = DbCmd.DoSelect(sqlcmd);
 
             if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
             {
-                MaxAnimeNo = ds.Tables[0].Rows[0][0].ToString();
-                return MaxAnimeNo;
+                return ds.Tables[0].Rows[0][0].ToString();
             }
             else
                 return null;
@@ -286,8 +398,6 @@ namespace Main
         /// <returns></returns>
         public DataTable GetPlayInfoDataTableByAnimeNo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT TPT.PLAYINFO_ID
                                         ,TPT.ANIME_PLAYINFO
                                         ,TPT.STATUS
@@ -297,17 +407,13 @@ namespace Main
 	                                    ,TPT.WATCH_TIME
                                     FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
                                     WHERE TPT.ANIME_NO = @animeNo
+                                    AND TPT.ENABLE_FLG = 1 
                                     ORDER BY TPT.PLAYINFO_ID";
 
-            SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
             DataTable dt = ds.Tables[0];
             return dt;
         }
@@ -319,27 +425,20 @@ namespace Main
         /// <returns></returns>
         public DataTable GetCharacterListByAnimeNo(string animeNo)
         {
-            SqlConnection conn = Getconnection();
-
             string sqlcmd = @"SELECT CHARACTER_NO
                                         ,CHARACTER_NAME
 	                                    ,CV_ID
 	                                    ,LEADING_FLG
                                     FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                     WHERE ANIME_NO = @animeNo
+                                    AND ENABLE_FLG = 1
                                     ORDER BY CHARACTER_NO";
 
-            SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
-            adp.SelectCommand.Parameters.Add(para);
-            DataSet ds = new DataSet();
-            adp.Fill(ds);
-            conn.Close();
-
-            DataTable dt = ds.Tables[0];
-            return dt;
+            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            return ds.Tables[0];
         }
 
     }
