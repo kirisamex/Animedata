@@ -8,6 +8,8 @@ using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
 using Main.Lib.Style;
+using Main.Lib.Message;
+using Main.Music;
 
 
 namespace Main
@@ -15,44 +17,32 @@ namespace Main
     public partial class Main : Form
     {
         #region 常量
-        /// <summary>
-        /// 版本号设置
-        /// </summary>
-        string Version =  "Ver. " + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-
-        /// <summary>
-        /// 选中行
-        /// </summary>
-        public string selectedRowID;
-
-        /// <summary>
-        /// Service
-        /// </summary>
+        //实例
         MainService service = new MainService();
-
-        /// <summary>
-        /// Style
-        /// </summary>
         StatusStyle style = new StatusStyle();
 
-        /// <summary>
-        /// 文字
-        /// </summary>
-        const string DELETEANIMEINFO = "删除动画信息";
+        /// <summary>Ver.</summary>
+        const string VERSION = "Ver. "; 
 
-        /// <summary>
-        /// 文字
-        /// </summary>
-        const string ERROR = "错误：";
+        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        const string MSG_COMMON_001 = "MSG-COMMON-001";
+        /// <summary>未选中任何一行数据！</summary>
+        const string MSG_COMMON_002 = "MSG-COMMON-002";
+        /// <summary>操作成功！</summary>
+        const string MSG_COMMON_003 = "MSG-COMMON-003";
+        /// <summary>未搜索到对应结果。</summary>
+        const string MSG_COMMON_007 = "MSG-COMMON-007";
 
-        /// <summary>
-        /// 文字
-        /// </summary>
-        const string ERRORINFO = "错误信息";
-
+        /// <summary>确定删除选中行信息吗？\n注意：这些信息对应的播放信息与角色信息将一并被删除。</summary>
+        const string MSG_MAIN_001 = "MSG-MAIN-001";
+        /// <summary>请输入需要搜索的内容！</summary>
+        const string MSG_MAIN_003 = "MSG-MAIN-003";
+        /// <summary>请先选择需要修改的动画信息！</summary>
+        const string MSG_MAIN_004 = "MSG-MAIN-004";
         #endregion
 
         #region 载入
+
         /// <summary>
         /// 主窗口载入动画操作
         /// </summary>
@@ -67,7 +57,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
+                MsgBox.Show(MSG_COMMON_001, ex.Message);
                 Application.Exit();
             }
         }
@@ -197,7 +187,7 @@ namespace Main
                 }
                 catch (Exception ex)
                 {
-                    service.ShowErrorMessage(ex.Message);
+                    MsgBox.Show(MSG_COMMON_001, ex.Message);
                 }
 
                 foreach(DataGridViewColumn dc in PlayInfodataGridView.Columns)
@@ -211,7 +201,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
+                MsgBox.Show(MSG_COMMON_001, ex.Message);
                 Application.Exit();
             }
         }
@@ -237,8 +227,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
-                Application.Exit();
+                MsgBox.Show(MSG_COMMON_001, ex.Message);
             }
         }
 
@@ -252,9 +241,13 @@ namespace Main
         /// <returns></returns>
         public DataGridViewRow GetSelectedRow()
         {
-            DataGridViewRow dr = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[0].RowIndex];
+            if (AnimeDataGridview.SelectedCells.Count > 0)
+            {
+                DataGridViewRow dr = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[0].RowIndex];
+                return dr;
+            }
 
-            return dr;
+            return null;
         }
 
         /// <summary>
@@ -268,7 +261,7 @@ namespace Main
 
             for (int i = 0; i < AnimeDataGridview.SelectedCells.Count; i++)
             {
-                string currentrowalbumNo = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[i].RowIndex].Cells["编号"].Value.ToString();
+                string currentrowalbumNo = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[i].RowIndex].Cells["AnimeNo"].Value.ToString();
 
                 if (selectedAnimeNoList.Contains(currentrowalbumNo))
                 {
@@ -287,14 +280,13 @@ namespace Main
         {
             if (AnimeDataGridview.SelectedCells.Count == 0)
             {
-                MessageBox.Show("没有选中任何一行数据！", DELETEANIMEINFO, MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                MsgBox.Show(MSG_COMMON_002);
                 return;
             }
 
-            DialogResult res = MessageBox.Show("确定删除选中行信息吗？\n注意：这些信息对应的播放信息与角色信息将一并被删除。",
-                                                          DELETEANIMEINFO, MessageBoxButtons.OKCancel, MessageBoxIcon.Exclamation);
+            DialogResult res = MsgBox.Show(MSG_MAIN_001);
 
-            if (res == DialogResult.OK)
+            if (res == DialogResult.Yes)
             {
                 try
                 {
@@ -305,12 +297,12 @@ namespace Main
                         anime.Delete();
                     }
 
-                    MessageBox.Show("删除成功！", DELETEANIMEINFO, MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+                    MsgBox.Show(MSG_COMMON_003);
                     DataGridViewReload();
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show(ERROR + ex.Message, ERRORINFO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MsgBox.Show(MSG_COMMON_001, ex.Message);
                 }
             }
         }
@@ -322,7 +314,7 @@ namespace Main
         {
             if(simpleSearchTextBox.Text==null ||string.IsNullOrEmpty(simpleSearchTextBox.Text.ToString()))
             {
-                service.ShowInfoMessage("搜索内容为空！");
+                MsgBox.Show(MSG_MAIN_003);
                 return;
             }
 
@@ -331,7 +323,7 @@ namespace Main
                 DataSet ds = service.Getanime(simpleSearchTextBox.Text.ToString());
                 if (ds.Tables[0].Rows.Count == 0)
                 {
-                    service.ShowInfoMessage("未搜索到对应数据", "无结果");
+                    MsgBox.Show(MSG_COMMON_007);
                     return;
                 }
 
@@ -339,8 +331,7 @@ namespace Main
             }
             catch (Exception ex)
             {
-                service.ShowErrorMessage(ex.Message);
-                Application.Exit();
+                MsgBox.Show(MSG_COMMON_001, ex.Message);
             }
         }
 
@@ -349,17 +340,17 @@ namespace Main
         #region 窗体
 
         /// <summary>
-        /// 
+        /// 主窗体
         /// </summary>
         public Main()
         {
             InitializeComponent();
-            this.Text += Version;
+            this.Text += VERSION + Assembly.GetExecutingAssembly().GetName().Version.ToString();
             this.ShowAnime();
         }
 
         /// <summary>
-        /// 
+        /// 主窗体加载
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -376,6 +367,11 @@ namespace Main
             this.ShowAnime();
         }
 
+        /// <summary>
+        /// 主窗体加载
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void main_Load(object sender, EventArgs e)
         {
 
@@ -383,55 +379,43 @@ namespace Main
         #endregion
 
         #region 菜单
+        private void 音乐管理MToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Music.MusicManage music = new Music.MusicManage();
+            music.Show();
+        }
 
-        /// <summary>
-        /// 菜单栏：刷新
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowAnime();
         }
 
-        /// <summary>
-        /// 菜单栏：退出
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
-        /// <summary>
-        /// 菜单栏：添加动画信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 添加动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddAnime fm = new AddAnime(0, null, this);
+            AddAnime fm = new AddAnime(AddAnime.command.Add, null, this);
             fm.Show();
+            //对应：添加动画后不刷新 2016/02/19
             //this.LoadAnime();
         }
 
-        /// <summary>
-        /// 菜单栏：修改动画信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 修改动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddAnime cgem = new AddAnime(1, GetSelectedRow(), this);
-            cgem.Show();
+            if (GetSelectedRow() != null)
+            {
+                AddAnime cgem = new AddAnime(AddAnime.command.Update, GetSelectedRow(), this);
+                cgem.Show();
+            }
+            else
+            {
+                MsgBox.Show(MSG_MAIN_004);
+            }
         }
 
-        /// <summary>
-        /// 菜单栏：删除动画信息
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
         private void 删除动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             DeleteSelectedRowsAnimeInfo();
@@ -526,9 +510,13 @@ namespace Main
                 case Keys.F6:
                     查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
+                case Keys.F7:
+                    //音乐管理MToolStripMenuItem_Click(this, EventArgs.Empty);
+                    break;
             }
         }
 
         #endregion
+
     }
 }

@@ -47,6 +47,15 @@ namespace Main
         }
 
         /// <summary>
+        /// 插入声优信息
+        /// </summary>
+        /// <returns></returns>
+        public bool Insert()
+        {
+            return dao.Insert(this);
+        }
+
+        /// <summary>
         /// 删除该公司
         /// 删除前务必检查是否使用！！ 
         /// </summary>
