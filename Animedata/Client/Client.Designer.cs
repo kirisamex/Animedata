@@ -55,6 +55,12 @@
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AnimeDataGridview = new System.Windows.Forms.DataGridView();
+            this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeNiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -72,12 +78,6 @@
             this.addanimebutton = new System.Windows.Forms.Button();
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
-            this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeNiceName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeStatus = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeOriginal = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -127,26 +127,27 @@
             // 音乐管理MToolStripMenuItem
             // 
             this.音乐管理MToolStripMenuItem.Name = "音乐管理MToolStripMenuItem";
-            this.音乐管理MToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.音乐管理MToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.音乐管理MToolStripMenuItem.Text = "音乐管理(&M)　　　F7";
+            this.音乐管理MToolStripMenuItem.Visible = false;
             this.音乐管理MToolStripMenuItem.Click += new System.EventHandler(this.音乐管理MToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(193, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(217, 6);
             // 
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
-            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.刷新ToolStripMenuItem.Text = "刷新(&R)　　　　　　F5";
             this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
             this.退出ToolStripMenuItem.Text = "退出(&E)　　　　　　Alt+F4";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -164,26 +165,26 @@
             // 查询动画ToolStripMenuItem
             // 
             this.查询动画ToolStripMenuItem.Name = "查询动画ToolStripMenuItem";
-            this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.查询动画ToolStripMenuItem.Text = "查询动画(&A)　　　　F6";
             this.查询动画ToolStripMenuItem.Click += new System.EventHandler(this.查询动画ToolStripMenuItem_Click);
             // 
             // 查询声优ToolStripMenuItem
             // 
             this.查询声优ToolStripMenuItem.Name = "查询声优ToolStripMenuItem";
-            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.查询声优ToolStripMenuItem.Text = "查询声优";
             // 
             // 查询动画制作企业ToolStripMenuItem
             // 
             this.查询动画制作企业ToolStripMenuItem.Name = "查询动画制作企业ToolStripMenuItem";
-            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.查询动画制作企业ToolStripMenuItem.Text = "查询动画制作企业";
             // 
             // 以上功能未实装ToolStripMenuItem
             // 
             this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
-            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(180, 6);
+            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(196, 6);
             // 
             // 添加动画ToolStripMenuItem
             // 
@@ -198,21 +199,21 @@
             // 添加动画信息ToolStripMenuItem
             // 
             this.添加动画信息ToolStripMenuItem.Name = "添加动画信息ToolStripMenuItem";
-            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.添加动画信息ToolStripMenuItem.Text = "添加动画信息(&A)　　　　F2";
             this.添加动画信息ToolStripMenuItem.Click += new System.EventHandler(this.添加动画信息ToolStripMenuItem_Click);
             // 
             // 修改动画信息ToolStripMenuItem
             // 
             this.修改动画信息ToolStripMenuItem.Name = "修改动画信息ToolStripMenuItem";
-            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.修改动画信息ToolStripMenuItem.Text = "修改动画信息(&C)";
             this.修改动画信息ToolStripMenuItem.Click += new System.EventHandler(this.修改动画信息ToolStripMenuItem_Click);
             // 
             // 删除动画信息ToolStripMenuItem
             // 
             this.删除动画信息ToolStripMenuItem.Name = "删除动画信息ToolStripMenuItem";
-            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
             this.删除动画信息ToolStripMenuItem.Text = "删除动画信息(&D)";
             this.删除动画信息ToolStripMenuItem.Click += new System.EventHandler(this.删除动画信息ToolStripMenuItem_Click);
             // 
@@ -228,14 +229,14 @@
             // 声优列表SF3ToolStripMenuItem
             // 
             this.声优列表SF3ToolStripMenuItem.Name = "声优列表SF3ToolStripMenuItem";
-            this.声优列表SF3ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.声优列表SF3ToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.声优列表SF3ToolStripMenuItem.Text = "声优列表(&S)　　　　　　　F3";
             this.声优列表SF3ToolStripMenuItem.Click += new System.EventHandler(this.声优列表SF3ToolStripMenuItem_Click);
             // 
             // 动画制作企业列表ToolStripMenuItem
             // 
             this.动画制作企业列表ToolStripMenuItem.Name = "动画制作企业列表ToolStripMenuItem";
-            this.动画制作企业列表ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
+            this.动画制作企业列表ToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
             this.动画制作企业列表ToolStripMenuItem.Text = "动画制作企业列表(&C)　F4";
             this.动画制作企业列表ToolStripMenuItem.Click += new System.EventHandler(this.动画制作企业列表ToolStripMenuItem_Click);
             // 
@@ -266,7 +267,7 @@
             this.AnimeDataGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -291,6 +292,42 @@
             this.AnimeDataGridview.Size = new System.Drawing.Size(705, 600);
             this.AnimeDataGridview.TabIndex = 1;
             this.AnimeDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            // 
+            // AnimeNo
+            // 
+            this.AnimeNo.HeaderText = "编号";
+            this.AnimeNo.Name = "AnimeNo";
+            this.AnimeNo.ReadOnly = true;
+            // 
+            // AnimeCNName
+            // 
+            this.AnimeCNName.HeaderText = "中文名";
+            this.AnimeCNName.Name = "AnimeCNName";
+            this.AnimeCNName.ReadOnly = true;
+            // 
+            // AnimeJPName
+            // 
+            this.AnimeJPName.HeaderText = "日文名";
+            this.AnimeJPName.Name = "AnimeJPName";
+            this.AnimeJPName.ReadOnly = true;
+            // 
+            // AnimeNiceName
+            // 
+            this.AnimeNiceName.HeaderText = "简写";
+            this.AnimeNiceName.Name = "AnimeNiceName";
+            this.AnimeNiceName.ReadOnly = true;
+            // 
+            // AnimeStatus
+            // 
+            this.AnimeStatus.HeaderText = "状态";
+            this.AnimeStatus.Name = "AnimeStatus";
+            this.AnimeStatus.ReadOnly = true;
+            // 
+            // AnimeOriginal
+            // 
+            this.AnimeOriginal.HeaderText = "原作";
+            this.AnimeOriginal.Name = "AnimeOriginal";
+            this.AnimeOriginal.ReadOnly = true;
             // 
             // splitContainer1
             // 
@@ -353,7 +390,7 @@
             this.PlayInfodataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -374,7 +411,7 @@
             this.PlayInfodataGridView.ReadOnly = true;
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -431,7 +468,7 @@
             this.CVdataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -508,44 +545,8 @@
             this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 3);
             this.simpleSearchTextBox.Name = "simpleSearchTextBox";
             this.simpleSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
+            this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 21);
             this.simpleSearchTextBox.TabIndex = 3;
-            // 
-            // AnimeNo
-            // 
-            this.AnimeNo.HeaderText = "编号";
-            this.AnimeNo.Name = "AnimeNo";
-            this.AnimeNo.ReadOnly = true;
-            // 
-            // AnimeCNName
-            // 
-            this.AnimeCNName.HeaderText = "中文名";
-            this.AnimeCNName.Name = "AnimeCNName";
-            this.AnimeCNName.ReadOnly = true;
-            // 
-            // AnimeJPName
-            // 
-            this.AnimeJPName.HeaderText = "日文名";
-            this.AnimeJPName.Name = "AnimeJPName";
-            this.AnimeJPName.ReadOnly = true;
-            // 
-            // AnimeNiceName
-            // 
-            this.AnimeNiceName.HeaderText = "简写";
-            this.AnimeNiceName.Name = "AnimeNiceName";
-            this.AnimeNiceName.ReadOnly = true;
-            // 
-            // AnimeStatus
-            // 
-            this.AnimeStatus.HeaderText = "状态";
-            this.AnimeStatus.Name = "AnimeStatus";
-            this.AnimeStatus.ReadOnly = true;
-            // 
-            // AnimeOriginal
-            // 
-            this.AnimeOriginal.HeaderText = "原作";
-            this.AnimeOriginal.Name = "AnimeOriginal";
-            this.AnimeOriginal.ReadOnly = true;
             // 
             // Main
             // 

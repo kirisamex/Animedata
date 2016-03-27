@@ -52,6 +52,13 @@
             this.playinfotab = new System.Windows.Forms.TabPage();
             this.companybox = new System.Windows.Forms.ComboBox();
             this.PlayInfoDataGridView = new System.Windows.Forms.DataGridView();
+            this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.playcounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.company = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.status = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.playstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.watchtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PlayinfoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.charainfotab = new System.Windows.Forms.TabPage();
             this.CVbox = new System.Windows.Forms.ComboBox();
             this.CharacterInfoDataGridView = new System.Windows.Forms.DataGridView();
@@ -61,13 +68,6 @@
             this.characterNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AddRowButton = new System.Windows.Forms.Button();
             this.RemoveRowButton = new System.Windows.Forms.Button();
-            this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.playcounts = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.company = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.status = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.playstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.watchtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PlayinfoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.basicinfotab.SuspendLayout();
             this.playinfotab.SuspendLayout();
@@ -95,7 +95,7 @@
             this.nnbox.Location = new System.Drawing.Point(130, 120);
             this.nnbox.MaxLength = 4;
             this.nnbox.Name = "nnbox";
-            this.nnbox.Size = new System.Drawing.Size(112, 19);
+            this.nnbox.Size = new System.Drawing.Size(112, 21);
             this.nnbox.TabIndex = 14;
             // 
             // cnnamebox
@@ -104,7 +104,7 @@
             this.cnnamebox.Location = new System.Drawing.Point(130, 53);
             this.cnnamebox.MaxLength = 255;
             this.cnnamebox.Name = "cnnamebox";
-            this.cnnamebox.Size = new System.Drawing.Size(151, 19);
+            this.cnnamebox.Size = new System.Drawing.Size(151, 21);
             this.cnnamebox.TabIndex = 12;
             // 
             // button2
@@ -161,7 +161,7 @@
             this.numbox.Location = new System.Drawing.Point(130, 18);
             this.numbox.MaxLength = 4;
             this.numbox.Name = "numbox";
-            this.numbox.Size = new System.Drawing.Size(112, 19);
+            this.numbox.Size = new System.Drawing.Size(112, 21);
             this.numbox.TabIndex = 11;
             // 
             // label4
@@ -248,7 +248,7 @@
             this.jpnamebox.Location = new System.Drawing.Point(130, 85);
             this.jpnamebox.MaxLength = 255;
             this.jpnamebox.Name = "jpnamebox";
-            this.jpnamebox.Size = new System.Drawing.Size(151, 19);
+            this.jpnamebox.Size = new System.Drawing.Size(151, 21);
             this.jpnamebox.TabIndex = 13;
             // 
             // label6
@@ -289,7 +289,7 @@
             this.PlayInfoDataGridView.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -312,6 +312,48 @@
             this.PlayInfoDataGridView.Size = new System.Drawing.Size(673, 221);
             this.PlayInfoDataGridView.TabIndex = 0;
             this.PlayInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
+            // 
+            // playinfo
+            // 
+            this.playinfo.HeaderText = "放送内容";
+            this.playinfo.Name = "playinfo";
+            // 
+            // playcounts
+            // 
+            this.playcounts.HeaderText = "话数";
+            this.playcounts.Name = "playcounts";
+            // 
+            // company
+            // 
+            this.company.HeaderText = "制作公司";
+            this.company.Name = "company";
+            // 
+            // status
+            // 
+            this.status.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.status.HeaderText = "状态";
+            this.status.Items.AddRange(new object[] {
+            "放送中",
+            "完结",
+            "新企划",
+            "弃置"});
+            this.status.Name = "status";
+            // 
+            // playstarttime
+            // 
+            this.playstarttime.HeaderText = "放送开始时间";
+            this.playstarttime.Name = "playstarttime";
+            // 
+            // watchtime
+            // 
+            this.watchtime.HeaderText = "收看时间";
+            this.watchtime.Name = "watchtime";
+            // 
+            // PlayinfoID
+            // 
+            this.PlayinfoID.HeaderText = "PLAYINFO_ID";
+            this.PlayinfoID.Name = "PlayinfoID";
+            this.PlayinfoID.Visible = false;
             // 
             // charainfotab
             // 
@@ -342,7 +384,7 @@
             this.CharacterInfoDataGridView.BackgroundColor = System.Drawing.Color.LightPink;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -356,7 +398,7 @@
             this.characterNo});
             dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
             dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -369,7 +411,7 @@
             this.CharacterInfoDataGridView.Name = "CharacterInfoDataGridView";
             dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -422,54 +464,11 @@
             this.RemoveRowButton.UseVisualStyleBackColor = true;
             this.RemoveRowButton.Click += new System.EventHandler(this.RemoveRowButton_Click);
             // 
-            // playinfo
-            // 
-            this.playinfo.HeaderText = "放送内容";
-            this.playinfo.Name = "playinfo";
-            // 
-            // playcounts
-            // 
-            this.playcounts.HeaderText = "话数";
-            this.playcounts.Name = "playcounts";
-            // 
-            // company
-            // 
-            this.company.HeaderText = "制作公司";
-            this.company.Name = "company";
-            // 
-            // status
-            // 
-            this.status.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.status.HeaderText = "状态";
-            this.status.Items.AddRange(new object[] {
-            "放送中",
-            "完结",
-            "新企划",
-            "弃置"});
-            this.status.Name = "status";
-            // 
-            // playstarttime
-            // 
-            this.playstarttime.HeaderText = "放送开始时间";
-            this.playstarttime.Name = "playstarttime";
-            // 
-            // watchtime
-            // 
-            this.watchtime.HeaderText = "收看时间";
-            this.watchtime.Name = "watchtime";
-            // 
-            // PlayinfoID
-            // 
-            this.PlayinfoID.HeaderText = "PLAYINFO_ID";
-            this.PlayinfoID.Name = "PlayinfoID";
-            this.PlayinfoID.Visible = false;
-            // 
             // AddAnime
             // 
             this.AcceptButton = this.button3;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.CancelButton = this.button2;
             this.ClientSize = new System.Drawing.Size(711, 313);
             this.Controls.Add(this.RemoveRowButton);
             this.Controls.Add(this.AddRowButton);
