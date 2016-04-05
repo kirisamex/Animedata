@@ -174,7 +174,7 @@ namespace Main
         public bool Delete(PlayInfo pInfo)
         {
             string sqlcmd = @"                            
-                            UPDATE ANIMEDATA.dbo.T_CHARACTER_TBL
+                            UPDATE ANIMEDATA.dbo.T_PLAYINFO_TBL
                             SET ENABLE_FLG = 0
                             ,LAST_UPDATE_DATETIME = GETDATE()
                             WHERE PLAYINFO_ID = @playinfoID 
