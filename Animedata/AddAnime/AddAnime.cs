@@ -82,11 +82,17 @@ namespace Main
         /// </summary>
         public enum command
         {
-            //添加
+            /// <summary>
+            /// 添加
+            /// </summary>
             Add = 0,
-            //修改
+            /// <summary>
+            /// 修改
+            /// </summary>
             Update = 1,
-            //删除
+            /// <summary>
+            /// 删除
+            /// </summary>
             Delete = 2,
         };
 
@@ -355,9 +361,9 @@ namespace Main
                 return pInfoList;
             }
 
-            int nextPlayInfoID = dao.GetMaxInt(FormText.PLAYINFO, animeNo) + 1;
-
             //信息作成
+            int NextPlayinfoID = dao.GetMaxInt(FormText.PLAYINFO, animeNo) + 1;
+            int NewplayinfoCount = 0;
             for (int i = 0; i < PlayInfoDataGridView.RowCount; i++)
             {
                 //空行则不处理
@@ -366,14 +372,29 @@ namespace Main
                 {
                     continue;
                 }
-
+                
                 PlayInfo pInfo = new PlayInfo();
-                if (cmd == command.Add)
+                //命令为新增 或 命令为增加&(id为空||id为0)
+                if ((cmd == command.Add)
+                    || (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value == null
+                    || (Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value) == 0)
+                    && cmd == command.Update)
+                       )
                 {
-                    pInfo.ID = nextPlayInfoID + i;
+                    pInfo.ID = NextPlayinfoID + NewplayinfoCount;
+                    NewplayinfoCount++;
                 }
-                
-                
+                else if (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value != null && cmd == command.Update)
+                {
+                    pInfo.ID = Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value);
+                }
+                else if (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value == null
+                    || (Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value) == 0)
+                    && cmd == command.Update)
+                {
+                    pInfo.ID = dao.GetMaxInt(FormText.PLAYINFO, animeNo) + 1;
+                }
+
                 pInfo.animeNo = animeNo;
 
                 if (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOCLN].Value != null)
@@ -416,10 +437,6 @@ namespace Main
                     pInfo.watchedTime = service.ConvertToDateTimeFromYYYYMM(watchedTimeString);
                 }
 
-                if (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value != null && cmd == command.Update)
-                {
-                    pInfo.ID = Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value);
-                }
 
                 pInfoList.Add(pInfo);
             }
