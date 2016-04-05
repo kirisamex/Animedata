@@ -18,11 +18,12 @@ namespace Main
         /// <returns>null:未使用 重复的动画播放信息</returns>
         public List<PlayInfo> IsUsedCheck(int companyID)
         {
-            const string sqlcmd = @"SELECT 
+            const string sqlcmd = @"SELECT
                                     ANIME_NO,
                                     ANIME_PLAYINFO
                                     FROM ANIMEDATA.dbo.T_PLAYINFO_TBL 
-                                    WHERE COMPANY_ID = @companyID";
+                                    WHERE COMPANY_ID = @companyID
+                                    ORDER BY ANIME_NO, ANIME_PLAYINFO ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@companyID", companyID));
