@@ -388,12 +388,6 @@ namespace Main
                 {
                     pInfo.ID = Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value);
                 }
-                else if (PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value == null
-                    || (Convert.ToInt32(PlayInfoDataGridView.Rows[i].Cells[PLAYINFOIDCLN].Value) == 0)
-                    && cmd == command.Update)
-                {
-                    pInfo.ID = dao.GetMaxInt(FormText.PLAYINFO, animeNo) + 1;
-                }
 
                 pInfo.animeNo = animeNo;
 
