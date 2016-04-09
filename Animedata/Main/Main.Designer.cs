@@ -28,12 +28,12 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle7 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.音乐管理MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -127,7 +127,7 @@
             // 音乐管理MToolStripMenuItem
             // 
             this.音乐管理MToolStripMenuItem.Name = "音乐管理MToolStripMenuItem";
-            this.音乐管理MToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.音乐管理MToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.音乐管理MToolStripMenuItem.Text = "音乐管理(&M)　　　F7";
             this.音乐管理MToolStripMenuItem.Visible = false;
             this.音乐管理MToolStripMenuItem.Click += new System.EventHandler(this.音乐管理MToolStripMenuItem_Click);
@@ -135,19 +135,19 @@
             // toolStripMenuItem1
             // 
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(217, 6);
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(193, 6);
             // 
             // 刷新ToolStripMenuItem
             // 
             this.刷新ToolStripMenuItem.Name = "刷新ToolStripMenuItem";
-            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.刷新ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.刷新ToolStripMenuItem.Text = "刷新(&R)　　　　　　F5";
             this.刷新ToolStripMenuItem.Click += new System.EventHandler(this.刷新ToolStripMenuItem_Click);
             // 
             // 退出ToolStripMenuItem
             // 
             this.退出ToolStripMenuItem.Name = "退出ToolStripMenuItem";
-            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(220, 22);
+            this.退出ToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.退出ToolStripMenuItem.Text = "退出(&E)　　　　　　Alt+F4";
             this.退出ToolStripMenuItem.Click += new System.EventHandler(this.退出ToolStripMenuItem_Click);
             // 
@@ -165,26 +165,26 @@
             // 查询动画ToolStripMenuItem
             // 
             this.查询动画ToolStripMenuItem.Name = "查询动画ToolStripMenuItem";
-            this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
-            this.查询动画ToolStripMenuItem.Text = "查询动画(&A)　　　　F6";
+            this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
+            this.查询动画ToolStripMenuItem.Text = "查询动画(&A)　　　　F2";
             this.查询动画ToolStripMenuItem.Click += new System.EventHandler(this.查询动画ToolStripMenuItem_Click);
             // 
             // 查询声优ToolStripMenuItem
             // 
             this.查询声优ToolStripMenuItem.Name = "查询声优ToolStripMenuItem";
-            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.查询声优ToolStripMenuItem.Text = "查询声优";
             // 
             // 查询动画制作企业ToolStripMenuItem
             // 
             this.查询动画制作企业ToolStripMenuItem.Name = "查询动画制作企业ToolStripMenuItem";
-            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
+            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.查询动画制作企业ToolStripMenuItem.Text = "查询动画制作企业";
             // 
             // 以上功能未实装ToolStripMenuItem
             // 
             this.以上功能未实装ToolStripMenuItem.Name = "以上功能未实装ToolStripMenuItem";
-            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(196, 6);
+            this.以上功能未实装ToolStripMenuItem.Size = new System.Drawing.Size(180, 6);
             // 
             // 添加动画ToolStripMenuItem
             // 
@@ -199,21 +199,21 @@
             // 添加动画信息ToolStripMenuItem
             // 
             this.添加动画信息ToolStripMenuItem.Name = "添加动画信息ToolStripMenuItem";
-            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
-            this.添加动画信息ToolStripMenuItem.Text = "添加动画信息(&A)　　　　F2";
+            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.添加动画信息ToolStripMenuItem.Text = "添加动画信息(&A)　　　　F6";
             this.添加动画信息ToolStripMenuItem.Click += new System.EventHandler(this.添加动画信息ToolStripMenuItem_Click);
             // 
             // 修改动画信息ToolStripMenuItem
             // 
             this.修改动画信息ToolStripMenuItem.Name = "修改动画信息ToolStripMenuItem";
-            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.修改动画信息ToolStripMenuItem.Text = "修改动画信息(&C)";
             this.修改动画信息ToolStripMenuItem.Click += new System.EventHandler(this.修改动画信息ToolStripMenuItem_Click);
             // 
             // 删除动画信息ToolStripMenuItem
             // 
             this.删除动画信息ToolStripMenuItem.Name = "删除动画信息ToolStripMenuItem";
-            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(223, 22);
+            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.删除动画信息ToolStripMenuItem.Text = "删除动画信息(&D)";
             this.删除动画信息ToolStripMenuItem.Click += new System.EventHandler(this.删除动画信息ToolStripMenuItem_Click);
             // 
@@ -229,14 +229,14 @@
             // 声优列表SF3ToolStripMenuItem
             // 
             this.声优列表SF3ToolStripMenuItem.Name = "声优列表SF3ToolStripMenuItem";
-            this.声优列表SF3ToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.声优列表SF3ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.声优列表SF3ToolStripMenuItem.Text = "声优列表(&S)　　　　　　　F3";
             this.声优列表SF3ToolStripMenuItem.Click += new System.EventHandler(this.声优列表SF3ToolStripMenuItem_Click);
             // 
             // 动画制作企业列表ToolStripMenuItem
             // 
             this.动画制作企业列表ToolStripMenuItem.Name = "动画制作企业列表ToolStripMenuItem";
-            this.动画制作企业列表ToolStripMenuItem.Size = new System.Drawing.Size(236, 22);
+            this.动画制作企业列表ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
             this.动画制作企业列表ToolStripMenuItem.Text = "动画制作企业列表(&C)　F4";
             this.动画制作企业列表ToolStripMenuItem.Click += new System.EventHandler(this.动画制作企业列表ToolStripMenuItem_Click);
             // 
@@ -259,20 +259,20 @@
             // 
             this.AnimeDataGridview.AllowUserToAddRows = false;
             this.AnimeDataGridview.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            this.AnimeDataGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle7.BackColor = System.Drawing.Color.Gainsboro;
+            this.AnimeDataGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
             this.AnimeDataGridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
             this.AnimeDataGridview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.AnimeDataGridview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.AnimeDataGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AnimeDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.AnimeDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.AnimeDataGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AnimeDataGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AnimeNo,
@@ -388,14 +388,14 @@
             this.PlayInfodataGridView.AllowUserToDeleteRows = false;
             this.PlayInfodataGridView.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
             this.PlayInfodataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PlayInfodataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle9.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle9.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle9.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle9.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle9.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle9.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle9.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PlayInfodataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle9;
             this.PlayInfodataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PlayInfodataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PlayInfoColumn,
@@ -409,17 +409,17 @@
             this.PlayInfodataGridView.MultiSelect = false;
             this.PlayInfodataGridView.Name = "PlayInfodataGridView";
             this.PlayInfodataGridView.ReadOnly = true;
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PlayInfodataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PlayInfodataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.PlayInfodataGridView.RowHeadersVisible = false;
-            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            this.PlayInfodataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle11.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            this.PlayInfodataGridView.RowsDefaultCellStyle = dataGridViewCellStyle11;
             this.PlayInfodataGridView.RowTemplate.Height = 23;
             this.PlayInfodataGridView.Size = new System.Drawing.Size(555, 277);
             this.PlayInfodataGridView.TabIndex = 0;
@@ -466,14 +466,14 @@
             this.CVdataGridView.AllowUserToDeleteRows = false;
             this.CVdataGridView.BackgroundColor = System.Drawing.Color.LightPink;
             this.CVdataGridView.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            dataGridViewCellStyle6.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle6.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle6.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle6.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CVdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CVdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle12;
             this.CVdataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CVdataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CVdataGridView.Location = new System.Drawing.Point(0, 0);
@@ -545,7 +545,7 @@
             this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 3);
             this.simpleSearchTextBox.Name = "simpleSearchTextBox";
             this.simpleSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 21);
+            this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
             this.simpleSearchTextBox.TabIndex = 3;
             // 
             // Main

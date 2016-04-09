@@ -495,7 +495,7 @@ namespace Main
                 case Keys.F1:
                     关于ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
-                case Keys.F2:
+                case Keys.F6:
                     添加动画信息ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F3:
@@ -507,7 +507,7 @@ namespace Main
                 case Keys.F5:
                     ShowAnime();
                     break;
-                case Keys.F6:
+                case Keys.F2:
                     查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F7:

@@ -9,7 +9,7 @@
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Main</RootNamespace>
-    <AssemblyName>Animedata</AssemblyName>
+    <AssemblyName>AnimeDataManagement</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <FileUpgradeFlags>
@@ -29,8 +29,8 @@
     <UpdatePeriodically>false</UpdatePeriodically>
     <UpdateRequired>false</UpdateRequired>
     <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>3</ApplicationRevision>
-    <ApplicationVersion>0.1.4.%2a</ApplicationVersion>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>0.0.0.1</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
@@ -86,6 +86,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
@@ -146,23 +147,23 @@
     <Compile Include="Lib\Model\AnimeStatusModule.cs" />
     <Compile Include="Lib\Model\SearchModule.cs" />
     <Compile Include="Lib\Style\StatusStyle.cs" />
-    <Compile Include="Client\MainSearch.cs">
+    <Compile Include="Main\MainSearch.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Client\MainSearch.Designer.cs">
+    <Compile Include="Main\MainSearch.Designer.cs">
       <DependentUpon>MainSearch.cs</DependentUpon>
     </Compile>
-    <Compile Include="Client\Maindao.cs" />
+    <Compile Include="Main\Maindao.cs" />
     <Compile Include="Lib\Class\CV\CV.cs" />
-    <Compile Include="Client\Client.cs">
+    <Compile Include="Main\Main.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Client\Client.Designer.cs">
-      <DependentUpon>Client.cs</DependentUpon>
+    <Compile Include="Main\Main.Designer.cs">
+      <DependentUpon>Main.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
     <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
-    <Compile Include="Client\MainService.cs" />
+    <Compile Include="Main\MainService.cs" />
     <Compile Include="Music\MusicManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -188,11 +189,11 @@
     <EmbeddedResource Include="CompanyManage\CompanyManage.resx">
       <DependentUpon>CompanyManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Client\Client.resx">
-      <DependentUpon>Client.cs</DependentUpon>
+    <EmbeddedResource Include="Main\Main.resx">
+      <DependentUpon>Main.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Client\MainSearch.resx">
+    <EmbeddedResource Include="Main\MainSearch.resx">
       <DependentUpon>MainSearch.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Music\MusicManage.resx">
@@ -211,7 +212,7 @@
     <EmbeddedResource Include="CVManage\CVManage.resx">
       <DependentUpon>CVManage.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="app.config">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -248,7 +249,18 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <PublishFile Include="Message.xml">
+      <Visible>False</Visible>
+      <Group>
+      </Group>
+      <TargetPath>
+      </TargetPath>
+      <PublishState>Include</PublishState>
+      <IncludeHash>True</IncludeHash>
+      <FileType>File</FileType>
+    </PublishFile>
+  </ItemGroup>
   <ItemGroup>
     <COMReference Include="Shell32">
       <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
