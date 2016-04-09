@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Animedata", "Animedata\Animedata.csproj", "{034AF35F-71F4-4948-A891-6AA0D531C73A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "Animedata\Client.csproj", "{034AF35F-71F4-4948-A891-6AA0D531C73A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,6 +13,7 @@ Global
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{034AF35F-71F4-4948-A891-6AA0D531C73A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{034AF35F-71F4-4948-A891-6AA0D531C73A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{034AF35F-71F4-4948-A891-6AA0D531C73A}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{034AF35F-71F4-4948-A891-6AA0D531C73A}.Debug|x86.ActiveCfg = Debug|x86
 		{034AF35F-71F4-4948-A891-6AA0D531C73A}.Debug|x86.Build.0 = Debug|x86
 		{034AF35F-71F4-4948-A891-6AA0D531C73A}.Release|Any CPU.ActiveCfg = Release|Any CPU
