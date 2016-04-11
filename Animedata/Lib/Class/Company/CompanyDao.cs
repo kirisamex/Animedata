@@ -21,7 +21,7 @@ namespace Main
             const string sqlcmd = @"SELECT
                                     ANIME_NO,
                                     ANIME_PLAYINFO
-                                    FROM ANIMEDATA.dbo.T_PLAYINFO_TBL 
+                                    FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL 
                                     WHERE COMPANY_ID = @companyID
                                     ORDER BY ANIME_NO, ANIME_PLAYINFO ";
 
@@ -54,7 +54,7 @@ namespace Main
         public void DeleteCompanyInfoByCompanyID(int companyID)
         {
             string sqlcmd = @"DELETE 
-                            FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                            FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL
                             WHERE COMPANY_ID = @companyID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();

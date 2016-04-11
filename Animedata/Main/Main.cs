@@ -68,18 +68,30 @@ namespace Main
         /// <param name="ds"></param>
         public void LoadAnimeMain(DataSet ds)
         {
-            AnimeDataGridview.Rows.Clear();
+            ANIMEDATA_DEVGridview.Rows.Clear();
 
             DataTable animedt = ds.Tables[0];
+            List<string> ShowedAnimeNo = new List<string>();
 
             for (int i = 0; i < animedt.Rows.Count; i++)
             {
-                AnimeDataGridview.Rows.Add();
+                string AnimeNo = animedt.Rows[i][0].ToString();
 
-                DataGridViewRow dgvrow = AnimeDataGridview.Rows[i];
+                #region #7 修改SQL后动画重复对应
+                if (ShowedAnimeNo.Contains(AnimeNo))
+                {
+                    continue;
+                }
+                else
+                {
+                    ShowedAnimeNo.Add(AnimeNo);
+                }
+                #endregion
 
+                ANIMEDATA_DEVGridview.Rows.Add();
+                DataGridViewRow dgvrow = ANIMEDATA_DEVGridview.Rows[i];
                 //编号
-                dgvrow.Cells[0].Value = animedt.Rows[i][0].ToString();
+                dgvrow.Cells[0].Value = AnimeNo;
 
                 //中文名
                 dgvrow.Cells[1].Value = animedt.Rows[i][1].ToString();
@@ -98,14 +110,14 @@ namespace Main
             }
 
             //动画窗口格式设置
-            for (int i = 0; i < AnimeDataGridview.ColumnCount; i++)
+            for (int i = 0; i < ANIMEDATA_DEVGridview.ColumnCount; i++)
             {
-                AnimeDataGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                AnimeDataGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                ANIMEDATA_DEVGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                ANIMEDATA_DEVGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
             //状态格式
-            foreach (DataGridViewRow dr in AnimeDataGridview.Rows)
+            foreach (DataGridViewRow dr in ANIMEDATA_DEVGridview.Rows)
             {
                 int status = service.GetStatusIntFromStatusText(dr.Cells[4].Value.ToString());
                 
@@ -241,9 +253,9 @@ namespace Main
         /// <returns></returns>
         public DataGridViewRow GetSelectedRow()
         {
-            if (AnimeDataGridview.SelectedCells.Count > 0)
+            if (ANIMEDATA_DEVGridview.SelectedCells.Count > 0)
             {
-                DataGridViewRow dr = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[0].RowIndex];
+                DataGridViewRow dr = ANIMEDATA_DEVGridview.Rows[ANIMEDATA_DEVGridview.SelectedCells[0].RowIndex];
                 return dr;
             }
 
@@ -259,9 +271,9 @@ namespace Main
 
             List<string> selectedAnimeNoList = new List<string>();
 
-            for (int i = 0; i < AnimeDataGridview.SelectedCells.Count; i++)
+            for (int i = 0; i < ANIMEDATA_DEVGridview.SelectedCells.Count; i++)
             {
-                string currentrowalbumNo = AnimeDataGridview.Rows[AnimeDataGridview.SelectedCells[i].RowIndex].Cells["AnimeNo"].Value.ToString();
+                string currentrowalbumNo = ANIMEDATA_DEVGridview.Rows[ANIMEDATA_DEVGridview.SelectedCells[i].RowIndex].Cells["AnimeNo"].Value.ToString();
 
                 if (selectedAnimeNoList.Contains(currentrowalbumNo))
                 {
@@ -278,7 +290,7 @@ namespace Main
         /// </summary>
         public void DeleteSelectedRowsAnimeInfo()
         {
-            if (AnimeDataGridview.SelectedCells.Count == 0)
+            if (ANIMEDATA_DEVGridview.SelectedCells.Count == 0)
             {
                 MsgBox.Show(MSG_COMMON_002);
                 return;
@@ -451,7 +463,7 @@ namespace Main
         public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             int selectedRowNo = GetSelectedRow().Index;
-            string animeID = AnimeDataGridview.Rows[selectedRowNo].Cells[0].Value.ToString();
+            string animeID = ANIMEDATA_DEVGridview.Rows[selectedRowNo].Cells[0].Value.ToString();
             ShowAnimeInfo(animeID);
             ShowCharacterInfo(animeID);
         }

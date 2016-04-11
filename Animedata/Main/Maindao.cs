@@ -39,7 +39,7 @@ namespace Main
         public Animation GetAnimeFromAnimeNo(string animeNo)
         {
             string sqlcmd = @"SELECT TOP 1 *
-                                FROM ANIMEDATA.dbo.T_ANIME_TBL
+                                FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL
                                 WHERE ANIME_NO = @animeNo
                                 AND ENABLE_FLG = 1 ";
 
@@ -76,7 +76,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     COMPANY_ID 
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL
                                     WHERE COMPANY_NAME=  @companyName 
                                     AND ENABLE_FLG = 1 ";
 
@@ -106,7 +106,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     CV_ID 
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_CV_TBL
                                     WHERE CV_NAME=  @CVName 
                                     AND ENABLE_FLG = 1 ";
 
@@ -137,7 +137,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     CV_NAME 
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_CV_TBL
                                     WHERE CV_ID=  @cvId 
                                     AND ENABLE_FLG = 1 ";
 
@@ -168,7 +168,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     COMPANY_NAME 
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL
                                     WHERE COMPANY_ID=  @companyId 
                                     AND ENABLE_FLG = 1 ";
 
@@ -201,7 +201,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT " +
                                     "MAX(" + tableName + "_ID) " +
-                                    "FROM ANIMEDATA.dbo.T_" + tableName + "_TBL";
+                                    "FROM ANIMEDATA_DEV.dbo.T_" + tableName + "_TBL";
 
             DataSet ds = DbCmd.DoSelect(sqlcmd);
 
@@ -228,7 +228,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT " +
                                     "MAX(" + tableName + "_ID)" +
-                                    "FROM ANIMEDATA.dbo.T_" + tableName + "_TBL "+
+                                    "FROM ANIMEDATA_DEV.dbo.T_" + tableName + "_TBL "+
                                     "WHERE ANIME_NO = @animeNo";
 
             SqlParameter para = new SqlParameter("@animeNo", animeNo);
@@ -257,7 +257,7 @@ namespace Main
         {
             List<PlayInfo> pInfoList = new List<PlayInfo>();
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+                                FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
                                 WHERE ANIME_NO = @animeNo
                                 AND ENABLE_FLG = 1 
                                 ORDER BY START_TIME";
@@ -314,7 +314,7 @@ namespace Main
             List<Character> cInfoList = new List<Character>();
 
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                                FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
                                 WHERE ANIME_NO = @animeNo
                                 AND ENABLE_FLG = 1 
                                 ORDER BY LEADING_FLG DESC";
@@ -352,7 +352,7 @@ namespace Main
         /// <param name="comp"></param>
         public void InsertCompanyInfo(Company comp)
         {
-            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_COMPANY_TBL(
+            string sqlcmd = @"INSERT INTO ANIMEDATA_DEV.dbo.T_COMPANY_TBL(
                                         COMPANY_ID,
                                         COMPANY_NAME,
                                         ENABLE_FLG,
@@ -390,11 +390,11 @@ namespace Main
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT 
+                                    FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT 
                                     LEFT JOIN 
                                     (
 										SELECT ANIME_NO,MAX(START_TIME) AS TIME
-										FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+										FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
 										WHERE ENABLE_FLG = 1
 										GROUP BY ANIME_NO
                                     ) AS PT ON AT.ANIME_NO = PT.ANIME_NO
@@ -413,19 +413,27 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime(Company comp)
         {
-            string sqlcmd = @"SELECT DISTINCT
+            string sqlcmd = @"SELECT 
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
                                     AT.ANIME_JPN_NAME,
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-									LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO=PT.ANIME_NO
+                                    FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
+									LEFT JOIN ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO=PT.ANIME_NO
+									LEFT JOIN 
+                                    (
+										SELECT ANIME_NO,MAX(START_TIME) AS TIME
+										FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+										WHERE ENABLE_FLG = 1
+										GROUP BY ANIME_NO
+                                    ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
                                     WHERE PT.COMPANY_ID	= @companyid
                                     AND AT.ENABLE_FLG = 1
                                     AND PT.ENABLE_FLG = 1
-                                    ORDER BY AT.ANIME_NO";
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+									WT.TIME DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@companyid", comp.ID));
@@ -452,21 +460,29 @@ namespace Main
                 }
             }
 
-            string sqlcmd = @"SELECT DISTINCT
+            string sqlcmd = @"SELECT 
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
                                     AT.ANIME_JPN_NAME,
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-									LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CHT ON CHT.ANIME_NO=AT.ANIME_NO
-									LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID=CHT.CV_ID
+                                    FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
+									LEFT JOIN ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CHT ON CHT.ANIME_NO=AT.ANIME_NO
+									LEFT JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.CV_ID=CHT.CV_ID
+									LEFT JOIN 
+                                    (
+										SELECT ANIME_NO,MAX(START_TIME) AS TIME
+										FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+										WHERE ENABLE_FLG = 1
+										GROUP BY ANIME_NO
+                                    ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
                                     WHERE CVT.CV_ID	IN (@CVID)
                                     AND AT.ENABLE_FLG = 1 
                                     AND CHT.ENABLE_FLG = 1
                                     AND CVT.ENABLE_FLG = 1
-                                    ORDER BY AT.ANIME_NO";
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+									WT.TIME DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             SqlParameter para = new SqlParameter("@CVID", cvDic.ToString());
@@ -494,8 +510,8 @@ namespace Main
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
+                                    FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
 									");
 
             
@@ -721,11 +737,11 @@ namespace Main
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO AND CCT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO AND PLT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID AND CPT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID AND CVT.ENABLE_FLG = 1
+                                    FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO AND CCT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO AND PLT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID AND CPT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID AND CVT.ENABLE_FLG = 1
 									WHERE (AT.ANIME_NO LIKE @target OR
 									AT.ANIME_CHN_NAME LIKE @target OR
 									AT.ANIME_JPN_NAME LIKE @target OR
@@ -762,8 +778,8 @@ namespace Main
 	                                    ,TCT.COMPANY_NAME AS 制作公司 
 	                                    ,TPT.START_TIME AS 开始时间
 	                                    ,TPT.WATCH_TIME AS 收看时间
-                                    FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
-	                                LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL TCT ON TPT.COMPANY_ID = TCT.COMPANY_ID
+                                    FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL TPT   
+	                                LEFT JOIN ANIMEDATA_DEV.dbo.T_COMPANY_TBL TCT ON TPT.COMPANY_ID = TCT.COMPANY_ID
                                     WHERE TPT.ANIME_NO = @animeNo
                                     AND TPT.ENABLE_FLG = 1
                                     AND TCT.ENABLE_FLG = 1
@@ -788,7 +804,7 @@ namespace Main
 	                                            WHEN 1 THEN '〇'
 		                                        ELSE ''
                                     		END AS 主角
-                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL TCHT
+                                    FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL TCHT
 	                                INNER JOIN T_CV_TBL TCVT ON TCHT.CV_ID=TCVT.CV_ID
                                     WHERE TCHT.ANIME_NO=@animeNo
                                     AND TCHT.ENABLE_FLG = 1

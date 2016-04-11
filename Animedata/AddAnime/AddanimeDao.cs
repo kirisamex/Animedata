@@ -25,7 +25,7 @@ namespace Main
         public DataSet LoadCompanyName()
         {
             string sqlcmd = @"SELECT COMPANY_NAME
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL
  									WHERE ENABLE_FLG = 1 
                                     ORDER BY COMPANY_NAME";
             return DbCmd.DoSelect(sqlcmd);
@@ -38,7 +38,7 @@ namespace Main
         public DataSet LoadCVName()
         {
             string sqlcmd = @"SELECT CV_NAME
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_CV_TBL
                                     WHERE ENABLE_FLG = 1
 									ORDER BY CV_NAME";
 
@@ -54,7 +54,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     MAX(CHARACTER_NO)
-                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
                                     WHERE ANIME_NO = @animeNo
                                     AND LEADING_FLG = @leadingflg";
 
@@ -83,7 +83,7 @@ namespace Main
         public Animation SearchRepeatAnimeInfo(Animation anime, AddAnime.command ctr)
         {
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA.dbo.T_ANIME_TBL
+                                FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL
                                 WHERE ANIME_NO = @animeNo
 	                                OR ANIME_CHN_NAME = @animeCNName
 	                                OR ANIME_JPN_NAME = @animeJPName
