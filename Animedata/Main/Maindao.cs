@@ -532,7 +532,7 @@ namespace Main
                 AddWhereAnd(joincmd);
                 joincmd.Append(@" AT.ANIME_NN = @anime_nn ");
 
-                paras.Add(new SqlParameter("@anime_no", search.animeNN));
+                paras.Add(new SqlParameter("@anime_nn", search.animeNN));
             }
             #endregion
 
