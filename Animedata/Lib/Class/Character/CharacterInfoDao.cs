@@ -23,7 +23,7 @@ namespace Main
         /// <returns></returns>
         public bool Insert(Character cInfo)
         {
-            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_CHARACTER_TBL (
+            string sqlcmd = @"INSERT INTO ANIMEDATA_DEV.dbo.T_CHARACTER_TBL (
 	                            CHARACTER_NO
 	                            ,CHARACTER_NAME
 	                            ,ANIME_NO
@@ -68,7 +68,7 @@ namespace Main
 
             StringBuilder sqlcmd = new StringBuilder();
 
-            sqlcmd.Append(@"UPDATE ANIMEDATA.dbo.T_CHARACTER_TBL SET
+            sqlcmd.Append(@"UPDATE ANIMEDATA_DEV.dbo.T_CHARACTER_TBL SET
                             	 ANIME_NO = @animeNo
 	                            ,CHARACTER_NAME = @charactername
 	                            ,CV_ID = @cvid
@@ -96,7 +96,7 @@ namespace Main
         public bool Delete(Character cInfo)
         {
             string sqlcmd = @"                            
-                            UPDATE ANIMEDATA.dbo.T_CHARACTER_TBL
+                            UPDATE ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
                             SET ENABLE_FLG = 0
                             ,LAST_UPDATE_DATETIME = GETDATE()
                             WHERE CHARACTER_NO = @characterNo ";

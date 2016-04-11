@@ -24,7 +24,7 @@ namespace Main
                                     CV_NAME,
 									CV_GENDER,
 									CV_BIRTH 
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_CV_TBL
                                     WHERE ENABLE_FLG = 1
                                     ORDER BY CV_NAME";
 
@@ -42,7 +42,7 @@ namespace Main
                                     CV_NAME,
 									CV_GENDER,
 									CV_BIRTH 
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_CV_TBL
                                     WHERE ENABLE_FLG = 1
                                     AND CV_NAME LIKE @target
                                     ORDER BY CV_ID";
@@ -64,7 +64,7 @@ namespace Main
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
 
-            sqlcmd.Append( @"UPDATE ANIMEDATA.dbo.T_CV_TBL SET 
+            sqlcmd.Append( @"UPDATE ANIMEDATA_DEV.dbo.T_CV_TBL SET 
                                         CV_NAME = @cvname");
 
             if (cvInfo.Gender != null)
@@ -103,7 +103,7 @@ namespace Main
         public bool CVIDRepeatCheck(int CVID)
         {
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA.dbo.T_CV_TBL
+                                FROM ANIMEDATA_DEV.dbo.T_CV_TBL
                                 WHERE CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();

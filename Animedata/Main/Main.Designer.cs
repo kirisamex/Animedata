@@ -54,7 +54,7 @@
             this.动画制作企业列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.AnimeDataGridview = new System.Windows.Forms.DataGridView();
+            this.ANIMEDATA_DEVGridview = new System.Windows.Forms.DataGridView();
             this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -79,7 +79,7 @@
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ANIMEDATA_DEVGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -255,16 +255,16 @@
             this.关于ToolStripMenuItem.Text = "关于";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
-            // AnimeDataGridview
+            // ANIMEDATA_DEVGridview
             // 
-            this.AnimeDataGridview.AllowUserToAddRows = false;
-            this.AnimeDataGridview.AllowUserToDeleteRows = false;
+            this.ANIMEDATA_DEVGridview.AllowUserToAddRows = false;
+            this.ANIMEDATA_DEVGridview.AllowUserToDeleteRows = false;
             dataGridViewCellStyle7.BackColor = System.Drawing.Color.Gainsboro;
-            this.AnimeDataGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
-            this.AnimeDataGridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.AnimeDataGridview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.AnimeDataGridview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.AnimeDataGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.ANIMEDATA_DEVGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle7;
+            this.ANIMEDATA_DEVGridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ANIMEDATA_DEVGridview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.ANIMEDATA_DEVGridview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.ANIMEDATA_DEVGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle8.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle8.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -272,26 +272,26 @@
             dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.AnimeDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
-            this.AnimeDataGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.AnimeDataGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.ANIMEDATA_DEVGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            this.ANIMEDATA_DEVGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.ANIMEDATA_DEVGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AnimeNo,
             this.AnimeCNName,
             this.AnimeJPName,
             this.AnimeNiceName,
             this.AnimeStatus,
             this.AnimeOriginal});
-            this.AnimeDataGridview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.AnimeDataGridview.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.AnimeDataGridview.Location = new System.Drawing.Point(0, 0);
-            this.AnimeDataGridview.MultiSelect = false;
-            this.AnimeDataGridview.Name = "AnimeDataGridview";
-            this.AnimeDataGridview.ReadOnly = true;
-            this.AnimeDataGridview.RowHeadersVisible = false;
-            this.AnimeDataGridview.RowTemplate.Height = 23;
-            this.AnimeDataGridview.Size = new System.Drawing.Size(705, 600);
-            this.AnimeDataGridview.TabIndex = 1;
-            this.AnimeDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.ANIMEDATA_DEVGridview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ANIMEDATA_DEVGridview.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.ANIMEDATA_DEVGridview.Location = new System.Drawing.Point(0, 0);
+            this.ANIMEDATA_DEVGridview.MultiSelect = false;
+            this.ANIMEDATA_DEVGridview.Name = "ANIMEDATA_DEVGridview";
+            this.ANIMEDATA_DEVGridview.ReadOnly = true;
+            this.ANIMEDATA_DEVGridview.RowHeadersVisible = false;
+            this.ANIMEDATA_DEVGridview.RowTemplate.Height = 23;
+            this.ANIMEDATA_DEVGridview.Size = new System.Drawing.Size(705, 600);
+            this.ANIMEDATA_DEVGridview.TabIndex = 1;
+            this.ANIMEDATA_DEVGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // AnimeNo
             // 
@@ -355,7 +355,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.AnimeDataGridview);
+            this.splitContainer2.Panel1.Controls.Add(this.ANIMEDATA_DEVGridview);
             // 
             // splitContainer2.Panel2
             // 
@@ -564,7 +564,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AnimeDataGridview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.ANIMEDATA_DEVGridview)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -609,7 +609,7 @@
         private System.Windows.Forms.Button changeanimebutton;
         private System.Windows.Forms.Button addanimebutton;
         private System.Windows.Forms.ToolStripMenuItem 动画制作企业列表ToolStripMenuItem;
-        public System.Windows.Forms.DataGridView AnimeDataGridview;
+        public System.Windows.Forms.DataGridView ANIMEDATA_DEVGridview;
         private System.Windows.Forms.ToolStripMenuItem 声优列表SF3ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;

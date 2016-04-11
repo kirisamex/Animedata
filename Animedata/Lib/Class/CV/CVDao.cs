@@ -22,7 +22,7 @@ namespace Main
             const string sqlcmd = @"SELECT 
                                     ANIME_NO,
                                     CHARACTER_NAME
-                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL 
+                                    FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL 
                                     WHERE CV_ID = @CVID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -54,7 +54,7 @@ namespace Main
         public void DeleteCVInfoByCVID(int CVID)
         {
             string sqlcmd = @"DELETE 
-                            FROM ANIMEDATA.dbo.T_CV_TBL
+                            FROM ANIMEDATA_DEV.dbo.T_CV_TBL
                             WHERE CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -98,7 +98,7 @@ namespace Main
                 paras.Add(new SqlParameter("@cvbirth", cvInfo.Brithday));
             }
 
-            sqlcmd.Append(@"INSERT INTO ANIMEDATA.dbo.T_CV_TBL(
+            sqlcmd.Append(@"INSERT INTO ANIMEDATA_DEV.dbo.T_CV_TBL(
                                         CV_ID,
                                         CV_NAME,
                                         ENABLE_FLG,

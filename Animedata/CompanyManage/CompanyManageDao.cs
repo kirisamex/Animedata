@@ -23,7 +23,7 @@ namespace Main
                                     COMPANY_ID AS 编号,
                                     COMPANY_NAME AS 公司名称,
                                     LAST_UPDATE_DATETIME AS 更新时间
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL
                                     WHERE ENABLE_FLG = 1
                                     ORDER BY COMPANY_NAME";
             return DbCmd.DoSelect(sqlcmd);
@@ -38,7 +38,7 @@ namespace Main
         public bool UpdateCompanyName(string newName, Company company)
         {
             string sqlcmd = @"UPDATE 
-                            ANIMEDATA.dbo.T_COMPANY_TBL
+                            ANIMEDATA_DEV.dbo.T_COMPANY_TBL
                             SET
                             COMPANY_NAME = @newName ,
                             LAST_UPDATE_DATETIME = GETDATE()
