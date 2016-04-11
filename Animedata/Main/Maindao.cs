@@ -384,15 +384,23 @@ namespace Main
         public DataSet Getanime()
         {
             const string sqlcmd = @"SELECT 
-                                    ANIME_NO,
-                                    ANIME_CHN_NAME, 
-                                    ANIME_JPN_NAME,
-                                    ANIME_NN,
-                                    STATUS,
-									ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL
-                                    WHERE ENABLE_FLG = 1 
-                                    ORDER BY ANIME_NO";
+                                    AT.ANIME_NO,
+                                    AT.ANIME_CHN_NAME, 
+                                    AT.ANIME_JPN_NAME,
+                                    AT.ANIME_NN,
+                                    AT.STATUS,
+									AT.ORIGINAL
+                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT 
+                                    LEFT JOIN 
+                                    (
+										SELECT ANIME_NO,MAX(START_TIME) AS TIME
+										FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+										WHERE ENABLE_FLG = 1
+										GROUP BY ANIME_NO
+                                    ) AS PT ON AT.ANIME_NO = PT.ANIME_NO
+                                    WHERE AT.ENABLE_FLG = 1 
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+										PT.TIME DESC";
 
             return DbCmd.DoSelect(sqlcmd);
         }
