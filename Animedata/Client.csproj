@@ -75,7 +75,7 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>futaba.ico</ApplicationIcon>
+    <ApplicationIcon>unhappu256.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ID3">
@@ -248,6 +248,7 @@
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="unhappu256.ico" />
   </ItemGroup>
   <ItemGroup>
     <PublishFile Include="Message.xml">
