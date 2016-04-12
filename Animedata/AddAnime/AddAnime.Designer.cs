@@ -28,10 +28,10 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
             this.statescbox = new System.Windows.Forms.ComboBox();
             this.nnbox = new System.Windows.Forms.TextBox();
             this.cnnamebox = new System.Windows.Forms.TextBox();
@@ -42,7 +42,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.numbox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.button3 = new System.Windows.Forms.Button();
             this.label5 = new System.Windows.Forms.Label();
             this.originalbox = new System.Windows.Forms.ComboBox();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -95,7 +94,7 @@
             this.nnbox.Location = new System.Drawing.Point(130, 120);
             this.nnbox.MaxLength = 4;
             this.nnbox.Name = "nnbox";
-            this.nnbox.Size = new System.Drawing.Size(112, 21);
+            this.nnbox.Size = new System.Drawing.Size(112, 19);
             this.nnbox.TabIndex = 14;
             // 
             // cnnamebox
@@ -104,7 +103,7 @@
             this.cnnamebox.Location = new System.Drawing.Point(130, 53);
             this.cnnamebox.MaxLength = 255;
             this.cnnamebox.Name = "cnnamebox";
-            this.cnnamebox.Size = new System.Drawing.Size(151, 21);
+            this.cnnamebox.Size = new System.Drawing.Size(151, 19);
             this.cnnamebox.TabIndex = 12;
             // 
             // button2
@@ -161,7 +160,7 @@
             this.numbox.Location = new System.Drawing.Point(130, 18);
             this.numbox.MaxLength = 4;
             this.numbox.Name = "numbox";
-            this.numbox.Size = new System.Drawing.Size(112, 21);
+            this.numbox.Size = new System.Drawing.Size(112, 19);
             this.numbox.TabIndex = 11;
             // 
             // label4
@@ -172,18 +171,6 @@
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 16;
             this.label4.Text = "动画编号";
-            // 
-            // button3
-            // 
-            this.button3.Enabled = false;
-            this.button3.Location = new System.Drawing.Point(536, 278);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(156, 23);
-            this.button3.TabIndex = 22;
-            this.button3.Text = "确定并添加下一条";
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // label5
             // 
@@ -248,7 +235,7 @@
             this.jpnamebox.Location = new System.Drawing.Point(130, 85);
             this.jpnamebox.MaxLength = 255;
             this.jpnamebox.Name = "jpnamebox";
-            this.jpnamebox.Size = new System.Drawing.Size(151, 21);
+            this.jpnamebox.Size = new System.Drawing.Size(151, 19);
             this.jpnamebox.TabIndex = 13;
             // 
             // label6
@@ -278,7 +265,7 @@
             this.companybox.Location = new System.Drawing.Point(254, 23);
             this.companybox.Name = "companybox";
             this.companybox.Size = new System.Drawing.Size(105, 20);
-            this.companybox.TabIndex = 1;
+            this.companybox.TabIndex = 0;
             this.companybox.Visible = false;
             this.companybox.Leave += new System.EventHandler(this.companybox_Leave);
             // 
@@ -287,14 +274,14 @@
             this.PlayInfoDataGridView.AllowUserToAddRows = false;
             this.PlayInfoDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.PlayInfoDataGridView.BackgroundColor = System.Drawing.SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.PlayInfoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle16.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle16.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle16.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle16.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle16.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle16.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.PlayInfoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle16;
             this.PlayInfoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PlayInfoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.playinfo,
@@ -311,7 +298,7 @@
             this.PlayInfoDataGridView.RowTemplate.Height = 23;
             this.PlayInfoDataGridView.Size = new System.Drawing.Size(673, 221);
             this.PlayInfoDataGridView.TabIndex = 0;
-            this.PlayInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView1_CurrentCellChanged);
+            this.PlayInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.PlayInfoDataGridView_CurrentCellChanged);
             // 
             // playinfo
             // 
@@ -373,7 +360,7 @@
             this.CVbox.Location = new System.Drawing.Point(258, 25);
             this.CVbox.Name = "CVbox";
             this.CVbox.Size = new System.Drawing.Size(204, 20);
-            this.CVbox.TabIndex = 1;
+            this.CVbox.TabIndex = 0;
             this.CVbox.Visible = false;
             this.CVbox.Leave += new System.EventHandler(this.seiyuubox_Leave);
             // 
@@ -382,46 +369,47 @@
             this.CharacterInfoDataGridView.AllowUserToAddRows = false;
             this.CharacterInfoDataGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.CharacterInfoDataGridView.BackgroundColor = System.Drawing.Color.LightPink;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CharacterInfoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CharacterInfoDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.CharacterInfoDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.CharacterInfoDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.charactername,
             this.seiyuuname,
             this.ismaincharacter,
             this.characterNo});
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.CharacterInfoDataGridView.DefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle14.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle14.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle14.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle14.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle14.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle14.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.CharacterInfoDataGridView.DefaultCellStyle = dataGridViewCellStyle14;
             this.CharacterInfoDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.CharacterInfoDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.CharacterInfoDataGridView.Location = new System.Drawing.Point(3, 3);
             this.CharacterInfoDataGridView.MultiSelect = false;
             this.CharacterInfoDataGridView.Name = "CharacterInfoDataGridView";
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.CharacterInfoDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle15.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle15.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle15.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle15.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle15.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle15.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.CharacterInfoDataGridView.RowHeadersDefaultCellStyle = dataGridViewCellStyle15;
             this.CharacterInfoDataGridView.RowTemplate.DefaultCellStyle.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.CharacterInfoDataGridView.RowTemplate.Height = 23;
             this.CharacterInfoDataGridView.Size = new System.Drawing.Size(673, 221);
             this.CharacterInfoDataGridView.TabIndex = 0;
-            this.CharacterInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.dataGridView2_CurrentCellChanged);
+            this.CharacterInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.CharacterInfoDataGridView_CurrentCellChanged);
+            this.CharacterInfoDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CharacterInfoDataGridView_KeyDown);
             // 
             // charactername
             // 
@@ -466,7 +454,6 @@
             // 
             // AddAnime
             // 
-            this.AcceptButton = this.button3;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(711, 313);
@@ -475,7 +462,6 @@
             this.Controls.Add(this.tabControl1);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
-            this.Controls.Add(this.button3);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
@@ -507,7 +493,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.TextBox numbox;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.ComboBox originalbox;
         private System.Windows.Forms.TabControl tabControl1;

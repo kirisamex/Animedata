@@ -288,6 +288,18 @@ namespace Main
 
         }
 
+        private void CharacterInfoDataGridView_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Space:
+                    if (CharacterInfoDataGridView.CurrentCell.ColumnIndex == CharacterInfoDataGridView.Columns[ISMAINCHARACTERCLN].Index)
+                    {
+                    }
+                    break;
+            }
+        }
+
         #endregion
 
         #region 信息作成
@@ -787,7 +799,7 @@ namespace Main
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridView1_CurrentCellChanged(object sender, EventArgs e)
+        private void PlayInfoDataGridView_CurrentCellChanged(object sender, EventArgs e)
         {
             DataGridViewCell CurrnetCell = this.PlayInfoDataGridView.CurrentCell;
 
@@ -839,7 +851,7 @@ namespace Main
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void dataGridView2_CurrentCellChanged(object sender, EventArgs e)
+        private void CharacterInfoDataGridView_CurrentCellChanged(object sender, EventArgs e)
         {
             DataGridViewCell CurrnetCell = this.CharacterInfoDataGridView.CurrentCell;
 
@@ -859,6 +871,11 @@ namespace Main
                 this.CVbox.Left = TmpRect.Left;
                 this.CVbox.Visible = true;
                 this.CVbox.Focus();
+            }
+            else if (CurrnetCell != null && CurrnetCell.OwningColumn.Name == "ismaincharacter")
+            {
+                
+                this.CVbox.Visible = false;
             }
             else
             {
@@ -914,7 +931,6 @@ namespace Main
         {
             this.Text = "修改动画信息";
             this.numbox.ReadOnly = true;
-            this.button3.Visible = false;
             this.AcceptButton = button1;
 
             //基本信息
@@ -1005,6 +1021,8 @@ namespace Main
         }
   
         #endregion
+
+
 
     }
 }

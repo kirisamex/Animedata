@@ -80,7 +80,7 @@ namespace Main
         private Company GetChooseCompany()
         {
             int idx = dataGridView1.CurrentRow.Index;
-            string name = dataGridView1.Rows[idx].Cells[1].Value.ToString();
+            string name = dataGridView1.Rows[idx].Cells[0].Value.ToString();
             Company comp = new Company();
             comp.Name = name;
             comp.ID = service.GetCompanyIdByCompanyName(name);
