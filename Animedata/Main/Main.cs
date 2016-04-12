@@ -109,12 +109,16 @@ namespace Main
                 dgvrow.Cells[5].Value = service.GetOriginalTextFromOriginalInt(Convert.ToInt32(animedt.Rows[i][5].ToString()));
             }
 
+            int colwit = 19;
             //动画窗口格式设置
-            for (int i = 0; i < ANIMEDATA_DEVGridview.ColumnCount; i++)
+            foreach (DataGridViewColumn col in  ANIMEDATA_DEVGridview.Columns)
             {
-                ANIMEDATA_DEVGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                ANIMEDATA_DEVGridview.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                //ANIMEDATA_DEVGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
             }
+            splitContainer2.SplitterDistance = colwit;
 
             //状态格式
             foreach (DataGridViewRow dr in ANIMEDATA_DEVGridview.Rows)
@@ -192,7 +196,6 @@ namespace Main
                         foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
                         {
                             int status = service.GetStatusIntFromStatusText(dr.Cells[3].Value.ToString());
-                            //dr.Cells[0].Style = style.GetStatusRowStyle(status);
                             dr.Cells[3].Style = style.GetStatusRowStyle(status);
                         }
                     }

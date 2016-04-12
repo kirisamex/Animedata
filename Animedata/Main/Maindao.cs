@@ -260,7 +260,11 @@ namespace Main
                                 FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
                                 WHERE ANIME_NO = @animeNo
                                 AND ENABLE_FLG = 1 
-                                ORDER BY START_TIME";
+                                ORDER BY 
+									CASE WHEN START_TIME IS NULL THEN 1
+									ELSE 0
+									END,
+									START_TIME";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
