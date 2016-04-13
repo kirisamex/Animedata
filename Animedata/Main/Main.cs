@@ -68,7 +68,7 @@ namespace Main
         /// <param name="ds"></param>
         public void LoadAnimeMain(DataSet ds)
         {
-            ANIMEDATA_DEVGridview.Rows.Clear();
+            AnimationDataGridview.Rows.Clear();
 
             DataTable animedt = ds.Tables[0];
             List<string> ShowedAnimeNo = new List<string>();
@@ -88,8 +88,8 @@ namespace Main
                 }
                 #endregion
 
-                ANIMEDATA_DEVGridview.Rows.Add();
-                DataGridViewRow dgvrow = ANIMEDATA_DEVGridview.Rows[i];
+                AnimationDataGridview.Rows.Add();
+                DataGridViewRow dgvrow = AnimationDataGridview.Rows[i];
                 //编号
                 dgvrow.Cells[0].Value = AnimeNo;
 
@@ -111,7 +111,7 @@ namespace Main
 
             int colwit = 19;
             //动画窗口格式设置
-            foreach (DataGridViewColumn col in  ANIMEDATA_DEVGridview.Columns)
+            foreach (DataGridViewColumn col in  AnimationDataGridview.Columns)
             {
                 //ANIMEDATA_DEVGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
@@ -121,7 +121,7 @@ namespace Main
             splitContainer2.SplitterDistance = colwit;
 
             //状态格式
-            foreach (DataGridViewRow dr in ANIMEDATA_DEVGridview.Rows)
+            foreach (DataGridViewRow dr in AnimationDataGridview.Rows)
             {
                 int status = service.GetStatusIntFromStatusText(dr.Cells[4].Value.ToString());
                 
@@ -139,7 +139,8 @@ namespace Main
 
                 //获取角色信息
                 ShowCharacterInfo(firstRowAnimeNo);
-            }   
+            }
+
         }
 
         /// <summary>
@@ -256,13 +257,16 @@ namespace Main
         /// <returns></returns>
         public DataGridViewRow GetSelectedRow()
         {
-            if (ANIMEDATA_DEVGridview.SelectedCells.Count > 0)
+            if (AnimationDataGridview.SelectedCells.Count > 0)
             {
-                DataGridViewRow dr = ANIMEDATA_DEVGridview.Rows[ANIMEDATA_DEVGridview.SelectedCells[0].RowIndex];
+                DataGridViewRow dr = new DataGridViewRow();
+                dr = AnimationDataGridview.Rows[AnimationDataGridview.SelectedCells[0].RowIndex];
                 return dr;
             }
-
-            return null;
+            else
+            {
+                return null;
+            }
         }
 
         /// <summary>
@@ -274,9 +278,9 @@ namespace Main
 
             List<string> selectedAnimeNoList = new List<string>();
 
-            for (int i = 0; i < ANIMEDATA_DEVGridview.SelectedCells.Count; i++)
+            for (int i = 0; i < AnimationDataGridview.SelectedCells.Count; i++)
             {
-                string currentrowalbumNo = ANIMEDATA_DEVGridview.Rows[ANIMEDATA_DEVGridview.SelectedCells[i].RowIndex].Cells["AnimeNo"].Value.ToString();
+                string currentrowalbumNo = AnimationDataGridview.Rows[AnimationDataGridview.SelectedCells[i].RowIndex].Cells["AnimeNo"].Value.ToString();
 
                 if (selectedAnimeNoList.Contains(currentrowalbumNo))
                 {
@@ -293,7 +297,7 @@ namespace Main
         /// </summary>
         public void DeleteSelectedRowsAnimeInfo()
         {
-            if (ANIMEDATA_DEVGridview.SelectedCells.Count == 0)
+            if (AnimationDataGridview.SelectedCells.Count == 0)
             {
                 MsgBox.Show(MSG_COMMON_002);
                 return;
@@ -348,6 +352,27 @@ namespace Main
             {
                 MsgBox.Show(MSG_COMMON_001, ex.Message);
             }
+        }
+
+        /// <summary>
+        /// 显示播放信息以及角色信息
+        /// </summary>
+        private void ShowPlayinfoAndCharacterInfo()
+        {
+            if (GetSelectedRow() == null)
+            {
+                return;
+            }
+
+            int? selectedRowNo = GetSelectedRow().Index;
+
+            if (selectedRowNo == null)
+            {
+                return;
+            }
+            string animeID = AnimationDataGridview.Rows[(int)selectedRowNo].Cells[0].Value.ToString();
+            ShowAnimeInfo(animeID);
+            ShowCharacterInfo(animeID);
         }
 
         #endregion
@@ -465,10 +490,8 @@ namespace Main
 
         public void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
-            int selectedRowNo = GetSelectedRow().Index;
-            string animeID = ANIMEDATA_DEVGridview.Rows[selectedRowNo].Cells[0].Value.ToString();
-            ShowAnimeInfo(animeID);
-            ShowCharacterInfo(animeID);
+            //#7_键盘操作对应，改为CurrentCellChange
+            //ShowPlayinfoAndCharacterInfo();
         }
 
         private void changeanimebutton_Click(object sender, EventArgs e)
@@ -494,6 +517,13 @@ namespace Main
         }
 
 
+        #endregion
+
+        #region 事件
+        private void AnimationDataGridview_CurrentCellChanged(object sender, EventArgs e)
+        {
+            ShowPlayinfoAndCharacterInfo();
+        }
         #endregion
 
         #region 键盘
@@ -532,6 +562,8 @@ namespace Main
         }
 
         #endregion
+
+
 
     }
 }

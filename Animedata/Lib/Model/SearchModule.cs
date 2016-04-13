@@ -153,6 +153,16 @@ namespace Main.Lib.Model
         /// 动画原作
         /// </summary>
         public AnimeOriginalModule animeOriginal = new AnimeOriginalModule();
+
+        /// <summary>
+        /// 声优名
+        /// </summary>
+        public string CVName;
+
+        /// <summary>
+        /// 制作公司名
+        /// </summary>
+        public string Company;
         #endregion
 
         #region 方法

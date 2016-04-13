@@ -516,6 +516,8 @@ namespace Main
 									AT.ORIGINAL
                                     FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CT ON CT.ANIME_NO = AT.ANIME_NO AND CT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.
 									");
 
             
@@ -640,6 +642,12 @@ namespace Main
 
 
             }
+            #endregion
+
+            #region 声优
+            #endregion
+
+            #region 制作公司
             #endregion
 
             #region 播放状态

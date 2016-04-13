@@ -104,6 +104,18 @@ namespace Main
                 }
             }
 
+            //声优
+            if (!string.IsNullOrEmpty(seiyuuBox.Text.ToString()))
+            {
+                mainSearch.CVName = seiyuuBox.Text.ToString();
+            }
+
+            //制作公司
+            if (!string.IsNullOrEmpty(companyBox.Text.ToString()))
+            {
+                mainSearch.Company=companyBox.Text.ToString());
+            }
+
             //状态
             #region //状态
             if (StatusCheckedListBox.GetItemChecked(0))
