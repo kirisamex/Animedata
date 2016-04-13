@@ -516,8 +516,9 @@ namespace Main
 									AT.ORIGINAL
                                     FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
+                                    INNER JOIN ANIMEDATA_DEV.dbo.T_COMPANY_TBL COT ON PT.COMPANY_ID = COT.COMPANY_ID AND COT.ENABLE_FLG = 1
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CT ON CT.ANIME_NO = AT.ANIME_NO AND CT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.
+                                    INNER JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.CV_ID = CT.CV_ID AND CVT.ENABLE_FLG = 1
 									");
 
             
@@ -645,9 +646,23 @@ namespace Main
             #endregion
 
             #region 声优
+            if(!string.IsNullOrEmpty(search.CVName))
+            {
+                AddWhereAnd(joincmd);
+                joincmd.Append(SQLAndBuilder(search.CVNameSearchWay, "CVT.CV_NAME", "cv_name"));
+
+                paras.Add(AddParam(search.CVNameSearchWay, "cv_name", search.CVName));
+            }
             #endregion
 
             #region 制作公司
+            if (!string.IsNullOrEmpty(search.Company))
+            {
+                AddWhereAnd(joincmd);
+                joincmd.Append(SQLAndBuilder(search.CompanyNameSearchWay, "COT.COMPANY_NAME", "company_name"));
+
+                paras.Add(AddParam(search.CompanyNameSearchWay, "company_name", search.Company));
+            }
             #endregion
 
             #region 播放状态

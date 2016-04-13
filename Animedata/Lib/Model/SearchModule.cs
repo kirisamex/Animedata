@@ -160,9 +160,19 @@ namespace Main.Lib.Model
         public string CVName;
 
         /// <summary>
+        /// 声优名检索方式
+        /// </summary>
+        public StringSearchWay CVNameSearchWay = StringSearchWay.Broad;
+
+        /// <summary>
         /// 制作公司名
         /// </summary>
         public string Company;
+
+        /// <summary>
+        /// 公司名检索方式
+        /// </summary>
+        public StringSearchWay CompanyNameSearchWay = StringSearchWay.Broad;
         #endregion
 
         #region 方法

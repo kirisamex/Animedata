@@ -108,12 +108,14 @@ namespace Main
             if (!string.IsNullOrEmpty(seiyuuBox.Text.ToString()))
             {
                 mainSearch.CVName = seiyuuBox.Text.ToString();
+                mainSearch.CVNameSearchWay = mainSearch.GetStringSearchWay(CVNameSearchTypeButton.Text.ToString());
             }
 
             //制作公司
             if (!string.IsNullOrEmpty(companyBox.Text.ToString()))
             {
-                mainSearch.Company=companyBox.Text.ToString());
+                mainSearch.Company=companyBox.Text.ToString();
+                mainSearch.CompanyNameSearchWay = mainSearch.GetStringSearchWay(CompanySearchTypeButton.Text.ToString());
             }
 
             //状态
@@ -281,6 +283,30 @@ namespace Main
             return 0;
         }
 
+        /// <summary>
+        /// 更改搜索方式按键显示内容
+        /// </summary>
+        /// <param name="test">更改前内容</param>
+        /// <returns></returns>
+        private string ButtonTextChange(string test)
+        {
+            switch (test)
+            {
+                case "部分一致":
+                    return "完全一致";
+                case "完全一致":
+                    return "前方一致";
+                case "前方一致":
+                    return "部分一致";
+                case "在此期间":
+                    return "包括此期间";
+                case "包括此期间":
+                    return "在此期间";
+                default:
+                    return null;
+            }
+        }
+
         #endregion
 
         #region 按钮
@@ -358,9 +384,13 @@ namespace Main
             this.PlaytimeToBox.Text = string.Empty;
             this.WatchtimeFromBox.Text = string.Empty;
             this.WatchtimeToBox.Text = string.Empty;
+            this.seiyuuBox.Text = string.Empty;
+            this.companyBox.Text = string.Empty;
 
             this.AnimeCNNameSearchTypeButton.Text = "部分一致";
             this.AnimeJPNameSearcyTypeButton.Text = "部分一致";
+            this.CVNameSearchTypeButton.Text = "部分一致"; 
+            this.CompanySearchTypeButton.Text = "部分一致";
 
             PlaytimeSearchTypeButton.Text = "在此期间";
             WatchtimeSearchTypeButton.Text = "在此期间";
@@ -383,20 +413,7 @@ namespace Main
         /// <param name="e"></param>
         private void AnimeCNNameSearchTypeButton_Click(object sender, EventArgs e)
         {
-            string searchtext = AnimeCNNameSearchTypeButton.Text.ToString();
-
-            switch (searchtext)
-            {
-                case "部分一致":
-                    AnimeCNNameSearchTypeButton.Text = "完全一致";
-                    break;
-                case "完全一致":
-                    AnimeCNNameSearchTypeButton.Text = "前方一致";
-                    break;
-                case "前方一致":
-                    AnimeCNNameSearchTypeButton.Text = "部分一致";
-                    break;
-            }
+            AnimeCNNameSearchTypeButton.Text = ButtonTextChange(AnimeCNNameSearchTypeButton.Text.ToString());
         }
 
         /// <summary>
@@ -406,20 +423,27 @@ namespace Main
         /// <param name="e"></param>
         private void AnimeJPNameSearcyTypeButton_Click(object sender, EventArgs e)
         {
-            string searchtext = AnimeJPNameSearcyTypeButton.Text.ToString();
+            AnimeJPNameSearcyTypeButton.Text = ButtonTextChange(AnimeJPNameSearcyTypeButton.Text.ToString());
+        }
 
-            switch (searchtext)
-            {
-                case "部分一致":
-                    AnimeJPNameSearcyTypeButton.Text = "完全一致";
-                    break;
-                case "完全一致":
-                    AnimeJPNameSearcyTypeButton.Text = "前方一致";
-                    break;
-                case "前方一致":
-                    AnimeJPNameSearcyTypeButton.Text = "部分一致";
-                    break;
-            }
+        /// <summary>
+        /// 声优名检索方式切换
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CVNameSearchTypeButton_Click(object sender, EventArgs e)
+        {
+            CVNameSearchTypeButton.Text = ButtonTextChange(CVNameSearchTypeButton.Text.ToString());
+        }
+
+        /// <summary>
+        /// 公司名检索方式切换
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CompanySearchTypeButton_Click(object sender, EventArgs e)
+        {
+            CompanySearchTypeButton.Text = ButtonTextChange(CompanySearchTypeButton.Text.ToString());
         }
 
         /// <summary>
@@ -429,18 +453,7 @@ namespace Main
         /// <param name="e"></param>
         private void PlaytimeSearchTypeButton_Click(object sender, EventArgs e)
         {
-            string searchtext = PlaytimeSearchTypeButton.Text.ToString();
-
-            switch (searchtext)
-            {
-                case "在此期间":
-                    PlaytimeSearchTypeButton.Text = "包括此期间";
-                    break;
-                case "包括此期间":
-                    PlaytimeSearchTypeButton.Text = "在此期间";
-                    break;
-
-            }
+            PlaytimeSearchTypeButton.Text = ButtonTextChange(PlaytimeSearchTypeButton.Text.ToString());
         }
 
         /// <summary>
@@ -450,18 +463,7 @@ namespace Main
         /// <param name="e"></param>
         private void WatchtimeSearchTypeButton_Click(object sender, EventArgs e)
         {
-            string searchtext = WatchtimeSearchTypeButton.Text.ToString();
-            
-            switch (searchtext)
-            {
-                case "在此期间":
-                    WatchtimeSearchTypeButton.Text = "包括此期间";
-                    break;
-                case "包括此期间":
-                    WatchtimeSearchTypeButton.Text = "在此期间";
-                    break;
-
-            }
+            WatchtimeSearchTypeButton.Text = ButtonTextChange(WatchtimeSearchTypeButton.Text.ToString());
         }
         #endregion
 
@@ -494,13 +496,7 @@ namespace Main
             for (int j = 0; j < OriginalCheckedListBox.Items.Count; j++)
                 OriginalCheckedListBox.SetItemChecked(j, true);
         }
+
         #endregion
-
-
-
-
-
-
-
     }
 }
