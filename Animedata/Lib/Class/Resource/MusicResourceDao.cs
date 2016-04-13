@@ -27,8 +27,8 @@ namespace Main.Music
                             RT.STORAGE_ID,
                             RT.RESOURCE_FILEPATH,
                             RT.RESOURCE_FILENAME
-                            FROM ANIMEDATA_DEV.dbo.T_RESOURCE_TBL RT
-                            INNER JOIN ANIMEDATA_DEV.dbo.T_TRACK_RESOURCE_TBL TRT ON RT.RESOURCE_ID = TRT.RESOURCE_ID AND TRT.ENABLE_FLG = 1
+                            FROM ANIMEDATA.dbo.T_RESOURCE_TBL RT
+                            INNER JOIN ANIMEDATA.dbo.T_TRACK_RESOURCE_TBL TRT ON RT.RESOURCE_ID = TRT.RESOURCE_ID AND TRT.ENABLE_FLG = 1
                             WHERE TRT.TRACK_ID = @trackid
                             AND RT.RESOURCE_TYPE = @resourcetype
                             ";

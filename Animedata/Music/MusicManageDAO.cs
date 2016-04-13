@@ -36,12 +36,12 @@ namespace Main.Music
                                         RT.STORAGE_ID,
                                         RT.RESOURCE_FILEPATH,
                                         RT.RESOURCE_FILENAME
-                                    FROM ANIMEDATA_DEV.dbo.T_TRACK_TBL TRT
-                                    INNER JOIN ANIMEDATA_DEV.dbo.T_ALBUM_TBL ALT ON TRT.P_ALBUM_ID = ALT.ALBUM_ID AND ALT.ENABLE_FLG = 1
-                                    INNER JOIN ANIMEDATA_DEV.dbo.T_ARTIST_TBL ART ON TRT.ARTIST_ID = ART.ARTIST_ID AND ART.ENABLE_FLG = 1
-                                    INNER JOIN ANIMEDATA_DEV.dbo.T_ANIME_TBL ANT ON ANT.ANIME_NO = TRT.ANIME_NO AND ANT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_TRACK_RESOURCE_TBL TTRT ON TTRT.TRACK_ID = TRT.TRACK_ID AND TTRT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_RESOURCE_TBL RT ON RT.RESOURCE_ID = TTRT.RESOURCE_ID AND RT.ENABLE_FLG = 1
+                                    FROM ANIMEDATA.dbo.T_TRACK_TBL TRT
+                                    INNER JOIN ANIMEDATA.dbo.T_ALBUM_TBL ALT ON TRT.P_ALBUM_ID = ALT.ALBUM_ID AND ALT.ENABLE_FLG = 1
+                                    INNER JOIN ANIMEDATA.dbo.T_ARTIST_TBL ART ON TRT.ARTIST_ID = ART.ARTIST_ID AND ART.ENABLE_FLG = 1
+                                    INNER JOIN ANIMEDATA.dbo.T_ANIME_TBL ANT ON ANT.ANIME_NO = TRT.ANIME_NO AND ANT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_TRACK_RESOURCE_TBL TTRT ON TTRT.TRACK_ID = TRT.TRACK_ID AND TTRT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA.dbo.T_RESOURCE_TBL RT ON RT.RESOURCE_ID = TTRT.RESOURCE_ID AND RT.ENABLE_FLG = 1
                                     WHERE TRT.ENABLE_FLG = 1";
 
             return DbCmd.DoSelect(sqlcmd);
@@ -55,7 +55,7 @@ namespace Main.Music
         public string GetStoragePath(int storageID)
         {
             string cmd = @"SELECT STORAGE_PATH 
-                            FROM ANIMEDATA_DEV.dbo.T_STORAGE_MST
+                            FROM ANIMEDATA.dbo.T_STORAGE_MST
                             WHERE STORAGE_ID = @storageid";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();

@@ -28,7 +28,7 @@ namespace Main.Music
                                         TRT.SALES_YEAR,
                                         TRT.DESCRIPTION, 
                                         TRT.ANIME_NO
-                                    FROM ANIMEDATA_DEV.dbo.T_TRACK_TBL TRT
+                                    FROM ANIMEDATA.dbo.T_TRACK_TBL TRT
                                     WHERE TRT.ENABLE_FLG = 1
                                     AND TRT.TRACK_ID = @trackid ";
 

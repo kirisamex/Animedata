@@ -59,7 +59,7 @@ namespace Main
             }
 
 
-            sqlcmd.Append(@"INSERT INTO ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL (
+            sqlcmd.Append(@"INSERT INTO ANIMEDATA.dbo.T_PLAYINFO_TBL (
                                  PLAYINFO_ID
                             	,ANIME_NO
 	                            ,ANIME_PLAYINFO
@@ -107,7 +107,7 @@ namespace Main
 
             
 
-            sqlcmd.Append(@"UPDATE ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL SET
+            sqlcmd.Append(@"UPDATE ANIMEDATA.dbo.T_PLAYINFO_TBL SET
   	                             ANIME_PLAYINFO = @playinfo
 	                            ,STATUS = @status
 	                            ,LAST_UPDATE_DATETIME = GETDATE()
@@ -174,7 +174,7 @@ namespace Main
         public bool Delete(PlayInfo pInfo)
         {
             string sqlcmd = @"                            
-                            UPDATE ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+                            UPDATE ANIMEDATA.dbo.T_PLAYINFO_TBL
                             SET ENABLE_FLG = 0
                             ,LAST_UPDATE_DATETIME = GETDATE()
                             WHERE PLAYINFO_ID = @playinfoID 

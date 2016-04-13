@@ -113,7 +113,7 @@ namespace Main
             //动画窗口格式设置
             foreach (DataGridViewColumn col in  AnimationDataGridview.Columns)
             {
-                //ANIMEDATA_DEVGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                //ANIMEDATAGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                 col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                 colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);

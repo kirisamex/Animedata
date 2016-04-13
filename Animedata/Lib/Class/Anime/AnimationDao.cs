@@ -55,7 +55,7 @@ namespace Main
             }
 
             //动画信息插入
-            string sqlcmd = @"INSERT INTO ANIMEDATA_DEV.dbo.T_ANIME_TBL (
+            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_ANIME_TBL (
 	                            	ANIME_NO
 	                            	,ANIME_CHN_NAME
                             		,ANIME_JPN_NAME
@@ -106,7 +106,7 @@ namespace Main
 
             //所有既存该动画的播放信息
             string sql1 = @"SELECT PLAYINFO_ID 
-                            FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+                            FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
                             WHERE ANIME_NO = @animeNo";
 
             Collection<DbParameter> paras1 = new Collection<DbParameter>();
@@ -129,7 +129,7 @@ namespace Main
             {
                 //确认播放是否存在
                 string sql = @"SELECT PLAYINFO_ID
-                                FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+                                FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
                                 WHERE PLAYINFO_ID = @playinfoID
                                 AND ANIME_NO = @animeno ";
 
@@ -176,7 +176,7 @@ namespace Main
 
             //所有既存该动画的角色信息
             string sql2 = @"SELECT CHARACTER_NO
-                            FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
+                            FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                             WHERE ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras2 = new Collection<DbParameter>();
@@ -199,7 +199,7 @@ namespace Main
             {
 
                 string sql = @"SELECT CHARACTER_NO
-                                FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
+                                FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                 WHERE CHARACTER_NO = @characterNo";
 
                 Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -239,7 +239,7 @@ namespace Main
 
             #region 基本信息更新
             //动画信息插入
-            string sqlcmd = @"UPDATE ANIMEDATA_DEV.dbo.T_ANIME_TBL SET 
+            string sqlcmd = @"UPDATE ANIMEDATA.dbo.T_ANIME_TBL SET 
 	                            	ANIME_CHN_NAME = @animeCNName
                             		,ANIME_JPN_NAME = @animeJPName
                             		,ANIME_NN = @animeNickName
@@ -276,15 +276,15 @@ namespace Main
         /// <returns></returns>
         public bool DeleteAnime(string animeNo)
         {
-            string sqlcmd = @"UPDATE ANIMEDATA_DEV.dbo.T_ANIME_TBL SET 
+            string sqlcmd = @"UPDATE ANIMEDATA.dbo.T_ANIME_TBL SET 
 	                           ENABLE_FLG = 0
                                WHERE ANIME_NO = @animeNo
 
-                              UPDATE ANIMEDATA_DEV.dbo.T_CHARACTER_TBL SET 
+                              UPDATE ANIMEDATA.dbo.T_CHARACTER_TBL SET 
 	                           ENABLE_FLG = 0
                                WHERE ANIME_NO = @animeNo
 
-                              UPDATE ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL SET 
+                              UPDATE ANIMEDATA.dbo.T_PLAYINFO_TBL SET 
 	                           ENABLE_FLG = 0
                                WHERE ANIME_NO = @animeNo ";
 
@@ -310,15 +310,15 @@ namespace Main
         public bool DeleteSelectedAnimeInfo(string animeNo)
         {
             string sqlcmd = @"DELETE 
-                            FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL
+                            FROM ANIMEDATA.dbo.T_ANIME_TBL
                             WHERE ANIME_NO=@animeNo
                             
                             DELETE 
-                            FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
+                            FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                             WHERE ANIME_NO=@animeNo
 
                             DELETE 
-                            FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+                            FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
                             WHERE ANIME_NO=@animeNo";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -342,7 +342,7 @@ namespace Main
         /// <param name="cInfo"></param>
         private void InsertCharacterInfo(Character cInfo)
         {
-            string sqlcmd = @"INSERT INTO ANIMEDATA_DEV.dbo.T_CHARACTER_TBL (
+            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_CHARACTER_TBL (
 	                            CHARACTER_NO
 	                            ,CHARACTER_NAME
 	                            ,ANIME_NO
@@ -379,7 +379,7 @@ namespace Main
         {
             const string sqlcmd = @"SELECT 
                                     MAX(ANIME_NO)
-                                    FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL ";
+                                    FROM ANIMEDATA.dbo.T_ANIME_TBL ";
 
             DataSet ds = DbCmd.DoSelect(sqlcmd);
 
@@ -405,7 +405,7 @@ namespace Main
 	                                    ,TPT.COMPANY_ID
 	                                    ,TPT.START_TIME 
 	                                    ,TPT.WATCH_TIME
-                                    FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL TPT   
+                                    FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
                                     WHERE TPT.ANIME_NO = @animeNo
                                     AND TPT.ENABLE_FLG = 1 
                                     ORDER BY TPT.PLAYINFO_ID";
@@ -429,7 +429,7 @@ namespace Main
                                         ,CHARACTER_NAME
 	                                    ,CV_ID
 	                                    ,LEADING_FLG
-                                    FROM ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
+                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL
                                     WHERE ANIME_NO = @animeNo
                                     AND ENABLE_FLG = 1
                                     ORDER BY CHARACTER_NO";
