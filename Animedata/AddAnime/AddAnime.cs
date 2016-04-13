@@ -795,7 +795,7 @@ namespace Main
         #region 窗体
 
         /// <summary>
-        /// DGV1格式设置
+        /// 播放信息选项卡格式设置
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -847,7 +847,7 @@ namespace Main
         }
 
         /// <summary>
-        /// DGV2格式设置
+        /// 角色选项卡格式设置
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -874,7 +874,7 @@ namespace Main
             }
             else if (CurrnetCell != null && CurrnetCell.OwningColumn.Name == "ismaincharacter")
             {
-                
+                CharacterInfoDataGridView.Focus();
                 this.CVbox.Visible = false;
             }
             else

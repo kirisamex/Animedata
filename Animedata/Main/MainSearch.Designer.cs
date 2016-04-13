@@ -56,6 +56,10 @@
             this.SearchButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
             this.CancelButton = new System.Windows.Forms.Button();
+            this.label11 = new System.Windows.Forms.Label();
+            this.seiyuuBox = new System.Windows.Forms.TextBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.companyBox = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
             // 
             // label1
@@ -70,7 +74,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 43);
+            this.label2.Location = new System.Drawing.Point(13, 53);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(77, 12);
             this.label2.TabIndex = 1;
@@ -85,14 +89,14 @@
             // 
             // AnimeCNNamebox
             // 
-            this.AnimeCNNamebox.Location = new System.Drawing.Point(96, 40);
+            this.AnimeCNNamebox.Location = new System.Drawing.Point(96, 50);
             this.AnimeCNNamebox.Name = "AnimeCNNamebox";
             this.AnimeCNNamebox.Size = new System.Drawing.Size(144, 19);
             this.AnimeCNNamebox.TabIndex = 2;
             // 
             // AnimeJPNameBox
             // 
-            this.AnimeJPNameBox.Location = new System.Drawing.Point(96, 70);
+            this.AnimeJPNameBox.Location = new System.Drawing.Point(96, 87);
             this.AnimeJPNameBox.Name = "AnimeJPNameBox";
             this.AnimeJPNameBox.Size = new System.Drawing.Size(144, 19);
             this.AnimeJPNameBox.TabIndex = 4;
@@ -100,7 +104,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 73);
+            this.label3.Location = new System.Drawing.Point(13, 90);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(77, 12);
             this.label3.TabIndex = 3;
@@ -109,7 +113,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 103);
+            this.label4.Location = new System.Drawing.Point(37, 133);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(53, 12);
             this.label4.TabIndex = 3;
@@ -117,14 +121,14 @@
             // 
             // AnimeNNBox
             // 
-            this.AnimeNNBox.Location = new System.Drawing.Point(96, 100);
+            this.AnimeNNBox.Location = new System.Drawing.Point(96, 130);
             this.AnimeNNBox.Name = "AnimeNNBox";
             this.AnimeNNBox.Size = new System.Drawing.Size(144, 19);
             this.AnimeNNBox.TabIndex = 6;
             // 
             // AnimeCNNameSearchTypeButton
             // 
-            this.AnimeCNNameSearchTypeButton.Location = new System.Drawing.Point(246, 38);
+            this.AnimeCNNameSearchTypeButton.Location = new System.Drawing.Point(246, 48);
             this.AnimeCNNameSearchTypeButton.Name = "AnimeCNNameSearchTypeButton";
             this.AnimeCNNameSearchTypeButton.Size = new System.Drawing.Size(75, 23);
             this.AnimeCNNameSearchTypeButton.TabIndex = 3;
@@ -134,7 +138,7 @@
             // 
             // AnimeJPNameSearcyTypeButton
             // 
-            this.AnimeJPNameSearcyTypeButton.Location = new System.Drawing.Point(246, 68);
+            this.AnimeJPNameSearcyTypeButton.Location = new System.Drawing.Point(246, 85);
             this.AnimeJPNameSearcyTypeButton.Name = "AnimeJPNameSearcyTypeButton";
             this.AnimeJPNameSearcyTypeButton.Size = new System.Drawing.Size(75, 23);
             this.AnimeJPNameSearcyTypeButton.TabIndex = 5;
@@ -154,7 +158,7 @@
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(338, 91);
+            this.label6.Location = new System.Drawing.Point(338, 130);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(29, 12);
             this.label6.TabIndex = 9;
@@ -171,7 +175,7 @@
             "弃置"});
             this.StatusCheckedListBox.Location = new System.Drawing.Point(373, 10);
             this.StatusCheckedListBox.Name = "StatusCheckedListBox";
-            this.StatusCheckedListBox.Size = new System.Drawing.Size(98, 60);
+            this.StatusCheckedListBox.Size = new System.Drawing.Size(98, 74);
             this.StatusCheckedListBox.TabIndex = 13;
             // 
             // OriginalCheckedListBox
@@ -185,15 +189,15 @@
             "游戏",
             "影视",
             "其他"});
-            this.OriginalCheckedListBox.Location = new System.Drawing.Point(373, 91);
+            this.OriginalCheckedListBox.Location = new System.Drawing.Point(373, 130);
             this.OriginalCheckedListBox.Name = "OriginalCheckedListBox";
-            this.OriginalCheckedListBox.Size = new System.Drawing.Size(98, 88);
+            this.OriginalCheckedListBox.Size = new System.Drawing.Size(98, 102);
             this.OriginalCheckedListBox.TabIndex = 14;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(37, 133);
+            this.label7.Location = new System.Drawing.Point(37, 175);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(53, 12);
             this.label7.TabIndex = 12;
@@ -201,14 +205,14 @@
             // 
             // PlaytimeToBox
             // 
-            this.PlaytimeToBox.Location = new System.Drawing.Point(183, 130);
+            this.PlaytimeToBox.Location = new System.Drawing.Point(183, 172);
             this.PlaytimeToBox.Name = "PlaytimeToBox";
             this.PlaytimeToBox.Size = new System.Drawing.Size(57, 19);
             this.PlaytimeToBox.TabIndex = 8;
             // 
             // PlaytimeSearchTypeButton
             // 
-            this.PlaytimeSearchTypeButton.Location = new System.Drawing.Point(246, 128);
+            this.PlaytimeSearchTypeButton.Location = new System.Drawing.Point(246, 170);
             this.PlaytimeSearchTypeButton.Name = "PlaytimeSearchTypeButton";
             this.PlaytimeSearchTypeButton.Size = new System.Drawing.Size(75, 23);
             this.PlaytimeSearchTypeButton.TabIndex = 9;
@@ -219,7 +223,7 @@
             // 
             // PlaytimeFromBox
             // 
-            this.PlaytimeFromBox.Location = new System.Drawing.Point(96, 130);
+            this.PlaytimeFromBox.Location = new System.Drawing.Point(96, 172);
             this.PlaytimeFromBox.Name = "PlaytimeFromBox";
             this.PlaytimeFromBox.Size = new System.Drawing.Size(57, 19);
             this.PlaytimeFromBox.TabIndex = 7;
@@ -227,7 +231,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(159, 133);
+            this.label8.Location = new System.Drawing.Point(159, 175);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(17, 12);
             this.label8.TabIndex = 16;
@@ -236,7 +240,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(159, 163);
+            this.label9.Location = new System.Drawing.Point(159, 215);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(17, 12);
             this.label9.TabIndex = 21;
@@ -244,14 +248,14 @@
             // 
             // WatchtimeFromBox
             // 
-            this.WatchtimeFromBox.Location = new System.Drawing.Point(96, 160);
+            this.WatchtimeFromBox.Location = new System.Drawing.Point(96, 212);
             this.WatchtimeFromBox.Name = "WatchtimeFromBox";
             this.WatchtimeFromBox.Size = new System.Drawing.Size(57, 19);
             this.WatchtimeFromBox.TabIndex = 10;
             // 
             // WatchtimeSearchTypeButton
             // 
-            this.WatchtimeSearchTypeButton.Location = new System.Drawing.Point(246, 158);
+            this.WatchtimeSearchTypeButton.Location = new System.Drawing.Point(246, 210);
             this.WatchtimeSearchTypeButton.Name = "WatchtimeSearchTypeButton";
             this.WatchtimeSearchTypeButton.Size = new System.Drawing.Size(75, 23);
             this.WatchtimeSearchTypeButton.TabIndex = 12;
@@ -262,7 +266,7 @@
             // 
             // WatchtimeToBox
             // 
-            this.WatchtimeToBox.Location = new System.Drawing.Point(183, 160);
+            this.WatchtimeToBox.Location = new System.Drawing.Point(183, 212);
             this.WatchtimeToBox.Name = "WatchtimeToBox";
             this.WatchtimeToBox.Size = new System.Drawing.Size(57, 19);
             this.WatchtimeToBox.TabIndex = 11;
@@ -270,7 +274,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(37, 163);
+            this.label10.Location = new System.Drawing.Point(37, 215);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(53, 12);
             this.label10.TabIndex = 17;
@@ -278,7 +282,7 @@
             // 
             // SearchButton
             // 
-            this.SearchButton.Location = new System.Drawing.Point(183, 196);
+            this.SearchButton.Location = new System.Drawing.Point(183, 336);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
             this.SearchButton.TabIndex = 15;
@@ -288,7 +292,7 @@
             // 
             // ClearButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(278, 196);
+            this.ClearButton.Location = new System.Drawing.Point(278, 336);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(75, 23);
             this.ClearButton.TabIndex = 16;
@@ -298,7 +302,7 @@
             // 
             // CancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(373, 196);
+            this.CancelButton.Location = new System.Drawing.Point(373, 336);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
             this.CancelButton.TabIndex = 17;
@@ -306,11 +310,43 @@
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(61, 253);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(29, 12);
+            this.label11.TabIndex = 3;
+            this.label11.Text = "声优";
+            // 
+            // seiyuuBox
+            // 
+            this.seiyuuBox.Location = new System.Drawing.Point(96, 250);
+            this.seiyuuBox.Name = "seiyuuBox";
+            this.seiyuuBox.Size = new System.Drawing.Size(144, 19);
+            this.seiyuuBox.TabIndex = 6;
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(37, 293);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(53, 12);
+            this.label12.TabIndex = 3;
+            this.label12.Text = "制作公司";
+            // 
+            // companyBox
+            // 
+            this.companyBox.Location = new System.Drawing.Point(96, 290);
+            this.companyBox.Name = "companyBox";
+            this.companyBox.Size = new System.Drawing.Size(144, 19);
+            this.companyBox.TabIndex = 6;
+            // 
             // MainSearch
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(497, 240);
+            this.ClientSize = new System.Drawing.Size(497, 383);
             this.Controls.Add(this.CancelButton);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.SearchButton);
@@ -330,7 +366,11 @@
             this.Controls.Add(this.label5);
             this.Controls.Add(this.AnimeJPNameSearcyTypeButton);
             this.Controls.Add(this.AnimeCNNameSearchTypeButton);
+            this.Controls.Add(this.companyBox);
+            this.Controls.Add(this.seiyuuBox);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.AnimeNNBox);
+            this.Controls.Add(this.label11);
             this.Controls.Add(this.AnimeJPNameBox);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -379,6 +419,10 @@
         public System.Windows.Forms.TextBox WatchtimeToBox;
         public System.Windows.Forms.CheckedListBox StatusCheckedListBox;
         public System.Windows.Forms.CheckedListBox OriginalCheckedListBox;
+        private System.Windows.Forms.Label label11;
+        public System.Windows.Forms.TextBox seiyuuBox;
+        private System.Windows.Forms.Label label12;
+        public System.Windows.Forms.TextBox companyBox;
 
     }
 }

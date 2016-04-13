@@ -55,7 +55,7 @@
             this.动画制作企业列表ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.帮助ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.关于ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ANIMEDATA_DEVGridview = new System.Windows.Forms.DataGridView();
+            this.AnimationDataGridview = new System.Windows.Forms.DataGridView();
             this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeCNName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeJPName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -80,7 +80,7 @@
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ANIMEDATA_DEVGridview)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -110,7 +110,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
-            this.menuStrip1.TabIndex = 0;
+            this.menuStrip1.TabIndex = 11;
             this.menuStrip1.TabStop = true;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -256,16 +256,16 @@
             this.关于ToolStripMenuItem.Text = "关于";
             this.关于ToolStripMenuItem.Click += new System.EventHandler(this.关于ToolStripMenuItem_Click);
             // 
-            // ANIMEDATA_DEVGridview
+            // AnimationDataGridview
             // 
-            this.ANIMEDATA_DEVGridview.AllowUserToAddRows = false;
-            this.ANIMEDATA_DEVGridview.AllowUserToDeleteRows = false;
+            this.AnimationDataGridview.AllowUserToAddRows = false;
+            this.AnimationDataGridview.AllowUserToDeleteRows = false;
             dataGridViewCellStyle1.BackColor = System.Drawing.Color.Gainsboro;
-            this.ANIMEDATA_DEVGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
-            this.ANIMEDATA_DEVGridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ANIMEDATA_DEVGridview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.ANIMEDATA_DEVGridview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
-            this.ANIMEDATA_DEVGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
+            this.AnimationDataGridview.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            this.AnimationDataGridview.BackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.AnimationDataGridview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.AnimationDataGridview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
+            this.AnimationDataGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
@@ -273,26 +273,27 @@
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.ANIMEDATA_DEVGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.ANIMEDATA_DEVGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ANIMEDATA_DEVGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.AnimationDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            this.AnimationDataGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.AnimationDataGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AnimeNo,
             this.AnimeCNName,
             this.AnimeJPName,
             this.AnimeNiceName,
             this.AnimeStatus,
             this.AnimeOriginal});
-            this.ANIMEDATA_DEVGridview.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ANIMEDATA_DEVGridview.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
-            this.ANIMEDATA_DEVGridview.Location = new System.Drawing.Point(0, 0);
-            this.ANIMEDATA_DEVGridview.MultiSelect = false;
-            this.ANIMEDATA_DEVGridview.Name = "ANIMEDATA_DEVGridview";
-            this.ANIMEDATA_DEVGridview.ReadOnly = true;
-            this.ANIMEDATA_DEVGridview.RowHeadersVisible = false;
-            this.ANIMEDATA_DEVGridview.RowTemplate.Height = 23;
-            this.ANIMEDATA_DEVGridview.Size = new System.Drawing.Size(705, 600);
-            this.ANIMEDATA_DEVGridview.TabIndex = 1;
-            this.ANIMEDATA_DEVGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.AnimationDataGridview.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.AnimationDataGridview.GridColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.AnimationDataGridview.Location = new System.Drawing.Point(0, 0);
+            this.AnimationDataGridview.MultiSelect = false;
+            this.AnimationDataGridview.Name = "AnimationDataGridview";
+            this.AnimationDataGridview.ReadOnly = true;
+            this.AnimationDataGridview.RowHeadersVisible = false;
+            this.AnimationDataGridview.RowTemplate.Height = 23;
+            this.AnimationDataGridview.Size = new System.Drawing.Size(705, 600);
+            this.AnimationDataGridview.TabIndex = 1;
+            this.AnimationDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
+            this.AnimationDataGridview.CurrentCellChanged += new System.EventHandler(this.AnimationDataGridview_CurrentCellChanged);
             // 
             // AnimeNo
             // 
@@ -356,7 +357,7 @@
             // 
             // splitContainer2.Panel1
             // 
-            this.splitContainer2.Panel1.Controls.Add(this.ANIMEDATA_DEVGridview);
+            this.splitContainer2.Panel1.Controls.Add(this.AnimationDataGridview);
             // 
             // splitContainer2.Panel2
             // 
@@ -566,7 +567,7 @@
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_KeyDown);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ANIMEDATA_DEVGridview)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AnimationDataGridview)).EndInit();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -611,7 +612,7 @@
         private System.Windows.Forms.Button changeanimebutton;
         private System.Windows.Forms.Button addanimebutton;
         private System.Windows.Forms.ToolStripMenuItem 动画制作企业列表ToolStripMenuItem;
-        public System.Windows.Forms.DataGridView ANIMEDATA_DEVGridview;
+        public System.Windows.Forms.DataGridView AnimationDataGridview;
         private System.Windows.Forms.ToolStripMenuItem 声优列表SF3ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
