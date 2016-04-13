@@ -60,6 +60,8 @@
             this.seiyuuBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
             this.companyBox = new System.Windows.Forms.TextBox();
+            this.CVNameSearchTypeButton = new System.Windows.Forms.Button();
+            this.CompanySearchTypeButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -84,21 +86,21 @@
             // 
             this.AnimeNoBox.Location = new System.Drawing.Point(96, 10);
             this.AnimeNoBox.Name = "AnimeNoBox";
-            this.AnimeNoBox.Size = new System.Drawing.Size(144, 19);
+            this.AnimeNoBox.Size = new System.Drawing.Size(144, 21);
             this.AnimeNoBox.TabIndex = 1;
             // 
             // AnimeCNNamebox
             // 
             this.AnimeCNNamebox.Location = new System.Drawing.Point(96, 50);
             this.AnimeCNNamebox.Name = "AnimeCNNamebox";
-            this.AnimeCNNamebox.Size = new System.Drawing.Size(144, 19);
+            this.AnimeCNNamebox.Size = new System.Drawing.Size(144, 21);
             this.AnimeCNNamebox.TabIndex = 2;
             // 
             // AnimeJPNameBox
             // 
             this.AnimeJPNameBox.Location = new System.Drawing.Point(96, 87);
             this.AnimeJPNameBox.Name = "AnimeJPNameBox";
-            this.AnimeJPNameBox.Size = new System.Drawing.Size(144, 19);
+            this.AnimeJPNameBox.Size = new System.Drawing.Size(144, 21);
             this.AnimeJPNameBox.TabIndex = 4;
             // 
             // label3
@@ -123,7 +125,7 @@
             // 
             this.AnimeNNBox.Location = new System.Drawing.Point(96, 130);
             this.AnimeNNBox.Name = "AnimeNNBox";
-            this.AnimeNNBox.Size = new System.Drawing.Size(144, 19);
+            this.AnimeNNBox.Size = new System.Drawing.Size(144, 21);
             this.AnimeNNBox.TabIndex = 6;
             // 
             // AnimeCNNameSearchTypeButton
@@ -175,7 +177,7 @@
             "弃置"});
             this.StatusCheckedListBox.Location = new System.Drawing.Point(373, 10);
             this.StatusCheckedListBox.Name = "StatusCheckedListBox";
-            this.StatusCheckedListBox.Size = new System.Drawing.Size(98, 74);
+            this.StatusCheckedListBox.Size = new System.Drawing.Size(98, 68);
             this.StatusCheckedListBox.TabIndex = 13;
             // 
             // OriginalCheckedListBox
@@ -191,7 +193,7 @@
             "其他"});
             this.OriginalCheckedListBox.Location = new System.Drawing.Point(373, 130);
             this.OriginalCheckedListBox.Name = "OriginalCheckedListBox";
-            this.OriginalCheckedListBox.Size = new System.Drawing.Size(98, 102);
+            this.OriginalCheckedListBox.Size = new System.Drawing.Size(98, 100);
             this.OriginalCheckedListBox.TabIndex = 14;
             // 
             // label7
@@ -207,7 +209,7 @@
             // 
             this.PlaytimeToBox.Location = new System.Drawing.Point(183, 172);
             this.PlaytimeToBox.Name = "PlaytimeToBox";
-            this.PlaytimeToBox.Size = new System.Drawing.Size(57, 19);
+            this.PlaytimeToBox.Size = new System.Drawing.Size(57, 21);
             this.PlaytimeToBox.TabIndex = 8;
             // 
             // PlaytimeSearchTypeButton
@@ -225,7 +227,7 @@
             // 
             this.PlaytimeFromBox.Location = new System.Drawing.Point(96, 172);
             this.PlaytimeFromBox.Name = "PlaytimeFromBox";
-            this.PlaytimeFromBox.Size = new System.Drawing.Size(57, 19);
+            this.PlaytimeFromBox.Size = new System.Drawing.Size(57, 21);
             this.PlaytimeFromBox.TabIndex = 7;
             // 
             // label8
@@ -250,7 +252,7 @@
             // 
             this.WatchtimeFromBox.Location = new System.Drawing.Point(96, 212);
             this.WatchtimeFromBox.Name = "WatchtimeFromBox";
-            this.WatchtimeFromBox.Size = new System.Drawing.Size(57, 19);
+            this.WatchtimeFromBox.Size = new System.Drawing.Size(57, 21);
             this.WatchtimeFromBox.TabIndex = 10;
             // 
             // WatchtimeSearchTypeButton
@@ -268,7 +270,7 @@
             // 
             this.WatchtimeToBox.Location = new System.Drawing.Point(183, 212);
             this.WatchtimeToBox.Name = "WatchtimeToBox";
-            this.WatchtimeToBox.Size = new System.Drawing.Size(57, 19);
+            this.WatchtimeToBox.Size = new System.Drawing.Size(57, 21);
             this.WatchtimeToBox.TabIndex = 11;
             // 
             // label10
@@ -323,7 +325,7 @@
             // 
             this.seiyuuBox.Location = new System.Drawing.Point(96, 250);
             this.seiyuuBox.Name = "seiyuuBox";
-            this.seiyuuBox.Size = new System.Drawing.Size(144, 19);
+            this.seiyuuBox.Size = new System.Drawing.Size(144, 21);
             this.seiyuuBox.TabIndex = 6;
             // 
             // label12
@@ -339,8 +341,28 @@
             // 
             this.companyBox.Location = new System.Drawing.Point(96, 290);
             this.companyBox.Name = "companyBox";
-            this.companyBox.Size = new System.Drawing.Size(144, 19);
+            this.companyBox.Size = new System.Drawing.Size(144, 21);
             this.companyBox.TabIndex = 6;
+            // 
+            // CVNameSearchTypeButton
+            // 
+            this.CVNameSearchTypeButton.Location = new System.Drawing.Point(246, 248);
+            this.CVNameSearchTypeButton.Name = "CVNameSearchTypeButton";
+            this.CVNameSearchTypeButton.Size = new System.Drawing.Size(75, 23);
+            this.CVNameSearchTypeButton.TabIndex = 3;
+            this.CVNameSearchTypeButton.Text = "部分一致";
+            this.CVNameSearchTypeButton.UseVisualStyleBackColor = true;
+            this.CVNameSearchTypeButton.Click += new System.EventHandler(this.CVNameSearchTypeButton_Click);
+            // 
+            // CompanySearchTypeButton
+            // 
+            this.CompanySearchTypeButton.Location = new System.Drawing.Point(246, 288);
+            this.CompanySearchTypeButton.Name = "CompanySearchTypeButton";
+            this.CompanySearchTypeButton.Size = new System.Drawing.Size(75, 23);
+            this.CompanySearchTypeButton.TabIndex = 3;
+            this.CompanySearchTypeButton.Text = "部分一致";
+            this.CompanySearchTypeButton.UseVisualStyleBackColor = true;
+            this.CompanySearchTypeButton.Click += new System.EventHandler(this.CompanySearchTypeButton_Click);
             // 
             // MainSearch
             // 
@@ -365,6 +387,8 @@
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.AnimeJPNameSearcyTypeButton);
+            this.Controls.Add(this.CompanySearchTypeButton);
+            this.Controls.Add(this.CVNameSearchTypeButton);
             this.Controls.Add(this.AnimeCNNameSearchTypeButton);
             this.Controls.Add(this.companyBox);
             this.Controls.Add(this.seiyuuBox);
@@ -423,6 +447,7 @@
         public System.Windows.Forms.TextBox seiyuuBox;
         private System.Windows.Forms.Label label12;
         public System.Windows.Forms.TextBox companyBox;
-
+        private System.Windows.Forms.Button CVNameSearchTypeButton;
+        private System.Windows.Forms.Button CompanySearchTypeButton;
     }
 }
