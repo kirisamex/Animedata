@@ -13,7 +13,7 @@ namespace Main
 {
     public partial class MainSearch : Form
     {
-        public MainSearch(Main mainfm)
+        public MainSearch(MainForm mainfm)
         {
             InitializeComponent();
             mainform = mainfm;
@@ -22,7 +22,7 @@ namespace Main
         #region 常量
         //实例
         MainService service = new MainService();
-        private Main mainform;
+        private MainForm mainform;
 
         /// <summary>系统错误，请联系开发者。\n{0}</summary>
         const string MSG_COMMON_001 = "MSG-COMMON-001";

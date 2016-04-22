@@ -7,13 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Main;
+using Main.ClientDataSet;
 using Main.Lib.Message;
 
 namespace Main
 {
     public partial class CVManage : Form
     {
-        public CVManage(Main mainfm)
+        public CVManage(MainForm mainfm)
         {
             InitializeComponent();
             mainform = mainfm;
@@ -21,7 +22,7 @@ namespace Main
 
         #region 常量
         //全局变量
-        private Main mainform;
+        private MainForm mainform;
         cmdtype cmd = new cmdtype();
 
         //实例化

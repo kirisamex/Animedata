@@ -11,7 +11,7 @@ namespace Main
     {
         #region 常量
         //传递
-        private Main mainform;
+        private MainForm mainform;
 
         //实例
         CompanyManageService service = new CompanyManageService();
@@ -40,7 +40,7 @@ namespace Main
         /// 构析函数
         /// </summary>
         /// <param name="mainfm"></param>
-        public CompanyManage(Main mainfm)
+        public CompanyManage(MainForm mainfm)
         {
             InitializeComponent();
             mainform = mainfm;

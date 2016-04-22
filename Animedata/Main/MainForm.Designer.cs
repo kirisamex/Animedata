@@ -1,6 +1,6 @@
 ﻿namespace Main
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.音乐管理MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +79,7 @@
             this.addanimebutton = new System.Windows.Forms.Button();
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -110,7 +111,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
-            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.TabIndex = 1;
             this.menuStrip1.TabStop = true;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -291,7 +292,7 @@
             this.AnimationDataGridview.RowHeadersVisible = false;
             this.AnimationDataGridview.RowTemplate.Height = 23;
             this.AnimationDataGridview.Size = new System.Drawing.Size(705, 600);
-            this.AnimationDataGridview.TabIndex = 1;
+            this.AnimationDataGridview.TabIndex = 91;
             this.AnimationDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.AnimationDataGridview.CurrentCellChanged += new System.EventHandler(this.AnimationDataGridview_CurrentCellChanged);
             // 
@@ -347,7 +348,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(1264, 637);
             this.splitContainer1.SplitterDistance = 600;
-            this.splitContainer1.TabIndex = 3;
+            this.splitContainer1.TabIndex = 2;
             // 
             // splitContainer2
             // 
@@ -424,7 +425,7 @@
             this.PlayInfodataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.PlayInfodataGridView.RowTemplate.Height = 23;
             this.PlayInfodataGridView.Size = new System.Drawing.Size(555, 277);
-            this.PlayInfodataGridView.TabIndex = 0;
+            this.PlayInfodataGridView.TabIndex = 92;
             // 
             // PlayInfoColumn
             // 
@@ -485,7 +486,7 @@
             this.CVdataGridView.RowHeadersVisible = false;
             this.CVdataGridView.RowTemplate.Height = 23;
             this.CVdataGridView.Size = new System.Drawing.Size(555, 319);
-            this.CVdataGridView.TabIndex = 0;
+            this.CVdataGridView.TabIndex = 93;
             // 
             // flowLayoutPanel1
             // 
@@ -495,19 +496,20 @@
             this.flowLayoutPanel1.Controls.Add(this.addanimebutton);
             this.flowLayoutPanel1.Controls.Add(this.simpleSearchButton);
             this.flowLayoutPanel1.Controls.Add(this.simpleSearchTextBox);
+            this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1264, 33);
-            this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.TabIndex = 3;
             // 
             // deleteanimebutton
             // 
             this.deleteanimebutton.Location = new System.Drawing.Point(1167, 3);
             this.deleteanimebutton.Name = "deleteanimebutton";
             this.deleteanimebutton.Size = new System.Drawing.Size(94, 23);
-            this.deleteanimebutton.TabIndex = 2;
+            this.deleteanimebutton.TabIndex = 106;
             this.deleteanimebutton.Text = "删除动画(&G)";
             this.deleteanimebutton.UseVisualStyleBackColor = true;
             this.deleteanimebutton.Click += new System.EventHandler(this.deleteanimebutton_Click);
@@ -517,7 +519,7 @@
             this.changeanimebutton.Location = new System.Drawing.Point(1067, 3);
             this.changeanimebutton.Name = "changeanimebutton";
             this.changeanimebutton.Size = new System.Drawing.Size(94, 23);
-            this.changeanimebutton.TabIndex = 1;
+            this.changeanimebutton.TabIndex = 105;
             this.changeanimebutton.Text = "修改动画(&X)";
             this.changeanimebutton.UseVisualStyleBackColor = true;
             this.changeanimebutton.Click += new System.EventHandler(this.changeanimebutton_Click);
@@ -527,7 +529,7 @@
             this.addanimebutton.Location = new System.Drawing.Point(967, 3);
             this.addanimebutton.Name = "addanimebutton";
             this.addanimebutton.Size = new System.Drawing.Size(94, 23);
-            this.addanimebutton.TabIndex = 0;
+            this.addanimebutton.TabIndex = 104;
             this.addanimebutton.Text = "添加动画 (&D)";
             this.addanimebutton.UseVisualStyleBackColor = true;
             this.addanimebutton.Click += new System.EventHandler(this.addanimebutton_Click);
@@ -537,18 +539,31 @@
             this.simpleSearchButton.Location = new System.Drawing.Point(867, 3);
             this.simpleSearchButton.Name = "simpleSearchButton";
             this.simpleSearchButton.Size = new System.Drawing.Size(94, 23);
-            this.simpleSearchButton.TabIndex = 4;
+            this.simpleSearchButton.TabIndex = 103;
             this.simpleSearchButton.Text = "搜索(&S)";
             this.simpleSearchButton.UseVisualStyleBackColor = true;
             this.simpleSearchButton.Click += new System.EventHandler(this.simpleSearchButton_Click);
             // 
             // simpleSearchTextBox
             // 
-            this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 3);
+            this.simpleSearchTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 5);
             this.simpleSearchTextBox.Name = "simpleSearchTextBox";
             this.simpleSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
-            this.simpleSearchTextBox.TabIndex = 3;
+            this.simpleSearchTextBox.TabIndex = 102;
+            this.simpleSearchTextBox.Enter += new System.EventHandler(this.simpleSearchTextBox_Enter);
+            // 
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(627, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 12);
+            this.label1.TabIndex = 101;
+            this.label1.Text = "简易搜索(&Z)";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Main
             // 
@@ -635,6 +650,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNiceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
+        private System.Windows.Forms.Label label1;
     }
 }
 
