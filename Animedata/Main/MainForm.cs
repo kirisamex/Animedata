@@ -546,13 +546,10 @@ namespace Main
                     关于ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F6:
-                    添加动画信息ToolStripMenuItem_Click(this, EventArgs.Empty);
+                    动画制作企业列表ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F3:
                     声优列表SF3ToolStripMenuItem_Click(this, EventArgs.Empty);
-                    break;
-                case Keys.F4:
-                    动画制作企业列表ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F5:
                     ShowAnime();

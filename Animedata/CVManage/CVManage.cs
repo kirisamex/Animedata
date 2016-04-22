@@ -28,6 +28,15 @@ namespace Main
         //实例化
         CVManageService service = new CVManageService();
 
+        
+        #region 列名
+        const string NOCLN = "NoColumn";
+        const string NAMECLN = "NameColumn";
+        const string SEXCLN = "sexColumn";
+        const string BIRTHCLN = "BirthdayColumn";
+        #endregion
+
+        #region 信息
         /// <summary>系统错误，请联系开发者。\n{0}</summary>
         const string MSG_COMMON_001 = "MSG-COMMON-001";
         /// <summary>操作成功！</summary>
@@ -51,6 +60,7 @@ namespace Main
         const string MSG_CVMANAGE_008 = "MSG-CVMANAGE-008";
         /// <summary>未选中声优！</summary>
         const string MSG_CVMANAGE_009 = "MSG-CVMANAGE-009";
+        #endregion
 
         /// <summary>
         /// 操作种类
@@ -94,13 +104,6 @@ namespace Main
         {
             cvdataGridView.Rows.Clear();
 
-            //格式设置
-            foreach (DataGridViewColumn dc in cvdataGridView.Columns)
-            {
-                //dc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                dc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            }
-
             try
             {
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -122,6 +125,16 @@ namespace Main
                         dr.Cells[3].Value = service.ConvertToYYYYNianMMYueDDRiFromDatetime(dt);
                     }
                 }
+
+                //格式设置
+                int colwit = 20;
+                foreach (DataGridViewColumn col in cvdataGridView.Columns)
+                {
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
+                }
+                splitContainer2.SplitterDistance = colwit;
             }
             catch (Exception ex)
             {

@@ -201,21 +201,21 @@
             // 添加动画信息ToolStripMenuItem
             // 
             this.添加动画信息ToolStripMenuItem.Name = "添加动画信息ToolStripMenuItem";
-            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.添加动画信息ToolStripMenuItem.Text = "添加动画信息(&A)　　　　F6";
+            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.添加动画信息ToolStripMenuItem.Text = "添加动画信息(&A)";
             this.添加动画信息ToolStripMenuItem.Click += new System.EventHandler(this.添加动画信息ToolStripMenuItem_Click);
             // 
             // 修改动画信息ToolStripMenuItem
             // 
             this.修改动画信息ToolStripMenuItem.Name = "修改动画信息ToolStripMenuItem";
-            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.修改动画信息ToolStripMenuItem.Text = "修改动画信息(&C)";
             this.修改动画信息ToolStripMenuItem.Click += new System.EventHandler(this.修改动画信息ToolStripMenuItem_Click);
             // 
             // 删除动画信息ToolStripMenuItem
             // 
             this.删除动画信息ToolStripMenuItem.Name = "删除动画信息ToolStripMenuItem";
-            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.删除动画信息ToolStripMenuItem.Text = "删除动画信息(&D)";
             this.删除动画信息ToolStripMenuItem.Click += new System.EventHandler(this.删除动画信息ToolStripMenuItem_Click);
             // 
@@ -239,7 +239,7 @@
             // 
             this.动画制作企业列表ToolStripMenuItem.Name = "动画制作企业列表ToolStripMenuItem";
             this.动画制作企业列表ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.动画制作企业列表ToolStripMenuItem.Text = "动画制作企业列表(&C)　F4";
+            this.动画制作企业列表ToolStripMenuItem.Text = "动画制作企业列表(&C)　F6";
             this.动画制作企业列表ToolStripMenuItem.Click += new System.EventHandler(this.动画制作企业列表ToolStripMenuItem_Click);
             // 
             // 帮助ToolStripMenuItem
@@ -565,7 +565,7 @@
             this.label1.Text = "简易搜索(&Z)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // Main
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -576,7 +576,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.Text = "ADM动画数据管理";
             this.Load += new System.EventHandler(this.main_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_KeyDown);
