@@ -16,7 +16,7 @@ namespace Main
         //实例
         CompanyManageService service = new CompanyManageService();
 
-        //信息
+        #region 信息
         /// <summary>系统错误，请联系开发者。\n{0}</summary>
         const string MSG_COMMON_001 = "MSG-COMMON-001";
         /// <summary>操作成功！</summary>
@@ -32,6 +32,7 @@ namespace Main
         const string MSG_COMPANYMANAGE_004 = "MSG-COMPANYMANAGE-004";
         /// <summary>该制作公司正被以下动画使用\n{0}</summary>
         const string MSG_COMPANYMANAGE_005 = "MSG-COMPANYMANAGE-005";
+        #endregion
 
         #endregion
 
