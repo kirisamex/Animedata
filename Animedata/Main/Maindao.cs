@@ -507,7 +507,7 @@ namespace Main
             StringBuilder sqlmaincmd = new StringBuilder();
             StringBuilder joincmd = new StringBuilder();
 
-            sqlmaincmd.Append( @"SELECT DISTINCT
+            sqlmaincmd.Append(@"SELECT 
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
                                     AT.ANIME_JPN_NAME,
@@ -515,10 +515,18 @@ namespace Main
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
+                                    LEFT JOIN 
+                                    (
+										SELECT ANIME_NO,MAX(START_TIME) AS TIME
+										FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+										WHERE ENABLE_FLG = 1
+										GROUP BY ANIME_NO
+                                    ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
-                                    INNER JOIN ANIMEDATA_DEV.dbo.T_COMPANY_TBL COT ON PT.COMPANY_ID = COT.COMPANY_ID AND COT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_COMPANY_TBL COT ON PT.COMPANY_ID = COT.COMPANY_ID AND COT.ENABLE_FLG = 1
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CT ON CT.ANIME_NO = AT.ANIME_NO AND CT.ENABLE_FLG = 1
-                                    INNER JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.CV_ID = CT.CV_ID AND CVT.ENABLE_FLG = 1
+                                    LEFT JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.CV_ID = CT.CV_ID AND CVT.ENABLE_FLG = 1
+
 									");
 
             
@@ -744,6 +752,11 @@ namespace Main
             joincmd.Append(" AT.ENABLE_FLG = 1");
             #endregion
 
+            #region ORDERBY
+            joincmd.Append(@"ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+									WT.TIME DESC");
+            #endregion
+
             string sql = sqlmaincmd.Append(joincmd.ToString()).ToString();
 
             return DbCmd.DoSelect(sql, paras);
@@ -757,7 +770,7 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime(string searchString)
         {
-            string sql = @"SELECT DISTINCT
+            string sql = @"SELECT 
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
                                     AT.ANIME_JPN_NAME,
@@ -765,6 +778,13 @@ namespace Main
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM ANIMEDATA_DEV.dbo.T_ANIME_TBL AT
+                                    LEFT JOIN 
+                                    (
+										SELECT ANIME_NO,MAX(START_TIME) AS TIME
+										FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+										WHERE ENABLE_FLG = 1
+										GROUP BY ANIME_NO
+                                    ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO AND CCT.ENABLE_FLG = 1
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO AND PLT.ENABLE_FLG = 1
                                     LEFT JOIN ANIMEDATA_DEV.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID AND CPT.ENABLE_FLG = 1
@@ -777,6 +797,8 @@ namespace Main
 									CPT.COMPANY_NAME LIKE @target OR 
 									CVT.CV_NAME LIKE @target)
                                     AND AT.ENABLE_FLG = 1
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+									WT.TIME DESC
 									";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();

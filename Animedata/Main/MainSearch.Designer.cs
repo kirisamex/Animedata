@@ -67,73 +67,73 @@
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(37, 13);
+            this.label1.Location = new System.Drawing.Point(45, 10);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 12);
+            this.label1.Size = new System.Drawing.Size(45, 12);
             this.label1.TabIndex = 0;
-            this.label1.Text = "动画编号";
+            this.label1.Text = "编号(&N)";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(13, 53);
+            this.label2.Location = new System.Drawing.Point(21, 53);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(77, 12);
-            this.label2.TabIndex = 1;
-            this.label2.Text = "动画中文名称";
+            this.label2.Size = new System.Drawing.Size(69, 12);
+            this.label2.TabIndex = 10;
+            this.label2.Text = "中文名称(&H)";
             // 
             // AnimeNoBox
             // 
             this.AnimeNoBox.Location = new System.Drawing.Point(96, 10);
             this.AnimeNoBox.Name = "AnimeNoBox";
-            this.AnimeNoBox.Size = new System.Drawing.Size(144, 21);
+            this.AnimeNoBox.Size = new System.Drawing.Size(144, 19);
             this.AnimeNoBox.TabIndex = 1;
             // 
             // AnimeCNNamebox
             // 
             this.AnimeCNNamebox.Location = new System.Drawing.Point(96, 50);
             this.AnimeCNNamebox.Name = "AnimeCNNamebox";
-            this.AnimeCNNamebox.Size = new System.Drawing.Size(144, 21);
-            this.AnimeCNNamebox.TabIndex = 2;
+            this.AnimeCNNamebox.Size = new System.Drawing.Size(144, 19);
+            this.AnimeCNNamebox.TabIndex = 11;
             // 
             // AnimeJPNameBox
             // 
             this.AnimeJPNameBox.Location = new System.Drawing.Point(96, 87);
             this.AnimeJPNameBox.Name = "AnimeJPNameBox";
-            this.AnimeJPNameBox.Size = new System.Drawing.Size(144, 21);
-            this.AnimeJPNameBox.TabIndex = 4;
+            this.AnimeJPNameBox.Size = new System.Drawing.Size(144, 19);
+            this.AnimeJPNameBox.TabIndex = 21;
             // 
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(13, 90);
+            this.label3.Location = new System.Drawing.Point(22, 90);
             this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(77, 12);
-            this.label3.TabIndex = 3;
-            this.label3.Text = "动画日文名称";
+            this.label3.Size = new System.Drawing.Size(68, 12);
+            this.label3.TabIndex = 20;
+            this.label3.Text = "日文名称(&J)";
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(37, 133);
+            this.label4.Location = new System.Drawing.Point(46, 133);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(53, 12);
-            this.label4.TabIndex = 3;
-            this.label4.Text = "动画简写";
+            this.label4.Size = new System.Drawing.Size(44, 12);
+            this.label4.TabIndex = 30;
+            this.label4.Text = "简写(&E)";
             // 
             // AnimeNNBox
             // 
             this.AnimeNNBox.Location = new System.Drawing.Point(96, 130);
             this.AnimeNNBox.Name = "AnimeNNBox";
-            this.AnimeNNBox.Size = new System.Drawing.Size(144, 21);
-            this.AnimeNNBox.TabIndex = 6;
+            this.AnimeNNBox.Size = new System.Drawing.Size(144, 19);
+            this.AnimeNNBox.TabIndex = 31;
             // 
             // AnimeCNNameSearchTypeButton
             // 
             this.AnimeCNNameSearchTypeButton.Location = new System.Drawing.Point(246, 48);
             this.AnimeCNNameSearchTypeButton.Name = "AnimeCNNameSearchTypeButton";
             this.AnimeCNNameSearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.AnimeCNNameSearchTypeButton.TabIndex = 3;
+            this.AnimeCNNameSearchTypeButton.TabIndex = 12;
             this.AnimeCNNameSearchTypeButton.Text = "部分一致";
             this.AnimeCNNameSearchTypeButton.UseVisualStyleBackColor = true;
             this.AnimeCNNameSearchTypeButton.Click += new System.EventHandler(this.AnimeCNNameSearchTypeButton_Click);
@@ -143,7 +143,7 @@
             this.AnimeJPNameSearcyTypeButton.Location = new System.Drawing.Point(246, 85);
             this.AnimeJPNameSearcyTypeButton.Name = "AnimeJPNameSearcyTypeButton";
             this.AnimeJPNameSearcyTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.AnimeJPNameSearcyTypeButton.TabIndex = 5;
+            this.AnimeJPNameSearcyTypeButton.TabIndex = 22;
             this.AnimeJPNameSearcyTypeButton.Text = "部分一致";
             this.AnimeJPNameSearcyTypeButton.UseVisualStyleBackColor = true;
             this.AnimeJPNameSearcyTypeButton.Click += new System.EventHandler(this.AnimeJPNameSearcyTypeButton_Click);
@@ -151,20 +151,20 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(338, 10);
+            this.label5.Location = new System.Drawing.Point(323, 10);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(29, 12);
-            this.label5.TabIndex = 8;
-            this.label5.Text = "状态";
+            this.label5.Size = new System.Drawing.Size(44, 12);
+            this.label5.TabIndex = 80;
+            this.label5.Text = "状态(&T)";
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(338, 130);
+            this.label6.Location = new System.Drawing.Point(323, 130);
             this.label6.Name = "label6";
-            this.label6.Size = new System.Drawing.Size(29, 12);
-            this.label6.TabIndex = 9;
-            this.label6.Text = "原作";
+            this.label6.Size = new System.Drawing.Size(44, 12);
+            this.label6.TabIndex = 90;
+            this.label6.Text = "原作(&F)";
             // 
             // StatusCheckedListBox
             // 
@@ -177,8 +177,8 @@
             "弃置"});
             this.StatusCheckedListBox.Location = new System.Drawing.Point(373, 10);
             this.StatusCheckedListBox.Name = "StatusCheckedListBox";
-            this.StatusCheckedListBox.Size = new System.Drawing.Size(98, 68);
-            this.StatusCheckedListBox.TabIndex = 13;
+            this.StatusCheckedListBox.Size = new System.Drawing.Size(98, 60);
+            this.StatusCheckedListBox.TabIndex = 81;
             // 
             // OriginalCheckedListBox
             // 
@@ -193,31 +193,31 @@
             "其他"});
             this.OriginalCheckedListBox.Location = new System.Drawing.Point(373, 130);
             this.OriginalCheckedListBox.Name = "OriginalCheckedListBox";
-            this.OriginalCheckedListBox.Size = new System.Drawing.Size(98, 100);
-            this.OriginalCheckedListBox.TabIndex = 14;
+            this.OriginalCheckedListBox.Size = new System.Drawing.Size(98, 88);
+            this.OriginalCheckedListBox.TabIndex = 91;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(37, 175);
+            this.label7.Location = new System.Drawing.Point(22, 175);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(53, 12);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "放送期间";
+            this.label7.Size = new System.Drawing.Size(68, 12);
+            this.label7.TabIndex = 40;
+            this.label7.Text = "放送期间(&P)";
             // 
             // PlaytimeToBox
             // 
             this.PlaytimeToBox.Location = new System.Drawing.Point(183, 172);
             this.PlaytimeToBox.Name = "PlaytimeToBox";
-            this.PlaytimeToBox.Size = new System.Drawing.Size(57, 21);
-            this.PlaytimeToBox.TabIndex = 8;
+            this.PlaytimeToBox.Size = new System.Drawing.Size(57, 19);
+            this.PlaytimeToBox.TabIndex = 43;
             // 
             // PlaytimeSearchTypeButton
             // 
             this.PlaytimeSearchTypeButton.Location = new System.Drawing.Point(246, 170);
             this.PlaytimeSearchTypeButton.Name = "PlaytimeSearchTypeButton";
             this.PlaytimeSearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.PlaytimeSearchTypeButton.TabIndex = 9;
+            this.PlaytimeSearchTypeButton.TabIndex = 44;
             this.PlaytimeSearchTypeButton.Text = "在此期间";
             this.PlaytimeSearchTypeButton.UseVisualStyleBackColor = true;
             this.PlaytimeSearchTypeButton.Visible = false;
@@ -227,8 +227,8 @@
             // 
             this.PlaytimeFromBox.Location = new System.Drawing.Point(96, 172);
             this.PlaytimeFromBox.Name = "PlaytimeFromBox";
-            this.PlaytimeFromBox.Size = new System.Drawing.Size(57, 21);
-            this.PlaytimeFromBox.TabIndex = 7;
+            this.PlaytimeFromBox.Size = new System.Drawing.Size(57, 19);
+            this.PlaytimeFromBox.TabIndex = 41;
             // 
             // label8
             // 
@@ -236,7 +236,7 @@
             this.label8.Location = new System.Drawing.Point(159, 175);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(17, 12);
-            this.label8.TabIndex = 16;
+            this.label8.TabIndex = 42;
             this.label8.Text = "～";
             // 
             // label9
@@ -245,22 +245,22 @@
             this.label9.Location = new System.Drawing.Point(159, 215);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(17, 12);
-            this.label9.TabIndex = 21;
+            this.label9.TabIndex = 52;
             this.label9.Text = "～";
             // 
             // WatchtimeFromBox
             // 
             this.WatchtimeFromBox.Location = new System.Drawing.Point(96, 212);
             this.WatchtimeFromBox.Name = "WatchtimeFromBox";
-            this.WatchtimeFromBox.Size = new System.Drawing.Size(57, 21);
-            this.WatchtimeFromBox.TabIndex = 10;
+            this.WatchtimeFromBox.Size = new System.Drawing.Size(57, 19);
+            this.WatchtimeFromBox.TabIndex = 51;
             // 
             // WatchtimeSearchTypeButton
             // 
             this.WatchtimeSearchTypeButton.Location = new System.Drawing.Point(246, 210);
             this.WatchtimeSearchTypeButton.Name = "WatchtimeSearchTypeButton";
             this.WatchtimeSearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.WatchtimeSearchTypeButton.TabIndex = 12;
+            this.WatchtimeSearchTypeButton.TabIndex = 54;
             this.WatchtimeSearchTypeButton.Text = "在此期间";
             this.WatchtimeSearchTypeButton.UseVisualStyleBackColor = true;
             this.WatchtimeSearchTypeButton.Visible = false;
@@ -270,24 +270,24 @@
             // 
             this.WatchtimeToBox.Location = new System.Drawing.Point(183, 212);
             this.WatchtimeToBox.Name = "WatchtimeToBox";
-            this.WatchtimeToBox.Size = new System.Drawing.Size(57, 21);
-            this.WatchtimeToBox.TabIndex = 11;
+            this.WatchtimeToBox.Size = new System.Drawing.Size(57, 19);
+            this.WatchtimeToBox.TabIndex = 53;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(37, 215);
+            this.label10.Location = new System.Drawing.Point(21, 215);
             this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(53, 12);
-            this.label10.TabIndex = 17;
-            this.label10.Text = "收看期间";
+            this.label10.Size = new System.Drawing.Size(70, 12);
+            this.label10.TabIndex = 50;
+            this.label10.Text = "收看期间(&W)";
             // 
             // SearchButton
             // 
             this.SearchButton.Location = new System.Drawing.Point(183, 336);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(75, 23);
-            this.SearchButton.TabIndex = 15;
+            this.SearchButton.TabIndex = 200;
             this.SearchButton.Text = "搜索(&S)";
             this.SearchButton.UseVisualStyleBackColor = true;
             this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
@@ -297,7 +297,7 @@
             this.ClearButton.Location = new System.Drawing.Point(278, 336);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(75, 23);
-            this.ClearButton.TabIndex = 16;
+            this.ClearButton.TabIndex = 201;
             this.ClearButton.Text = "重置(&R)";
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
@@ -307,7 +307,7 @@
             this.CancelButton.Location = new System.Drawing.Point(373, 336);
             this.CancelButton.Name = "CancelButton";
             this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 17;
+            this.CancelButton.TabIndex = 202;
             this.CancelButton.Text = "取消(&C)";
             this.CancelButton.UseVisualStyleBackColor = true;
             this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
@@ -315,41 +315,41 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(61, 253);
+            this.label11.Location = new System.Drawing.Point(46, 253);
             this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(29, 12);
-            this.label11.TabIndex = 3;
-            this.label11.Text = "声优";
+            this.label11.Size = new System.Drawing.Size(44, 12);
+            this.label11.TabIndex = 60;
+            this.label11.Text = "声优(&Z)";
             // 
             // seiyuuBox
             // 
             this.seiyuuBox.Location = new System.Drawing.Point(96, 250);
             this.seiyuuBox.Name = "seiyuuBox";
-            this.seiyuuBox.Size = new System.Drawing.Size(144, 21);
-            this.seiyuuBox.TabIndex = 6;
+            this.seiyuuBox.Size = new System.Drawing.Size(144, 19);
+            this.seiyuuBox.TabIndex = 61;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(37, 293);
+            this.label12.Location = new System.Drawing.Point(21, 293);
             this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(53, 12);
-            this.label12.TabIndex = 3;
-            this.label12.Text = "制作公司";
+            this.label12.Size = new System.Drawing.Size(69, 12);
+            this.label12.TabIndex = 70;
+            this.label12.Text = "制作公司(&V)";
             // 
             // companyBox
             // 
             this.companyBox.Location = new System.Drawing.Point(96, 290);
             this.companyBox.Name = "companyBox";
-            this.companyBox.Size = new System.Drawing.Size(144, 21);
-            this.companyBox.TabIndex = 6;
+            this.companyBox.Size = new System.Drawing.Size(144, 19);
+            this.companyBox.TabIndex = 71;
             // 
             // CVNameSearchTypeButton
             // 
             this.CVNameSearchTypeButton.Location = new System.Drawing.Point(246, 248);
             this.CVNameSearchTypeButton.Name = "CVNameSearchTypeButton";
             this.CVNameSearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.CVNameSearchTypeButton.TabIndex = 3;
+            this.CVNameSearchTypeButton.TabIndex = 62;
             this.CVNameSearchTypeButton.Text = "部分一致";
             this.CVNameSearchTypeButton.UseVisualStyleBackColor = true;
             this.CVNameSearchTypeButton.Click += new System.EventHandler(this.CVNameSearchTypeButton_Click);
@@ -359,7 +359,7 @@
             this.CompanySearchTypeButton.Location = new System.Drawing.Point(246, 288);
             this.CompanySearchTypeButton.Name = "CompanySearchTypeButton";
             this.CompanySearchTypeButton.Size = new System.Drawing.Size(75, 23);
-            this.CompanySearchTypeButton.TabIndex = 3;
+            this.CompanySearchTypeButton.TabIndex = 72;
             this.CompanySearchTypeButton.Text = "部分一致";
             this.CompanySearchTypeButton.UseVisualStyleBackColor = true;
             this.CompanySearchTypeButton.Click += new System.EventHandler(this.CompanySearchTypeButton_Click);

@@ -114,6 +114,11 @@
     </Compile>
     <Compile Include="AddAnime\AddanimeDao.cs" />
     <Compile Include="AddAnime\AddAnimeService.cs" />
+    <Compile Include="ClientDataSet\ClientDataset.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ClientDataset.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Lib\Class\Album\AlbumSeries.cs" />
     <Compile Include="Lib\Class\Anime\Animation.cs" />
     <Compile Include="Lib\Class\Anime\AnimationDao.cs" />
@@ -155,11 +160,11 @@
     </Compile>
     <Compile Include="Main\Maindao.cs" />
     <Compile Include="Lib\Class\CV\CV.cs" />
-    <Compile Include="Main\Main.cs">
+    <Compile Include="Main\MainForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Main\Main.Designer.cs">
-      <DependentUpon>Main.cs</DependentUpon>
+    <Compile Include="Main\MainForm.Designer.cs">
+      <DependentUpon>MainForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
     <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
@@ -189,8 +194,8 @@
     <EmbeddedResource Include="CompanyManage\CompanyManage.resx">
       <DependentUpon>CompanyManage.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Main\Main.resx">
-      <DependentUpon>Main.cs</DependentUpon>
+    <EmbeddedResource Include="Main\MainForm.resx">
+      <DependentUpon>MainForm.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Main\MainSearch.resx">
@@ -214,6 +219,17 @@
     </EmbeddedResource>
     <None Include="App.config">
       <SubType>Designer</SubType>
+    </None>
+    <None Include="ClientDataSet\ClientDataset.xsc">
+      <DependentUpon>ClientDataset.xsd</DependentUpon>
+    </None>
+    <None Include="ClientDataSet\ClientDataset.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>ClientDataset.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ClientDataSet\ClientDataset.xss">
+      <DependentUpon>ClientDataset.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
