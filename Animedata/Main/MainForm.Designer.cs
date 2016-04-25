@@ -43,8 +43,6 @@
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.查询声优ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.查询动画制作企业ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.添加动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -123,8 +121,8 @@
             this.刷新ToolStripMenuItem,
             this.退出ToolStripMenuItem});
             this.开始ToolStripMenuItem.Name = "开始ToolStripMenuItem";
-            this.开始ToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.开始ToolStripMenuItem.Text = "开始(&S)";
+            this.开始ToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.开始ToolStripMenuItem.Text = "开始(&M)";
             // 
             // 音乐管理MToolStripMenuItem
             // 
@@ -157,8 +155,6 @@
             // 
             this.查询ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.查询动画ToolStripMenuItem,
-            this.查询声优ToolStripMenuItem,
-            this.查询动画制作企业ToolStripMenuItem,
             this.以上功能未实装ToolStripMenuItem});
             this.查询ToolStripMenuItem.Name = "查询ToolStripMenuItem";
             this.查询ToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
@@ -170,18 +166,6 @@
             this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.查询动画ToolStripMenuItem.Text = "查询动画(&A)　　　　F2";
             this.查询动画ToolStripMenuItem.Click += new System.EventHandler(this.查询动画ToolStripMenuItem_Click);
-            // 
-            // 查询声优ToolStripMenuItem
-            // 
-            this.查询声优ToolStripMenuItem.Name = "查询声优ToolStripMenuItem";
-            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.查询声优ToolStripMenuItem.Text = "查询声优";
-            // 
-            // 查询动画制作企业ToolStripMenuItem
-            // 
-            this.查询动画制作企业ToolStripMenuItem.Name = "查询动画制作企业ToolStripMenuItem";
-            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.查询动画制作企业ToolStripMenuItem.Text = "查询动画制作企业";
             // 
             // 以上功能未实装ToolStripMenuItem
             // 
@@ -619,8 +603,6 @@
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 查询ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 查询动画ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 查询声优ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 查询动画制作企业ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button deleteanimebutton;

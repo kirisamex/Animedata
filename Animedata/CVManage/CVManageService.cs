@@ -34,6 +34,16 @@ namespace Main
         }
 
         /// <summary>
+        /// 获取声优履历
+        /// </summary>
+        /// <param name="cvInfo"></param>
+        /// <returns></returns>
+        public DataSet GetCVHist(CV cvInfo)
+        {
+            return dao.GetCVHist(cvInfo);
+        }
+
+        /// <summary>
         /// 更新声优信息
         /// </summary>
         /// <param name="cvInfo"></param>

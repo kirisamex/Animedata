@@ -27,13 +27,17 @@ namespace Main
 
         //实例化
         CVManageService service = new CVManageService();
-
-        
+     
         #region 列名
         const string NOCLN = "NoColumn";
         const string NAMECLN = "NameColumn";
         const string SEXCLN = "sexColumn";
         const string BIRTHCLN = "BirthdayColumn";
+
+        const string CHARACLN = "Character";
+        const string ANIMECLN="Anime";
+        const string ANIMENOCLN = "AnimeNo";
+        const string ISMAINCLN = "IsMain";
         #endregion
 
         #region 信息
@@ -135,6 +139,8 @@ namespace Main
                     colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
                 }
                 splitContainer2.SplitterDistance = colwit;
+
+                ShowCVHistInfo();
             }
             catch (Exception ex)
             {
@@ -245,7 +251,7 @@ namespace Main
         {
             if (MsgBox.Show(MSG_CVMANAGE_004)==DialogResult.Yes)
             {
-                List<CV> selectCVList = GetChooseCVs();
+                List<CV> selectCVList = GetSelectedCVs();
                 string errorstring = string.Empty;
                 try
                 {
@@ -269,8 +275,18 @@ namespace Main
             }
             return false;
         }
-            
 
+        /// <summary>
+        /// 展示声优履历信息
+        /// </summary>
+        private void ShowCVHistInfo()
+        {
+            CV curCV = GetSelectedCV();
+            if (curCV != null)
+            {
+                ShowCVHistInfo(curCV);
+            }
+        }
 
         /// <summary>
         /// 声优信息Null检查
@@ -371,7 +387,7 @@ namespace Main
         /// 获得选中行声优ID列表
         /// </summary>
         /// <returns></returns>
-        private List<CV> GetChooseCVs()
+        private List<CV> GetSelectedCVs()
         {
             List<CV> selectedCV = new List<CV>();
 
@@ -388,6 +404,21 @@ namespace Main
             }
 
             return selectedCV;
+        }
+
+        /// <summary>
+        /// 获得焦点格所在行声优信息
+        /// </summary>
+        /// <returns></returns>
+        private CV GetSelectedCV()
+        {
+            if (cvdataGridView.SelectedCells.Count > 0)
+            {
+                CV cvInfo = new CV();
+                cvInfo.ID = Convert.ToInt32(cvdataGridView.Rows[cvdataGridView.CurrentCell.RowIndex].Cells[0].Value);
+                return cvInfo;
+            }
+            return null;
         }
 
         #endregion
@@ -447,6 +478,67 @@ namespace Main
             }
         }
 
+        /// <summary>
+        /// 载入声优履历
+        /// </summary>
+        /// <param name="cvInfo"></param>
+        private void ShowCVHistInfo(CV cvInfo)
+        {
+            try
+            {
+                CVHistdataGridView.Rows.Clear();
+
+                ClientDS.CVHistDataTable cvHist = new ClientDS.CVHistDataTable();
+
+                DataSet ds = service.GetCVHist(cvInfo);
+                
+
+                foreach(DataRow dr in ds.Tables[0].Rows)
+                {
+                    ClientDS.CVHistRow cvRow = cvHist.NewCVHistRow();
+                    cvRow.CVName = dr[0].ToString();
+                    cvRow.CVID = Convert.ToInt32(dr[1]);
+                    cvRow.CharacterNo = dr[2].ToString();
+                    cvRow.CharacterName = dr[3].ToString();
+                    cvRow.IsMainCharacter = Convert.ToBoolean(dr[4]);
+                    cvRow.AnimeNo = dr[5].ToString();
+                    cvRow.AnimeCNName = dr[6].ToString();
+                    cvRow.AnimeJPName = dr[7].ToString();
+                    cvHist.Rows.Add(cvRow);
+                }
+                cvHist.AcceptChanges();
+
+                foreach (ClientDS.CVHistRow dr in cvHist.Rows)
+                {
+                    DataGridViewRow dgvr = CVHistdataGridView.Rows[CVHistdataGridView.Rows.Add()];
+
+                    dgvr.Cells[CHARACLN].Value = dr.CharacterName;
+                    dgvr.Cells[ANIMECLN].Value = dr.AnimeCNName;
+                    dgvr.Cells[ANIMENOCLN].Value = dr.AnimeNo;
+                    dgvr.Cells[ISMAINCLN].Value = service.GetMainCharaStringByBool(dr.IsMainCharacter);
+                }
+
+                for (int i = 0; i < CVHistdataGridView.ColumnCount; i++)
+                {
+                    CVHistdataGridView.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    CVHistdataGridView.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                }
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Show(MSG_COMMON_001,ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 变更选中单元格
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void cvdataGridView_CurrentCellChanged(object sender, EventArgs e)
+        {
+            ShowCVHistInfo();
+        }
         #endregion
 
         #region 按钮
@@ -457,7 +549,7 @@ namespace Main
         /// <param name="e"></param>
         private void searchbutton_Click(object sender, EventArgs e)
         {
-            List<CV> choosedCV = GetChooseCVs();
+            List<CV> choosedCV = GetSelectedCVs();
 
             //未选择则返回
             if (choosedCV == null || choosedCV.Count == 0)
@@ -580,6 +672,8 @@ namespace Main
             DeleteCVInfo();
         }
         #endregion
+
+        
 
 
     }

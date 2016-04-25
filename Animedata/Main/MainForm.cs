@@ -210,14 +210,10 @@ namespace Main
                     dc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
-
-
-
             }
             catch (Exception ex)
             {
                 MsgBox.Show(MSG_COMMON_001, ex.Message);
-                Application.Exit();
             }
         }
 
