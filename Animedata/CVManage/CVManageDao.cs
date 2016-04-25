@@ -54,6 +54,34 @@ namespace Main
         }
 
         /// <summary>
+        /// 获取声优履历
+        /// </summary>
+        /// <param name="cvInfo"></param>
+        /// <returns></returns>
+        public DataSet GetCVHist(CV cvInfo)
+        {
+            string sqlcmd = @"SELECT CVT.CV_NAME,
+                                    CRT.CV_ID,
+                                    CRT.CHARACTER_NO,
+                                    CRT.CHARACTER_NAME,
+                                    CRT.LEADING_FLG,
+                                    ANT.ANIME_NO,
+                                    ANT.ANIME_CHN_NAME,
+                                    ANT.ANIME_JPN_NAME 
+                                FROM 
+                                    ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CRT
+                                    INNER JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.CV_ID = CRT.CV_ID AND CVT.ENABLE_FLG = 1
+                                    INNER JOIN ANIMEDATA_DEV.dbo.T_ANIME_TBL ANT ON ANT.ANIME_NO = CRT.ANIME_NO AND ANT.ENABLE_FLG = 1
+                                WHERE CRT.ENABLE_FLG = 1
+                                    AND CRT.CV_ID = @cvID";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@cvid",cvInfo.ID));
+
+            return DbCmd.DoSelect(sqlcmd, paras);
+        }   
+
+        /// <summary>
         /// 更新声优信息
         /// </summary>
         /// <param name="cvInfo"></param>

@@ -336,6 +336,18 @@ namespace Main
             }
         }
 
+        /// <summary>
+        /// 获得主角标记字符
+        /// </summary>
+        /// <param name="IsMain"></param>
+        /// <returns></returns>
+        public string GetMainCharaStringByBool(bool IsMain)
+        {
+            if (IsMain)
+                return "○";
+            return string.Empty;
+        }
+
         #endregion
 
         #region Main
