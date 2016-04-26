@@ -46,5 +46,6 @@
     <message id="MSG-CVMANAGE-007" text="[ {0} ]的格式不正确。编号必须为半角数字!" caption="格式错误" category="W"/>
     <message id="MSG-CVMANAGE-008" text="声优编号与现有编号重复，操作失败！\n重复声优编号:{0} \n姓名:{1}" caption="声优编号重复" category="W"/>
     <message id="MSG-CVMANAGE-009" text="未选中声优！" caption="" category="I"/>
+    <message id="MSG-CVMANAGE-010" text="没有任何信息被修改！" caption="" category="I"/>
   </messages>
 </config>

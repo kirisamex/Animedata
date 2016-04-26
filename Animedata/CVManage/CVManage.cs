@@ -9,6 +9,7 @@ using System.Windows.Forms;
 using Main;
 using Main.ClientDataSet;
 using Main.Lib.Message;
+using Main.Lib.Style;
 
 namespace Main
 {
@@ -25,14 +26,28 @@ namespace Main
         private MainForm mainform;
         cmdtype cmd = new cmdtype();
 
+        /// <summary>
+        /// 操作种类
+        /// </summary>
+        enum cmdtype : byte
+        {
+            //增加
+            Add, //增加
+            //修改
+            Change//修改
+        };
+
         //实例化
         CVManageService service = new CVManageService();
+        DataGridViewStyle dgvStyle = new DataGridViewStyle();
+
+        ClientDS.CVListDataTable cvList = new ClientDS.CVListDataTable();
      
         #region 列名
-        const string NOCLN = "NoColumn";
-        const string NAMECLN = "NameColumn";
-        const string SEXCLN = "sexColumn";
-        const string BIRTHCLN = "BirthdayColumn";
+        const string NOCLN = "CVID";
+        const string NAMECLN = "CVName";
+        const string GENDERCLN = "CVGender";
+        const string BIRTHCLN = "CVBirthday";
 
         const string CHARACLN = "Character";
         const string ANIMECLN="Anime";
@@ -64,18 +79,9 @@ namespace Main
         const string MSG_CVMANAGE_008 = "MSG-CVMANAGE-008";
         /// <summary>未选中声优！</summary>
         const string MSG_CVMANAGE_009 = "MSG-CVMANAGE-009";
+        /// <summary>没有任何信息被修改！ </summary>
+        const string MSG_CVMANAGE_010 = "MSG-CVMANAGE-010";
         #endregion
-
-        /// <summary>
-        /// 操作种类
-        /// </summary>
-        enum cmdtype : byte
-        {
-            //增加
-            Add, //增加
-            //修改
-            Change//修改
-        };
 
         #endregion
 
@@ -107,38 +113,59 @@ namespace Main
         private void LoadCVInfo(DataSet ds)
         {
             cvdataGridView.Rows.Clear();
+            cvList.Clear();
+
+            foreach (DataRow dr in ds.Tables[0].Rows)
+            {
+                ClientDS.CVListRow cvRow = cvList.NewCVListRow();
+
+                cvRow.CVID = Convert.ToInt32(dr[0]);
+                cvRow.CVName = dr[1].ToString();
+
+                if (dr[2] != DBNull.Value)
+                {
+                    cvRow.CVGender = dr[2].ToString();
+                }
+                else
+                {
+                    cvRow.CVGender = string.Empty;
+                }
+
+                if (dr[3] != DBNull.Value)
+                {
+                    cvRow.CVBirth = Convert.ToDateTime(dr[3]);
+                }
+                else
+                {
+                    cvRow.CVBirth = DateTime.MinValue;
+                }
+
+                cvList.Rows.Add(cvRow);
+            }
+            cvList.AcceptChanges();
 
             try
             {
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                foreach (ClientDS.CVListRow dr in cvList.Rows)
                 {
-                    cvdataGridView.Rows.Add();
-                    DataGridViewRow dr = cvdataGridView.Rows[i];
+                    DataGridViewRow dgvr = cvdataGridView.Rows[cvdataGridView.Rows.Add()];
 
-                    dr.Cells[0].Value = ds.Tables[0].Rows[i][0].ToString();
-                    dr.Cells[1].Value = ds.Tables[0].Rows[i][1].ToString();
+                    dgvr.Cells[NOCLN].Value = dr.CVID;
+                    dgvr.Cells[NAMECLN].Value = dr.CVName;
 
-                    if (ds.Tables[0].Rows[i][2] != DBNull.Value)
+                    if (dr.CVGender != string.Empty)
                     {
-                        dr.Cells[2].Value = service.GetGenderStringFromGenderChar(ds.Tables[0].Rows[i][2].ToString());
+                        dgvr.Cells[GENDERCLN].Value = service.GetGenderStringFromGenderChar(dr.CVGender);
                     }
 
-                    if (ds.Tables[0].Rows[i][3] != DBNull.Value)
+                    if (dr.CVBirth != DateTime.MinValue)
                     {
-                        DateTime dt = Convert.ToDateTime(ds.Tables[0].Rows[i][3]);
-                        dr.Cells[3].Value = service.ConvertToYYYYNianMMYueDDRiFromDatetime(dt);
+                        dgvr.Cells[BIRTHCLN].Value = service.ConvertToYYYYNianMMYueDDRiFromDatetime(Convert.ToDateTime(dr.CVBirth));
                     }
                 }
 
-                //格式设置
-                int colwit = 20;
-                foreach (DataGridViewColumn col in cvdataGridView.Columns)
-                {
-                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
-                }
-                splitContainer2.SplitterDistance = colwit;
+                //设置格式
+                dgvStyle.SetDataGridViewAndSplit(splitContainer2, cvdataGridView);
 
                 ShowCVHistInfo();
             }
@@ -167,19 +194,36 @@ namespace Main
 
             foreach (DataGridViewRow dr in cvdataGridView.Rows)
             {
-                CV cvInfo = new CV();
-                cvInfo.ID = Convert.ToInt32(dr.Cells[0].Value);
-                cvInfo.Name = dr.Cells[1].Value.ToString();
+                CV newCvInfo = new CV();
+                newCvInfo.ID = Convert.ToInt32(dr.Cells[0].Value);
+                newCvInfo.Name = dr.Cells[1].Value.ToString();
                 if (dr.Cells[2].Value != null)
                 {
-                    cvInfo.Gender = service.GetGenderCharFromGenderString(dr.Cells[2].Value.ToString());
+                    newCvInfo.Gender = service.GetGenderCharFromGenderString(dr.Cells[2].Value.ToString());
                 }
                 if (dr.Cells[3].Value != null)
                 {
-                    cvInfo.Brithday = service.ConvertToDateTimeFromYYYYMMdd(dr.Cells[3].Value.ToString());
+                    newCvInfo.Brithday = service.ConvertToDateTimeFromYYYYMMdd(dr.Cells[3].Value.ToString());
                 }
 
-                cvInfoList.Add(cvInfo);
+                var targetCV = from cvs in this.cvList
+                               where cvs.CVID == newCvInfo.ID 
+                               select cvs;
+
+                
+                foreach (ClientDS.CVListRow cvr in targetCV)
+                {
+                    if (!cvr.CVName.Equals(newCvInfo.Name) || !cvr.CVGender.Trim().Equals(newCvInfo.Gender??string.Empty) || !cvr.CVBirth.Equals(newCvInfo.Brithday))
+                    {
+                        cvInfoList.Add(newCvInfo);
+                    }
+                }
+            }
+
+            if (cvInfoList.Count == 0)
+            {
+                MsgBox.Show(MSG_CVMANAGE_010);
+                return false;
             }
 
             //修改信息
@@ -213,34 +257,52 @@ namespace Main
             if (!CVInfoFormatCheck())
                 return false;
 
-            DataGridViewRow dr = cvdataGridView.Rows[cvdataGridView.Rows.Count - 1];
-            CV cvInfo = new CV();
-
-            cvInfo.ID = Convert.ToInt32(dr.Cells[0].Value);
-            cvInfo.Name = dr.Cells[1].Value.ToString();
-            if (dr.Cells[2].Value != null)
+            //既存CVID
+            List<int> OldCVIDs = new List<int>();
+            var CVs = from cvs in this.cvList
+                      select cvs;
+            foreach (ClientDS.CVListRow i in CVs)
             {
-                cvInfo.Gender = service.GetGenderCharFromGenderString(dr.Cells[2].Value.ToString());
-            }
-            if (dr.Cells[3].Value != null)
-            {
-                cvInfo.Brithday = service.ConvertToDateTimeFromYYYYMMdd(dr.Cells[3].Value.ToString());
+                OldCVIDs.Add(i.CVID);
             }
 
-            //声优编号重复检查
-            if (!CVIDRepeatCheck(cvInfo.ID))
-                return false;
+            foreach (DataGridViewRow dr in cvdataGridView.Rows)
+            {
+                if (!OldCVIDs.Contains(Convert.ToInt32(dr.Cells[NOCLN].Value)))
+                {
+                    //DataGridViewRow dr = cvdataGridView.Rows[cvdataGridView.Rows.Count - 1];
+                    CV cvInfo = new CV();
 
-            try
-            {
-                cvInfo.Insert();
+                    cvInfo.ID = Convert.ToInt32(dr.Cells[NOCLN].Value);
+                    cvInfo.Name = dr.Cells[NAMECLN].Value.ToString();
+                    if (dr.Cells[GENDERCLN].Value != null)
+                    {
+                        cvInfo.Gender = service.GetGenderCharFromGenderString(dr.Cells[2].Value.ToString());
+                    }
+                    if (dr.Cells[BIRTHCLN].Value != null)
+                    {
+                        cvInfo.Brithday = service.ConvertToDateTimeFromYYYYMMdd(dr.Cells[3].Value.ToString());
+                    }
+
+                    //声优编号重复检查 #8:目前CVID不可见，增加方法里移除该检查
+                    //if (!CVIDRepeatCheck(cvInfo.ID))
+                    //    return false;
+
+                    try
+                    {
+                        cvInfo.Insert();
+                    }
+                    catch (Exception ex)
+                    {
+                        MsgBox.Show(MSG_COMMON_001, ex.ToString());
+                        return false;
+                    }
+
+                    //目前每次只能新增一名CV
+                    return true;
+                }
             }
-            catch (Exception ex)
-            {
-                MsgBox.Show(MSG_COMMON_001, ex.ToString());
-                return false;
-            }
-            return true;
+            return false;
         }
 
         /// <summary>
@@ -297,14 +359,14 @@ namespace Main
             foreach (DataGridViewRow dr in cvdataGridView.Rows)
             {
                 //编号空检查
-                if (dr.Cells[0].Value == null || string.IsNullOrEmpty(dr.Cells[0].Value.ToString()))
+                if (dr.Cells[NOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[0].Value.ToString()))
                 {
                     MsgBox.Show(MSG_CVMANAGE_005);
                     return false;
                 }
 
                 //姓名空检查
-                if (dr.Cells[1].Value == null || string.IsNullOrEmpty(dr.Cells[1].Value.ToString()))
+                if (dr.Cells[NAMECLN].Value == null || string.IsNullOrEmpty(dr.Cells[1].Value.ToString()))
                 {
                     MsgBox.Show(MSG_CVMANAGE_006);
                     return false;
@@ -322,9 +384,9 @@ namespace Main
             foreach (DataGridViewRow dr in cvdataGridView.Rows)
             {
                 //编号数字检查
-                if (dr.Cells[0].Value != null)
+                if (dr.Cells[NOCLN].Value != null)
                 {
-                    string nonum = dr.Cells[0].Value.ToString();
+                    string nonum = dr.Cells[NOCLN].Value.ToString();
                     if (string.IsNullOrEmpty(nonum))
                     {
                         for (int j = 0; j < nonum.Length; j++)
@@ -340,9 +402,9 @@ namespace Main
                 }
 
                 //日期格式检查
-                if (dr.Cells[3].Value != null)
+                if (dr.Cells[BIRTHCLN].Value != null)
                 {
-                    string ymd = dr.Cells[3].Value.ToString();
+                    string ymd = dr.Cells[BIRTHCLN].Value.ToString();
                     int errortype = 0;
                     if (!string.IsNullOrEmpty(ymd))
                     {
@@ -412,15 +474,19 @@ namespace Main
         /// <returns></returns>
         private CV GetSelectedCV()
         {
-            if (cvdataGridView.SelectedCells.Count > 0)
+            if (cvdataGridView.CurrentCell != null)
             {
                 CV cvInfo = new CV();
-                cvInfo.ID = Convert.ToInt32(cvdataGridView.Rows[cvdataGridView.CurrentCell.RowIndex].Cells[0].Value);
+                try
+                {
+                    cvInfo.ID = Convert.ToInt32(cvdataGridView.Rows[cvdataGridView.CurrentCell.RowIndex].Cells[NOCLN].Value);
+                }
+                catch (Exception ex) { MsgBox.Show(MSG_COMMON_001, ex.ToString()); }
                 return cvInfo;
             }
             return null;
         }
-
+        
         #endregion
 
         #region 窗体
@@ -445,6 +511,7 @@ namespace Main
             cancelbutton.Visible = false;
             addbutton.Enabled = true;
             changebutton.Enabled = true;
+
             ShowCVInfo();
         }
 
@@ -543,7 +610,7 @@ namespace Main
 
         #region 按钮
         /// <summary>
-        /// 搜索
+        /// 搜索 =! 暂时未使用 != 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -592,8 +659,9 @@ namespace Main
                 }
                 dr.ReadOnly = true;
             }
-            cvdataGridView.Rows.Add();
-            int newrownum = cvdataGridView.Rows.Count - 1;
+
+            //添加新行
+            int newrownum = cvdataGridView.Rows.Add();
             cvdataGridView.Rows[newrownum].Cells[0].Value = service.GetNextCVCount().ToString();
             cvdataGridView.Rows[newrownum].ReadOnly = false;
             
@@ -609,10 +677,15 @@ namespace Main
         private void changebutton_Click(object sender, EventArgs e)
         {
             //控件状态改变
-            cvdataGridView.ReadOnly = false;
-            cvdataGridView.Columns[0].ReadOnly = true;
             okbutton.Visible = true;
             cancelbutton.Visible = true;
+
+            addbutton.Enabled = false;
+            changebutton.Enabled = false;
+
+            cvdataGridView.ReadOnly = false;
+            cvdataGridView.Columns[0].ReadOnly = true;
+
             foreach (DataGridViewRow dr in cvdataGridView.Rows)
             {
                 if (dr.Cells[3].Value != null)
@@ -620,9 +693,6 @@ namespace Main
                     dr.Cells[3].Value = service.ConvertToYYYYMMDDFromYYYYNianMMYueDDRi(dr.Cells[3].Value.ToString());
                 }
             }
-
-            this.addbutton.Enabled = false;
-            this.changebutton.Enabled = false;
 
             //操作种类设置
             cmd = cmdtype.Change;
@@ -671,11 +741,29 @@ namespace Main
         {
             DeleteCVInfo();
         }
+
+        /// <summary>
+        /// 刷新
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void RefreshButton_Click(object sender, EventArgs e)
+        {
+            FormReset();
+        }
         #endregion
 
-        
-
-
+        #region 键盘
+        private void CVManage_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.F5:
+                    FormReset();
+                    break;
+            }
+        }
+        #endregion
     }
 
 }

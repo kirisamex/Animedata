@@ -19,7 +19,8 @@ namespace Main
         #region 常量
         //实例
         MainService service = new MainService();
-        StatusStyle style = new StatusStyle();
+        StatusStyle statusStyle = new StatusStyle();
+        DataGridViewStyle dgvStyle = new DataGridViewStyle();
 
         /// <summary>Ver.</summary>
         const string VERSION = "Ver. "; 
@@ -108,23 +109,15 @@ namespace Main
                 dgvrow.Cells[5].Value = service.GetOriginalTextFromOriginalInt(Convert.ToInt32(dt.Rows[i][5].ToString()));
             }
 
-            int colwit = 19;
             //动画窗口格式设置
-            foreach (DataGridViewColumn col in  AnimationDataGridview.Columns)
-            {
-                //ANIMEDATA_DEVGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
-            }
-            splitContainer2.SplitterDistance = colwit;
+            dgvStyle.SetDataGridViewAndSplit(splitContainer2, AnimationDataGridview, 19);
 
             //状态格式
             foreach (DataGridViewRow dr in AnimationDataGridview.Rows)
             {
                 int status = service.GetStatusIntFromStatusText(dr.Cells[4].Value.ToString());
                 
-                dr.Cells[4].Style = style.GetStatusRowStyle(status);
+                dr.Cells[4].Style = statusStyle.GetStatusRowStyle(status);
             }
 
             string firstRowAnimeNo = null;
@@ -196,7 +189,7 @@ namespace Main
                         foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
                         {
                             int status = service.GetStatusIntFromStatusText(dr.Cells[3].Value.ToString());
-                            dr.Cells[3].Style = style.GetStatusRowStyle(status);
+                            dr.Cells[3].Style = statusStyle.GetStatusRowStyle(status);
                         }
                     }
                 }
