@@ -151,6 +151,7 @@
     <Compile Include="Lib\Model\AnimeOriginalModule.cs" />
     <Compile Include="Lib\Model\AnimeStatusModule.cs" />
     <Compile Include="Lib\Model\SearchModule.cs" />
+    <Compile Include="Lib\Style\DataGridViewStyle.cs" />
     <Compile Include="Lib\Style\StatusStyle.cs" />
     <Compile Include="Main\MainSearch.cs">
       <SubType>Form</SubType>

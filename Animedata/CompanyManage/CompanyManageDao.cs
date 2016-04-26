@@ -20,8 +20,8 @@ namespace Main
         public DataSet LoadCompany()
         {
             const string sqlcmd = @"SELECT 
-                                    CT.COMPANY_NAME AS 公司名称,
-                                    LAST_UPDATE_DATETIME AS 更新时间
+                                    CT.COMPANY_ID,
+                                    CT.COMPANY_NAME
                                     FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL CT
                                     WHERE ENABLE_FLG = 1
                                     ORDER BY COMPANY_NAME";

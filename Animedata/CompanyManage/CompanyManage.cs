@@ -34,6 +34,11 @@ namespace Main
         const string MSG_COMPANYMANAGE_005 = "MSG-COMPANYMANAGE-005";
         #endregion
 
+        #region 列名
+        const string COMIDCLN = "CompanyID";
+        const string COMNAMECLN = "CompanyName";
+        #endregion
+
         #endregion
 
         #region 构析
@@ -58,14 +63,25 @@ namespace Main
             try
             {
                 DataSet ds = service.LoadCompany();
-                dataGridView1.DataSource = ds.Tables[0].DefaultView;
 
-                for (int i = 0; i < dataGridView1.ColumnCount; i++)
+                foreach (DataRow dr in ds.Tables[0].Rows)
                 {
-                    //dataGridView1.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
+                    DataGridViewRow dgr = CompanyDataGridView.Rows[CompanyDataGridView.Rows.Add()];
 
-                    dataGridView1.Columns[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    dgr.Cells[COMIDCLN].Value = dr[0].ToString();
+                    dgr.Cells[COMNAMECLN].Value = dr[1].ToString();
+
                 }
+
+                //格式
+                int colwit = 0;
+                foreach (DataGridViewColumn col in CompanyDataGridView.Columns)
+                {
+                    col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
+                    col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                    colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
+                }
+                splitContainer1.SplitterDistance = colwit;
             }
             catch (Exception ex)
             {
@@ -80,8 +96,8 @@ namespace Main
         /// <returns></returns>
         private Company GetChooseCompany()
         {
-            int idx = dataGridView1.CurrentRow.Index;
-            string name = dataGridView1.Rows[idx].Cells[0].Value.ToString();
+            int idx = CompanyDataGridView.CurrentRow.Index;
+            string name = CompanyDataGridView.Rows[idx].Cells[0].Value.ToString();
             Company comp = new Company();
             comp.Name = name;
             comp.ID = service.GetCompanyIdByCompanyName(name);
@@ -89,16 +105,14 @@ namespace Main
         }
 
         /// <summary>
-        /// 开启修改公司功能，并将选中行公司名称载入textbox
+        /// 开启修改公司功能
         /// </summary>
         private void LoadChangeCompany()
         {
-            changetextbox.Visible = true;
             okbutton.Visible = true;
             cancelbutton.Visible = true;
-            Company comp = GetChooseCompany();
-            changetextbox.Text = comp.Name.ToString();
-            changetextbox.Focus();
+            changebuttom.Visible = false;
+            CompanyDataGridView.ReadOnly = false;
         }
 
         /// <summary>
@@ -109,6 +123,12 @@ namespace Main
         {
             Company comp = GetChooseCompany();
             string newname = changetextbox.Text.ToString();
+
+            foreach (DataGridViewRow dr in CompanyDataGridView.Rows)
+            {
+                //
+            }
+
 
             if (newname == comp.Name)
             {
@@ -240,7 +260,7 @@ namespace Main
         {
             if (ChangeCompany() == true)
             {
-                changetextbox.Visible = false;
+                changebuttom.Visible = true;
                 okbutton.Visible = false;
                 cancelbutton.Visible = false;
             }
@@ -253,7 +273,7 @@ namespace Main
         /// <param name="e"></param>
         private void cancelbutton_Click(object sender, EventArgs e)
         {
-            changetextbox.Visible = false;
+            changebuttom.Visible = true;
             okbutton.Visible = false;
             cancelbutton.Visible = false;
         }
@@ -284,7 +304,6 @@ namespace Main
         /// <param name="e"></param>
         private void company_Load(object sender, EventArgs e)
         {
-            changetextbox.Visible = false;
             okbutton.Visible = false;
             cancelbutton.Visible = false;
             Loadcompany();

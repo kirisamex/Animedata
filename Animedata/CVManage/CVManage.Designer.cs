@@ -34,16 +34,13 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.cvdataGridView = new System.Windows.Forms.DataGridView();
-            this.NoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.NameColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.sexColumn = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.BirthdayColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CVHistdataGridView = new System.Windows.Forms.DataGridView();
             this.Character = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Anime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.IsMain = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.RefreshButton = new System.Windows.Forms.Button();
             this.deletebutton = new System.Windows.Forms.Button();
             this.addbutton = new System.Windows.Forms.Button();
             this.cancelbutton = new System.Windows.Forms.Button();
@@ -51,6 +48,10 @@
             this.changebutton = new System.Windows.Forms.Button();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.CVID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CVName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CVGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.CVBirthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -78,7 +79,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(947, 558);
+            this.splitContainer1.Size = new System.Drawing.Size(840, 558);
             this.splitContainer1.SplitterDistance = 518;
             this.splitContainer1.TabIndex = 0;
             // 
@@ -95,8 +96,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.CVHistdataGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(947, 518);
-            this.splitContainer2.SplitterDistance = 315;
+            this.splitContainer2.Size = new System.Drawing.Size(840, 518);
+            this.splitContainer2.SplitterDistance = 279;
             this.splitContainer2.TabIndex = 0;
             // 
             // cvdataGridView
@@ -114,10 +115,10 @@
             this.cvdataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.cvdataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.cvdataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.NoColumn,
-            this.NameColumn,
-            this.sexColumn,
-            this.BirthdayColumn});
+            this.CVID,
+            this.CVName,
+            this.CVGender,
+            this.CVBirthday});
             this.cvdataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.cvdataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.cvdataGridView.Location = new System.Drawing.Point(0, 0);
@@ -125,41 +126,9 @@
             this.cvdataGridView.ReadOnly = true;
             this.cvdataGridView.RowHeadersVisible = false;
             this.cvdataGridView.RowTemplate.Height = 23;
-            this.cvdataGridView.Size = new System.Drawing.Size(315, 518);
+            this.cvdataGridView.Size = new System.Drawing.Size(279, 518);
             this.cvdataGridView.TabIndex = 3;
             this.cvdataGridView.CurrentCellChanged += new System.EventHandler(this.cvdataGridView_CurrentCellChanged);
-            // 
-            // NoColumn
-            // 
-            this.NoColumn.HeaderText = "编号";
-            this.NoColumn.Name = "NoColumn";
-            this.NoColumn.ReadOnly = true;
-            // 
-            // NameColumn
-            // 
-            this.NameColumn.HeaderText = "姓名";
-            this.NameColumn.Name = "NameColumn";
-            this.NameColumn.ReadOnly = true;
-            // 
-            // sexColumn
-            // 
-            this.sexColumn.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.sexColumn.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.sexColumn.HeaderText = "性别";
-            this.sexColumn.Items.AddRange(new object[] {
-            "男",
-            "女"});
-            this.sexColumn.Name = "sexColumn";
-            this.sexColumn.ReadOnly = true;
-            // 
-            // BirthdayColumn
-            // 
-            this.BirthdayColumn.HeaderText = "生日";
-            this.BirthdayColumn.MaxInputLength = 8;
-            this.BirthdayColumn.Name = "BirthdayColumn";
-            this.BirthdayColumn.ReadOnly = true;
-            this.BirthdayColumn.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.BirthdayColumn.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
             // 
             // CVHistdataGridView
             // 
@@ -187,7 +156,7 @@
             this.CVHistdataGridView.ReadOnly = true;
             this.CVHistdataGridView.RowHeadersVisible = false;
             this.CVHistdataGridView.RowTemplate.Height = 23;
-            this.CVHistdataGridView.Size = new System.Drawing.Size(628, 518);
+            this.CVHistdataGridView.Size = new System.Drawing.Size(557, 518);
             this.CVHistdataGridView.TabIndex = 4;
             // 
             // Character
@@ -217,6 +186,7 @@
             // flowLayoutPanel1
             // 
             this.flowLayoutPanel1.BackColor = System.Drawing.Color.LightPink;
+            this.flowLayoutPanel1.Controls.Add(this.RefreshButton);
             this.flowLayoutPanel1.Controls.Add(this.deletebutton);
             this.flowLayoutPanel1.Controls.Add(this.addbutton);
             this.flowLayoutPanel1.Controls.Add(this.cancelbutton);
@@ -228,12 +198,23 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(947, 36);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(840, 36);
             this.flowLayoutPanel1.TabIndex = 1;
+            // 
+            // RefreshButton
+            // 
+            this.RefreshButton.Location = new System.Drawing.Point(737, 3);
+            this.RefreshButton.Name = "RefreshButton";
+            this.RefreshButton.Size = new System.Drawing.Size(100, 25);
+            this.RefreshButton.TabIndex = 108;
+            this.RefreshButton.Text = "刷新(&R)";
+            this.RefreshButton.UseVisualStyleBackColor = true;
+            this.RefreshButton.Visible = false;
+            this.RefreshButton.Click += new System.EventHandler(this.RefreshButton_Click);
             // 
             // deletebutton
             // 
-            this.deletebutton.Location = new System.Drawing.Point(844, 3);
+            this.deletebutton.Location = new System.Drawing.Point(631, 3);
             this.deletebutton.Name = "deletebutton";
             this.deletebutton.Size = new System.Drawing.Size(100, 25);
             this.deletebutton.TabIndex = 107;
@@ -243,7 +224,7 @@
             // 
             // addbutton
             // 
-            this.addbutton.Location = new System.Drawing.Point(738, 3);
+            this.addbutton.Location = new System.Drawing.Point(525, 3);
             this.addbutton.Name = "addbutton";
             this.addbutton.Size = new System.Drawing.Size(100, 25);
             this.addbutton.TabIndex = 106;
@@ -253,7 +234,7 @@
             // 
             // cancelbutton
             // 
-            this.cancelbutton.Location = new System.Drawing.Point(632, 3);
+            this.cancelbutton.Location = new System.Drawing.Point(419, 3);
             this.cancelbutton.Name = "cancelbutton";
             this.cancelbutton.Size = new System.Drawing.Size(100, 25);
             this.cancelbutton.TabIndex = 105;
@@ -264,7 +245,7 @@
             // 
             // okbutton
             // 
-            this.okbutton.Location = new System.Drawing.Point(526, 3);
+            this.okbutton.Location = new System.Drawing.Point(313, 3);
             this.okbutton.Name = "okbutton";
             this.okbutton.Size = new System.Drawing.Size(100, 25);
             this.okbutton.TabIndex = 104;
@@ -275,7 +256,7 @@
             // 
             // changebutton
             // 
-            this.changebutton.Location = new System.Drawing.Point(420, 3);
+            this.changebutton.Location = new System.Drawing.Point(207, 3);
             this.changebutton.Name = "changebutton";
             this.changebutton.Size = new System.Drawing.Size(100, 25);
             this.changebutton.TabIndex = 103;
@@ -286,7 +267,7 @@
             // SearchBox
             // 
             this.SearchBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.SearchBox.Location = new System.Drawing.Point(314, 6);
+            this.SearchBox.Location = new System.Drawing.Point(101, 6);
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(100, 19);
             this.SearchBox.TabIndex = 102;
@@ -296,22 +277,57 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(264, 9);
+            this.label1.Location = new System.Drawing.Point(51, 9);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(44, 12);
             this.label1.TabIndex = 101;
             this.label1.Text = "搜索(&Z)";
             // 
+            // CVID
+            // 
+            this.CVID.HeaderText = "编号";
+            this.CVID.Name = "CVID";
+            this.CVID.ReadOnly = true;
+            this.CVID.Visible = false;
+            // 
+            // CVName
+            // 
+            this.CVName.HeaderText = "姓名";
+            this.CVName.Name = "CVName";
+            this.CVName.ReadOnly = true;
+            // 
+            // CVGender
+            // 
+            this.CVGender.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.CVGender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CVGender.HeaderText = "性别";
+            this.CVGender.Items.AddRange(new object[] {
+            "男",
+            "女"});
+            this.CVGender.Name = "CVGender";
+            this.CVGender.ReadOnly = true;
+            this.CVGender.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CVBirthday
+            // 
+            this.CVBirthday.HeaderText = "生日";
+            this.CVBirthday.MaxInputLength = 8;
+            this.CVBirthday.Name = "CVBirthday";
+            this.CVBirthday.ReadOnly = true;
+            this.CVBirthday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // CVManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(947, 558);
+            this.ClientSize = new System.Drawing.Size(840, 558);
             this.Controls.Add(this.splitContainer1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
+            this.KeyPreview = true;
             this.Name = "CVManage";
             this.Text = "声优";
             this.Load += new System.EventHandler(this.seiyuu_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CVManage_KeyDown);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -333,10 +349,6 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.DataGridView cvdataGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NoColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn NameColumn;
-        private System.Windows.Forms.DataGridViewComboBoxColumn sexColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn BirthdayColumn;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button deletebutton;
         private System.Windows.Forms.Button addbutton;
@@ -350,5 +362,10 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Anime;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn IsMain;
+        private System.Windows.Forms.Button RefreshButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CVID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CVName;
+        private System.Windows.Forms.DataGridViewComboBoxColumn CVGender;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CVBirthday;
     }
 }
