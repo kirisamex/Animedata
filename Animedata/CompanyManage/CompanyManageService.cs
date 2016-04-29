@@ -22,6 +22,27 @@ namespace Main
         }
 
         /// <summary>
+        /// 载入公司信息：搜索
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public DataSet LoadCompany(string target)
+        {
+            DataSet ds = dao.LoadCompany(target);
+            return ds;
+        }
+
+
+        /// <summary>
+        /// 获取所有公司历史信息
+        /// </summary>
+        /// <returns></returns>
+        public DataSet LoadCompanyHistInfo()
+        {
+            return dao.LoadCompanyHistInfo();
+        }
+
+        /// <summary>
         /// 根据公司ID删除公司信息
         /// </summary>
         /// <param name="companyID"></param>
@@ -60,9 +81,9 @@ namespace Main
         /// <param name="newName">更新后的新名称</param>
         /// <param name="comp">需要更新的公司信息</param>
         /// <returns></returns>
-        public bool UpdateCompanyInfo(string newName,Company comp)
+        public bool UpdateCompanyInfo(string newName,int compID)
         {
-            return dao.UpdateCompanyName(newName, comp);
+            return dao.UpdateCompanyName(newName, compID);
         }
     }
 }

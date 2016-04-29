@@ -37,6 +37,31 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="CompanyList" msprop:Generator_TableClassName="CompanyListDataTable" msprop:Generator_TableVarName="tableCompanyList" msprop:Generator_RowChangedName="CompanyListRowChanged" msprop:Generator_TablePropName="CompanyList" msprop:Generator_RowDeletingName="CompanyListRowDeleting" msprop:Generator_RowChangingName="CompanyListRowChanging" msprop:Generator_RowEvHandlerName="CompanyListRowChangeEventHandler" msprop:Generator_RowDeletedName="CompanyListRowDeleted" msprop:Generator_RowClassName="CompanyListRow" msprop:Generator_UserTableName="CompanyList" msprop:Generator_RowEvArgName="CompanyListRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CompanyID" msprop:Generator_ColumnVarNameInTable="columnCompanyID" msprop:Generator_ColumnPropNameInRow="CompanyID" msprop:Generator_ColumnPropNameInTable="CompanyIDColumn" msprop:Generator_UserColumnName="CompanyID" type="xs:int" minOccurs="0" />
+              <xs:element name="CompanyName" msprop:Generator_ColumnVarNameInTable="columnCompanyName" msprop:Generator_ColumnPropNameInRow="CompanyName" msprop:Generator_ColumnPropNameInTable="CompanyNameColumn" msprop:Generator_UserColumnName="CompanyName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="CompanyHist" msprop:Generator_TableClassName="CompanyHistDataTable" msprop:Generator_TableVarName="tableCompanyHist" msprop:Generator_RowChangedName="CompanyHistRowChanged" msprop:Generator_TablePropName="CompanyHist" msprop:Generator_RowDeletingName="CompanyHistRowDeleting" msprop:Generator_RowChangingName="CompanyHistRowChanging" msprop:Generator_RowEvHandlerName="CompanyHistRowChangeEventHandler" msprop:Generator_RowDeletedName="CompanyHistRowDeleted" msprop:Generator_RowClassName="CompanyHistRow" msprop:Generator_UserTableName="CompanyHist" msprop:Generator_RowEvArgName="CompanyHistRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CompanyID" msprop:Generator_ColumnVarNameInTable="columnCompanyID" msprop:Generator_ColumnPropNameInRow="CompanyID" msprop:Generator_ColumnPropNameInTable="CompanyIDColumn" msprop:Generator_UserColumnName="CompanyID" type="xs:int" minOccurs="0" />
+              <xs:element name="CompanyName" msprop:Generator_ColumnVarNameInTable="columnCompanyName" msprop:Generator_ColumnPropNameInRow="CompanyName" msprop:Generator_ColumnPropNameInTable="CompanyNameColumn" msprop:Generator_UserColumnName="CompanyName" type="xs:string" minOccurs="0" />
+              <xs:element name="AnimeNo" msprop:Generator_ColumnVarNameInTable="columnAnimeNo" msprop:Generator_ColumnPropNameInRow="AnimeNo" msprop:Generator_ColumnPropNameInTable="AnimeNoColumn" msprop:Generator_UserColumnName="AnimeNo" type="xs:string" minOccurs="0" />
+              <xs:element name="PlayinfoID" msprop:Generator_ColumnVarNameInTable="columnPlayinfoID" msprop:Generator_ColumnPropNameInRow="PlayinfoID" msprop:Generator_ColumnPropNameInTable="PlayinfoIDColumn" msprop:Generator_UserColumnName="PlayinfoID" type="xs:int" minOccurs="0" />
+              <xs:element name="Playinfo" msprop:Generator_ColumnVarNameInTable="columnPlayinfo" msprop:Generator_ColumnPropNameInRow="Playinfo" msprop:Generator_ColumnPropNameInTable="PlayinfoColumn" msprop:Generator_UserColumnName="Playinfo" type="xs:string" minOccurs="0" />
+              <xs:element name="PlayinfoStatus" msprop:Generator_ColumnVarNameInTable="columnPlayinfoStatus" msprop:Generator_ColumnPropNameInRow="PlayinfoStatus" msprop:Generator_ColumnPropNameInTable="PlayinfoStatusColumn" msprop:Generator_UserColumnName="PlayinfoStatus" type="xs:int" minOccurs="0" />
+              <xs:element name="StartTime" msprop:Generator_ColumnVarNameInTable="columnStartTime" msprop:Generator_ColumnPropNameInRow="StartTime" msprop:Generator_ColumnPropNameInTable="StartTimeColumn" msprop:Generator_UserColumnName="StartTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="WatchTime" msprop:Generator_ColumnVarNameInTable="columnWatchTime" msprop:Generator_ColumnPropNameInRow="WatchTime" msprop:Generator_ColumnPropNameInTable="WatchTimeColumn" msprop:Generator_UserColumnName="WatchTime" type="xs:dateTime" minOccurs="0" />
+              <xs:element name="Parts" msprop:Generator_ColumnVarNameInTable="columnParts" msprop:Generator_ColumnPropNameInRow="Parts" msprop:Generator_ColumnPropNameInTable="PartsColumn" msprop:Generator_UserColumnName="Parts" type="xs:int" minOccurs="0" />
+              <xs:element name="AnimeCNName" msprop:Generator_ColumnVarNameInTable="columnAnimeCNName" msprop:Generator_ColumnPropNameInRow="AnimeCNName" msprop:Generator_ColumnPropNameInTable="AnimeCNNameColumn" msprop:Generator_UserColumnName="AnimeCNName" type="xs:string" minOccurs="0" />
+              <xs:element name="AnimeJPName" msprop:Generator_ColumnVarNameInTable="columnAnimeJPName" msprop:Generator_ColumnPropNameInRow="AnimeJPName" msprop:Generator_ColumnPropNameInTable="AnimeJPNameColumn" msprop:Generator_UserColumnName="AnimeJPName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
   </xs:element>
