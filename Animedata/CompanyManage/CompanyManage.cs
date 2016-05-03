@@ -296,11 +296,13 @@ namespace Main
                     
                 }
 
-                if (NeedUpdateCompanys.Count == 0)
-                {
-                    MsgBox.Show(MSG_COMPANYMANAGE_003);
-                    return false;
-                }
+            }
+
+
+            if (NeedUpdateCompanys.Count == 0)
+            {
+                MsgBox.Show(MSG_COMPANYMANAGE_003);
+                return false;
             }
 
             if(MsgBox.Show(MSG_COMMON_008)==DialogResult.Yes)
