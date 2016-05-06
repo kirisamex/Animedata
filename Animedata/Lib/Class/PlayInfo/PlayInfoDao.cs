@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using Main.Lib.Const;
 
 
 namespace Main
@@ -59,7 +60,7 @@ namespace Main
             }
 
 
-            sqlcmd.Append(@"INSERT INTO ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL (
+            sqlcmd.Append(@"INSERT INTO {0} (
                                  PLAYINFO_ID
                             	,ANIME_NO
 	                            ,ANIME_PLAYINFO
@@ -83,7 +84,7 @@ namespace Main
             paras.Add(new SqlParameter("@animeNo", pInfo.animeNo));
             paras.Add(new SqlParameter("@status", pInfo.status));
 
-            DbCmd.DoCommand(sqlcmd.ToString(), paras);
+            DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
             return true;
         }
@@ -107,7 +108,7 @@ namespace Main
 
             
 
-            sqlcmd.Append(@"UPDATE ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL SET
+            sqlcmd.Append(@"UPDATE {0} SET
   	                             ANIME_PLAYINFO = @playinfo
 	                            ,STATUS = @status
 	                            ,LAST_UPDATE_DATETIME = GETDATE()
@@ -161,7 +162,7 @@ namespace Main
             paras.Add(new SqlParameter("@animeNo", pInfo.animeNo));
             paras.Add(new SqlParameter("@id", pInfo.ID));
 
-            DbCmd.DoCommand(sqlcmd.ToString(), paras);
+            DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
             return true;
         }
@@ -174,7 +175,7 @@ namespace Main
         public bool Delete(PlayInfo pInfo)
         {
             string sqlcmd = @"                            
-                            UPDATE ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL
+                            UPDATE {0}
                             SET ENABLE_FLG = 0
                             ,LAST_UPDATE_DATETIME = GETDATE()
                             WHERE PLAYINFO_ID = @playinfoID 
@@ -186,7 +187,7 @@ namespace Main
 
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
                 return true;
             }
             catch (Exception ex)

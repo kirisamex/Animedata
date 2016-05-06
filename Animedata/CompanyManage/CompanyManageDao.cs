@@ -7,6 +7,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using Main.Lib.Model;
+using Main.Lib.Const;
 
 namespace Main
 {
@@ -23,10 +24,10 @@ namespace Main
             const string sqlcmd = @"SELECT 
                                     CT.COMPANY_ID,
                                     CT.COMPANY_NAME
-                                    FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL CT
+                                    FROM {0} CT
                                     WHERE ENABLE_FLG = 1
                                     ORDER BY COMPANY_NAME";
-            return DbCmd.DoSelect(sqlcmd);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL));
         }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace Main
             string sqlcmd = @"SELECT 
                                     CT.COMPANY_ID,
                                     CT.COMPANY_NAME
-                                    FROM ANIMEDATA_DEV.dbo.T_COMPANY_TBL CT
+                                    FROM {0} CT
                                     WHERE CT.ENABLE_FLG = 1
                                     AND CT.COMPANY_NAME LIKE @cmpname
                                     ORDER BY COMPANY_NAME";
@@ -46,7 +47,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(AddParam(SearchModule.StringSearchWay.Broad, "cmpname", target));
 
-            return DbCmd.DoSelect(sqlcmd,paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
         }
 
         /// <summary>
@@ -57,9 +58,7 @@ namespace Main
         /// <returns></returns>
         public bool UpdateCompanyName(string newName, int companyID)
         {
-            string sqlcmd = @"UPDATE 
-                            ANIMEDATA_DEV.dbo.T_COMPANY_TBL
-                            SET
+            string sqlcmd = @"UPDATE {0} SET
                             COMPANY_NAME = @newName ,
                             LAST_UPDATE_DATETIME = GETDATE()
                             WHERE COMPANY_ID = @companyID";
@@ -70,7 +69,7 @@ namespace Main
 
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
             }
             catch (Exception ex)
             {
@@ -98,12 +97,15 @@ namespace Main
                                         PLT.PARTS,
                                         AMT.ANIME_CHN_NAME,
                                         AMT.ANIME_JPN_NAME
-                                   FROM ANIMEDATA_DEV.dbo.T_PLAYINFO_TBL PLT 
-                                   INNER JOIN ANIMEDATA_DEV.dbo.T_COMPANY_TBL CMT ON PLT.COMPANY_ID= CMT.COMPANY_ID AND CMT.ENABLE_FLG = 1
-                                   INNER JOIN ANIMEDATA_DEV.dbo.T_ANIME_TBL AMT ON PLT.ANIME_NO = AMT.ANIME_NO AND AMT.ENABLE_FLG = 1
+                                   FROM {0} PLT 
+                                   INNER JOIN {1} CMT ON PLT.COMPANY_ID= CMT.COMPANY_ID AND CMT.ENABLE_FLG = 1
+                                   INNER JOIN {2} AMT ON PLT.ANIME_NO = AMT.ANIME_NO AND AMT.ENABLE_FLG = 1
                                    WHERE PLT.ENABLE_FLG = 1";
 
-            return DbCmd.DoSelect(sqlcmd);
+            return DbCmd.DoSelect(string.Format(sqlcmd,
+                CommonConst.TableName.T_PLAYINFO_TBL,
+                CommonConst.TableName.T_COMPANY_TBL,
+                CommonConst.TableName.T_ANIME_TBL));
         }
     }
 }

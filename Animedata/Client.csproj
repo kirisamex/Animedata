@@ -141,7 +141,7 @@
     <Compile Include="Lib\Class\Track\TrackSeries.cs" />
     <Compile Include="Lib\Class\Track\TrackSeriesDao.cs" />
     <Compile Include="Lib\Const\FormText.cs" />
-    <Compile Include="Lib\Const\TableName.cs" />
+    <Compile Include="Lib\Const\CommonConst.cs" />
     <Compile Include="Lib\DbAssistant\AbstractDbCommand.cs" />
     <Compile Include="Lib\DbAssistant\Connection.cs" />
     <Compile Include="CVManage\CVManageDao.cs" />
@@ -218,7 +218,8 @@
     <EmbeddedResource Include="CVManage\CVManage.resx">
       <DependentUpon>CVManage.cs</DependentUpon>
     </EmbeddedResource>
-    <None Include="App.config">
+    <None Include="App.Debug.config" />
+    <None Include="App.Release.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="ClientDataSet\ClientDataset.xsc">
@@ -260,7 +261,9 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="futaba.ico" />
+    <Content Include="Lib\dll\ID3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Message.xml">
       <SubType>Designer</SubType>
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -296,9 +299,11 @@
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
+	-->
   <Target Name="BeforeBuild">
   </Target>
   <Target Name="AfterBuild">
+    <Delete Files="$(TargetDir)$(TargetFileName).config" />
+    <Copy SourceFiles="$(ProjectDir)\app.$(Configuration).config" DestinationFiles="$(TargetDir)$(TargetFileName).config" />
   </Target>
-  -->
 </Project>

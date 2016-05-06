@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Main.Lib.Const;
 
 namespace Main.Music
 {
@@ -22,13 +23,13 @@ namespace Main.Music
         /// <returns></returns>
         public DataSet GetResource(string TrackID, int ResourceType)
         {
-            string cmd = @"SELECT 
+            string sqlcmd = @"SELECT 
                             RT.RESOURCE_ID,
                             RT.STORAGE_ID,
                             RT.RESOURCE_FILEPATH,
                             RT.RESOURCE_FILENAME
-                            FROM ANIMEDATA_DEV.dbo.T_RESOURCE_TBL RT
-                            INNER JOIN ANIMEDATA_DEV.dbo.T_TRACK_RESOURCE_TBL TRT ON RT.RESOURCE_ID = TRT.RESOURCE_ID AND TRT.ENABLE_FLG = 1
+                            FROM {0} RT
+                            INNER JOIN {1} TRT ON RT.RESOURCE_ID = TRT.RESOURCE_ID AND TRT.ENABLE_FLG = 1
                             WHERE TRT.TRACK_ID = @trackid
                             AND RT.RESOURCE_TYPE = @resourcetype
                             ";
@@ -37,7 +38,9 @@ namespace Main.Music
             paras.Add(new SqlParameter("@trackid", TrackID));
             paras.Add(new SqlParameter("@resourcetype", ResourceType));
 
-            return DbCmd.DoSelect(cmd,paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_RESOURCE_TBL
+                , CommonConst.TableName.T_TRACK_RESOURCE_TBL), paras);
         }
     }
 }

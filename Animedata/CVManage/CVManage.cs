@@ -112,39 +112,75 @@ namespace Main
         /// 载入声优DataSet
         /// </summary>
         /// <param name="ds"></param>
-        private void LoadCVInfoDataSet(DataSet ds)
+        private void LoadCVDataSet(DataSet ds)
         {
-            cvList.Clear();
-
-            foreach (DataRow dr in ds.Tables[0].Rows)
+            try
             {
-                ClientDS.CVListRow cvRow = cvList.NewCVListRow();
+                //CVList
+                cvList.Clear();
 
-                cvRow.CVID = Convert.ToInt32(dr[0]);
-                cvRow.CVName = dr[1].ToString();
+                foreach (DataRow dr in ds.Tables[0].Rows)
+                {
+                    ClientDS.CVListRow cvRow = cvList.NewCVListRow();
 
-                if (dr[2] != DBNull.Value)
-                {
-                    cvRow.CVGender = dr[2].ToString();
+                    cvRow.CVID = Convert.ToInt32(dr[0]);
+                    cvRow.CVName = dr[1].ToString();
+
+                    if (dr[2] != DBNull.Value)
+                    {
+                        cvRow.CVGender = dr[2].ToString();
+                    }
+                    else
+                    {
+                        cvRow.CVGender = string.Empty;
+                    }
+
+                    if (dr[3] != DBNull.Value)
+                    {
+                        cvRow.CVBirth = Convert.ToDateTime(dr[3]);
+                    }
+                    else
+                    {
+                        cvRow.CVBirth = DateTime.MinValue;
+                    }
+
+                    cvList.Rows.Add(cvRow);
                 }
-                else
+                cvList.AcceptChanges();
+
+                //CVHist
+                cvHist.Clear();
+
+                //取得对象CVID
+                List<int> cvids = new List<int>();
+                foreach (ClientDS.CVListRow dr in cvList)
                 {
-                    cvRow.CVGender = string.Empty;
+                    cvids.Add(dr.CVID);
                 }
 
-                if (dr[3] != DBNull.Value)
-                {
-                    cvRow.CVBirth = Convert.ToDateTime(dr[3]);
-                }
-                else
-                {
-                    cvRow.CVBirth = DateTime.MinValue;
-                }
+                DataSet Histds = service.GetCVHist(cvids);
 
-                cvList.Rows.Add(cvRow);
+                foreach (DataRow dr in Histds.Tables[0].Rows)
+                {
+                    ClientDS.CVHistRow cvRow = cvHist.NewCVHistRow();
+                    cvRow.CVName = dr[0].ToString();
+                    cvRow.CVID = Convert.ToInt32(dr[1]);
+                    cvRow.CharacterNo = dr[2].ToString();
+                    cvRow.CharacterName = dr[3].ToString();
+                    cvRow.IsMainCharacter = Convert.ToBoolean(dr[4]);
+                    cvRow.AnimeNo = dr[5].ToString();
+                    cvRow.AnimeCNName = dr[6].ToString();
+                    cvRow.AnimeJPName = dr[7].ToString();
+                    cvHist.Rows.Add(cvRow);
+                }
+                cvHist.AcceptChanges();
             }
-            cvList.AcceptChanges();
+            catch (Exception ex)
+            {
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
+            }
         }
+
 
         /// <summary>
         /// 载入声优信息
@@ -152,7 +188,9 @@ namespace Main
         private void ShowCVInfo(DataSet ds)
         {
             cvdataGridView.Rows.Clear();
-            LoadCVInfoDataSet(ds);
+
+            DataSet ListDS = ds;
+            LoadCVDataSet(ds);
 
             try
             {
@@ -346,6 +384,7 @@ namespace Main
         private void ShowCVHistInfo()
         {
             CV curCV = GetSelectedCV();
+
             if (curCV != null)
             {
                 ShowCVHistInfo(curCV);
@@ -386,11 +425,12 @@ namespace Main
             {
                 CVHistdataGridView.Rows.Clear();
 
-                DataSet ds = service.GetCVHist(cvInfo);
+                var targetList = from cvhist in this.cvHist
+                                 where cvhist.CVID == cvInfo.ID
+                                 orderby cvhist.AnimeNo,cvhist.CharacterName
+                                 select cvhist;
 
-                LoadCVHistDataSet(ds);
-
-                foreach (ClientDS.CVHistRow dr in cvHist.Rows)
+                foreach (ClientDS.CVHistRow dr in targetList)
                 {
                     DataGridViewRow dgvr = CVHistdataGridView.Rows[CVHistdataGridView.Rows.Add()];
 
