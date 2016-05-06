@@ -374,7 +374,7 @@ namespace Main
             }
 
             //信息作成
-            int NextPlayinfoID = dao.GetMaxInt(FormText.PLAYINFO, animeNo) + 1;
+            int NextPlayinfoID = dao.GetMaxInt(3, animeNo) + 1;
             int NewplayinfoCount = 0;
             for (int i = 0; i < PlayInfoDataGridView.RowCount; i++)
             {

@@ -170,7 +170,7 @@ namespace Main
 
             //新规company作成
             Company comp = new Company();
-            comp.ID = dao.GetMaxInt("COMPANY") + 1;
+            comp.ID = dao.GetMaxInt(2) + 1;
             comp.Name = companyName;
 
             //company表插入

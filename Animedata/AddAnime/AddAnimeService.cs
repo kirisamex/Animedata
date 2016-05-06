@@ -51,7 +51,7 @@ namespace Main
 
             //新规声优作成
             CV cvc = new CV();
-            cvc.ID = dao.GetMaxInt("CV") + 1;
+            cvc.ID = dao.GetMaxInt(1) + 1;
             cvc.Name = CVName;
 
             //CV表插入

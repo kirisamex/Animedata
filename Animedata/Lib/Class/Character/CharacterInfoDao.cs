@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using Main.Lib.Const;
 
 namespace Main
 {
@@ -23,7 +24,7 @@ namespace Main
         /// <returns></returns>
         public bool Insert(Character cInfo)
         {
-            string sqlcmd = @"INSERT INTO ANIMEDATA_DEV.dbo.T_CHARACTER_TBL (
+            string sqlcmd = @"INSERT INTO {0} (
 	                            CHARACTER_NO
 	                            ,CHARACTER_NAME
 	                            ,ANIME_NO
@@ -49,7 +50,7 @@ namespace Main
             paras.Add(new SqlParameter("@CVID", cInfo.CVID));
             paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
 
-            DbCmd.DoCommand(sqlcmd, paras);
+            DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
             
             return true;
         }
@@ -68,7 +69,7 @@ namespace Main
 
             StringBuilder sqlcmd = new StringBuilder();
 
-            sqlcmd.Append(@"UPDATE ANIMEDATA_DEV.dbo.T_CHARACTER_TBL SET
+            sqlcmd.Append(@"UPDATE {0} SET
                             	 ANIME_NO = @animeNo
 	                            ,CHARACTER_NAME = @charactername
 	                            ,CV_ID = @cvid
@@ -83,7 +84,7 @@ namespace Main
             paras.Add(new SqlParameter("@CVID", cInfo.CVID));
             paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
 
-            DbCmd.DoCommand(sqlcmd.ToString(), paras);
+            DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_CHARACTER_TBL), paras);
 
             return true;
         }
@@ -96,7 +97,7 @@ namespace Main
         public bool Delete(Character cInfo)
         {
             string sqlcmd = @"                            
-                            UPDATE ANIMEDATA_DEV.dbo.T_CHARACTER_TBL
+                            UPDATE {0}
                             SET ENABLE_FLG = 0
                             ,LAST_UPDATE_DATETIME = GETDATE()
                             WHERE CHARACTER_NO = @characterNo ";
@@ -106,7 +107,7 @@ namespace Main
 
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
                 return true;
             }
             catch (Exception ex)

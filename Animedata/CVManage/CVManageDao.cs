@@ -8,6 +8,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using Main.Lib.DbAssistant;
 using Main.Lib.Model;
+using Main.Lib.Const;
 
 namespace Main
 {
@@ -24,11 +25,11 @@ namespace Main
                                     CV_NAME,
 									CV_GENDER,
 									CV_BIRTH 
-                                    FROM ANIMEDATA_DEV.dbo.T_CV_TBL
+                                    FROM {0}
                                     WHERE ENABLE_FLG = 1
                                     ORDER BY CV_NAME";
 
-            return DbCmd.DoSelect(sqlcmd);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL));
         }
 
         /// <summary>
@@ -37,12 +38,12 @@ namespace Main
         /// <returns></returns>
         public DataSet LoadCVInfo(string target)
         {
-            string sql = @"SELECT 
+            string sqlcmd = @"SELECT 
                                     CV_ID ,
                                     CV_NAME,
 									CV_GENDER,
 									CV_BIRTH 
-                                    FROM ANIMEDATA_DEV.dbo.T_CV_TBL
+                                    FROM {0}
                                     WHERE ENABLE_FLG = 1
                                     AND CV_NAME LIKE @target
                                     ORDER BY CV_ID";
@@ -50,13 +51,13 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", target));
 
-            return DbCmd.DoSelect(sql, paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL), paras);
         }
 
         /// <summary>
         /// 获取声优履历
         /// </summary>
-        /// <param name="cvInfo"></param>
+        /// <param name="cvInfo">CV信息</param>
         /// <returns></returns>
         public DataSet GetCVHist(CV cvInfo)
         {
@@ -69,17 +70,61 @@ namespace Main
                                     ANT.ANIME_CHN_NAME,
                                     ANT.ANIME_JPN_NAME 
                                 FROM 
-                                    ANIMEDATA_DEV.dbo.T_CHARACTER_TBL CRT
-                                    INNER JOIN ANIMEDATA_DEV.dbo.T_CV_TBL CVT ON CVT.CV_ID = CRT.CV_ID AND CVT.ENABLE_FLG = 1
-                                    INNER JOIN ANIMEDATA_DEV.dbo.T_ANIME_TBL ANT ON ANT.ANIME_NO = CRT.ANIME_NO AND ANT.ENABLE_FLG = 1
+                                    {0} CRT
+                                    INNER JOIN {1} CVT ON CVT.CV_ID = CRT.CV_ID AND CVT.ENABLE_FLG = 1
+                                    INNER JOIN {2} ANT ON ANT.ANIME_NO = CRT.ANIME_NO AND ANT.ENABLE_FLG = 1
                                 WHERE CRT.ENABLE_FLG = 1
                                     AND CRT.CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@cvid",cvInfo.ID));
 
-            return DbCmd.DoSelect(sqlcmd, paras);
-        }   
+            return DbCmd.DoSelect(string.Format(sqlcmd, 
+                CommonConst.TableName.T_CHARACTER_TBL,
+                CommonConst.TableName.T_CV_TBL,
+                CommonConst.TableName.T_ANIME_TBL), paras);
+        }
+
+        /// <summary>
+        /// 获取List内声优履历
+        /// </summary>
+        /// <param name="cvInfoList">CV列表</param>
+        /// <returns></returns>
+        public DataSet GetCVHist(List<int> cvInfoList)
+        {
+
+            StringBuilder sqlcmd = new StringBuilder();
+            sqlcmd.Append(@"SELECT CVT.CV_NAME,
+                                    CRT.CV_ID,
+                                    CRT.CHARACTER_NO,
+                                    CRT.CHARACTER_NAME,
+                                    CRT.LEADING_FLG,
+                                    ANT.ANIME_NO,
+                                    ANT.ANIME_CHN_NAME,
+                                    ANT.ANIME_JPN_NAME 
+                                FROM 
+                                    {0} CRT
+                                    INNER JOIN {1} CVT ON CVT.CV_ID = CRT.CV_ID AND CVT.ENABLE_FLG = 1
+                                    INNER JOIN {2} ANT ON ANT.ANIME_NO = CRT.ANIME_NO AND ANT.ENABLE_FLG = 1
+                                WHERE CRT.ENABLE_FLG = 1
+                                    AND CRT.CV_ID IN (");
+
+            StringBuilder cvidincmd = new StringBuilder();
+
+            foreach (int cvid in cvInfoList)
+            {
+                AddComma(cvidincmd);
+                cvidincmd.Append(cvid);
+            }
+
+            sqlcmd.Append(cvidincmd);
+            sqlcmd.Append(" )");
+
+            return DbCmd.DoSelect(string.Format(sqlcmd.ToString(), 
+                CommonConst.TableName.T_CHARACTER_TBL,
+                CommonConst.TableName.T_CV_TBL,
+                CommonConst.TableName.T_ANIME_TBL));
+        }
 
         /// <summary>
         /// 更新声优信息
@@ -92,7 +137,7 @@ namespace Main
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
 
-            sqlcmd.Append( @"UPDATE ANIMEDATA_DEV.dbo.T_CV_TBL SET 
+            sqlcmd.Append( @"UPDATE {0} SET 
                                         CV_NAME = @cvname");
 
             if (cvInfo.Gender != null)
@@ -120,7 +165,8 @@ namespace Main
             paras.Add(para1);
             paras.Add(para2);
 
-            DbCmd.DoCommand(sqlcmd.ToString(), paras);
+            DbCmd.DoCommand(string.Format(sqlcmd.ToString(),
+                CommonConst.TableName.T_CV_TBL), paras);
         }
 
         /// <summary>
@@ -131,13 +177,13 @@ namespace Main
         public bool CVIDRepeatCheck(int CVID)
         {
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA_DEV.dbo.T_CV_TBL
+                                FROM {0}
                                 WHERE CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@cvID", CVID));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
