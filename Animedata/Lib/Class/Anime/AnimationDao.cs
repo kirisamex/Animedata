@@ -177,7 +177,7 @@ namespace Main
 
             //所有既存该动画的角色信息
             string sql2 = @"SELECT CHARACTER_NO
-                            FROM {0]
+                            FROM {0}
                             WHERE ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras2 = new Collection<DbParameter>();
