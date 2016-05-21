@@ -183,12 +183,12 @@ namespace Main
         /// <param name="cmp">选中公司</param>
         private void ShowCompanyHistInfo(Company cmp)
         {
+            companyHistDataGridView.Rows.Clear();
+
             if (cmp == null)
             {
                 return;
-            }
-
-            companyHistDataGridView.Rows.Clear();
+            }          
 
             var targetHists = from cmpHist in this.companyHist
                               where cmpHist.CompanyID == cmp.ID

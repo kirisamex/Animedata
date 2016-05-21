@@ -158,20 +158,23 @@ namespace Main
                     cvids.Add(dr.CVID);
                 }
 
-                DataSet Histds = service.GetCVHist(cvids);
-
-                foreach (DataRow dr in Histds.Tables[0].Rows)
+                if (cvids.Count != 0)
                 {
-                    ClientDS.CVHistRow cvRow = cvHist.NewCVHistRow();
-                    cvRow.CVName = dr[0].ToString();
-                    cvRow.CVID = Convert.ToInt32(dr[1]);
-                    cvRow.CharacterNo = dr[2].ToString();
-                    cvRow.CharacterName = dr[3].ToString();
-                    cvRow.IsMainCharacter = Convert.ToBoolean(dr[4]);
-                    cvRow.AnimeNo = dr[5].ToString();
-                    cvRow.AnimeCNName = dr[6].ToString();
-                    cvRow.AnimeJPName = dr[7].ToString();
-                    cvHist.Rows.Add(cvRow);
+                    DataSet Histds = service.GetCVHist(cvids);
+
+                    foreach (DataRow dr in Histds.Tables[0].Rows)
+                    {
+                        ClientDS.CVHistRow cvRow = cvHist.NewCVHistRow();
+                        cvRow.CVName = dr[0].ToString();
+                        cvRow.CVID = Convert.ToInt32(dr[1]);
+                        cvRow.CharacterNo = dr[2].ToString();
+                        cvRow.CharacterName = dr[3].ToString();
+                        cvRow.IsMainCharacter = Convert.ToBoolean(dr[4]);
+                        cvRow.AnimeNo = dr[5].ToString();
+                        cvRow.AnimeCNName = dr[6].ToString();
+                        cvRow.AnimeJPName = dr[7].ToString();
+                        cvHist.Rows.Add(cvRow);
+                    }
                 }
                 cvHist.AcceptChanges();
             }
