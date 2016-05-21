@@ -56,7 +56,7 @@ namespace Main
         }
 
         /// <summary>
-        /// 删除该公司
+        /// 伦理删除该声优
         /// 删除前务必检查是否使用！！ 
         /// </summary>
         public void Delete()

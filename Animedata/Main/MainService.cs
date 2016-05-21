@@ -170,7 +170,7 @@ namespace Main
 
             //新规company作成
             Company comp = new Company();
-            comp.ID = dao.GetMaxInt("COMPANY") + 1;
+            comp.ID = dao.GetMaxInt(2) + 1;
             comp.Name = companyName;
 
             //company表插入
@@ -334,6 +334,18 @@ namespace Main
                 case "其他": return "Z";
                 default: throw new Exception("未知的专辑类型");
             }
+        }
+
+        /// <summary>
+        /// 获得主角标记字符
+        /// </summary>
+        /// <param name="IsMain"></param>
+        /// <returns></returns>
+        public string GetMainCharaStringByBool(bool IsMain)
+        {
+            if (IsMain)
+                return "○";
+            return string.Empty;
         }
 
         #endregion

@@ -6,6 +6,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
+using Main.Lib.Const;
 
 
 namespace Main
@@ -22,13 +23,13 @@ namespace Main
             const string sqlcmd = @"SELECT 
                                     ANIME_NO,
                                     CHARACTER_NAME
-                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL 
+                                    FROM {0}
                                     WHERE CV_ID = @CVID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@CVID", CVID));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);          
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);          
 
             if (ds.Tables[0].Rows.Count != 0)
             {
@@ -48,13 +49,14 @@ namespace Main
 
 
         /// <summary>
-        /// 删除声优信息
+        /// 伦理删除声优信息
         /// </summary>
         /// <param name="CVID"></param>
         public void DeleteCVInfoByCVID(int CVID)
         {
-            string sqlcmd = @"DELETE 
-                            FROM ANIMEDATA.dbo.T_CV_TBL
+            string sqlcmd = @"UPDATE {0}
+                            SET ENABLE_FLG = 0,
+                            LAST_UPDATE_DATETIME = GETDATE()
                             WHERE CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -62,7 +64,7 @@ namespace Main
             
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL), paras);
             }
             catch (Exception ex)
             {
@@ -98,7 +100,7 @@ namespace Main
                 paras.Add(new SqlParameter("@cvbirth", cvInfo.Brithday));
             }
 
-            sqlcmd.Append(@"INSERT INTO ANIMEDATA.dbo.T_CV_TBL(
+            sqlcmd.Append(@"INSERT INTO {0}(
                                         CV_ID,
                                         CV_NAME,
                                         ENABLE_FLG,
@@ -116,7 +118,7 @@ namespace Main
             paras.Add(new SqlParameter("@cvid", cvInfo.ID));
             paras.Add(new SqlParameter("@cvname", cvInfo.Name));
 
-            DbCmd.DoCommand(sqlcmd.ToString(), paras);
+            DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_CV_TBL), paras);
             return true;
         }
     }

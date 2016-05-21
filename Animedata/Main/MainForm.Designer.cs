@@ -1,6 +1,6 @@
 ﻿namespace Main
 {
-    partial class Main
+    partial class MainForm
     {
         /// <summary>
         /// 必需的设计器变量。
@@ -34,7 +34,7 @@
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle6 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.开始ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.音乐管理MToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -43,8 +43,6 @@
             this.退出ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.查询动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.查询声优ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.查询动画制作企业ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.以上功能未实装ToolStripMenuItem = new System.Windows.Forms.ToolStripSeparator();
             this.添加动画ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.添加动画信息ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -79,6 +77,7 @@
             this.addanimebutton = new System.Windows.Forms.Button();
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
+            this.label1 = new System.Windows.Forms.Label();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -110,7 +109,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
-            this.menuStrip1.TabIndex = 11;
+            this.menuStrip1.TabIndex = 1;
             this.menuStrip1.TabStop = true;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -122,8 +121,8 @@
             this.刷新ToolStripMenuItem,
             this.退出ToolStripMenuItem});
             this.开始ToolStripMenuItem.Name = "开始ToolStripMenuItem";
-            this.开始ToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
-            this.开始ToolStripMenuItem.Text = "开始(&S)";
+            this.开始ToolStripMenuItem.Size = new System.Drawing.Size(62, 20);
+            this.开始ToolStripMenuItem.Text = "开始(&M)";
             // 
             // 音乐管理MToolStripMenuItem
             // 
@@ -156,8 +155,6 @@
             // 
             this.查询ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.查询动画ToolStripMenuItem,
-            this.查询声优ToolStripMenuItem,
-            this.查询动画制作企业ToolStripMenuItem,
             this.以上功能未实装ToolStripMenuItem});
             this.查询ToolStripMenuItem.Name = "查询ToolStripMenuItem";
             this.查询ToolStripMenuItem.Size = new System.Drawing.Size(58, 20);
@@ -169,18 +166,6 @@
             this.查询动画ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
             this.查询动画ToolStripMenuItem.Text = "查询动画(&A)　　　　F2";
             this.查询动画ToolStripMenuItem.Click += new System.EventHandler(this.查询动画ToolStripMenuItem_Click);
-            // 
-            // 查询声优ToolStripMenuItem
-            // 
-            this.查询声优ToolStripMenuItem.Name = "查询声优ToolStripMenuItem";
-            this.查询声优ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.查询声优ToolStripMenuItem.Text = "查询声优";
-            // 
-            // 查询动画制作企业ToolStripMenuItem
-            // 
-            this.查询动画制作企业ToolStripMenuItem.Name = "查询动画制作企业ToolStripMenuItem";
-            this.查询动画制作企业ToolStripMenuItem.Size = new System.Drawing.Size(183, 22);
-            this.查询动画制作企业ToolStripMenuItem.Text = "查询动画制作企业";
             // 
             // 以上功能未实装ToolStripMenuItem
             // 
@@ -200,21 +185,21 @@
             // 添加动画信息ToolStripMenuItem
             // 
             this.添加动画信息ToolStripMenuItem.Name = "添加动画信息ToolStripMenuItem";
-            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
-            this.添加动画信息ToolStripMenuItem.Text = "添加动画信息(&A)　　　　F6";
+            this.添加动画信息ToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
+            this.添加动画信息ToolStripMenuItem.Text = "添加动画信息(&A)";
             this.添加动画信息ToolStripMenuItem.Click += new System.EventHandler(this.添加动画信息ToolStripMenuItem_Click);
             // 
             // 修改动画信息ToolStripMenuItem
             // 
             this.修改动画信息ToolStripMenuItem.Name = "修改动画信息ToolStripMenuItem";
-            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.修改动画信息ToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.修改动画信息ToolStripMenuItem.Text = "修改动画信息(&C)";
             this.修改动画信息ToolStripMenuItem.Click += new System.EventHandler(this.修改动画信息ToolStripMenuItem_Click);
             // 
             // 删除动画信息ToolStripMenuItem
             // 
             this.删除动画信息ToolStripMenuItem.Name = "删除动画信息ToolStripMenuItem";
-            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.删除动画信息ToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.删除动画信息ToolStripMenuItem.Text = "删除动画信息(&D)";
             this.删除动画信息ToolStripMenuItem.Click += new System.EventHandler(this.删除动画信息ToolStripMenuItem_Click);
             // 
@@ -238,7 +223,7 @@
             // 
             this.动画制作企业列表ToolStripMenuItem.Name = "动画制作企业列表ToolStripMenuItem";
             this.动画制作企业列表ToolStripMenuItem.Size = new System.Drawing.Size(208, 22);
-            this.动画制作企业列表ToolStripMenuItem.Text = "动画制作企业列表(&C)　F4";
+            this.动画制作企业列表ToolStripMenuItem.Text = "动画制作企业列表(&C)　F6";
             this.动画制作企业列表ToolStripMenuItem.Click += new System.EventHandler(this.动画制作企业列表ToolStripMenuItem_Click);
             // 
             // 帮助ToolStripMenuItem
@@ -291,7 +276,7 @@
             this.AnimationDataGridview.RowHeadersVisible = false;
             this.AnimationDataGridview.RowTemplate.Height = 23;
             this.AnimationDataGridview.Size = new System.Drawing.Size(705, 600);
-            this.AnimationDataGridview.TabIndex = 1;
+            this.AnimationDataGridview.TabIndex = 91;
             this.AnimationDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.AnimationDataGridview.CurrentCellChanged += new System.EventHandler(this.AnimationDataGridview_CurrentCellChanged);
             // 
@@ -347,7 +332,7 @@
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
             this.splitContainer1.Size = new System.Drawing.Size(1264, 637);
             this.splitContainer1.SplitterDistance = 600;
-            this.splitContainer1.TabIndex = 3;
+            this.splitContainer1.TabIndex = 2;
             // 
             // splitContainer2
             // 
@@ -424,7 +409,7 @@
             this.PlayInfodataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.PlayInfodataGridView.RowTemplate.Height = 23;
             this.PlayInfodataGridView.Size = new System.Drawing.Size(555, 277);
-            this.PlayInfodataGridView.TabIndex = 0;
+            this.PlayInfodataGridView.TabIndex = 92;
             // 
             // PlayInfoColumn
             // 
@@ -485,7 +470,7 @@
             this.CVdataGridView.RowHeadersVisible = false;
             this.CVdataGridView.RowTemplate.Height = 23;
             this.CVdataGridView.Size = new System.Drawing.Size(555, 319);
-            this.CVdataGridView.TabIndex = 0;
+            this.CVdataGridView.TabIndex = 93;
             // 
             // flowLayoutPanel1
             // 
@@ -495,19 +480,20 @@
             this.flowLayoutPanel1.Controls.Add(this.addanimebutton);
             this.flowLayoutPanel1.Controls.Add(this.simpleSearchButton);
             this.flowLayoutPanel1.Controls.Add(this.simpleSearchTextBox);
+            this.flowLayoutPanel1.Controls.Add(this.label1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.flowLayoutPanel1.Size = new System.Drawing.Size(1264, 33);
-            this.flowLayoutPanel1.TabIndex = 0;
+            this.flowLayoutPanel1.TabIndex = 3;
             // 
             // deleteanimebutton
             // 
             this.deleteanimebutton.Location = new System.Drawing.Point(1167, 3);
             this.deleteanimebutton.Name = "deleteanimebutton";
             this.deleteanimebutton.Size = new System.Drawing.Size(94, 23);
-            this.deleteanimebutton.TabIndex = 2;
+            this.deleteanimebutton.TabIndex = 106;
             this.deleteanimebutton.Text = "删除动画(&G)";
             this.deleteanimebutton.UseVisualStyleBackColor = true;
             this.deleteanimebutton.Click += new System.EventHandler(this.deleteanimebutton_Click);
@@ -517,7 +503,7 @@
             this.changeanimebutton.Location = new System.Drawing.Point(1067, 3);
             this.changeanimebutton.Name = "changeanimebutton";
             this.changeanimebutton.Size = new System.Drawing.Size(94, 23);
-            this.changeanimebutton.TabIndex = 1;
+            this.changeanimebutton.TabIndex = 105;
             this.changeanimebutton.Text = "修改动画(&X)";
             this.changeanimebutton.UseVisualStyleBackColor = true;
             this.changeanimebutton.Click += new System.EventHandler(this.changeanimebutton_Click);
@@ -527,7 +513,7 @@
             this.addanimebutton.Location = new System.Drawing.Point(967, 3);
             this.addanimebutton.Name = "addanimebutton";
             this.addanimebutton.Size = new System.Drawing.Size(94, 23);
-            this.addanimebutton.TabIndex = 0;
+            this.addanimebutton.TabIndex = 104;
             this.addanimebutton.Text = "添加动画 (&D)";
             this.addanimebutton.UseVisualStyleBackColor = true;
             this.addanimebutton.Click += new System.EventHandler(this.addanimebutton_Click);
@@ -537,20 +523,33 @@
             this.simpleSearchButton.Location = new System.Drawing.Point(867, 3);
             this.simpleSearchButton.Name = "simpleSearchButton";
             this.simpleSearchButton.Size = new System.Drawing.Size(94, 23);
-            this.simpleSearchButton.TabIndex = 4;
+            this.simpleSearchButton.TabIndex = 103;
             this.simpleSearchButton.Text = "搜索(&S)";
             this.simpleSearchButton.UseVisualStyleBackColor = true;
             this.simpleSearchButton.Click += new System.EventHandler(this.simpleSearchButton_Click);
             // 
             // simpleSearchTextBox
             // 
-            this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 3);
+            this.simpleSearchTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 5);
             this.simpleSearchTextBox.Name = "simpleSearchTextBox";
             this.simpleSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
-            this.simpleSearchTextBox.TabIndex = 3;
+            this.simpleSearchTextBox.TabIndex = 102;
+            this.simpleSearchTextBox.Enter += new System.EventHandler(this.simpleSearchTextBox_Enter);
             // 
-            // Main
+            // label1
+            // 
+            this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(627, 8);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(68, 12);
+            this.label1.TabIndex = 101;
+            this.label1.Text = "简易搜索(&Z)";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -561,7 +560,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
-            this.Name = "Main";
+            this.Name = "MainForm";
             this.Text = "ADM动画数据管理";
             this.Load += new System.EventHandler(this.main_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.main_KeyDown);
@@ -604,8 +603,6 @@
         private System.Windows.Forms.ToolStripMenuItem 关于ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 查询ToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem 查询动画ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 查询声优ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 查询动画制作企业ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Button deleteanimebutton;
@@ -635,6 +632,7 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNiceName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
+        private System.Windows.Forms.Label label1;
     }
 }
 

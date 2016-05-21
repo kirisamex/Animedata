@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Common;
 using System.Text;
 using System.Data.SqlClient;
+using Main.Lib.Const;
 
 namespace Main
 {
@@ -25,10 +26,10 @@ namespace Main
         public DataSet LoadCompanyName()
         {
             string sqlcmd = @"SELECT COMPANY_NAME
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    FROM {0}
  									WHERE ENABLE_FLG = 1 
                                     ORDER BY COMPANY_NAME";
-            return DbCmd.DoSelect(sqlcmd);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL));
         }
 
         /// <summary>
@@ -38,11 +39,11 @@ namespace Main
         public DataSet LoadCVName()
         {
             string sqlcmd = @"SELECT CV_NAME
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM {0}
                                     WHERE ENABLE_FLG = 1
 									ORDER BY CV_NAME";
 
-            return DbCmd.DoSelect(sqlcmd);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL));
         }
 
         /// <summary>
@@ -54,7 +55,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     MAX(CHARACTER_NO)
-                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                                    FROM {0}
                                     WHERE ANIME_NO = @animeNo
                                     AND LEADING_FLG = @leadingflg";
 
@@ -62,7 +63,7 @@ namespace Main
             paras.Add(new SqlParameter("@animeNo", chara.animeNo));
             paras.Add(new SqlParameter("@leadingflg", chara.leadingFLG));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -83,7 +84,7 @@ namespace Main
         public Animation SearchRepeatAnimeInfo(Animation anime, AddAnime.command ctr)
         {
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA.dbo.T_ANIME_TBL
+                                FROM {0}
                                 WHERE ANIME_NO = @animeNo
 	                                OR ANIME_CHN_NAME = @animeCNName
 	                                OR ANIME_JPN_NAME = @animeJPName
@@ -95,7 +96,7 @@ namespace Main
             paras.Add(new SqlParameter("@animeJPName", anime.JPName));
             paras.Add(new SqlParameter("@nickname", anime.Nickname));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd,CommonConst.TableName.T_ANIME_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {

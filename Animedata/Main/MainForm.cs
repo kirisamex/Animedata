@@ -14,12 +14,13 @@ using Main.Music;
 
 namespace Main
 {
-    public partial class Main : Form
+    public partial class MainForm : Form
     {
         #region 常量
         //实例
         MainService service = new MainService();
-        StatusStyle style = new StatusStyle();
+        StatusStyle statusStyle = new StatusStyle();
+        DataGridViewStyle dgvStyle = new DataGridViewStyle();
 
         /// <summary>Ver.</summary>
         const string VERSION = "Ver. "; 
@@ -70,62 +71,53 @@ namespace Main
         {
             AnimationDataGridview.Rows.Clear();
 
-            DataTable animedt = ds.Tables[0];
-            List<string> ShowedAnimeNo = new List<string>();
+            #region #7 修改SQL后动画重复对应
+            DataTable tmpdt = ds.Tables[0];
 
-            for (int i = 0; i < animedt.Rows.Count; i++)
+            string[] straColumn = new string[tmpdt.Columns.Count];
+
+            for (int LoopIndex = 0; LoopIndex < tmpdt.Columns.Count; LoopIndex++)
             {
-                string AnimeNo = animedt.Rows[i][0].ToString();
+                straColumn[LoopIndex] = tmpdt.Columns[LoopIndex].ColumnName;
+            }
 
-                #region #7 修改SQL后动画重复对应
-                if (ShowedAnimeNo.Contains(AnimeNo))
-                {
-                    continue;
-                }
-                else
-                {
-                    ShowedAnimeNo.Add(AnimeNo);
-                }
-                #endregion
+            DataTable dt = tmpdt.DefaultView.ToTable(true, straColumn);
+            #endregion
+
+            for (int i = 0; i < dt.Rows.Count; i++)
+            {
+                string AnimeNo = dt.Rows[i][0].ToString();
 
                 AnimationDataGridview.Rows.Add();
-                DataGridViewRow dgvrow = AnimationDataGridview.Rows[i];
+                DataGridViewRow dgvrow = AnimationDataGridview.Rows[AnimationDataGridview.RowCount - 1];
                 //编号
                 dgvrow.Cells[0].Value = AnimeNo;
 
                 //中文名
-                dgvrow.Cells[1].Value = animedt.Rows[i][1].ToString();
+                dgvrow.Cells[1].Value = dt.Rows[i][1].ToString();
 
                 //日文名
-                dgvrow.Cells[2].Value = animedt.Rows[i][2].ToString();
+                dgvrow.Cells[2].Value = dt.Rows[i][2].ToString();
 
                 //简称
-                dgvrow.Cells[3].Value = animedt.Rows[i][3].ToString();
+                dgvrow.Cells[3].Value = dt.Rows[i][3].ToString();
 
                 //状态
-                dgvrow.Cells[4].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(animedt.Rows[i][4].ToString()));
+                dgvrow.Cells[4].Value = service.GetStatusTextFromStatusInt(Convert.ToInt32(dt.Rows[i][4].ToString()));
 
                 //原作
-                dgvrow.Cells[5].Value = service.GetOriginalTextFromOriginalInt(Convert.ToInt32(animedt.Rows[i][5].ToString()));
+                dgvrow.Cells[5].Value = service.GetOriginalTextFromOriginalInt(Convert.ToInt32(dt.Rows[i][5].ToString()));
             }
 
-            int colwit = 19;
             //动画窗口格式设置
-            foreach (DataGridViewColumn col in  AnimationDataGridview.Columns)
-            {
-                //ANIMEDATAGridview.Columns[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
-                col.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
-                col.AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                colwit += col.GetPreferredWidth(DataGridViewAutoSizeColumnMode.AllCells, true);
-            }
-            splitContainer2.SplitterDistance = colwit;
+            dgvStyle.SetDataGridViewAndSplit(splitContainer2, AnimationDataGridview, 19);
 
             //状态格式
             foreach (DataGridViewRow dr in AnimationDataGridview.Rows)
             {
                 int status = service.GetStatusIntFromStatusText(dr.Cells[4].Value.ToString());
                 
-                dr.Cells[4].Style = style.GetStatusRowStyle(status);
+                dr.Cells[4].Style = statusStyle.GetStatusRowStyle(status);
             }
 
             string firstRowAnimeNo = null;
@@ -197,7 +189,7 @@ namespace Main
                         foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
                         {
                             int status = service.GetStatusIntFromStatusText(dr.Cells[3].Value.ToString());
-                            dr.Cells[3].Style = style.GetStatusRowStyle(status);
+                            dr.Cells[3].Style = statusStyle.GetStatusRowStyle(status);
                         }
                     }
                 }
@@ -211,14 +203,10 @@ namespace Main
                     dc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
-
-
-
             }
             catch (Exception ex)
             {
                 MsgBox.Show(MSG_COMMON_001, ex.Message);
-                Application.Exit();
             }
         }
 
@@ -382,7 +370,7 @@ namespace Main
         /// <summary>
         /// 主窗体
         /// </summary>
-        public Main()
+        public MainForm()
         {
             InitializeComponent();
             this.Text += VERSION + Assembly.GetExecutingAssembly().GetName().Version.ToString();
@@ -524,6 +512,12 @@ namespace Main
         {
             ShowPlayinfoAndCharacterInfo();
         }
+
+        //简易搜索获取焦点
+        private void simpleSearchTextBox_Enter(object sender, EventArgs e)
+        {
+
+        }
         #endregion
 
         #region 键盘
@@ -541,13 +535,10 @@ namespace Main
                     关于ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F6:
-                    添加动画信息ToolStripMenuItem_Click(this, EventArgs.Empty);
+                    动画制作企业列表ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F3:
                     声优列表SF3ToolStripMenuItem_Click(this, EventArgs.Empty);
-                    break;
-                case Keys.F4:
-                    动画制作企业列表ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F5:
                     ShowAnime();
@@ -562,8 +553,6 @@ namespace Main
         }
 
         #endregion
-
-
 
     }
 }

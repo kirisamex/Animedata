@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Data.Common;
 using System.Data.SqlClient;
+using Main.Lib.Const;
 
 namespace Main
 {
@@ -21,14 +22,14 @@ namespace Main
             const string sqlcmd = @"SELECT
                                     ANIME_NO,
                                     ANIME_PLAYINFO
-                                    FROM ANIMEDATA.dbo.T_PLAYINFO_TBL 
+                                    FROM {0}
                                     WHERE COMPANY_ID = @companyID
                                     ORDER BY ANIME_NO, ANIME_PLAYINFO ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@companyID", companyID));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
             if (ds.Tables[0].Rows.Count != 0)
             {
@@ -48,13 +49,14 @@ namespace Main
 
 
         /// <summary>
-        /// 物理删除动画信息
+        /// 伦理删除动画信息
         /// </summary>
         /// <param name="companyID"></param>
         public void DeleteCompanyInfoByCompanyID(int companyID)
         {
-            string sqlcmd = @"DELETE 
-                            FROM ANIMEDATA.dbo.T_COMPANY_TBL
+            string sqlcmd = @"UPDATE {0}
+                             SET ENABLE_FLG = 0,
+                             LAST_UPDATE_DATETIME = GETDATE()
                             WHERE COMPANY_ID = @companyID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -62,7 +64,7 @@ namespace Main
             
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
             }
             catch(Exception ex)
             {

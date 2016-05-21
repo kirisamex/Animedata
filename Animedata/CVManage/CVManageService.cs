@@ -34,6 +34,26 @@ namespace Main
         }
 
         /// <summary>
+        /// 获取声优履历
+        /// </summary>
+        /// <param name="cvInfo">声优信息</param>
+        /// <returns></returns>
+        public DataSet GetCVHist(CV cvInfo)
+        {
+            return dao.GetCVHist(cvInfo);
+        }
+
+        /// <summary>
+        /// 获取声优履历
+        /// </summary>
+        /// <param name="cvList">声优列表</param>
+        /// <returns></returns>
+        public DataSet GetCVHist(List<int> cvidList)
+        {
+            return dao.GetCVHist(cvidList);
+        }
+
+        /// <summary>
         /// 更新声优信息
         /// </summary>
         /// <param name="cvInfo"></param>
@@ -91,7 +111,7 @@ namespace Main
         /// <returns></returns>
         public int GetNextCVCount()
         {
-            return dao.GetMaxInt("CV") + 1;
+            return dao.GetMaxInt(1) + 1;
         }
 
         #region 格式处理

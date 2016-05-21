@@ -9,6 +9,7 @@
     <message id="MSG-COMMON-005" text="动画简写 {0} 格式不正确！\n简写需要是英文半角字母，且首字母大写。" caption="格式错误" category="W"/>
     <message id="MSG-COMMON-006" text="[ {0} ]的年月格式不正确！时间格式：yyyyMM。" caption="格式错误" category="W"/>
     <message id="MSG-COMMON-007" text="未搜索到对应结果。" caption="搜索结果" category="I"/>
+    <message id="MSG-COMMON-008" text="确定进行操作吗？" caption="操作确认" category="C"/>
     
     <!--Main-->
     <message id="MSG-MAIN-001" text="确定删除选中行信息吗？\n注意：这些信息对应的播放信息与角色信息将一并被删除。" caption="操作确认" category="CN"/>
@@ -32,7 +33,7 @@
     <!--CompanyManage-->
     <message id="MSG-COMPANYMANAGE-001" text="企业名称未修改！" caption="" category="W"/>
     <message id="MSG-COMPANYMANAGE-002" text="企业名称不能为空！" caption="" category="W"/>
-    <message id="MSG-COMPANYMANAGE-003" text="确定将名为 {0} 的企业名称修改为 {1} 吗？" caption="操作确认" category="C"/>
+    <message id="MSG-COMPANYMANAGE-003" text="没有任何信息被修改！" caption="" category="I"/>
     <message id="MSG-COMPANYMANAGE-004" text="删除动画制作企业前需要先在动画列表中删除所有该企业制作的动画。确定要删除企业 {0} 吗？" caption="操作确认" category="CN"/>
     <message id="MSG-COMPANYMANAGE-005" text="该制作公司正被以下动画使用\n{0}" caption="" category="W"/>
     
@@ -46,5 +47,6 @@
     <message id="MSG-CVMANAGE-007" text="[ {0} ]的格式不正确。编号必须为半角数字!" caption="格式错误" category="W"/>
     <message id="MSG-CVMANAGE-008" text="声优编号与现有编号重复，操作失败！\n重复声优编号:{0} \n姓名:{1}" caption="声优编号重复" category="W"/>
     <message id="MSG-CVMANAGE-009" text="未选中声优！" caption="" category="I"/>
+    <message id="MSG-CVMANAGE-010" text="没有任何信息被修改！" caption="" category="I"/>
   </messages>
 </config>

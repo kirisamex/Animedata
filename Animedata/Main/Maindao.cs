@@ -7,6 +7,7 @@ using System.Text;
 using System.Data.SqlClient;
 using Main.Lib.DbAssistant;
 using Main.Lib.Model;
+using Main.Lib.Const;
 
 namespace Main
 {
@@ -39,14 +40,16 @@ namespace Main
         public Animation GetAnimeFromAnimeNo(string animeNo)
         {
             string sqlcmd = @"SELECT TOP 1 *
-                                FROM ANIMEDATA.dbo.T_ANIME_TBL
+                                FROM {0}
                                 WHERE ANIME_NO = @animeNo
                                 AND ENABLE_FLG = 1 ";
+
+            
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ANIME_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -76,14 +79,14 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     COMPANY_ID 
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    FROM {0}
                                     WHERE COMPANY_NAME=  @companyName 
                                     AND ENABLE_FLG = 1 ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@companyName", companyName));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -106,7 +109,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     CV_ID 
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM {0}
                                     WHERE CV_NAME=  @CVName 
                                     AND ENABLE_FLG = 1 ";
 
@@ -114,7 +117,7 @@ namespace Main
             SqlParameter para = new SqlParameter("@CVName", CVName);
             paras.Add(para);
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -137,7 +140,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     CV_NAME 
-                                    FROM ANIMEDATA.dbo.T_CV_TBL
+                                    FROM {0}
                                     WHERE CV_ID=  @cvId 
                                     AND ENABLE_FLG = 1 ";
 
@@ -145,7 +148,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -168,7 +171,7 @@ namespace Main
         {
             string sqlcmd = @"SELECT 
                                     COMPANY_NAME 
-                                    FROM ANIMEDATA.dbo.T_COMPANY_TBL
+                                    FROM {0}
                                     WHERE COMPANY_ID=  @companyId 
                                     AND ENABLE_FLG = 1 ";
 
@@ -176,7 +179,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -195,15 +198,23 @@ namespace Main
         /// <summary>
         /// 返回最大ID，用于CV表，COMPANY表新规
         /// </summary>
-        /// <param name="tableName">表种类：CV/COMPANY</param>
+        /// <param name="tableType">表种类 1:CV表 2:COMPANY表</param>
         /// <returns></returns>
-        public int GetMaxInt(string tableName)
+        public int GetMaxInt(int tableType)
         {
-            string sqlcmd = @"SELECT " +
-                                    "MAX(" + tableName + "_ID) " +
-                                    "FROM ANIMEDATA.dbo.T_" + tableName + "_TBL";
+            string sqlcmd = string.Empty;
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd);
+            switch (tableType)
+            {
+                case 1: sqlcmd = @"SELECT MAX(CV_ID) FROM {0}";
+                    break;
+                case 2: sqlcmd = @"SELECT MAX(COMPANY_ID) FROM {1}";
+                    break;
+            }
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_CV_TBL
+                , CommonConst.TableName.T_COMPANY_TBL));
 
             if (Convert.IsDBNull(ds.Tables[0].Rows[0][0]) || Convert.ToInt32(ds.Tables[0].Rows[0][0]) == 0)
             {
@@ -221,21 +232,27 @@ namespace Main
         /// <summary>
         /// 返回最大ID，用于PLAYINFO表
         /// </summary>
-        /// <param name="tableName">表种类：PLAYINFO</param>
+        /// <param name="tableType">表种类 3:PLAYINFO表</param>
         /// <param name="animeNo">动画No</param>
         /// <returns></returns>
-        public int GetMaxInt(string tableName, string animeNo)
+        public int GetMaxInt(int tableType, string animeNo)
         {
-            string sqlcmd = @"SELECT " +
-                                    "MAX(" + tableName + "_ID)" +
-                                    "FROM ANIMEDATA.dbo.T_" + tableName + "_TBL "+
-                                    "WHERE ANIME_NO = @animeNo";
+            string sqlcmd = string.Empty;
+            switch (tableType)
+            {
+                case (3):
+                    sqlcmd = @"SELECT 
+                                    MAX (PLAYINFO_ID)
+                                    FROM {0}
+                                    WHERE ANIME_NO = @animeNo";
+                    break;
+            }
 
             SqlParameter para = new SqlParameter("@animeNo", animeNo);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
             if (Convert.IsDBNull(ds.Tables[0].Rows[0][0]))
             {
@@ -257,7 +274,7 @@ namespace Main
         {
             List<PlayInfo> pInfoList = new List<PlayInfo>();
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+                                FROM {0}
                                 WHERE ANIME_NO = @animeNo
                                 AND ENABLE_FLG = 1 
                                 ORDER BY 
@@ -269,7 +286,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -318,7 +335,7 @@ namespace Main
             List<Character> cInfoList = new List<Character>();
 
             string sqlcmd = @"SELECT *
-                                FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                                FROM {0}
                                 WHERE ANIME_NO = @animeNo
                                 AND ENABLE_FLG = 1 
                                 ORDER BY LEADING_FLG DESC";
@@ -326,7 +343,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
 
             if (ds.Tables[0].Rows.Count == 0)
             {
@@ -356,7 +373,7 @@ namespace Main
         /// <param name="comp"></param>
         public void InsertCompanyInfo(Company comp)
         {
-            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_COMPANY_TBL(
+            string sqlcmd = @"INSERT INTO {0}(
                                         COMPANY_ID,
                                         COMPANY_NAME,
                                         ENABLE_FLG,
@@ -371,7 +388,7 @@ namespace Main
             paras.Add(new SqlParameter("@companyid", comp.ID));
             paras.Add(new SqlParameter("@companyname", comp.Name));
 
-            DbCmd.DoCommand(sqlcmd, paras);
+            DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
         }
 
         #endregion
@@ -387,18 +404,18 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime()
         {
-            const string sqlcmd = @"SELECT 
+            string sqlcmd = @"SELECT 
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
                                     AT.ANIME_JPN_NAME,
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT 
+                                    FROM {0} AS AT
                                     LEFT JOIN 
                                     (
 										SELECT ANIME_NO,MAX(START_TIME) AS TIME
-										FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+										FROM {1} 
 										WHERE ENABLE_FLG = 1
 										GROUP BY ANIME_NO
                                     ) AS PT ON AT.ANIME_NO = PT.ANIME_NO
@@ -406,7 +423,9 @@ namespace Main
                                     ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
 										PT.TIME DESC";
 
-            return DbCmd.DoSelect(sqlcmd);
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_ANIME_TBL
+                , CommonConst.TableName.T_PLAYINFO_TBL));
         }
 
         /// <summary>
@@ -424,12 +443,12 @@ namespace Main
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-									LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO=PT.ANIME_NO
+                                    FROM {0} AT
+									LEFT JOIN {1} PT ON AT.ANIME_NO=PT.ANIME_NO
 									LEFT JOIN 
                                     (
 										SELECT ANIME_NO,MAX(START_TIME) AS TIME
-										FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+										FROM {1}
 										WHERE ENABLE_FLG = 1
 										GROUP BY ANIME_NO
                                     ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
@@ -441,7 +460,10 @@ namespace Main
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@companyid", comp.ID));
-            return DbCmd.DoSelect(sqlcmd, paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_ANIME_TBL
+                , CommonConst.TableName.T_PLAYINFO_TBL
+                ), paras);
         }
 
         /// <summary>
@@ -460,7 +482,7 @@ namespace Main
                 for (int i = 1; i < cvList.Count; i++)
                 {
                     cvDic.Append(",");
-                    cvDic.Append(cvList[i].ToString());
+                    cvDic.Append(cvList[i].ID.ToString());
                 }
             }
 
@@ -471,13 +493,13 @@ namespace Main
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-									LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CHT ON CHT.ANIME_NO=AT.ANIME_NO
-									LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID=CHT.CV_ID
+                                    FROM {0} AT
+									LEFT JOIN {1} CHT ON CHT.ANIME_NO=AT.ANIME_NO
+									LEFT JOIN {2} CVT ON CVT.CV_ID=CHT.CV_ID
 									LEFT JOIN 
                                     (
 										SELECT ANIME_NO,MAX(START_TIME) AS TIME
-										FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+										FROM {3}
 										WHERE ENABLE_FLG = 1
 										GROUP BY ANIME_NO
                                     ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
@@ -491,7 +513,11 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             SqlParameter para = new SqlParameter("@CVID", cvDic.ToString());
             paras.Add(para);
-            return DbCmd.DoSelect(sqlcmd,paras) ;
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_ANIME_TBL
+                , CommonConst.TableName.T_CHARACTER_TBL
+                , CommonConst.TableName.T_CV_TBL
+                , CommonConst.TableName.T_PLAYINFO_TBL), paras);
         }
 
         /// <summary>
@@ -507,18 +533,25 @@ namespace Main
             StringBuilder sqlmaincmd = new StringBuilder();
             StringBuilder joincmd = new StringBuilder();
 
-            sqlmaincmd.Append( @"SELECT DISTINCT
+            sqlmaincmd.Append(@"SELECT 
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
                                     AT.ANIME_JPN_NAME,
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
-                                    INNER JOIN ANIMEDATA.dbo.T_COMPANY_TBL COT ON PT.COMPANY_ID = COT.COMPANY_ID AND COT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CT ON CT.ANIME_NO = AT.ANIME_NO AND CT.ENABLE_FLG = 1
-                                    INNER JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CT.CV_ID AND CVT.ENABLE_FLG = 1
+                                    FROM {0} AT
+                                    LEFT JOIN 
+                                    (
+										SELECT ANIME_NO,MAX(START_TIME) AS TIME
+										FROM {1}
+										WHERE ENABLE_FLG = 1
+										GROUP BY ANIME_NO
+                                    ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
+                                    LEFT JOIN {1} PT ON AT.ANIME_NO = PT.ANIME_NO AND PT.ENABLE_FLG = 1
+                                    LEFT JOIN {2} COT ON PT.COMPANY_ID = COT.COMPANY_ID AND COT.ENABLE_FLG = 1
+                                    LEFT JOIN {3} CT ON CT.ANIME_NO = AT.ANIME_NO AND CT.ENABLE_FLG = 1
+                                    LEFT JOIN {4} CVT ON CVT.CV_ID = CT.CV_ID AND CVT.ENABLE_FLG = 1
 									");
 
             
@@ -744,9 +777,19 @@ namespace Main
             joincmd.Append(" AT.ENABLE_FLG = 1");
             #endregion
 
-            string sql = sqlmaincmd.Append(joincmd.ToString()).ToString();
+            #region ORDERBY
+            joincmd.Append(@"ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+									WT.TIME DESC");
+            #endregion
 
-            return DbCmd.DoSelect(sql, paras);
+            string sqlcmd = sqlmaincmd.Append(joincmd.ToString()).ToString();
+
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_ANIME_TBL
+                , CommonConst.TableName.T_PLAYINFO_TBL
+                , CommonConst.TableName.T_COMPANY_TBL
+                , CommonConst.TableName.T_CHARACTER_TBL
+                , CommonConst.TableName.T_CV_TBL), paras);
         }
 
         /// <summary>
@@ -757,18 +800,25 @@ namespace Main
         /// <returns></returns>
         public DataSet Getanime(string searchString)
         {
-            string sql = @"SELECT DISTINCT
+            string sqlcmd = @"SELECT 
                                     AT.ANIME_NO,
                                     AT.ANIME_CHN_NAME, 
                                     AT.ANIME_JPN_NAME,
                                     AT.ANIME_NN,
                                     AT.STATUS,
 									AT.ORIGINAL
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL AT
-                                    LEFT JOIN ANIMEDATA.dbo.T_CHARACTER_TBL CCT ON CCT.ANIME_NO = AT.ANIME_NO AND CCT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA.dbo.T_PLAYINFO_TBL PLT ON PLT.ANIME_NO= AT.ANIME_NO AND PLT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID AND CPT.ENABLE_FLG = 1
-                                    LEFT JOIN ANIMEDATA.dbo.T_CV_TBL CVT ON CVT.CV_ID = CCT.CV_ID AND CVT.ENABLE_FLG = 1
+                                    FROM {0} AT
+                                    LEFT JOIN 
+                                    (
+										SELECT ANIME_NO,MAX(START_TIME) AS TIME
+										FROM {1}
+										WHERE ENABLE_FLG = 1
+										GROUP BY ANIME_NO
+                                    ) AS WT ON AT.ANIME_NO = WT.ANIME_NO
+                                    LEFT JOIN {2} CCT ON CCT.ANIME_NO = AT.ANIME_NO AND CCT.ENABLE_FLG = 1
+                                    LEFT JOIN {1} PLT ON PLT.ANIME_NO= AT.ANIME_NO AND PLT.ENABLE_FLG = 1
+                                    LEFT JOIN {3} CPT ON CPT.COMPANY_ID = PLT.COMPANY_ID AND CPT.ENABLE_FLG = 1
+                                    LEFT JOIN {4} CVT ON CVT.CV_ID = CCT.CV_ID AND CVT.ENABLE_FLG = 1
 									WHERE (AT.ANIME_NO LIKE @target OR
 									AT.ANIME_CHN_NAME LIKE @target OR
 									AT.ANIME_JPN_NAME LIKE @target OR
@@ -777,12 +827,19 @@ namespace Main
 									CPT.COMPANY_NAME LIKE @target OR 
 									CVT.CV_NAME LIKE @target)
                                     AND AT.ENABLE_FLG = 1
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+									WT.TIME DESC
 									";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", searchString));
 
-            return DbCmd.DoSelect(sql,paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_ANIME_TBL
+                , CommonConst.TableName.T_PLAYINFO_TBL
+                , CommonConst.TableName.T_CHARACTER_TBL
+                , CommonConst.TableName.T_COMPANY_TBL
+                , CommonConst.TableName.T_CV_TBL), paras);
         }
 
         /// <summary>
@@ -805,8 +862,8 @@ namespace Main
 	                                    ,TCT.COMPANY_NAME AS 制作公司 
 	                                    ,TPT.START_TIME AS 开始时间
 	                                    ,TPT.WATCH_TIME AS 收看时间
-                                    FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
-	                                LEFT JOIN ANIMEDATA.dbo.T_COMPANY_TBL TCT ON TPT.COMPANY_ID = TCT.COMPANY_ID
+                                    FROM {0} TPT   
+	                                LEFT JOIN {1} TCT ON TPT.COMPANY_ID = TCT.COMPANY_ID
                                     WHERE TPT.ANIME_NO = @animeNo
                                     AND TPT.ENABLE_FLG = 1
                                     AND TCT.ENABLE_FLG = 1
@@ -815,7 +872,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            return DbCmd.DoSelect(sqlcmd, paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL,CommonConst.TableName.T_COMPANY_TBL), paras);
         }
 
         /// <summary>
@@ -831,8 +888,8 @@ namespace Main
 	                                            WHEN 1 THEN '〇'
 		                                        ELSE ''
                                     		END AS 主角
-                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL TCHT
-	                                INNER JOIN T_CV_TBL TCVT ON TCHT.CV_ID=TCVT.CV_ID
+                                    FROM {0} TCHT
+	                                INNER JOIN {1} TCVT ON TCHT.CV_ID=TCVT.CV_ID
                                     WHERE TCHT.ANIME_NO=@animeNo
                                     AND TCHT.ENABLE_FLG = 1
                                     AND TCVT.ENABLE_FLG = 1
@@ -841,7 +898,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            return DbCmd.DoSelect(sqlcmd, paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL, CommonConst.TableName.T_CV_TBL), paras);
         }
 
         #endregion

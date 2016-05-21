@@ -22,7 +22,7 @@ namespace Main.Lib.DbAssistant
         /// <param name="sqlcmd">操作语句</param>
         /// <param name="paras">变量</param>
         /// <returns></returns>
-        public DataSet DoSelect(string sqlcmd,Collection<DbParameter> paras)
+        public DataSet DoSelect(string sqlcmd, Collection<DbParameter> paras)
         {
             SqlConnection conn = Getconnection();
 

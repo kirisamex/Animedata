@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Text;
+using Main.Lib.Const;
 
 
 namespace Main
@@ -55,7 +56,7 @@ namespace Main
             }
 
             //动画信息插入
-            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_ANIME_TBL (
+            string sqlcmd = @"INSERT INTO {0} (
 	                            	ANIME_NO
 	                            	,ANIME_CHN_NAME
                             		,ANIME_JPN_NAME
@@ -86,7 +87,7 @@ namespace Main
             
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_ANIME_TBL), paras);
                 return true;
             }
             catch (Exception ex)
@@ -106,13 +107,13 @@ namespace Main
 
             //所有既存该动画的播放信息
             string sql1 = @"SELECT PLAYINFO_ID 
-                            FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+                            FROM {0}
                             WHERE ANIME_NO = @animeNo";
 
             Collection<DbParameter> paras1 = new Collection<DbParameter>();
             paras1.Add(new SqlParameter("@animeNo",anime.No));
 
-            DataSet ds1 = DbCmd.DoSelect(sql1, paras1);
+            DataSet ds1 = DbCmd.DoSelect(string.Format(sql1, CommonConst.TableName.T_PLAYINFO_TBL), paras1);
             List<int> ToDelPlayinfoIds = new List<int>();
 
             foreach (DataRow dr in ds1.Tables[0].Rows)
@@ -129,7 +130,7 @@ namespace Main
             {
                 //确认播放是否存在
                 string sql = @"SELECT PLAYINFO_ID
-                                FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
+                                FROM {0}
                                 WHERE PLAYINFO_ID = @playinfoID
                                 AND ANIME_NO = @animeno ";
 
@@ -139,7 +140,7 @@ namespace Main
 
                 try
                 {
-                    DataSet ds = DbCmd.DoSelect(sql, paras);
+                    DataSet ds = DbCmd.DoSelect(string.Format(sql, CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
                     if (ds.Tables[0].Rows.Count > 0 && Convert.ToInt32(ds.Tables[0].Rows[0][0]) == pInfo.ID)
                     {
@@ -176,13 +177,13 @@ namespace Main
 
             //所有既存该动画的角色信息
             string sql2 = @"SELECT CHARACTER_NO
-                            FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                            FROM {0}
                             WHERE ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras2 = new Collection<DbParameter>();
             paras2.Add(new SqlParameter("@animeNo", anime.No));
 
-            DataSet ds2 = DbCmd.DoSelect(sql2, paras2);
+            DataSet ds2 = DbCmd.DoSelect(string.Format(sql2, CommonConst.TableName.T_CHARACTER_TBL), paras2);
             List<string> ToDelCharacterNos = new List<string>();
 
             foreach (DataRow dr in ds2.Tables[0].Rows)
@@ -199,7 +200,7 @@ namespace Main
             {
 
                 string sql = @"SELECT CHARACTER_NO
-                                FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                                FROM {0}
                                 WHERE CHARACTER_NO = @characterNo";
 
                 Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -207,7 +208,7 @@ namespace Main
 
                 try
                 {
-                    DataSet ds = DbCmd.DoSelect(sql, paras);
+                    DataSet ds = DbCmd.DoSelect(string.Format(sql, CommonConst.TableName.T_CHARACTER_TBL), paras);
                     if (ds.Tables[0].Rows.Count > 0 && ds.Tables[0].Rows[0][0].ToString().Equals(cInfo.No))
                     {
                         cInfo.Update();
@@ -239,7 +240,7 @@ namespace Main
 
             #region 基本信息更新
             //动画信息插入
-            string sqlcmd = @"UPDATE ANIMEDATA.dbo.T_ANIME_TBL SET 
+            string sqlcmd = @"UPDATE {0} SET 
 	                            	ANIME_CHN_NAME = @animeCNName
                             		,ANIME_JPN_NAME = @animeJPName
                             		,ANIME_NN = @animeNickName
@@ -259,7 +260,7 @@ namespace Main
 
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras0);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_ANIME_TBL), paras0);
                 return true;
             }
             catch (Exception ex)
@@ -276,16 +277,19 @@ namespace Main
         /// <returns></returns>
         public bool DeleteAnime(string animeNo)
         {
-            string sqlcmd = @"UPDATE ANIMEDATA.dbo.T_ANIME_TBL SET 
-	                           ENABLE_FLG = 0
+            string sqlcmd = @"UPDATE {0} SET 
+	                           ENABLE_FLG = 0,
+                               LAST_UPDATE_DATETIME = GETDATE()
                                WHERE ANIME_NO = @animeNo
 
-                              UPDATE ANIMEDATA.dbo.T_CHARACTER_TBL SET 
-	                           ENABLE_FLG = 0
+                              UPDATE {1} SET 
+	                           ENABLE_FLG = 0,
+                               LAST_UPDATE_DATETIME = GETDATE()
                                WHERE ANIME_NO = @animeNo
 
-                              UPDATE ANIMEDATA.dbo.T_PLAYINFO_TBL SET 
-	                           ENABLE_FLG = 0
+                              UPDATE {2} SET 
+	                           ENABLE_FLG = 0,
+                               LAST_UPDATE_DATETIME = GETDATE()
                                WHERE ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -293,41 +297,9 @@ namespace Main
 
             try
             {
-                DbCmd.DoCommand(sqlcmd, paras);
-                return true;
-            }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-        }
-
-        /// <summary>
-        /// 物理删除对应animeNo的动画、播放、角色信息
-        /// 停用，改为伦理删除
-        /// </summary>
-        /// <param name="animeNo"></param>
-        public bool DeleteSelectedAnimeInfo(string animeNo)
-        {
-            string sqlcmd = @"DELETE 
-                            FROM ANIMEDATA.dbo.T_ANIME_TBL
-                            WHERE ANIME_NO=@animeNo
-                            
-                            DELETE 
-                            FROM ANIMEDATA.dbo.T_CHARACTER_TBL
-                            WHERE ANIME_NO=@animeNo
-
-                            DELETE 
-                            FROM ANIMEDATA.dbo.T_PLAYINFO_TBL
-                            WHERE ANIME_NO=@animeNo";
-
-            Collection<DbParameter> paras = new Collection<DbParameter>();
-            SqlParameter para1 = new SqlParameter("@animeNo", animeNo);
-            paras.Add(para1);
-
-            try
-            {
-                DbCmd.DoCommand(sqlcmd, paras);
+                DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_ANIME_TBL
+                    , CommonConst.TableName.T_CHARACTER_TBL
+                    , CommonConst.TableName.T_PLAYINFO_TBL), paras);
                 return true;
             }
             catch (Exception ex)
@@ -342,7 +314,7 @@ namespace Main
         /// <param name="cInfo"></param>
         private void InsertCharacterInfo(Character cInfo)
         {
-            string sqlcmd = @"INSERT INTO ANIMEDATA.dbo.T_CHARACTER_TBL (
+            string sqlcmd = @"INSERT INTO {0} (
 	                            CHARACTER_NO
 	                            ,CHARACTER_NAME
 	                            ,ANIME_NO
@@ -368,7 +340,7 @@ namespace Main
             paras.Add(new SqlParameter("@CVID", cInfo.CVID));
             paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
 
-            DbCmd.DoCommand(sqlcmd, paras);
+            DbCmd.DoCommand(string.Format(sqlcmd,CommonConst.TableName.T_CHARACTER_TBL), paras);
         }
 
         /// <summary>
@@ -379,9 +351,9 @@ namespace Main
         {
             const string sqlcmd = @"SELECT 
                                     MAX(ANIME_NO)
-                                    FROM ANIMEDATA.dbo.T_ANIME_TBL ";
+                                    FROM {0} ";
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ANIME_TBL));
 
             if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
             {
@@ -405,7 +377,7 @@ namespace Main
 	                                    ,TPT.COMPANY_ID
 	                                    ,TPT.START_TIME 
 	                                    ,TPT.WATCH_TIME
-                                    FROM ANIMEDATA.dbo.T_PLAYINFO_TBL TPT   
+                                    FROM {0} TPT   
                                     WHERE TPT.ANIME_NO = @animeNo
                                     AND TPT.ENABLE_FLG = 1 
                                     ORDER BY TPT.PLAYINFO_ID";
@@ -413,7 +385,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
             DataTable dt = ds.Tables[0];
             return dt;
         }
@@ -429,7 +401,7 @@ namespace Main
                                         ,CHARACTER_NAME
 	                                    ,CV_ID
 	                                    ,LEADING_FLG
-                                    FROM ANIMEDATA.dbo.T_CHARACTER_TBL
+                                    FROM {0}
                                     WHERE ANIME_NO = @animeNo
                                     AND ENABLE_FLG = 1
                                     ORDER BY CHARACTER_NO";
@@ -437,7 +409,7 @@ namespace Main
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
 
-            DataSet ds = DbCmd.DoSelect(sqlcmd, paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
             return ds.Tables[0];
         }
 

@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Main.Lib.Const;
 
 namespace Main.Music
 {
@@ -28,14 +29,14 @@ namespace Main.Music
                                         TRT.SALES_YEAR,
                                         TRT.DESCRIPTION, 
                                         TRT.ANIME_NO
-                                    FROM ANIMEDATA.dbo.T_TRACK_TBL TRT
+                                    FROM {0} TRT
                                     WHERE TRT.ENABLE_FLG = 1
                                     AND TRT.TRACK_ID = @trackid ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@trackid", trackID));
 
-            return DbCmd.DoSelect(sqlcmd, paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TBL), paras);
         }
     }
 }
