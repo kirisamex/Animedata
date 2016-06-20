@@ -22,7 +22,6 @@ namespace Main
         public DataGridViewRow sdr;
 
         //实例
-        MainForm mainform = new MainForm();
         AddanimeDao dao = new AddanimeDao();
         AddAnimeService service = new AddAnimeService();
 
@@ -106,12 +105,11 @@ namespace Main
         /// <param name="control">操作种类</param>
         /// <param name="rownum">选中行动画ID</param>
         /// <param name="mainfm"></param>
-        public AddAnime(command command, DataGridViewRow selecteddr, MainForm mainfm)
+        public AddAnime(command command, DataGridViewRow selecteddr)
         {
             InitializeComponent();
             cmd = command;
             sdr = selecteddr;
-            mainform = mainfm;
         }
 
         /// <summary>
@@ -201,7 +199,7 @@ namespace Main
         {
             if (CommandAnimeInfo(cmd) == true)
             {
-                mainform.DataGridViewReload();
+                MainForm.Mainfm.DataGridViewReload();
 
                 foreach (Control c in this.basicinfotab.Controls)
                 {

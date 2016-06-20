@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Reflection;
+using Main.ClientDataSet;
 using Main.Lib.Style;
 using Main.Lib.Message;
 using Main.Music;
@@ -16,11 +17,19 @@ namespace Main
 {
     public partial class MainForm : Form
     {
-        #region 常量
+        #region 常量及全局变量
         //实例
         MainService service = new MainService();
         StatusStyle statusStyle = new StatusStyle();
         DataGridViewStyle dgvStyle = new DataGridViewStyle();
+
+        //数据集
+        ClientDS.AnimeHistDataTable AnimeHist = new ClientDS.AnimeHistDataTable();
+        ClientDS.AnimeListDataTable AnimeList = new ClientDS.AnimeListDataTable();
+        ClientDS.PlayInfoHistDataTable PlayInfoHist = new ClientDS.PlayInfoHistDataTable();
+        ClientDS.PlayInfoListDataTable PlayInfoList = new ClientDS.PlayInfoListDataTable();
+        ClientDS.CVHistDataTable CVHist = new ClientDS.CVHistDataTable();
+        ClientDS.CVListDataTable CVList = new ClientDS.CVListDataTable();
 
         /// <summary>Ver.</summary>
         const string VERSION = "Ver. "; 
@@ -40,6 +49,22 @@ namespace Main
         const string MSG_MAIN_003 = "MSG-MAIN-003";
         /// <summary>请先选择需要修改的动画信息！</summary>
         const string MSG_MAIN_004 = "MSG-MAIN-004";
+
+        #region 列名
+        const string ANIMENOCLN = "AnimeNo";
+        const string ANIMECNNAMECLN = "AnimeCNName";
+        const string ANIMEJPNAMECLN = "AnimeJPName";
+        const string ANIMENICKNAMECLN = "AnimeNiceName";
+        const string ANIMESTATUSCLN = "AnimeStatus";
+        const string ANIMEORIGINALCLN = "AnimeOriginal";
+
+        const string PLAYINFOCLN = "PlayInfoColumn";
+        const string STATUSCLN ="StatusColumn";
+        const string PARTSCLN ="PartsColumn";
+        const string COMPANYCLN ="CompanyColumn";
+        const string STARTTIMECLN ="STTimeColumn";
+        const string WATCHTIMECLN ="WTimeColumn";
+        #endregion
         #endregion
 
         #region 载入
@@ -47,14 +72,14 @@ namespace Main
         /// <summary>
         /// 主窗口载入动画操作
         /// </summary>
-        public void ShowAnime()
+        public void LoadAnime()
         {
             try
             {
                 //获取动画信息
                 DataSet ds = service.Getanime();
 
-                LoadAnimeMain(ds);         
+                ShowAnime(ds);         
             }
             catch (Exception ex)
             {
@@ -67,7 +92,7 @@ namespace Main
         /// 载入动画主要内容
         /// </summary>
         /// <param name="ds"></param>
-        public void LoadAnimeMain(DataSet ds)
+        public void ShowAnime(DataSet ds)
         {
             AnimationDataGridview.Rows.Clear();
 
@@ -127,7 +152,7 @@ namespace Main
                 firstRowAnimeNo = ds.Tables[0].Rows[0][0].ToString();
 
                 //获取播放信息
-                ShowAnimeInfo(firstRowAnimeNo);
+                ShowPlayInfo(firstRowAnimeNo);
 
                 //获取角色信息
                 ShowCharacterInfo(firstRowAnimeNo);
@@ -139,7 +164,7 @@ namespace Main
         /// 获得动画播放信息
         /// </summary>
         /// <param name="animeNo"></param>
-        public void ShowAnimeInfo(string animeNo)
+        public void ShowPlayInfo(string animeNo)
         {
             try
             {
@@ -160,36 +185,36 @@ namespace Main
 
                             DataGridViewRow dgvrow = PlayInfodataGridView.Rows[i];
 
-                            dgvrow.Cells[0].Value = pInfo.info;
+                            dgvrow.Cells[PLAYINFOCLN].Value = pInfo.info;
 
                             if (pInfo.parts != 0)
                             {
-                                dgvrow.Cells[1].Value = pInfo.parts.ToString();
+                                dgvrow.Cells[PARTSCLN].Value = pInfo.parts.ToString();
                             }
 
                             if (pInfo.companyID != 0)
                             {
-                                dgvrow.Cells[2].Value = service.GetCompanyNameByCompanyNo(pInfo.companyID);
+                                dgvrow.Cells[COMPANYCLN].Value = service.GetCompanyNameByCompanyNo(pInfo.companyID);
                             }
 
-                            dgvrow.Cells[3].Value = service.GetStatusTextFromStatusInt(pInfo.status);
+                            dgvrow.Cells[STATUSCLN].Value = service.GetStatusTextFromStatusInt(pInfo.status);
 
                             if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
                             {
-                                dgvrow.Cells[4].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.startTime);
+                                dgvrow.Cells[STARTTIMECLN].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.startTime);
                             }
 
                             if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
                             {
-                                dgvrow.Cells[5].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.watchedTime);
+                                dgvrow.Cells[WATCHTIMECLN].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.watchedTime);
                             }
                         }
 
                         //状态格式
                         foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
                         {
-                            int status = service.GetStatusIntFromStatusText(dr.Cells[3].Value.ToString());
-                            dr.Cells[3].Style = statusStyle.GetStatusRowStyle(status);
+                            int status = service.GetStatusIntFromStatusText(dr.Cells[STATUSCLN].Value.ToString());
+                            dr.Cells[STATUSCLN].Style = statusStyle.GetStatusRowStyle(status);
                         }
                     }
                 }
@@ -319,22 +344,31 @@ namespace Main
         /// </summary>
         private void SimpleSearch()
         {
-            if(simpleSearchTextBox.Text==null ||string.IsNullOrEmpty(simpleSearchTextBox.Text.ToString()))
+            if (simpleSearchTextBox.Text == null || string.IsNullOrEmpty(simpleSearchTextBox.Text.ToString()))
             {
                 MsgBox.Show(MSG_MAIN_003);
                 return;
             }
 
+            SimpleSearch(simpleSearchTextBox.Text.ToString());
+        }
+
+        /// <summary>
+        /// 简易搜索
+        /// </summary>
+        /// <param name="target"></param>
+        public void SimpleSearch(string target)
+        {
             try
             {
-                DataSet ds = service.Getanime(simpleSearchTextBox.Text.ToString());
+                DataSet ds = service.Getanime(target);
                 if (ds.Tables[0].Rows.Count == 0)
                 {
                     MsgBox.Show(MSG_COMMON_007);
                     return;
                 }
 
-                LoadAnimeMain(ds);
+                ShowAnime(ds);
             }
             catch (Exception ex)
             {
@@ -359,22 +393,46 @@ namespace Main
                 return;
             }
             string animeID = AnimationDataGridview.Rows[(int)selectedRowNo].Cells[0].Value.ToString();
-            ShowAnimeInfo(animeID);
+            ShowPlayInfo(animeID);
             ShowCharacterInfo(animeID);
         }
 
+        /// <summary>
+        /// 检测是否有重复窗体打开
+        /// </summary>
+        /// <param name="FormName">窗体名</param>
+        /// <returns>True:有重复 False:没有重复</returns>
+        public bool IsFormOpened(string FormName)
+        {
+            foreach (Form frm in Application.OpenForms)
+            {
+                if (frm.Name.Equals(FormName))
+                {
+                    if (frm.WindowState == FormWindowState.Minimized)
+                    {
+                        frm.WindowState = FormWindowState.Normal;
+                    }
+
+                    frm.Activate();
+                    return true;
+                }
+            }
+            return false;
+        }
         #endregion
 
         #region 窗体
 
+        public static MainForm Mainfm = null;
         /// <summary>
         /// 主窗体
         /// </summary>
         public MainForm()
         {
             InitializeComponent();
+            Mainfm = this;
             this.Text += VERSION + Assembly.GetExecutingAssembly().GetName().Version.ToString();
-            this.ShowAnime();
+            this.LoadAnime();
         }
 
         /// <summary>
@@ -384,7 +442,7 @@ namespace Main
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            ShowAnime();
+            LoadAnime();
         }
 
         /// <summary>
@@ -392,7 +450,7 @@ namespace Main
         /// </summary>
         public void DataGridViewReload()
         {
-            this.ShowAnime();
+            this.LoadAnime();
         }
 
         /// <summary>
@@ -409,13 +467,16 @@ namespace Main
         #region 菜单
         private void 音乐管理MToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Music.MusicManage music = new Music.MusicManage();
-            music.Show();
+            if (!IsFormOpened("MusicManage"))
+            {
+                Music.MusicManage music = new Music.MusicManage();
+                music.Show();
+            }
         }
 
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ShowAnime();
+            LoadAnime();
         }
 
         private void 退出ToolStripMenuItem_Click(object sender, EventArgs e)
@@ -425,18 +486,24 @@ namespace Main
 
         private void 添加动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddAnime fm = new AddAnime(AddAnime.command.Add, null, this);
-            fm.Show();
-            //对应：添加动画后不刷新 2016/02/19
-            //this.LoadAnime();
+            if (!IsFormOpened("AddAnime"))
+            {
+                AddAnime fm = new AddAnime(AddAnime.command.Add, null);
+                fm.Show();
+                //对应：添加动画后不刷新 2016/02/19
+                //this.LoadAnime();
+            }
         }
 
         private void 修改动画信息ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (GetSelectedRow() != null)
             {
-                AddAnime cgem = new AddAnime(AddAnime.command.Update, GetSelectedRow(), this);
-                cgem.Show();
+                if (!IsFormOpened("AddAnime"))
+                {
+                    AddAnime cgem = new AddAnime(AddAnime.command.Update, GetSelectedRow());
+                    cgem.Show();
+                }
             }
             else
             {
@@ -451,26 +518,38 @@ namespace Main
 
         private void 动画制作企业列表ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CompanyManage fm = new CompanyManage(this);
-            fm.Show();
+            if (!IsFormOpened("CompanyManage"))
+            {
+                CompanyManage fm = new CompanyManage();
+                fm.Show();
+            }
         }
 
         private void 声优列表SF3ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            CVManage fm = new CVManage(this);
-            fm.Show();
+            if (!IsFormOpened("CVManage"))
+            {
+                CVManage fm = new CVManage();
+                fm.Show();
+            }           
         }
 
         private void 关于ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AboutBox about = new AboutBox();
-            about.Show();
+            if (!IsFormOpened("AboutBox"))
+            {
+                AboutBox about = new AboutBox();
+                about.Show();
+            }
         }
 
         private void 查询动画ToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            MainSearch search = new MainSearch(this);
-            search.Show();
+            if (!IsFormOpened("MainSearch"))
+            {
+                MainSearch search = new MainSearch();
+                search.Show();
+            }
         }
         #endregion
 
@@ -513,6 +592,52 @@ namespace Main
             ShowPlayinfoAndCharacterInfo();
         }
 
+        /// <summary>
+        /// 双击制作公司显示制作公司履历
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void PlayInfodataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == PlayInfodataGridView.Columns[COMPANYCLN].Index)
+            {
+                if (IsFormOpened("CompanyManage"))
+                {
+                    CompanyManage.CompManageeFm.LoadCompany(PlayInfodataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    CompanyManage.CompManageeFm.Focus();
+                }
+                else
+                {
+                    CompanyManage fm = new CompanyManage();
+                    fm.Show();
+                    fm.LoadCompany(PlayInfodataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                }
+            }
+        }
+
+        /// <summary>
+        /// 双击声优名显示声优履历
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CVdataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == 1)
+            {
+                if (IsFormOpened("CVManage"))
+                {
+                    CVManage.CVManageFm.LoadCVInfo(CVdataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                    CVManage.CVManageFm.Focus();
+                }
+                else
+                {
+                    CVManage fm = new CVManage();
+                    fm.Show();
+                    fm.LoadCVInfo(CVdataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                }
+            }
+        }
+
         //简易搜索获取焦点
         private void simpleSearchTextBox_Enter(object sender, EventArgs e)
         {
@@ -541,7 +666,7 @@ namespace Main
                     声优列表SF3ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F5:
-                    ShowAnime();
+                    LoadAnime();
                     break;
                 case Keys.F2:
                     查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
@@ -553,6 +678,10 @@ namespace Main
         }
 
         #endregion
+
+      
+
+       
 
     }
 }
