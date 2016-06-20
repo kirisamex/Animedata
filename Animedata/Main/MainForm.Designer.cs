@@ -64,12 +64,6 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.PlayInfodataGridView = new System.Windows.Forms.DataGridView();
-            this.PlayInfoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PartsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompanyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.STTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CVdataGridView = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.deleteanimebutton = new System.Windows.Forms.Button();
@@ -78,6 +72,12 @@
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
+            this.PlayInfoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PartsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompanyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.STTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -109,7 +109,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
-            this.menuStrip1.TabIndex = 1;
+            this.menuStrip1.TabIndex = 120;
             this.menuStrip1.TabStop = true;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -386,9 +386,9 @@
             this.PlayInfodataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PlayInfodataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.PlayInfoColumn,
-            this.StatusColumn,
             this.PartsColumn,
             this.CompanyColumn,
+            this.StatusColumn,
             this.STTimeColumn,
             this.WTimeColumn});
             this.PlayInfodataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -410,42 +410,7 @@
             this.PlayInfodataGridView.RowTemplate.Height = 23;
             this.PlayInfodataGridView.Size = new System.Drawing.Size(555, 277);
             this.PlayInfodataGridView.TabIndex = 92;
-            // 
-            // PlayInfoColumn
-            // 
-            this.PlayInfoColumn.HeaderText = "放送内容";
-            this.PlayInfoColumn.Name = "PlayInfoColumn";
-            this.PlayInfoColumn.ReadOnly = true;
-            // 
-            // StatusColumn
-            // 
-            this.StatusColumn.HeaderText = "话数";
-            this.StatusColumn.Name = "StatusColumn";
-            this.StatusColumn.ReadOnly = true;
-            // 
-            // PartsColumn
-            // 
-            this.PartsColumn.HeaderText = "制作公司";
-            this.PartsColumn.Name = "PartsColumn";
-            this.PartsColumn.ReadOnly = true;
-            // 
-            // CompanyColumn
-            // 
-            this.CompanyColumn.HeaderText = "状态";
-            this.CompanyColumn.Name = "CompanyColumn";
-            this.CompanyColumn.ReadOnly = true;
-            // 
-            // STTimeColumn
-            // 
-            this.STTimeColumn.HeaderText = "放送时间";
-            this.STTimeColumn.Name = "STTimeColumn";
-            this.STTimeColumn.ReadOnly = true;
-            // 
-            // WTimeColumn
-            // 
-            this.WTimeColumn.HeaderText = "收看时间";
-            this.WTimeColumn.Name = "WTimeColumn";
-            this.WTimeColumn.ReadOnly = true;
+            this.PlayInfodataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PlayInfodataGridView_CellContentDoubleClick);
             // 
             // CVdataGridView
             // 
@@ -471,6 +436,7 @@
             this.CVdataGridView.RowTemplate.Height = 23;
             this.CVdataGridView.Size = new System.Drawing.Size(555, 319);
             this.CVdataGridView.TabIndex = 93;
+            this.CVdataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CVdataGridView_CellContentDoubleClick);
             // 
             // flowLayoutPanel1
             // 
@@ -549,6 +515,42 @@
             this.label1.Text = "简易搜索(&Z)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
+            // PlayInfoColumn
+            // 
+            this.PlayInfoColumn.HeaderText = "放送内容";
+            this.PlayInfoColumn.Name = "PlayInfoColumn";
+            this.PlayInfoColumn.ReadOnly = true;
+            // 
+            // PartsColumn
+            // 
+            this.PartsColumn.HeaderText = "话数";
+            this.PartsColumn.Name = "PartsColumn";
+            this.PartsColumn.ReadOnly = true;
+            // 
+            // CompanyColumn
+            // 
+            this.CompanyColumn.HeaderText = "制作公司";
+            this.CompanyColumn.Name = "CompanyColumn";
+            this.CompanyColumn.ReadOnly = true;
+            // 
+            // StatusColumn
+            // 
+            this.StatusColumn.HeaderText = "状态";
+            this.StatusColumn.Name = "StatusColumn";
+            this.StatusColumn.ReadOnly = true;
+            // 
+            // STTimeColumn
+            // 
+            this.STTimeColumn.HeaderText = "放送时间";
+            this.STTimeColumn.Name = "STTimeColumn";
+            this.STTimeColumn.ReadOnly = true;
+            // 
+            // WTimeColumn
+            // 
+            this.WTimeColumn.HeaderText = "收看时间";
+            this.WTimeColumn.Name = "WTimeColumn";
+            this.WTimeColumn.ReadOnly = true;
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -613,12 +615,6 @@
         private System.Windows.Forms.ToolStripMenuItem 声优列表SF3ToolStripMenuItem;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PlayInfoColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn StatusColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn PartsColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn STTimeColumn;
-        private System.Windows.Forms.DataGridViewTextBoxColumn WTimeColumn;
         public System.Windows.Forms.DataGridView PlayInfodataGridView;
         public System.Windows.Forms.DataGridView CVdataGridView;
         private System.Windows.Forms.Button simpleSearchButton;
@@ -633,6 +629,12 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeStatus;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeOriginal;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PlayInfoColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn PartsColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn CompanyColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn StatusColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn STTimeColumn;
+        private System.Windows.Forms.DataGridViewTextBoxColumn WTimeColumn;
     }
 }
 

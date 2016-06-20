@@ -114,6 +114,10 @@
     </Compile>
     <Compile Include="AddAnime\AddanimeDao.cs" />
     <Compile Include="AddAnime\AddAnimeService.cs" />
+    <Compile Include="ClientDataSet\ClientDataset.cs">
+      <DependentUpon>ClientDataset.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ClientDataSet\ClientDataset.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

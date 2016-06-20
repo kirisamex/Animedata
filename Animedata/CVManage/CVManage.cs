@@ -15,15 +15,16 @@ namespace Main
 {
     public partial class CVManage : Form
     {
-        public CVManage(MainForm mainfm)
+        public static CVManage CVManageFm = null;
+
+        public CVManage()
         {
+            CVManageFm = this;
             InitializeComponent();
-            mainform = mainfm;
         }
 
         #region 常量
         //全局变量
-        private MainForm mainform;
         cmdtype cmd = new cmdtype();
 
         /// <summary>
@@ -681,7 +682,7 @@ namespace Main
             try
             {
                 DataSet ds = service.Getanime(choosedCV);
-                mainform.LoadAnimeMain(ds);
+                MainForm.Mainfm.ShowAnime(ds);
             }
             catch (Exception ex)
             {
@@ -814,6 +815,22 @@ namespace Main
                 case Keys.F5:
                     FormReset();
                     break;
+            }
+        }
+        #endregion
+
+        #region 事件
+        /// <summary>
+        /// 双击动画名称显示动画
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void CVHistdataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == CVHistdataGridView.Columns[ANIMECLN].Index || e.ColumnIndex == CVHistdataGridView.Columns[ANIMENOCLN].Index)
+            {
+                MainForm.Mainfm.SimpleSearch(CVHistdataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                MainForm.Mainfm.Focus();
             }
         }
         #endregion
