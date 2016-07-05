@@ -833,6 +833,26 @@ namespace Main
                 MainForm.Mainfm.Focus();
             }
         }
+
+        /// <summary>
+        /// 单击搜索框全选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_Click(object sender, EventArgs e)
+        {
+            SearchBox.SelectAll();
+        }
+
+        /// <summary>
+        /// 选中搜索框全选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SearchBox_Enter(object sender, EventArgs e)
+        {
+            SearchBox.SelectAll();
+        }
         #endregion
     }
 

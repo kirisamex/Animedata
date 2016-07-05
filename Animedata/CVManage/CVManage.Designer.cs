@@ -305,7 +305,9 @@
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(100, 19);
             this.SearchBox.TabIndex = 102;
+            this.SearchBox.Click += new System.EventHandler(this.SearchBox_Click);
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.Enter += new System.EventHandler(this.SearchBox_Enter);
             // 
             // label1
             // 
