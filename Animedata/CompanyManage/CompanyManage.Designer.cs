@@ -309,7 +309,9 @@
             this.searchtextbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
             this.searchtextbox.Size = new System.Drawing.Size(128, 19);
             this.searchtextbox.TabIndex = 22;
+            this.searchtextbox.Click += new System.EventHandler(this.searchtextbox_Click);
             this.searchtextbox.TextChanged += new System.EventHandler(this.searchtextbox_TextChanged);
+            this.searchtextbox.Enter += new System.EventHandler(this.searchtextbox_Enter);
             // 
             // label1
             // 

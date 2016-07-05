@@ -493,6 +493,11 @@ namespace Main
         #endregion
 
         #region 事件
+        /// <summary>
+        /// 双击动画名在主窗体搜索动画
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void companyHistDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.ColumnIndex == companyHistDataGridView.Columns[ANIMENAMECLN].Index || e.ColumnIndex == companyHistDataGridView.Columns[ANIMENOCLN].Index)
@@ -500,6 +505,26 @@ namespace Main
                 MainForm.Mainfm.SimpleSearch(companyHistDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
                 MainForm.Mainfm.Focus();
             }
+        }
+
+        /// <summary>
+        /// 单击搜索文本框全选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void searchtextbox_Click(object sender, EventArgs e)
+        {
+            searchtextbox.SelectAll();
+        }
+
+        /// <summary>
+        /// 搜索文本框全选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void searchtextbox_Enter(object sender, EventArgs e)
+        {
+            searchtextbox.SelectAll();
         }
         #endregion
     }
