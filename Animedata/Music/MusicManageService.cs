@@ -46,5 +46,29 @@ namespace Main.Music
             respath.Append(FileName);
             return respath.ToString();
         }
+
+        /// <summary>
+        /// 获取下一个曲目号
+        /// </summary>
+        /// <returns></returns>
+        public string GetNextTrackNo()
+        {
+            string maxTrackNo = dao.GetMaxTrackNo();
+
+            int NoNum = Convert.ToInt32(maxTrackNo.Substring(1, 10));
+            return "T" + (NoNum + 1).ToString();
+        }
+
+        /// <summary>
+        /// 获取下一个专辑号
+        /// </summary>
+        /// <returns></returns>
+        public string GetNextAlbumNo()
+        {
+            string maxAlbumNo = dao.GetMaxAlbumNo();
+
+            int NoNum = Convert.ToInt32(maxAlbumNo.Substring(1, 10));
+            return "T" + (NoNum + 1).ToString();
+        }
     }
 }

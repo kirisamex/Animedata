@@ -79,5 +79,47 @@ namespace Main.Music
                 return ds.Tables[0].Rows[0][0].ToString();
             }
         }
+
+        /// <summary>
+        /// 获取最大曲目编号
+        /// </summary>
+        /// <returns></returns>
+        public string GetMaxTrackNo()
+        {
+            string sqlcmd = @"SELECT MAX(TRACK_ID) 
+                            FROM {0}";
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TBL));
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return "T000000000";
+            }
+            else
+            {
+                return ds.Tables[0].Rows[0][0].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 获取最大专辑编号
+        /// </summary>
+        /// <returns></returns>
+        public string GetMaxAlbumNo()
+        {
+            string sqlcmd = @"SELECT MAX(ALBUM_ID) 
+                            FROM {0}";
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TBL));
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return "A000000000";
+            }
+            else
+            {
+                return ds.Tables[0].Rows[0][0].ToString();
+            }
+        }
     }
 }

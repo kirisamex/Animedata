@@ -164,8 +164,8 @@ namespace Main.Music
 
             //初始显示TAG3
             if (MusicDataGridView.Rows.Count > 0
-                || MusicDataGridView.Rows[0].Cells[RESOURCEPATHCLN].Value != null
-                || !MusicDataGridView.Rows[0].Cells[RESOURCEPATHCLN].ToString().Equals(string.Empty))
+                && MusicDataGridView.Rows[0].Cells[RESOURCEPATHCLN].Value != null
+                && !MusicDataGridView.Rows[0].Cells[RESOURCEPATHCLN].ToString().Equals(string.Empty))
             {
                 ShowMP3TagInfo(MusicDataGridView.Rows[0].Cells[RESOURCEPATHCLN].Value.ToString());
             }
@@ -186,7 +186,7 @@ namespace Main.Music
         }
         #endregion
 
-        #region 服务
+        #region 方法
         /// <summary>
         /// 显示指定路径的MP3Tag信息
         /// </summary>
@@ -267,9 +267,30 @@ namespace Main.Music
             }
                 
         }
+
+        /// <summary>
+        /// 自MP3文件导入曲目信息
+        /// </summary>
+        private void ImportMusicFromMP3File(ImportMusic.ImportType importType)
+        {
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "MP3文件|*.mp3";
+            dialog.Title = "选择MP3文件";
+            dialog.Multiselect = true;
+
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                List<TrackSeries> Tracks = new List<TrackSeries>();
+                string[] trackPaths = dialog.FileNames;
+
+                ImportMusic import = new ImportMusic(importType, trackPaths);
+                import.Show();
+            }
+        }
+
         #endregion
 
-        #region 按键
+        #region 菜单
         private void 刷新ToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ShowTracks();
@@ -284,6 +305,21 @@ namespace Main.Music
         {
             this.Close();
         }
+
+        private void 从MP3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
+        }
+
+        private void 导入新下载的MP3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportMusicFromMP3File(ImportMusic.ImportType.ByNewMP3);
+        }
+
+        private void 导入既有的MP3ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImportMusicFromMP3File(ImportMusic.ImportType.ByOldMP3);
+        }
         #endregion
 
         #region 键盘
@@ -297,8 +333,14 @@ namespace Main.Music
         {
             switch (e.KeyCode)
             {
+                case Keys.F3:
+                    ImportMusicFromMP3File(ImportMusic.ImportType.ByNewMP3);
+                    break;
                 case Keys.F5:
                     ShowTracks();
+                    break;
+                case Keys.F11:
+                    ImportMusicFromMP3File(ImportMusic.ImportType.ByOldMP3);
                     break;
                 case Keys.F12:
                     this.Close();
@@ -317,6 +359,10 @@ namespace Main.Music
         }
 
         #endregion
+
+
+
+
 
 
 

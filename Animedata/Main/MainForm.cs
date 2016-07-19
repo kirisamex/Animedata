@@ -672,16 +672,12 @@ namespace Main
                     查询动画ToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
                 case Keys.F7:
-                    //音乐管理MToolStripMenuItem_Click(this, EventArgs.Empty);
+                    音乐管理MToolStripMenuItem_Click(this, EventArgs.Empty);
                     break;
             }
         }
 
-        #endregion
-
-      
-
-       
+        #endregion     
 
     }
 }
