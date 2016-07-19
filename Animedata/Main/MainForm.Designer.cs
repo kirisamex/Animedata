@@ -64,6 +64,12 @@
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
             this.PlayInfodataGridView = new System.Windows.Forms.DataGridView();
+            this.PlayInfoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.PartsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CompanyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.STTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.WTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CVdataGridView = new System.Windows.Forms.DataGridView();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.deleteanimebutton = new System.Windows.Forms.Button();
@@ -72,12 +78,6 @@
             this.simpleSearchButton = new System.Windows.Forms.Button();
             this.simpleSearchTextBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.PlayInfoColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.PartsColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CompanyColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.StatusColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.STTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.WTimeColumn = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.AnimationDataGridview)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
@@ -129,7 +129,6 @@
             this.音乐管理MToolStripMenuItem.Name = "音乐管理MToolStripMenuItem";
             this.音乐管理MToolStripMenuItem.Size = new System.Drawing.Size(196, 22);
             this.音乐管理MToolStripMenuItem.Text = "音乐管理(&M)　　　F7";
-            this.音乐管理MToolStripMenuItem.Visible = false;
             this.音乐管理MToolStripMenuItem.Click += new System.EventHandler(this.音乐管理MToolStripMenuItem_Click);
             // 
             // toolStripMenuItem1
@@ -412,6 +411,42 @@
             this.PlayInfodataGridView.TabIndex = 92;
             this.PlayInfodataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PlayInfodataGridView_CellContentDoubleClick);
             // 
+            // PlayInfoColumn
+            // 
+            this.PlayInfoColumn.HeaderText = "放送内容";
+            this.PlayInfoColumn.Name = "PlayInfoColumn";
+            this.PlayInfoColumn.ReadOnly = true;
+            // 
+            // PartsColumn
+            // 
+            this.PartsColumn.HeaderText = "话数";
+            this.PartsColumn.Name = "PartsColumn";
+            this.PartsColumn.ReadOnly = true;
+            // 
+            // CompanyColumn
+            // 
+            this.CompanyColumn.HeaderText = "制作公司";
+            this.CompanyColumn.Name = "CompanyColumn";
+            this.CompanyColumn.ReadOnly = true;
+            // 
+            // StatusColumn
+            // 
+            this.StatusColumn.HeaderText = "状态";
+            this.StatusColumn.Name = "StatusColumn";
+            this.StatusColumn.ReadOnly = true;
+            // 
+            // STTimeColumn
+            // 
+            this.STTimeColumn.HeaderText = "放送时间";
+            this.STTimeColumn.Name = "STTimeColumn";
+            this.STTimeColumn.ReadOnly = true;
+            // 
+            // WTimeColumn
+            // 
+            this.WTimeColumn.HeaderText = "收看时间";
+            this.WTimeColumn.Name = "WTimeColumn";
+            this.WTimeColumn.ReadOnly = true;
+            // 
             // CVdataGridView
             // 
             this.CVdataGridView.AllowUserToAddRows = false;
@@ -514,42 +549,6 @@
             this.label1.TabIndex = 101;
             this.label1.Text = "简易搜索(&Z)";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // PlayInfoColumn
-            // 
-            this.PlayInfoColumn.HeaderText = "放送内容";
-            this.PlayInfoColumn.Name = "PlayInfoColumn";
-            this.PlayInfoColumn.ReadOnly = true;
-            // 
-            // PartsColumn
-            // 
-            this.PartsColumn.HeaderText = "话数";
-            this.PartsColumn.Name = "PartsColumn";
-            this.PartsColumn.ReadOnly = true;
-            // 
-            // CompanyColumn
-            // 
-            this.CompanyColumn.HeaderText = "制作公司";
-            this.CompanyColumn.Name = "CompanyColumn";
-            this.CompanyColumn.ReadOnly = true;
-            // 
-            // StatusColumn
-            // 
-            this.StatusColumn.HeaderText = "状态";
-            this.StatusColumn.Name = "StatusColumn";
-            this.StatusColumn.ReadOnly = true;
-            // 
-            // STTimeColumn
-            // 
-            this.STTimeColumn.HeaderText = "放送时间";
-            this.STTimeColumn.Name = "STTimeColumn";
-            this.STTimeColumn.ReadOnly = true;
-            // 
-            // WTimeColumn
-            // 
-            this.WTimeColumn.HeaderText = "收看时间";
-            this.WTimeColumn.Name = "WTimeColumn";
-            this.WTimeColumn.ReadOnly = true;
             // 
             // MainForm
             // 

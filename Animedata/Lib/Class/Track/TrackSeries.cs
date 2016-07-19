@@ -60,13 +60,16 @@ namespace Main.Music
         /// 描述
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// 路径
+        /// </summary>
+        public string Path { get; set; }
         #endregion
 
         #region 常量
         //实例
-        TrackSeriesDao dao = new TrackSeriesDao();
-
-        
+        TrackSeriesDao dao = new TrackSeriesDao();      
 
         #endregion
 

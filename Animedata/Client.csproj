@@ -123,6 +123,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>ClientDataset.xsd</DependentUpon>
     </Compile>
+    <Compile Include="ClientDataSet\MusicDataSet.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MusicDataSet.xsd</DependentUpon>
+    </Compile>
     <Compile Include="Lib\Class\Album\AlbumSeries.cs" />
     <Compile Include="Lib\Class\Anime\Animation.cs" />
     <Compile Include="Lib\Class\Anime\AnimationDao.cs" />
@@ -174,6 +179,12 @@
     <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
     <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
     <Compile Include="Main\MainService.cs" />
+    <Compile Include="Music\ImportMusic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Music\ImportMusic.Designer.cs">
+      <DependentUpon>ImportMusic.cs</DependentUpon>
+    </Compile>
     <Compile Include="Music\MusicManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -206,6 +217,9 @@
     <EmbeddedResource Include="Main\MainSearch.resx">
       <DependentUpon>MainSearch.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Music\ImportMusic.resx">
+      <DependentUpon>ImportMusic.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Music\MusicManage.resx">
       <DependentUpon>MusicManage.cs</DependentUpon>
     </EmbeddedResource>
@@ -236,6 +250,17 @@
     </None>
     <None Include="ClientDataSet\ClientDataset.xss">
       <DependentUpon>ClientDataset.xsd</DependentUpon>
+    </None>
+    <None Include="ClientDataSet\MusicDataSet.xsc">
+      <DependentUpon>MusicDataSet.xsd</DependentUpon>
+    </None>
+    <None Include="ClientDataSet\MusicDataSet.xsd">
+      <SubType>Designer</SubType>
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>MusicDataSet.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="ClientDataSet\MusicDataSet.xss">
+      <DependentUpon>MusicDataSet.xsd</DependentUpon>
     </None>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

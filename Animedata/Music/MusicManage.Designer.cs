@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.基本操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,6 +73,8 @@
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResourcePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.导入新下载的MP3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导入既有的MP3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -176,14 +178,18 @@
             // 
             // 从MP3ToolStripMenuItem
             // 
+            this.从MP3ToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.导入新下载的MP3ToolStripMenuItem,
+            this.导入既有的MP3ToolStripMenuItem});
             this.从MP3ToolStripMenuItem.Name = "从MP3ToolStripMenuItem";
             this.从MP3ToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.从MP3ToolStripMenuItem.Text = "自MP3导入曲目信息(&M)";
+            this.从MP3ToolStripMenuItem.Click += new System.EventHandler(this.从MP3ToolStripMenuItem_Click);
             // 
             // 从ExcelToolStripMenuItem
             // 
             this.从ExcelToolStripMenuItem.Name = "从ExcelToolStripMenuItem";
-            this.从ExcelToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
+            this.从ExcelToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
             this.从ExcelToolStripMenuItem.Text = "自Excel导入曲目信息(&E)";
             // 
             // 标签操作TToolStripMenuItem
@@ -349,14 +355,14 @@
             // 
             this.MusicDataGridView.AllowUserToAddRows = false;
             this.MusicDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle8.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OldTrackNo,
@@ -385,6 +391,7 @@
             // 
             this.OldTrackNo.HeaderText = "既有曲号";
             this.OldTrackNo.Name = "OldTrackNo";
+            this.OldTrackNo.Visible = false;
             // 
             // TrackName
             // 
@@ -449,6 +456,20 @@
             this.Description.HeaderText = "描述";
             this.Description.Name = "Description";
             // 
+            // 导入新下载的MP3ToolStripMenuItem
+            // 
+            this.导入新下载的MP3ToolStripMenuItem.Name = "导入新下载的MP3ToolStripMenuItem";
+            this.导入新下载的MP3ToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.导入新下载的MP3ToolStripMenuItem.Text = "导入新下载的MP3(&N)      F3";
+            this.导入新下载的MP3ToolStripMenuItem.Click += new System.EventHandler(this.导入新下载的MP3ToolStripMenuItem_Click);
+            // 
+            // 导入既有的MP3ToolStripMenuItem
+            // 
+            this.导入既有的MP3ToolStripMenuItem.Name = "导入既有的MP3ToolStripMenuItem";
+            this.导入既有的MP3ToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.导入既有的MP3ToolStripMenuItem.Text = "导入既有的MP3(&O)       F11";
+            this.导入既有的MP3ToolStripMenuItem.Click += new System.EventHandler(this.导入既有的MP3ToolStripMenuItem_Click);
+            // 
             // MusicManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -457,6 +478,7 @@
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.statusStrip1);
             this.Controls.Add(this.menuStrip);
+            this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MusicManage";
             this.Text = "MusicManage";
@@ -521,6 +543,8 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResourcePath;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.ToolStripMenuItem 导入新下载的MP3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 导入既有的MP3ToolStripMenuItem;
 
     }
 }

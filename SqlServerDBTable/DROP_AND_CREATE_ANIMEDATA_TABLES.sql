@@ -410,7 +410,7 @@ GO
 CREATE TABLE [dbo].[T_TRACK_TBL](
 	[TRACK_ID] [nchar](10) NOT NULL,
 	[P_ALBUM_ID] [nchar](10) NULL,
-	[TRACK_TYPE] [smallint] NOT NULL,
+	[TRACK_TYPE_ID] [smallint] NOT NULL,
 	[DISC_NO] [smallint] NOT NULL DEFAULT ((1)),
 	[TRACK_NO] [smallint] NOT NULL,
 	[TRACK_TITLE_NAME] [nvarchar](1000) NULL,
