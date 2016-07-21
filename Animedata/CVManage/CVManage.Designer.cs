@@ -34,6 +34,10 @@
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.cvdataGridView = new System.Windows.Forms.DataGridView();
+            this.CVID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CVName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.CVGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.CVBirthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.CVHistdataGridView = new System.Windows.Forms.DataGridView();
             this.Character = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Anime = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -48,10 +52,6 @@
             this.changebutton = new System.Windows.Forms.Button();
             this.SearchBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.CVID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CVName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CVGender = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.CVBirthday = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -130,6 +130,39 @@
             this.cvdataGridView.TabIndex = 3;
             this.cvdataGridView.CurrentCellChanged += new System.EventHandler(this.cvdataGridView_CurrentCellChanged);
             // 
+            // CVID
+            // 
+            this.CVID.HeaderText = "编号";
+            this.CVID.Name = "CVID";
+            this.CVID.ReadOnly = true;
+            this.CVID.Visible = false;
+            // 
+            // CVName
+            // 
+            this.CVName.HeaderText = "姓名";
+            this.CVName.Name = "CVName";
+            this.CVName.ReadOnly = true;
+            // 
+            // CVGender
+            // 
+            this.CVGender.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
+            this.CVGender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.CVGender.HeaderText = "性别";
+            this.CVGender.Items.AddRange(new object[] {
+            "男",
+            "女"});
+            this.CVGender.Name = "CVGender";
+            this.CVGender.ReadOnly = true;
+            this.CVGender.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
+            // 
+            // CVBirthday
+            // 
+            this.CVBirthday.HeaderText = "生日";
+            this.CVBirthday.MaxInputLength = 8;
+            this.CVBirthday.Name = "CVBirthday";
+            this.CVBirthday.ReadOnly = true;
+            this.CVBirthday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
+            // 
             // CVHistdataGridView
             // 
             this.CVHistdataGridView.AllowUserToAddRows = false;
@@ -158,6 +191,7 @@
             this.CVHistdataGridView.RowTemplate.Height = 23;
             this.CVHistdataGridView.Size = new System.Drawing.Size(557, 518);
             this.CVHistdataGridView.TabIndex = 4;
+            this.CVHistdataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CVHistdataGridView_CellContentDoubleClick);
             // 
             // Character
             // 
@@ -271,7 +305,9 @@
             this.SearchBox.Name = "SearchBox";
             this.SearchBox.Size = new System.Drawing.Size(100, 19);
             this.SearchBox.TabIndex = 102;
+            this.SearchBox.Click += new System.EventHandler(this.SearchBox_Click);
             this.SearchBox.TextChanged += new System.EventHandler(this.SearchBox_TextChanged);
+            this.SearchBox.Enter += new System.EventHandler(this.SearchBox_Enter);
             // 
             // label1
             // 
@@ -282,39 +318,6 @@
             this.label1.Size = new System.Drawing.Size(44, 12);
             this.label1.TabIndex = 101;
             this.label1.Text = "搜索(&Z)";
-            // 
-            // CVID
-            // 
-            this.CVID.HeaderText = "编号";
-            this.CVID.Name = "CVID";
-            this.CVID.ReadOnly = true;
-            this.CVID.Visible = false;
-            // 
-            // CVName
-            // 
-            this.CVName.HeaderText = "姓名";
-            this.CVName.Name = "CVName";
-            this.CVName.ReadOnly = true;
-            // 
-            // CVGender
-            // 
-            this.CVGender.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.CVGender.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.CVGender.HeaderText = "性别";
-            this.CVGender.Items.AddRange(new object[] {
-            "男",
-            "女"});
-            this.CVGender.Name = "CVGender";
-            this.CVGender.ReadOnly = true;
-            this.CVGender.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // CVBirthday
-            // 
-            this.CVBirthday.HeaderText = "生日";
-            this.CVBirthday.MaxInputLength = 8;
-            this.CVBirthday.Name = "CVBirthday";
-            this.CVBirthday.ReadOnly = true;
-            this.CVBirthday.Resizable = System.Windows.Forms.DataGridViewTriState.True;
             // 
             // CVManage
             // 

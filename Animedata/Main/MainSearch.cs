@@ -13,16 +13,14 @@ namespace Main
 {
     public partial class MainSearch : Form
     {
-        public MainSearch(MainForm mainfm)
+        public MainSearch()
         {
             InitializeComponent();
-            mainform = mainfm;
         }
 
         #region 常量
         //实例
         MainService service = new MainService();
-        private MainForm mainform;
 
         /// <summary>系统错误，请联系开发者。\n{0}</summary>
         const string MSG_COMMON_001 = "MSG-COMMON-001";
@@ -350,8 +348,8 @@ namespace Main
                     return;
                 }
 
-                mainform.LoadAnimeMain(ds);
-                mainform.Focus();
+                MainForm.Mainfm.ShowAnime(ds);
+                MainForm.Mainfm.Focus();
             }
             catch (Exception ex)
             {

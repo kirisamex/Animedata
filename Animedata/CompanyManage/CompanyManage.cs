@@ -13,10 +13,9 @@ namespace Main
     public partial class CompanyManage : Form
     {
         #region 常量
-        //传递
-        private MainForm mainform;
-
         //实例
+        public static CompanyManage CompManageeFm = null;
+
         CompanyManageService service = new CompanyManageService();
         StatusStyle statusStyle = new StatusStyle();
         DataGridViewStyle dgvStyle = new DataGridViewStyle();
@@ -64,10 +63,10 @@ namespace Main
         /// 构析函数
         /// </summary>
         /// <param name="mainfm"></param>
-        public CompanyManage(MainForm mainfm)
+        public CompanyManage()
         {
+            CompManageeFm = this;
             InitializeComponent();
-            mainform = mainfm;
         }
         #endregion
 
@@ -85,7 +84,7 @@ namespace Main
         /// 载入公司：简易搜索
         /// </summary>
         /// <param name="target"></param>
-        private void LoadCompany(string target)
+        public void LoadCompany(string target)
         {
             ShowCompanyInfo(service.LoadCompany(target));
         }
@@ -370,7 +369,7 @@ namespace Main
             {
                 DataSet ds = service.Getanime(comp);
 
-                mainform.LoadAnimeMain(ds);
+                MainForm.Mainfm.ShowAnime(ds);
             }
             catch (Exception ex)
             {
@@ -491,6 +490,42 @@ namespace Main
             }
         }
 
+        #endregion
+
+        #region 事件
+        /// <summary>
+        /// 双击动画名在主窗体搜索动画
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void companyHistDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.ColumnIndex == companyHistDataGridView.Columns[ANIMENAMECLN].Index || e.ColumnIndex == companyHistDataGridView.Columns[ANIMENOCLN].Index)
+            {
+                MainForm.Mainfm.SimpleSearch(companyHistDataGridView.Rows[e.RowIndex].Cells[e.ColumnIndex].Value.ToString());
+                MainForm.Mainfm.Focus();
+            }
+        }
+
+        /// <summary>
+        /// 单击搜索文本框全选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void searchtextbox_Click(object sender, EventArgs e)
+        {
+            searchtextbox.SelectAll();
+        }
+
+        /// <summary>
+        /// 搜索文本框全选
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void searchtextbox_Enter(object sender, EventArgs e)
+        {
+            searchtextbox.SelectAll();
+        }
         #endregion
     }
 }

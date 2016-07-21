@@ -91,7 +91,7 @@
             this.CompanyDataGridView.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -156,7 +156,7 @@
             this.companyHistDataGridView.BackgroundColor = System.Drawing.SystemColors.ActiveCaption;
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("宋体", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
@@ -181,6 +181,7 @@
             this.companyHistDataGridView.RowTemplate.Height = 23;
             this.companyHistDataGridView.Size = new System.Drawing.Size(754, 445);
             this.companyHistDataGridView.TabIndex = 11;
+            this.companyHistDataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.companyHistDataGridView_CellContentDoubleClick);
             // 
             // AnimeNo
             // 
@@ -303,20 +304,22 @@
             // searchtextbox
             // 
             this.searchtextbox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.searchtextbox.Location = new System.Drawing.Point(93, 5);
+            this.searchtextbox.Location = new System.Drawing.Point(93, 6);
             this.searchtextbox.Name = "searchtextbox";
             this.searchtextbox.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.searchtextbox.Size = new System.Drawing.Size(128, 21);
+            this.searchtextbox.Size = new System.Drawing.Size(128, 19);
             this.searchtextbox.TabIndex = 22;
+            this.searchtextbox.Click += new System.EventHandler(this.searchtextbox_Click);
             this.searchtextbox.TextChanged += new System.EventHandler(this.searchtextbox_TextChanged);
+            this.searchtextbox.Enter += new System.EventHandler(this.searchtextbox_Enter);
             // 
             // label1
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(40, 9);
+            this.label1.Location = new System.Drawing.Point(43, 9);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(47, 12);
+            this.label1.Size = new System.Drawing.Size(44, 12);
             this.label1.TabIndex = 21;
             this.label1.Text = "搜索(&Z)";
             // 
