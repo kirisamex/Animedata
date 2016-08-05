@@ -60,6 +60,76 @@ namespace Main.Lib.DbAssistant
         }
 
         /// <summary>
+        /// Insert/Update/Update等操作
+        /// </summary>
+        /// <param name="sqlcmd">操作语句</param>
+        /// <returns>影响行数</returns>
+        public int DoCommand(string sqlcmd)
+        {
+            SqlConnection conn = Getconnection();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand();
+            SqlTransaction tran;
+            int res = -1;
+
+            tran = conn.BeginTransaction();
+
+            try
+            {
+                cmd.Connection = conn;
+                cmd.Transaction = tran;
+                cmd.CommandText = sqlcmd;
+
+                res = cmd.ExecuteNonQuery();
+                tran.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Trans Error," + ex.ToString());
+            }
+
+            conn.Close();
+            return res;
+        }
+
+        /// <summary>
+        /// Insert操作自增表返回主键<用于采番>
+        /// 语句中不必包含SELECT @@IDENTITY!!!
+        /// </summary>
+        /// <param name="sqlcmd">操作语句</param>
+        /// <returns>主键id</returns>
+        public int DoCommandGetKey(string sqlcmd)
+        {
+            SqlConnection conn = Getconnection();
+            conn.Open();
+            SqlCommand cmd = new SqlCommand();
+            SqlTransaction tran;
+            int res = -1;
+
+            tran = conn.BeginTransaction();
+
+            try
+            {
+                cmd.Connection = conn;
+                cmd.Transaction = tran;
+                cmd.CommandText = sqlcmd + " SELECT @@IDENTITY ";
+
+                res = Convert.ToInt32(cmd.ExecuteScalar());
+                tran.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                tran.Rollback();
+                throw new ApplicationException("Trans Error," + ex.ToString());
+            }
+
+            conn.Close();
+            return res;
+        }
+
+        /// <summary>
         /// Insert/Update/Delete等操作
         /// </summary>
         /// <param name="sqlcmd">操作语句</param>
@@ -67,17 +137,35 @@ namespace Main.Lib.DbAssistant
         /// <returns>影响行数</returns>
         public int DoCommand(string sqlcmd, Collection<DbParameter> paras)
         {
+            SqlConnection conn = Getconnection();
+            conn.Open();
             SqlCommand cmd = new SqlCommand();
-            cmd.Connection = Getconnection();
-            cmd.CommandText = sqlcmd;
-            foreach (DbParameter para in paras)
+            SqlTransaction tran;
+            int res = -1;
+
+            tran = conn.BeginTransaction();
+
+            try
             {
-                cmd.Parameters.Add(para);
+                cmd.Connection = conn;
+                cmd.Transaction = tran;
+                cmd.CommandText = sqlcmd;
+
+                foreach (DbParameter para in paras)
+                {
+                    cmd.Parameters.Add(para);
+                }
+
+                res = cmd.ExecuteNonQuery();
+                tran.Commit();
+
+            }
+            catch (Exception ex)
+            {
+                throw new ApplicationException("Trans Error," + ex.ToString());
             }
 
-            cmd.Connection.Open();
-            int res = cmd.ExecuteNonQuery();
-            cmd.Connection.Close();
+            conn.Close();
             return res;
         }
     }

@@ -25,6 +25,11 @@ namespace Main.Lib.Const
             public static readonly string T_ALBUM_TBL = "dbo.T_ALBUM_TBL";
 
             /// <summary>
+            /// <para>专辑编号表</para>
+            /// </summary>
+            public static readonly string T_ALBUM_ID_TBL = "dbo.T_ALBUM_ID_TBL";
+
+            /// <summary>
             /// <para>动画表</para>
             /// </summary>
             public static readonly string T_ANIME_TBL = "dbo.T_ANIME_TBL";
@@ -38,6 +43,11 @@ namespace Main.Lib.Const
             /// <para>艺术家表</para>
             /// </summary>
             public static readonly string T_ARTIST_TBL = "dbo.T_ARTIST_TBL";
+
+            /// <summary>
+            /// <para>艺术家编号表</para>
+            /// </summary>
+            public static readonly string T_ARTIST_ID_TBL = "dbo.T_ARTIST_ID_TBL";
 
             /// <summary>
             /// <para>角色表</para>
@@ -78,6 +88,11 @@ namespace Main.Lib.Const
             /// <para>曲目表</para>
             /// </summary>
             public static readonly string T_TRACK_TBL = "dbo.T_TRACK_TBL";
+            
+            /// <summary>
+            /// <para>曲目编号表</para>
+            /// </summary>
+            public static readonly string T_TRACK_ID_TBL = "dbo.T_TRACK_ID_TBL";
 
             #endregion
         }

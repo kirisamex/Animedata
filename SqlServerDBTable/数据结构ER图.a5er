@@ -39,11 +39,45 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
+PName=T_TRACK_ID_TBL
+LName=曲目编号表
+Comment=
+TableOption=
+Page=MAIN
+Left=1100
+Top=500
+Field="曲目编号","TRACK_ID","nchar（10）","NOT NULL",0,"","",$FFFFFFFF,""
+Field="最终更新时间","LAST_UPDATE_DATETIME","datetime","NOT NULL",,"GETDATE()","",$FFFFFFFF,""
+EffectMode=None
+Tag=ANIMEDATA
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160802154507
+Position="MAIN",1100,500,243,51
+
+[Entity]
+PName=T_ALBUM_ID_TBL
+LName=专辑编号表
+Comment=
+TableOption=
+Page=MAIN
+Left=1100
+Top=400
+Field="专辑编号","ALBUM_ID","nchar（10）","NOT NULL",0,"","",$FFFFFFFF,""
+Field="最终更新时间","LAST_UPDATE_DATETIME","datetime","NOT NULL",,"getdate()","",$FFFFFFFF,""
+EffectMode=None
+Tag=ANIMEDATA
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160802154522
+Position="MAIN",1100,400,248,55
+
+[Entity]
 PName=T_TRACK_TYPE_MST
 LName=曲目类型表
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=2000
 Top=1650
 Field="曲目类型编号","TRACK_TYPE_ID","smallint","NOT NULL",0,"","",$FFFFFFFF,""
@@ -55,7 +89,7 @@ EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20160719162839
-Position="Main",2000,1650
+Position="MAIN",2000,1650
 
 [Relation]
 Entity1=T_RESOURCE_TBL
@@ -103,7 +137,7 @@ Entity2=T_ARTIST_MAPPING_TBL
 RelationType1=1
 RelationType2=3
 Fields1=CHARACTER_NO
-Fields2=CHARACTER_NO
+Fields2=CHILD_CHARACTER_NO
 Cardinarity1=
 Cardinarity2=
 Position="MAIN",0,6214,593,4456,R,R
@@ -123,7 +157,7 @@ Entity2=T_ARTIST_MAPPING_TBL
 RelationType1=1
 RelationType2=3
 Fields1=CV_ID
-Fields2=CV_ID
+Fields2=CHILD_CV_ID
 Cardinarity1=
 Cardinarity2=
 Position="MAIN",0,6125,3875,6196,R,R
@@ -377,16 +411,17 @@ Left=2100
 Top=1400
 Field="艺术家编号","ARTIST_ID","nchar(10)","NOT NULL",,"","",$FFFFFFFF,""
 Field="匹配种类","MAPPING_TYPE","tinyint","NOT NULL",,"","[1]角色\n[2]声优",$FFFFFFFF,""
-Field="角色编号","CHARACTER_NO","varchar(10)",,,"","",$FFFFFFFF,""
-Field="声优序号","CV_ID","int",,,"","",$FFFFFFFF,""
+Field="子角色编号","CHILD_CHARACTER_NO","varchar(10)",,,"","",$FFFFFFFF,""
+Field="子声优序号","CHILD_CV_ID","int",,,"","",$FFFFFFFF,""
+Field="子艺术家编号","CHILD_ARTIST_ID","nchar(10)",,,"","",$FFFFFFFF,""
 Field="有效性FLAG","ENABLE_FLG","bit","NOT NULL",,"1","",$FFFFFFFF,""
 Field="最终更新时间","LAST_UPDATE_DATETIME","datetime","NOT NULL",,"getdate()","",$FFFFFFFF,""
 EffectMode=None
 Tag=ANIMEDATA
 Color=$000000
 BkColor=$FAEBB4
-ModifiedDateTime=20160226111538
-Position="MAIN",2100,1400,289,152
+ModifiedDateTime=20160802151826
+Position="MAIN",2100,1400,289,183
 
 [Entity]
 PName=T_ARTIST_TBL
@@ -396,7 +431,7 @@ TableOption=
 Page=MAIN
 Left=1600
 Top=1100
-Field="艺术家编号","ARTIST_ID","nchar(10)","NOT NULL",0,"","R+9位数字",$FFFFFFFF,""
+Field="艺术家编号","ARTIST_ID","int","NOT NULL",0,"","R+9位数字",$FFFFFFFF,""
 Field="艺术家名称","ARTIST_NAME","nvarchar(1000)","NOT NULL",,"","",$FFFFFFFF,""
 Field="性别","GENDER_ID","tinyint","NOT NULL",,"","[1]男\n[2]女\n[3]团体\n[9]其他",$FFFFFFFF,""
 Field="角色FLAG","CHARACTER_FLG","bit","NOT NULL",,"0","标识是否进行角色匹配",$FFFFFFFF,""
@@ -408,7 +443,7 @@ EffectMode=None
 Tag=ANIMEDATA
 Color=$000000
 BkColor=$99FFFF
-ModifiedDateTime=20160226111517
+ModifiedDateTime=20160805151140
 Position="MAIN",1600,1100,293,216
 
 [Entity]

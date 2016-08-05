@@ -145,6 +145,7 @@
     <Compile Include="Lib\Class\Company\Company.cs" />
     <Compile Include="CompanyManage\CompanyManageDao.cs" />
     <Compile Include="CompanyManage\CompanyManageService.cs" />
+    <Compile Include="Lib\Class\ID3v2Tag\ID3V2Tag.cs" />
     <Compile Include="Lib\Class\Resource\MusicResource.cs" />
     <Compile Include="Lib\Class\Resource\MusicResourceDao.cs" />
     <Compile Include="Lib\Class\Track\TrackSeries.cs" />
