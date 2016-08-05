@@ -8,11 +8,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
-using ID3;
-using ID3.ID3v2Frames.BinaryFrames;
 using Main.Lib.Const;
 using Main.Lib.Message;
-using Shell32;
 
 namespace Main.Music
 {
@@ -170,6 +167,9 @@ namespace Main.Music
                 ShowMP3TagInfo(MusicDataGridView.Rows[0].Cells[RESOURCEPATHCLN].Value.ToString());
             }
 
+            //test
+            ShowMP3TagInfo(null);
+
         }
 
         #endregion
@@ -193,6 +193,8 @@ namespace Main.Music
         /// <param name="filePath">文件路径</param>
         public void ShowMP3TagInfo(string filePath)
         {
+            //text
+            filePath = "C:\\Users\\Public\\Music\\Sample Music\\Kalimba.mp3";
             if (filePath == null || filePath.ToString().Equals(string.Empty))
             {
                 TrackNameTextBox.Text = string.Empty;
@@ -203,24 +205,26 @@ namespace Main.Music
                 AlbumPircureBox.Image = null;
                 return;
             }
+
             try
             {
-                ID3Info info = new ID3Info(filePath, true);
-                foreach (AttachedPictureFrame AP in info.ID3v2Info.AttachedPictureFrames.Items)
+                ID3V2Tag tag = new ID3V2Tag(filePath);
+                
+                //封面
+                foreach (Image img in tag.TrackImages)
                 {
-                    AlbumPircureBox.Image = Image.FromStream(AP.Data);
+                    AlbumPircureBox.Image = img;
                 }
-
                 //曲名
-                TrackNameTextBox.Text = info.ID3v2Info.GetTextFrame("TIT2");
+                TrackNameTextBox.Text = tag.TrackTitleName;
                 //艺术家
-                ArtistTextBox.Text = info.ID3v2Info.GetTextFrame("TPE1");
+                ArtistTextBox.Text = tag.ArtistName;
                 //专辑
-                AlbumNameTextBox.Text = info.ID3v2Info.GetTextFrame("TALB");
+                AlbumNameTextBox.Text = tag.AlbumName;
                 //音轨
-                TrackNoTextBox.Text = info.ID3v2Info.GetTextFrame("TRCK").Trim();
+                TrackNoTextBox.Text = tag.TrackNo;
                 //碟号
-                DiscNoTextBox.Text = info.ID3v2Info.GetTextFrame("TPOS");
+                DiscNoTextBox.Text = tag.DiscNo;
             }
             catch (Exception ex)
             {
@@ -259,6 +263,7 @@ namespace Main.Music
 
                 string respath = service.GetResourcePath(res.StorageID,
                     res.FilePath, res.FileName);
+
                 ShowMP3TagInfo(respath);
             }
             catch (Exception ex)
