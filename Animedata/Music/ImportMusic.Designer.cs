@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -44,12 +44,14 @@
             this.label1 = new System.Windows.Forms.Label();
             this.coverPictureBox = new System.Windows.Forms.PictureBox();
             this.MusicDataGridView = new System.Windows.Forms.DataGridView();
+            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
+            this.musicDataSet1 = new Main.ClientDataSet.MusicDataSet();
             this.OldTrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlbumID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlbumName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlbumAnimeType = new System.Windows.Forms.DataGridViewComboBoxColumn();
+            this.AlbumAnimeType = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ArtistName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DiscNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -57,8 +59,6 @@
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResourcePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.musicDataSet1 = new Main.ClientDataSet.MusicDataSet();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -221,9 +221,11 @@
             // 
             // coverPictureBox
             // 
+            this.coverPictureBox.BackColor = System.Drawing.Color.White;
             this.coverPictureBox.Location = new System.Drawing.Point(45, 12);
             this.coverPictureBox.Name = "coverPictureBox";
             this.coverPictureBox.Size = new System.Drawing.Size(150, 150);
+            this.coverPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.coverPictureBox.TabIndex = 0;
             this.coverPictureBox.TabStop = false;
             // 
@@ -231,14 +233,14 @@
             // 
             this.MusicDataGridView.AllowUserToAddRows = false;
             this.MusicDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OldTrackNo,
@@ -255,12 +257,26 @@
             this.ResourcePath,
             this.Description});
             this.MusicDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MusicDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.MusicDataGridView.Location = new System.Drawing.Point(0, 0);
-            this.MusicDataGridView.MultiSelect = false;
             this.MusicDataGridView.Name = "MusicDataGridView";
             this.MusicDataGridView.RowTemplate.Height = 21;
             this.MusicDataGridView.Size = new System.Drawing.Size(924, 612);
             this.MusicDataGridView.TabIndex = 1;
+            this.MusicDataGridView.CurrentCellChanged += new System.EventHandler(this.MusicDataGridView_CurrentCellChanged);
+            // 
+            // flowLayoutPanel1
+            // 
+            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
+            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1148, 29);
+            this.flowLayoutPanel1.TabIndex = 0;
+            // 
+            // musicDataSet1
+            // 
+            this.musicDataSet1.DataSetName = "MusicDataSet";
+            this.musicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // OldTrackNo
             // 
@@ -290,16 +306,8 @@
             // 
             // AlbumAnimeType
             // 
-            this.AlbumAnimeType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
             this.AlbumAnimeType.HeaderText = "专辑类型";
-            this.AlbumAnimeType.Items.AddRange(new object[] {
-            "OP/ED",
-            "角色歌",
-            "OST",
-            "其他"});
             this.AlbumAnimeType.Name = "AlbumAnimeType";
-            this.AlbumAnimeType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AlbumAnimeType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
             // 
             // ArtistName
             // 
@@ -336,23 +344,11 @@
             this.Description.HeaderText = "描述";
             this.Description.Name = "Description";
             // 
-            // flowLayoutPanel1
-            // 
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1148, 29);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // musicDataSet1
-            // 
-            this.musicDataSet1.DataSetName = "MusicDataSet";
-            this.musicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
-            // 
             // ImportMusic
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1148, 645);
             this.Controls.Add(this.splitContainer1);
             this.Name = "ImportMusic";
@@ -394,12 +390,13 @@
         private System.Windows.Forms.Label vocalortypelabel;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView MusicDataGridView;
+        private ClientDataSet.MusicDataSet musicDataSet1;
         private System.Windows.Forms.DataGridViewTextBoxColumn OldTrackNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlbumID;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlbumName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn AlbumAnimeType;
+        private System.Windows.Forms.DataGridViewButtonColumn AlbumAnimeType;
         private System.Windows.Forms.DataGridViewTextBoxColumn ArtistName;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DiscNo;
@@ -407,6 +404,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResourcePath;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private ClientDataSet.MusicDataSet musicDataSet1;
     }
 }

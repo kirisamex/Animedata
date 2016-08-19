@@ -93,10 +93,10 @@ namespace Main.Music
                 DataGridViewRow dgvrow = MusicDataGridView.Rows[i];
 
                 //既有编号
-                dgvrow.Cells[OLDTRACKNOCLN].Value = musicdt.Rows[i]["ANIME_NO"].ToString() +
-                    "_" + musicdt.Rows[i]["ALBUM_ANIME_TYPE"].ToString().Trim() +
-                    musicdt.Rows[i]["ALBUM_INANIME_NO"].ToString().PadLeft(2, '0') +
-                    "_" + musicdt.Rows[i]["TRACK_NO"].ToString().PadLeft(3, '0');
+                //dgvrow.Cells[OLDTRACKNOCLN].Value = musicdt.Rows[i]["ANIME_NO"].ToString() +
+                //    "_" + musicdt.Rows[i]["ALBUM_ANIME_TYPE"].ToString().Trim() +
+                //    musicdt.Rows[i]["ALBUM_INANIME_NO"].ToString().PadLeft(2, '0') +
+                //    "_" + musicdt.Rows[i]["TRACK_NO"].ToString().PadLeft(3, '0');
 
                 //曲名
                 dgvrow.Cells[TRACKNAMECLN].Value = musicdt.Rows[i]["TRACK_TITLE_NAME"].ToString();
@@ -105,7 +105,7 @@ namespace Main.Music
                 dgvrow.Cells[ALBUMNAMECLN].Value = musicdt.Rows[i]["ALBUM_TITLE_NAME"].ToString().Trim();
 
                 //专辑动画类型
-                dgvrow.Cells[ALBUMANIMETYPECLN].Value = service.GetAlbumAnimeTypeStringByChar(musicdt.Rows[i]["ALBUM_ANIME_TYPE"].ToString());
+                dgvrow.Cells[ALBUMANIMETYPECLN].Value = service.GetAlbumAnimeTypeStringByID(musicdt.Rows[i]["ANIME_TYPE_ID"].ToString());
 
                 //演唱者
                 dgvrow.Cells[ARTISTNAMECLN].Value = musicdt.Rows[i]["ARTIST_NAME"].ToString();
@@ -202,7 +202,7 @@ namespace Main.Music
                 AlbumNameTextBox.Text = string.Empty;
                 TrackNoTextBox.Text = string.Empty;
                 DiscNoTextBox.Text = string.Empty;
-                AlbumPircureBox.Image = null;
+                AlbumPictureBox.Image = null;
                 return;
             }
 
@@ -213,7 +213,7 @@ namespace Main.Music
                 //封面
                 foreach (Image img in tag.TrackImages)
                 {
-                    AlbumPircureBox.Image = img;
+                    AlbumPictureBox.Image = img;
                 }
                 //曲名
                 TrackNameTextBox.Text = tag.TrackTitleName;

@@ -39,6 +39,24 @@ ShowTag=1
 ShowCommonAttributes=0
 
 [Entity]
+PName=T_ALBUM_TYPE_MST
+LName=专辑类型表
+Comment=
+TableOption=
+Page=Main
+Left=2300
+Top=1650
+Field="曲目类型编号","ALBUM_TYPE_ID","smallint","NOT NULL",0,"","",$FFFFFFFF,""
+Field="曲目类型名","ALBUM_TYPE_NAME","nvarchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="描述","DESCRIPTION","nvarchar(1000)","NOT NULL",,"1","",$FFFFFFFF,""
+Field="最终更新时间","LAST_UPDATE_DATETIME","datetime","NOT NULL",,"getdate()","",$FFFFFFFF,""
+EffectMode=None
+Color=$000000
+BkColor=$FFFFFF
+ModifiedDateTime=20160819150203
+Position="Main",2300,1650
+
+[Entity]
 PName=T_TRACK_ID_TBL
 LName=曲目编号表
 Comment=
@@ -81,14 +99,15 @@ Page=MAIN
 Left=2000
 Top=1650
 Field="曲目类型编号","TRACK_TYPE_ID","smallint","NOT NULL",0,"","",$FFFFFFFF,""
-Field="曲目类型名","TRACK_TYPE_NAME","nvarchar(1000)","NOT NULL",,"","",$FFFFFFFF,""
+Field="曲目类型名","TRACK_TYPE_NAME","nvarchar(100)","NOT NULL",,"","",$FFFFFFFF,""
+Field="描述","DESCRIPTION","nvarchar(1000)","NOT NULL",,"","",$FFFFFFFF,""
 Field="伴奏FLAG","INST_FLG","BIT","NOT NULL",,"0","",$FFFFFFFF,""
 Field="人声FLAG","VOCAL_FLG","BIT","NOT NULL",,"1","",$FFFFFFFF,""
 Field="最终更新时间","LAST_UPDATE_DATETIME","datetime","NOT NULL",,"getdate()","",$FFFFFFFF,""
 EffectMode=None
 Color=$000000
 BkColor=$FFFFFF
-ModifiedDateTime=20160719162839
+ModifiedDateTime=20160819150229
 Position="MAIN",2000,1650
 
 [Relation]
@@ -360,10 +379,9 @@ Page=MAIN
 Left=1600
 Top=450
 Field="专辑编号\n专辑编号","ALBUM_ID","nchar(10)","NOT NULL",0,"","A+9位数字，代码中发番\nA+9位数字，代码中发番",$FFFFFFFF,""
-Field="专辑动画种类","ALBUM_ANIME_TYPE","char(1)","NOT NULL",,"","[A]OP/ED\n[B]角色歌\n[C]OST\n[Z]其他",$FFFFFFFF,""
+Field="专辑种类编号","ALBUM_TYPE_ID","int","NOT NULL",,"","专辑种类<T_ALBUM_TYPE_MST>",$FFFFFFFF,""
 Field="所属动画内专辑编号","ALBUM_INANIME_NO","int",,,"","",$FFFFFFFF,""
 Field="动画编号","ANIME_NO","nchar(4)","NOT NULL",,"","",$FFFFFFFF,""
-Field="专辑种类","ALBUM_TYPE","tinyint","NOT NULL",,"","[10]Vocal Song/歌曲 \n[11]Soundtrack 演奏 \n[20]Voice/人声铃声或短声音\n[21]短声音\n[30]Drama/演剧 \n[40]Radio/广播剧",$FFFFFFFF,""
 Field="专辑名","ALBUM_TITLE_NAME","char(1000)","NOT NULL",,"","",$FFFFFFFF,""
 Field="总碟数","TOTAL_DISC_COUNT","smallint","NOT NULL",,"","",$FFFFFFFF,""
 Field="总曲数","TOTAL_TRACK_COUNT","smallint","NOT NULL",,"","",$FFFFFFFF,""
@@ -374,7 +392,7 @@ EffectMode=None
 Tag=ANIMEDATA
 Color=$000000
 BkColor=$FAEBB4
-ModifiedDateTime=20160226111427
+ModifiedDateTime=20160819152037
 Position="MAIN",1600,450,293,279
 
 [Entity]
@@ -602,11 +620,11 @@ Page=MAIN
 Left=1100
 Top=900
 Field="曲目编号","TRACK_ID","nchar(10)","NOT NULL",0,"","T+9位数字，代码中发番",$FFFFFFFF,""
-Field="所属专辑编号","P_ALBUM_ID","nchar(10)",,,"","",$FFFFFFFF,""
-Field="曲目类型","TRACK_TYPE_ID","smallint","NOT NULL",,"","[100]Vocal Song/歌曲 \n[101]Vocal Song Inst. Ver./歌曲伴奏 \n[111]Soundtrack 演奏 \n[120]Voice/人声铃声或短声音\n[121]短声音\n[200]Drama/演剧 \n[210]Radio/广播剧",$FFFFFFFF,""
+Field="所属专辑编号","P_ALBUM_ID","nchar(10)","NOT NULL",,"","",$FFFFFFFF,""
+Field="曲目类型","TRACK_TYPE_ID","smallint","NOT NULL",,"","曲目类型编号<外键：T_TRACK_TYPE_MST>",$FFFFFFFF,""
 Field="碟号","DISC_NO","smallint","NOT NULL",,"1","",$FFFFFFFF,""
 Field="音轨","TRACK_NO","smallint","NOT NULL",,"","",$FFFFFFFF,""
-Field="曲目名称","TRACK_TITLE_NAME","nvarchar(1000)",,,"","",$FFFFFFFF,""
+Field="曲目名称","TRACK_TITLE_NAME","nvarchar(1000)","NOT NULL",,"","",$FFFFFFFF,""
 Field="艺术家编号","ARTIST_ID","nchar(10)","NOT NULL",,"","",$FFFFFFFF,""
 Field="动画编号","ANIME_NO","nchar(4)",,,"","",$FFFFFFFF,""
 Field="发售年份","SALES_YEAR","int",,,"","",$FFFFFFFF,""
@@ -617,5 +635,5 @@ EffectMode=None
 Tag=ANIMEDATA
 Color=$000000
 BkColor=$FAEBB4
-ModifiedDateTime=20160719162931
+ModifiedDateTime=20160819143959
 Position="MAIN",1100,900,298,305

@@ -108,7 +108,7 @@
             this.帮助ToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1264, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1059, 24);
             this.menuStrip1.TabIndex = 120;
             this.menuStrip1.TabStop = true;
             this.menuStrip1.Text = "menuStrip1";
@@ -250,7 +250,7 @@
             this.AnimationDataGridview.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.AnimationDataGridview.CellBorderStyle = System.Windows.Forms.DataGridViewCellBorderStyle.Sunken;
             this.AnimationDataGridview.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Sunken;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
             dataGridViewCellStyle2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             dataGridViewCellStyle2.Font = new System.Drawing.Font("SimSun", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
             dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -258,7 +258,6 @@
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
             this.AnimationDataGridview.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            this.AnimationDataGridview.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.AnimationDataGridview.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.AnimeNo,
             this.AnimeCNName,
@@ -274,7 +273,7 @@
             this.AnimationDataGridview.ReadOnly = true;
             this.AnimationDataGridview.RowHeadersVisible = false;
             this.AnimationDataGridview.RowTemplate.Height = 23;
-            this.AnimationDataGridview.Size = new System.Drawing.Size(705, 600);
+            this.AnimationDataGridview.Size = new System.Drawing.Size(574, 600);
             this.AnimationDataGridview.TabIndex = 91;
             this.AnimationDataGridview.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.AnimationDataGridview.CurrentCellChanged += new System.EventHandler(this.AnimationDataGridview_CurrentCellChanged);
@@ -329,7 +328,7 @@
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1264, 637);
+            this.splitContainer1.Size = new System.Drawing.Size(1059, 637);
             this.splitContainer1.SplitterDistance = 600;
             this.splitContainer1.TabIndex = 2;
             // 
@@ -346,8 +345,8 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.splitContainer3);
-            this.splitContainer2.Size = new System.Drawing.Size(1264, 600);
-            this.splitContainer2.SplitterDistance = 705;
+            this.splitContainer2.Size = new System.Drawing.Size(1059, 600);
+            this.splitContainer2.SplitterDistance = 574;
             this.splitContainer2.TabIndex = 2;
             // 
             // splitContainer3
@@ -364,7 +363,7 @@
             // splitContainer3.Panel2
             // 
             this.splitContainer3.Panel2.Controls.Add(this.CVdataGridView);
-            this.splitContainer3.Size = new System.Drawing.Size(555, 600);
+            this.splitContainer3.Size = new System.Drawing.Size(481, 600);
             this.splitContainer3.SplitterDistance = 277;
             this.splitContainer3.TabIndex = 0;
             // 
@@ -407,7 +406,7 @@
             dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             this.PlayInfodataGridView.RowsDefaultCellStyle = dataGridViewCellStyle5;
             this.PlayInfodataGridView.RowTemplate.Height = 23;
-            this.PlayInfodataGridView.Size = new System.Drawing.Size(555, 277);
+            this.PlayInfodataGridView.Size = new System.Drawing.Size(481, 277);
             this.PlayInfodataGridView.TabIndex = 92;
             this.PlayInfodataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.PlayInfodataGridView_CellContentDoubleClick);
             // 
@@ -469,7 +468,7 @@
             this.CVdataGridView.ReadOnly = true;
             this.CVdataGridView.RowHeadersVisible = false;
             this.CVdataGridView.RowTemplate.Height = 23;
-            this.CVdataGridView.Size = new System.Drawing.Size(555, 319);
+            this.CVdataGridView.Size = new System.Drawing.Size(481, 319);
             this.CVdataGridView.TabIndex = 93;
             this.CVdataGridView.CellContentDoubleClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.CVdataGridView_CellContentDoubleClick);
             // 
@@ -486,12 +485,12 @@
             this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
             this.flowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1264, 33);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(1059, 33);
             this.flowLayoutPanel1.TabIndex = 3;
             // 
             // deleteanimebutton
             // 
-            this.deleteanimebutton.Location = new System.Drawing.Point(1167, 3);
+            this.deleteanimebutton.Location = new System.Drawing.Point(962, 3);
             this.deleteanimebutton.Name = "deleteanimebutton";
             this.deleteanimebutton.Size = new System.Drawing.Size(94, 23);
             this.deleteanimebutton.TabIndex = 106;
@@ -501,7 +500,7 @@
             // 
             // changeanimebutton
             // 
-            this.changeanimebutton.Location = new System.Drawing.Point(1067, 3);
+            this.changeanimebutton.Location = new System.Drawing.Point(862, 3);
             this.changeanimebutton.Name = "changeanimebutton";
             this.changeanimebutton.Size = new System.Drawing.Size(94, 23);
             this.changeanimebutton.TabIndex = 105;
@@ -511,7 +510,7 @@
             // 
             // addanimebutton
             // 
-            this.addanimebutton.Location = new System.Drawing.Point(967, 3);
+            this.addanimebutton.Location = new System.Drawing.Point(762, 3);
             this.addanimebutton.Name = "addanimebutton";
             this.addanimebutton.Size = new System.Drawing.Size(94, 23);
             this.addanimebutton.TabIndex = 104;
@@ -521,7 +520,7 @@
             // 
             // simpleSearchButton
             // 
-            this.simpleSearchButton.Location = new System.Drawing.Point(867, 3);
+            this.simpleSearchButton.Location = new System.Drawing.Point(662, 3);
             this.simpleSearchButton.Name = "simpleSearchButton";
             this.simpleSearchButton.Size = new System.Drawing.Size(94, 23);
             this.simpleSearchButton.TabIndex = 103;
@@ -532,7 +531,7 @@
             // simpleSearchTextBox
             // 
             this.simpleSearchTextBox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.simpleSearchTextBox.Location = new System.Drawing.Point(701, 5);
+            this.simpleSearchTextBox.Location = new System.Drawing.Point(496, 5);
             this.simpleSearchTextBox.Name = "simpleSearchTextBox";
             this.simpleSearchTextBox.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
             this.simpleSearchTextBox.Size = new System.Drawing.Size(160, 19);
@@ -543,7 +542,7 @@
             // 
             this.label1.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(627, 8);
+            this.label1.Location = new System.Drawing.Point(422, 8);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(68, 12);
             this.label1.TabIndex = 101;
@@ -555,7 +554,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Gray;
-            this.ClientSize = new System.Drawing.Size(1264, 661);
+            this.ClientSize = new System.Drawing.Size(1059, 661);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.menuStrip1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));

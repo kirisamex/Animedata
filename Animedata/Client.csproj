@@ -128,10 +128,10 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MusicDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Lib\Class\Album\AlbumSeries.cs" />
+    <Compile Include="Lib\Class\Music\AlbumSeries.cs" />
     <Compile Include="Lib\Class\Anime\Animation.cs" />
     <Compile Include="Lib\Class\Anime\AnimationDao.cs" />
-    <Compile Include="Lib\Class\Artist\Artist.cs" />
+    <Compile Include="Lib\Class\Music\Artist.cs" />
     <Compile Include="Lib\Class\Character\CharacterInfo.cs" />
     <Compile Include="Lib\Class\Character\CharacterInfoDao.cs" />
     <Compile Include="Lib\Class\Company\CompanyDao.cs" />
@@ -145,11 +145,11 @@
     <Compile Include="Lib\Class\Company\Company.cs" />
     <Compile Include="CompanyManage\CompanyManageDao.cs" />
     <Compile Include="CompanyManage\CompanyManageService.cs" />
-    <Compile Include="Lib\Class\ID3v2Tag\ID3V2Tag.cs" />
+    <Compile Include="Lib\Tool\ID3V2Tag.cs" />
     <Compile Include="Lib\Class\Resource\MusicResource.cs" />
     <Compile Include="Lib\Class\Resource\MusicResourceDao.cs" />
-    <Compile Include="Lib\Class\Track\TrackSeries.cs" />
-    <Compile Include="Lib\Class\Track\TrackSeriesDao.cs" />
+    <Compile Include="Lib\Class\Music\TrackSeries.cs" />
+    <Compile Include="Lib\Class\Music\TrackSeriesDao.cs" />
     <Compile Include="Lib\Const\FormText.cs" />
     <Compile Include="Lib\Const\CommonConst.cs" />
     <Compile Include="Lib\DbAssistant\AbstractDbCommand.cs" />
@@ -202,6 +202,20 @@
     <Compile Include="CVManage\CVManage.Designer.cs">
       <DependentUpon>CVManage.cs</DependentUpon>
     </Compile>
+    <Compile Include="UILib\AbstractForm\AbstractSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UILib\AbstractForm\AbstractSelect.Designer.cs">
+      <DependentUpon>AbstractSelect.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UILib\AbstractForm\ComboboxSelectDao.cs" />
+    <Compile Include="UILib\AbstractForm\ComboboxSelectService.cs" />
+    <Compile Include="UILib\SelectForm\AnimeSelect.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UILib\SelectForm\AnimeSelect.Designer.cs">
+      <DependentUpon>AnimeSelect.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="About\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
@@ -236,6 +250,9 @@
     </Compile>
     <EmbeddedResource Include="CVManage\CVManage.resx">
       <DependentUpon>CVManage.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UILib\AbstractForm\AbstractSelect.resx">
+      <DependentUpon>AbstractSelect.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="App.Debug.config" />
     <None Include="App.Release.config">
@@ -291,7 +308,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Lib\dll\ID3.dll">
+    <Content Include="Lib\Tool\ID3.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Message.xml">
@@ -326,6 +343,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

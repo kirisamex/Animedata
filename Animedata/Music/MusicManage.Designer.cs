@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle8 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.基本操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -42,6 +42,8 @@
             this.关闭CToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.导入曲目IToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.从MP3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导入新下载的MP3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.导入既有的MP3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.从ExcelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.标签操作TToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.从MP3ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
@@ -59,7 +61,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.vocalortypelabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.AlbumPircureBox = new System.Windows.Forms.PictureBox();
+            this.AlbumPictureBox = new System.Windows.Forms.PictureBox();
             this.MusicDataGridView = new System.Windows.Forms.DataGridView();
             this.OldTrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackName = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -73,14 +75,12 @@
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResourcePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.导入新下载的MP3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.导入既有的MP3ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AlbumPircureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MusicDataGridView)).BeginInit();
             this.SuspendLayout();
             // 
@@ -186,10 +186,24 @@
             this.从MP3ToolStripMenuItem.Text = "自MP3导入曲目信息(&M)";
             this.从MP3ToolStripMenuItem.Click += new System.EventHandler(this.从MP3ToolStripMenuItem_Click);
             // 
+            // 导入新下载的MP3ToolStripMenuItem
+            // 
+            this.导入新下载的MP3ToolStripMenuItem.Name = "导入新下载的MP3ToolStripMenuItem";
+            this.导入新下载的MP3ToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.导入新下载的MP3ToolStripMenuItem.Text = "导入新下载的MP3(&N)      F3";
+            this.导入新下载的MP3ToolStripMenuItem.Click += new System.EventHandler(this.导入新下载的MP3ToolStripMenuItem_Click);
+            // 
+            // 导入既有的MP3ToolStripMenuItem
+            // 
+            this.导入既有的MP3ToolStripMenuItem.Name = "导入既有的MP3ToolStripMenuItem";
+            this.导入既有的MP3ToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
+            this.导入既有的MP3ToolStripMenuItem.Text = "导入既有的MP3(&O)       F11";
+            this.导入既有的MP3ToolStripMenuItem.Click += new System.EventHandler(this.导入既有的MP3ToolStripMenuItem_Click);
+            // 
             // 从ExcelToolStripMenuItem
             // 
             this.从ExcelToolStripMenuItem.Name = "从ExcelToolStripMenuItem";
-            this.从ExcelToolStripMenuItem.Size = new System.Drawing.Size(266, 22);
+            this.从ExcelToolStripMenuItem.Size = new System.Drawing.Size(207, 22);
             this.从ExcelToolStripMenuItem.Text = "自Excel导入曲目信息(&E)";
             // 
             // 标签操作TToolStripMenuItem
@@ -246,7 +260,7 @@
             this.splitContainer1.Panel1.Controls.Add(this.label4);
             this.splitContainer1.Panel1.Controls.Add(this.vocalortypelabel);
             this.splitContainer1.Panel1.Controls.Add(this.label1);
-            this.splitContainer1.Panel1.Controls.Add(this.AlbumPircureBox);
+            this.splitContainer1.Panel1.Controls.Add(this.AlbumPictureBox);
             this.splitContainer1.Panel1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             // 
             // splitContainer1.Panel2
@@ -341,28 +355,28 @@
             this.label1.TabIndex = 1;
             this.label1.Text = "曲名";
             // 
-            // AlbumPircureBox
+            // AlbumPictureBox
             // 
-            this.AlbumPircureBox.BackColor = System.Drawing.Color.White;
-            this.AlbumPircureBox.Location = new System.Drawing.Point(12, 12);
-            this.AlbumPircureBox.Name = "AlbumPircureBox";
-            this.AlbumPircureBox.Size = new System.Drawing.Size(200, 200);
-            this.AlbumPircureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.AlbumPircureBox.TabIndex = 0;
-            this.AlbumPircureBox.TabStop = false;
+            this.AlbumPictureBox.BackColor = System.Drawing.Color.White;
+            this.AlbumPictureBox.Location = new System.Drawing.Point(12, 12);
+            this.AlbumPictureBox.Name = "AlbumPictureBox";
+            this.AlbumPictureBox.Size = new System.Drawing.Size(200, 200);
+            this.AlbumPictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.AlbumPictureBox.TabIndex = 0;
+            this.AlbumPictureBox.TabStop = false;
             // 
             // MusicDataGridView
             // 
             this.MusicDataGridView.AllowUserToAddRows = false;
             this.MusicDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle8.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle8.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle8.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle8.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle8.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle8.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle8.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle8;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OldTrackNo,
@@ -456,20 +470,6 @@
             this.Description.HeaderText = "描述";
             this.Description.Name = "Description";
             // 
-            // 导入新下载的MP3ToolStripMenuItem
-            // 
-            this.导入新下载的MP3ToolStripMenuItem.Name = "导入新下载的MP3ToolStripMenuItem";
-            this.导入新下载的MP3ToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.导入新下载的MP3ToolStripMenuItem.Text = "导入新下载的MP3(&N)      F3";
-            this.导入新下载的MP3ToolStripMenuItem.Click += new System.EventHandler(this.导入新下载的MP3ToolStripMenuItem_Click);
-            // 
-            // 导入既有的MP3ToolStripMenuItem
-            // 
-            this.导入既有的MP3ToolStripMenuItem.Name = "导入既有的MP3ToolStripMenuItem";
-            this.导入既有的MP3ToolStripMenuItem.Size = new System.Drawing.Size(229, 22);
-            this.导入既有的MP3ToolStripMenuItem.Text = "导入既有的MP3(&O)       F11";
-            this.导入既有的MP3ToolStripMenuItem.Click += new System.EventHandler(this.导入既有的MP3ToolStripMenuItem_Click);
-            // 
             // MusicManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -490,7 +490,7 @@
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.AlbumPircureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.AlbumPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MusicDataGridView)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -503,7 +503,7 @@
         private System.Windows.Forms.StatusStrip statusStrip1;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView MusicDataGridView;
-        private System.Windows.Forms.PictureBox AlbumPircureBox;
+        private System.Windows.Forms.PictureBox AlbumPictureBox;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label vocalortypelabel;
         private System.Windows.Forms.Label label1;

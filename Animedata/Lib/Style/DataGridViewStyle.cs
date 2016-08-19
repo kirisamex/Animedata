@@ -30,5 +30,19 @@ namespace Main.Lib.Style
             }
             sc.SplitterDistance = splitterDistance;
         }
+
+        /// <summary>
+        /// 设置DataGridView各列宽度
+        /// </summary>
+        /// <param name="dgv"></param>
+        /// <param name="wid"></param>
+        public void SetDataGridViewColumnWidch(DataGridView dgv, int[] wid)
+        {
+            int colcnt = wid.Length;
+            for (int i = 0; i < colcnt; i++)
+            {
+                dgv.Columns[i].Width = wid[i];
+            }
+        }
     }
 }

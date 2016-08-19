@@ -20,14 +20,19 @@ namespace Main.Lib.Const
             #region 常量
 
             /// <summary>
+            /// <para>专辑编号表</para>
+            /// </summary>
+            public static readonly string T_ALBUM_ID_TBL = "dbo.T_ALBUM_ID_TBL";
+
+            /// <summary>
             /// <para>专辑表</para>
             /// </summary>
             public static readonly string T_ALBUM_TBL = "dbo.T_ALBUM_TBL";
 
             /// <summary>
-            /// <para>专辑编号表</para>
+            /// <para>专辑种类表</para>
             /// </summary>
-            public static readonly string T_ALBUM_ID_TBL = "dbo.T_ALBUM_ID_TBL";
+            public static readonly string T_ALBUM_TYPE_MST = "dbo.T_ALBUM_TYPE_MST";
 
             /// <summary>
             /// <para>动画表</para>
@@ -83,16 +88,21 @@ namespace Main.Lib.Const
             /// <para>曲目资源表</para>
             /// </summary>
             public static readonly string T_TRACK_RESOURCE_TBL = "dbo.T_TRACK_RESOURCE_TBL";
-
-            /// <summary>
-            /// <para>曲目表</para>
-            /// </summary>
-            public static readonly string T_TRACK_TBL = "dbo.T_TRACK_TBL";
             
             /// <summary>
             /// <para>曲目编号表</para>
             /// </summary>
             public static readonly string T_TRACK_ID_TBL = "dbo.T_TRACK_ID_TBL";
+
+            /// <summary>
+            /// <para>曲目表</para>
+            /// </summary>
+            public static readonly string T_TRACK_TBL = "dbo.T_TRACK_TBL";
+
+            /// <summary>
+            /// <para>曲目种类表</para>
+            /// </summary>
+            public static readonly string T_TRACK_TYPE_MST = "dbo.T_TRACK_TYPE_MST";
 
             #endregion
         }
