@@ -24,7 +24,7 @@ namespace Main.Music
         /// <summary>
         /// 曲目类型
         /// </summary>
-        public int TrackType;
+        public int TrackTypeId;
 
         /// <summary>
         /// 碟号
@@ -91,14 +91,23 @@ namespace Main.Music
             DataSet ds = dao.GetTrackByTrackId(TrackID);
 
             PAlbumID = ds.Tables[0].Rows[0]["P_ALBUM_ID"].ToString();
-            TrackType = Convert.ToInt32(ds.Tables[0].Rows[0]["TRACK_TYPE"]);
+            TrackTypeId = Convert.ToInt32(ds.Tables[0].Rows[0]["TRACK_TYPE"]);
             DiscNo=Convert.ToInt32(ds.Tables[0].Rows[0]["DISC_NO"]);
             TrackNo = Convert.ToInt32(ds.Tables[0].Rows[0]["TRACK_NO"]);
             TrackTitleName = ds.Tables[0].Rows[0]["TRACK_TITLE_NAME"].ToString();
             ArtistID = ds.Tables[0].Rows[0]["ARTIST_ID"].ToString();
-            AnimeNo = ds.Tables[0].Rows[0]["ANIME_NO"].ToString();
-            SalesYear = Convert.ToInt32(ds.Tables[0].Rows[0]["SALES_YEAR"]);
-            Description = ds.Tables[0].Rows[0]["DESCRIPTION"].ToString();
+            if (ds.Tables[0].Rows[0]["ANIME_NO"] != null)
+            {
+                AnimeNo = ds.Tables[0].Rows[0]["ANIME_NO"].ToString();
+            }
+            if (ds.Tables[0].Rows[0]["SALES_YEAR"] != null)
+            {
+                SalesYear = Convert.ToInt32(ds.Tables[0].Rows[0]["SALES_YEAR"]);
+            }
+            if (ds.Tables[0].Rows[0]["ANIME_NO"] != null)
+            {
+                Description = ds.Tables[0].Rows[0]["SALES_YEAR"].ToString();
+            }
         }
         #endregion
     }

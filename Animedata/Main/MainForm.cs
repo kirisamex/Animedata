@@ -135,7 +135,8 @@ namespace Main
             }
 
             //动画窗口格式设置
-            dgvStyle.SetDataGridViewAndSplit(splitContainer2, AnimationDataGridview, 19);
+            //dgvStyle.SetDataGridViewAndSplit(splitContainer2, AnimationDataGridview, 19);
+            dgvStyle.SetDataGridViewColumnWidch(AnimationDataGridview, new int[] { 40, 190, 190, 40, 55, 40 });
 
             //状态格式
             foreach (DataGridViewRow dr in AnimationDataGridview.Rows)
@@ -173,57 +174,51 @@ namespace Main
                 //获得动画播放信息
                 Animation anime = service.GetAnimeFromAnimeNo(animeNo);
 
-                try
+
+                if (anime.playInfoList != null)
                 {
-                    if (anime.playInfoList != null)
+                    for (int i = 0; i < anime.playInfoList.Count; i++)
                     {
-                        for (int i = 0; i < anime.playInfoList.Count; i++)
+                        PlayInfo pInfo = anime.playInfoList[i];
+
+                        PlayInfodataGridView.Rows.Add();
+
+                        DataGridViewRow dgvrow = PlayInfodataGridView.Rows[i];
+
+                        dgvrow.Cells[PLAYINFOCLN].Value = pInfo.info;
+
+                        if (pInfo.parts != 0)
                         {
-                            PlayInfo pInfo = anime.playInfoList[i];
-
-                            PlayInfodataGridView.Rows.Add();
-
-                            DataGridViewRow dgvrow = PlayInfodataGridView.Rows[i];
-
-                            dgvrow.Cells[PLAYINFOCLN].Value = pInfo.info;
-
-                            if (pInfo.parts != 0)
-                            {
-                                dgvrow.Cells[PARTSCLN].Value = pInfo.parts.ToString();
-                            }
-
-                            if (pInfo.companyID != 0)
-                            {
-                                dgvrow.Cells[COMPANYCLN].Value = service.GetCompanyNameByCompanyNo(pInfo.companyID);
-                            }
-
-                            dgvrow.Cells[STATUSCLN].Value = service.GetStatusTextFromStatusInt(pInfo.status);
-
-                            if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
-                            {
-                                dgvrow.Cells[STARTTIMECLN].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.startTime);
-                            }
-
-                            if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
-                            {
-                                dgvrow.Cells[WATCHTIMECLN].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.watchedTime);
-                            }
+                            dgvrow.Cells[PARTSCLN].Value = pInfo.parts.ToString();
                         }
 
-                        //状态格式
-                        foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
+                        if (pInfo.companyID != 0)
                         {
-                            int status = service.GetStatusIntFromStatusText(dr.Cells[STATUSCLN].Value.ToString());
-                            dr.Cells[STATUSCLN].Style = statusStyle.GetStatusRowStyle(status);
+                            dgvrow.Cells[COMPANYCLN].Value = service.GetCompanyNameByCompanyNo(pInfo.companyID);
+                        }
+
+                        dgvrow.Cells[STATUSCLN].Value = service.GetStatusTextFromStatusInt(pInfo.status);
+
+                        if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue)
+                        {
+                            dgvrow.Cells[STARTTIMECLN].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.startTime);
+                        }
+
+                        if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
+                        {
+                            dgvrow.Cells[WATCHTIMECLN].Value = service.ConvertToYYYYNianMMYueFromDatetime(pInfo.watchedTime);
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    MsgBox.Show(MSG_COMMON_001, ex.Message);
+
+                    //状态格式
+                    foreach (DataGridViewRow dr in PlayInfodataGridView.Rows)
+                    {
+                        int status = service.GetStatusIntFromStatusText(dr.Cells[STATUSCLN].Value.ToString());
+                        dr.Cells[STATUSCLN].Style = statusStyle.GetStatusRowStyle(status);
+                    }
                 }
 
-                foreach(DataGridViewColumn dc in PlayInfodataGridView.Columns)
+                foreach (DataGridViewColumn dc in PlayInfodataGridView.Columns)
                 {
                     dc.AutoSizeMode = DataGridViewAutoSizeColumnMode.Fill;
                     dc.DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;

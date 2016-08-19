@@ -32,7 +32,7 @@ namespace Main.Music
                                         TRT.SALES_YEAR,
                                         TRT.DESCRIPTION,    --<-直接使用部分 合成部分->
                                         ALT.ANIME_NO,
-                                        ALT.ALBUM_ANIME_TYPE,
+                                        ATM.ALBUM_TYPE_NAME,
                                         ALT.ALBUM_INANIME_NO,
                                         RT.STORAGE_ID,
                                         RT.RESOURCE_FILEPATH,
@@ -43,6 +43,7 @@ namespace Main.Music
                                     INNER JOIN {3} ANT ON ANT.ANIME_NO = TRT.ANIME_NO AND ANT.ENABLE_FLG = 1
                                     LEFT JOIN {4} TTRT ON TTRT.TRACK_ID = TRT.TRACK_ID AND TTRT.ENABLE_FLG = 1
                                     LEFT JOIN {5} RT ON RT.RESOURCE_ID = TTRT.RESOURCE_ID AND RT.ENABLE_FLG = 1
+                                    INNER JOIN {6} ATM ON ALT.ALBUM_TYPE_ID = ATM.ALBUM_TYPE_ID AND ALT.ENABLE_FLG = 1
                                     WHERE TRT.ENABLE_FLG = 1";
 
             return DbCmd.DoSelect(string.Format(sqlcmd
@@ -51,7 +52,8 @@ namespace Main.Music
                 , CommonConst.TableName.T_ARTIST_TBL
                 , CommonConst.TableName.T_ANIME_TBL
                 , CommonConst.TableName.T_TRACK_RESOURCE_TBL
-                , CommonConst.TableName.T_RESOURCE_TBL));
+                , CommonConst.TableName.T_RESOURCE_TBL
+                ,CommonConst.TableName.T_ALBUM_TYPE_MST));
         }
 
         /// <summary>
