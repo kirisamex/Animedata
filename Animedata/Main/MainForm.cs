@@ -136,7 +136,7 @@ namespace Main
 
             //动画窗口格式设置
             //dgvStyle.SetDataGridViewAndSplit(splitContainer2, AnimationDataGridview, 19);
-            dgvStyle.SetDataGridViewColumnWidch(AnimationDataGridview, new int[] { 40, 190, 190, 40, 55, 40 });
+            dgvStyle.SetDataGridViewColumnWidch(AnimationDataGridview, new int[] { 55, 265, 265, 55, 70, 60 });
 
             //状态格式
             foreach (DataGridViewRow dr in AnimationDataGridview.Rows)
