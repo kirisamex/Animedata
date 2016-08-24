@@ -51,7 +51,8 @@
             this.targetListBox.Location = new System.Drawing.Point(12, 43);
             this.targetListBox.Name = "targetListBox";
             this.targetListBox.Size = new System.Drawing.Size(272, 229);
-            this.targetListBox.TabIndex = 1;
+            this.targetListBox.TabIndex = 3;
+            this.targetListBox.DoubleClick += new System.EventHandler(this.targetListBox_DoubleClick);
             // 
             // SearchButton
             // 
@@ -62,18 +63,21 @@
             this.SearchButton.TabIndex = 2;
             this.SearchButton.Text = "搜索(&S)";
             this.SearchButton.UseVisualStyleBackColor = true;
+            this.SearchButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
             // OKButton
             // 
             this.OKButton.Location = new System.Drawing.Point(203, 278);
             this.OKButton.Name = "OKButton";
             this.OKButton.Size = new System.Drawing.Size(81, 23);
-            this.OKButton.TabIndex = 3;
+            this.OKButton.TabIndex = 5;
             this.OKButton.Text = "确定(&A)";
             this.OKButton.UseVisualStyleBackColor = true;
+            this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
             // 
-            // ComboboxSelect
+            // AbstractSelect
             // 
+            this.AcceptButton = this.OKButton;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(296, 306);
@@ -82,7 +86,7 @@
             this.Controls.Add(this.targetListBox);
             this.Controls.Add(this.keyWordcomboBox);
             this.MaximizeBox = false;
-            this.Name = "ComboboxSelect";
+            this.Name = "AbstractSelect";
             this.Text = "项目选择";
             this.Load += new System.EventHandler(this.ComboboxSelect_Load);
             this.ResumeLayout(false);
@@ -92,8 +96,8 @@
         #endregion
 
         private System.Windows.Forms.ComboBox keyWordcomboBox;
-        private System.Windows.Forms.ListBox targetListBox;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Button OKButton;
+        public System.Windows.Forms.ListBox targetListBox;
     }
 }

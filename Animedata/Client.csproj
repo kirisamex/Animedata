@@ -106,14 +106,18 @@
     <Compile Include="About\AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddAnime\AddAnime.cs">
+    <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeries.cs" />
+    <Compile Include="Lib\Class\Music\Artist\ArtistSeriesDao.cs" />
+    <Compile Include="Lib\Class\Music\Artist\ArtistSeriesService.cs" />
+    <Compile Include="Lib\Const\DataMappingType.cs" />
+    <Compile Include="Main\AddAnime\AddAnime.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="AddAnime\AddAnime.Designer.cs">
+    <Compile Include="Main\AddAnime\AddAnime.Designer.cs">
       <DependentUpon>AddAnime.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddAnime\AddanimeDao.cs" />
-    <Compile Include="AddAnime\AddAnimeService.cs" />
+    <Compile Include="Main\AddAnime\AddanimeDao.cs" />
+    <Compile Include="Main\AddAnime\AddAnimeService.cs" />
     <Compile Include="ClientDataSet\ClientDataset.cs">
       <DependentUpon>ClientDataset.xsd</DependentUpon>
       <SubType>Component</SubType>
@@ -128,34 +132,34 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>MusicDataSet.xsd</DependentUpon>
     </Compile>
-    <Compile Include="Lib\Class\Music\AlbumSeries.cs" />
+    <Compile Include="Lib\Class\Music\Album\AlbumSeries.cs" />
     <Compile Include="Lib\Class\Anime\Animation.cs" />
     <Compile Include="Lib\Class\Anime\AnimationDao.cs" />
-    <Compile Include="Lib\Class\Music\Artist.cs" />
+    <Compile Include="Lib\Class\Music\Artist\ArtistSeries.cs" />
     <Compile Include="Lib\Class\Character\CharacterInfo.cs" />
     <Compile Include="Lib\Class\Character\CharacterInfoDao.cs" />
     <Compile Include="Lib\Class\Company\CompanyDao.cs" />
     <Compile Include="Lib\Class\CV\CVDao.cs" />
-    <Compile Include="CompanyManage\CompanyManage.cs">
+    <Compile Include="Main\CompanyManage\CompanyManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CompanyManage\CompanyManage.Designer.cs">
+    <Compile Include="Main\CompanyManage\CompanyManage.Designer.cs">
       <DependentUpon>CompanyManage.cs</DependentUpon>
     </Compile>
     <Compile Include="Lib\Class\Company\Company.cs" />
-    <Compile Include="CompanyManage\CompanyManageDao.cs" />
-    <Compile Include="CompanyManage\CompanyManageService.cs" />
+    <Compile Include="Main\CompanyManage\CompanyManageDao.cs" />
+    <Compile Include="Main\CompanyManage\CompanyManageService.cs" />
     <Compile Include="Lib\Tool\ID3V2Tag.cs" />
     <Compile Include="Lib\Class\Resource\MusicResource.cs" />
     <Compile Include="Lib\Class\Resource\MusicResourceDao.cs" />
-    <Compile Include="Lib\Class\Music\TrackSeries.cs" />
-    <Compile Include="Lib\Class\Music\TrackSeriesDao.cs" />
+    <Compile Include="Lib\Class\Music\Track\TrackSeries.cs" />
+    <Compile Include="Lib\Class\Music\Track\TrackSeriesDao.cs" />
     <Compile Include="Lib\Const\FormText.cs" />
     <Compile Include="Lib\Const\CommonConst.cs" />
     <Compile Include="Lib\DbAssistant\AbstractDbCommand.cs" />
     <Compile Include="Lib\DbAssistant\Connection.cs" />
-    <Compile Include="CVManage\CVManageDao.cs" />
-    <Compile Include="CVManage\CVManageService.cs" />
+    <Compile Include="Main\CVManage\CVManageDao.cs" />
+    <Compile Include="Main\CVManage\CVManageService.cs" />
     <Compile Include="Lib\DbAssistant\MainDbCommand.cs" />
     <Compile Include="Lib\Message\MsgBox.cs" />
     <Compile Include="Lib\Model\AnimeOriginalModule.cs" />
@@ -180,12 +184,22 @@
     <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
     <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
     <Compile Include="Main\MainService.cs" />
-    <Compile Include="Music\ImportMusic.cs">
+    <Compile Include="Music\ImportMusic\ImportMusicDao.cs" />
+    <Compile Include="Music\ImportMusic\ImportMusicService.cs" />
+    <Compile Include="Music\ImportMusic\SelectArtist.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Music\ImportMusic.Designer.cs">
+    <Compile Include="Music\ImportMusic\SelectArtist.Designer.cs">
+      <DependentUpon>SelectArtist.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Music\ImportMusic\ImportMusic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Music\ImportMusic\ImportMusic.Designer.cs">
       <DependentUpon>ImportMusic.cs</DependentUpon>
     </Compile>
+    <Compile Include="Music\ImportMusic\SelectArtistDao.cs" />
+    <Compile Include="Music\ImportMusic\SelectArtistService.cs" />
     <Compile Include="Music\MusicManage.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -196,10 +210,10 @@
     <Compile Include="Music\MusicManageService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="CVManage\CVManage.cs">
+    <Compile Include="Main\CVManage\CVManage.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="CVManage\CVManage.Designer.cs">
+    <Compile Include="Main\CVManage\CVManage.Designer.cs">
       <DependentUpon>CVManage.cs</DependentUpon>
     </Compile>
     <Compile Include="UILib\AbstractForm\AbstractSelect.cs">
@@ -210,19 +224,13 @@
     </Compile>
     <Compile Include="UILib\AbstractForm\ComboboxSelectDao.cs" />
     <Compile Include="UILib\AbstractForm\ComboboxSelectService.cs" />
-    <Compile Include="UILib\SelectForm\AnimeSelect.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="UILib\SelectForm\AnimeSelect.Designer.cs">
-      <DependentUpon>AnimeSelect.cs</DependentUpon>
-    </Compile>
     <EmbeddedResource Include="About\AboutBox1.resx">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="AddAnime\AddAnime.resx">
+    <EmbeddedResource Include="Main\AddAnime\AddAnime.resx">
       <DependentUpon>AddAnime.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="CompanyManage\CompanyManage.resx">
+    <EmbeddedResource Include="Main\CompanyManage\CompanyManage.resx">
       <DependentUpon>CompanyManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Main\MainForm.resx">
@@ -232,7 +240,10 @@
     <EmbeddedResource Include="Main\MainSearch.resx">
       <DependentUpon>MainSearch.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Music\ImportMusic.resx">
+    <EmbeddedResource Include="Music\ImportMusic\SelectArtist.resx">
+      <DependentUpon>SelectArtist.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Music\ImportMusic\ImportMusic.resx">
       <DependentUpon>ImportMusic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Music\MusicManage.resx">
@@ -248,7 +259,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="CVManage\CVManage.resx">
+    <EmbeddedResource Include="Main\CVManage\CVManage.resx">
       <DependentUpon>CVManage.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="UILib\AbstractForm\AbstractSelect.resx">

@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.基本操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -277,7 +277,7 @@
             this.label2.Location = new System.Drawing.Point(231, 170);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(29, 12);
-            this.label2.TabIndex = 1;
+            this.label2.TabIndex = 26;
             this.label2.Text = "音轨";
             // 
             // label3
@@ -287,7 +287,7 @@
             this.label3.Location = new System.Drawing.Point(231, 120);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(29, 12);
-            this.label3.TabIndex = 1;
+            this.label3.TabIndex = 24;
             this.label3.Text = "专辑";
             // 
             // DiscNoTextBox
@@ -295,35 +295,36 @@
             this.DiscNoTextBox.Location = new System.Drawing.Point(332, 190);
             this.DiscNoTextBox.Name = "DiscNoTextBox";
             this.DiscNoTextBox.Size = new System.Drawing.Size(82, 19);
-            this.DiscNoTextBox.TabIndex = 2;
+            this.DiscNoTextBox.TabIndex = 29;
             // 
             // TrackNoTextBox
             // 
             this.TrackNoTextBox.Location = new System.Drawing.Point(233, 190);
             this.TrackNoTextBox.Name = "TrackNoTextBox";
             this.TrackNoTextBox.Size = new System.Drawing.Size(82, 19);
-            this.TrackNoTextBox.TabIndex = 2;
+            this.TrackNoTextBox.TabIndex = 27;
             // 
             // AlbumNameTextBox
             // 
             this.AlbumNameTextBox.Location = new System.Drawing.Point(233, 140);
             this.AlbumNameTextBox.Name = "AlbumNameTextBox";
             this.AlbumNameTextBox.Size = new System.Drawing.Size(181, 19);
-            this.AlbumNameTextBox.TabIndex = 2;
+            this.AlbumNameTextBox.TabIndex = 25;
             // 
             // ArtistTextBox
             // 
             this.ArtistTextBox.Location = new System.Drawing.Point(233, 90);
             this.ArtistTextBox.Name = "ArtistTextBox";
             this.ArtistTextBox.Size = new System.Drawing.Size(181, 19);
-            this.ArtistTextBox.TabIndex = 2;
+            this.ArtistTextBox.TabIndex = 23;
             // 
             // TrackNameTextBox
             // 
             this.TrackNameTextBox.Location = new System.Drawing.Point(233, 40);
             this.TrackNameTextBox.Name = "TrackNameTextBox";
             this.TrackNameTextBox.Size = new System.Drawing.Size(181, 19);
-            this.TrackNameTextBox.TabIndex = 2;
+            this.TrackNameTextBox.TabIndex = 21;
+            this.TrackNameTextBox.KeyDown += new System.Windows.Forms.KeyEventHandler(this.TrackNameTextBox_KeyDown);
             // 
             // label4
             // 
@@ -332,7 +333,7 @@
             this.label4.Location = new System.Drawing.Point(330, 170);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(29, 12);
-            this.label4.TabIndex = 1;
+            this.label4.TabIndex = 28;
             this.label4.Text = "碟号";
             // 
             // vocalortypelabel
@@ -342,7 +343,7 @@
             this.vocalortypelabel.Location = new System.Drawing.Point(231, 70);
             this.vocalortypelabel.Name = "vocalortypelabel";
             this.vocalortypelabel.Size = new System.Drawing.Size(29, 12);
-            this.vocalortypelabel.TabIndex = 1;
+            this.vocalortypelabel.TabIndex = 22;
             this.vocalortypelabel.Text = "演唱";
             // 
             // label1
@@ -352,7 +353,7 @@
             this.label1.Location = new System.Drawing.Point(231, 20);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 12);
-            this.label1.TabIndex = 1;
+            this.label1.TabIndex = 20;
             this.label1.Text = "曲名";
             // 
             // AlbumPictureBox
@@ -369,14 +370,14 @@
             // 
             this.MusicDataGridView.AllowUserToAddRows = false;
             this.MusicDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OldTrackNo,
@@ -397,7 +398,7 @@
             this.MusicDataGridView.Name = "MusicDataGridView";
             this.MusicDataGridView.RowTemplate.Height = 21;
             this.MusicDataGridView.Size = new System.Drawing.Size(915, 614);
-            this.MusicDataGridView.TabIndex = 0;
+            this.MusicDataGridView.TabIndex = 10;
             this.MusicDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MusicDataGridView_CellClick);
             this.MusicDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MusicDataGridView_KeyDown);
             // 

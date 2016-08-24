@@ -105,7 +105,7 @@ namespace Main.Music
                 dgvrow.Cells[ALBUMNAMECLN].Value = musicdt.Rows[i]["ALBUM_TITLE_NAME"].ToString().Trim();
 
                 //专辑动画类型
-                dgvrow.Cells[ALBUMANIMETYPECLN].Value = service.GetAlbumAnimeTypeStringByID(musicdt.Rows[i]["ANIME_TYPE_ID"].ToString());
+                //dgvrow.Cells[ALBUMANIMETYPECLN].Value = service.GetAlbumTypeNameByAlbumTypeID(musicdt.Rows[i]["ANIME_TYPE_ID"]);
 
                 //演唱者
                 dgvrow.Cells[ARTISTNAMECLN].Value = musicdt.Rows[i]["ARTIST_NAME"].ToString();
@@ -170,6 +170,7 @@ namespace Main.Music
             //test
             ShowMP3TagInfo(null);
 
+            //MusicDataGridView.Focus();
         }
 
         #endregion
@@ -194,7 +195,7 @@ namespace Main.Music
         public void ShowMP3TagInfo(string filePath)
         {
             //text
-            filePath = "C:\\Users\\Public\\Music\\Sample Music\\Kalimba.mp3";
+            //filePath = "C:\\Users\\Public\\Music\\Sample Music\\Kalimba.mp3";
             if (filePath == null || filePath.ToString().Equals(string.Empty))
             {
                 TrackNameTextBox.Text = string.Empty;
@@ -363,6 +364,12 @@ namespace Main.Music
             main_KeyDown(this, e);
         }
 
+        
+
+        private void TrackNameTextBox_KeyDown(object sender, KeyEventArgs e)
+        {
+            main_KeyDown(this, e);
+        }
         #endregion
 
 
@@ -373,8 +380,7 @@ namespace Main.Music
 
 
 
-        
 
-        
+
     }
 }

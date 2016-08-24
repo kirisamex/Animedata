@@ -11,6 +11,7 @@ using Main.ClientDataSet;
 using Main.Lib.Const;
 using Main.Lib.Message;
 using Main.Lib.Style;
+using Main.UILib;
 
 namespace Main.Music
 {
@@ -28,6 +29,8 @@ namespace Main.Music
         const string OLDTRACKNOCLN = "OldTrackNo";
         /// <summary>曲名 </summary>
         const string TRACKNAMECLN = "TrackName";
+        /// <summary>曲目类型 </summary>
+        const string TRACKTYPECLN = "TrackType";
         /// <summary>专辑号 </summary>
         const string ALBUMIDCLN = "AlbumID";
         /// <summary>专辑名 </summary>
@@ -50,6 +53,14 @@ namespace Main.Music
         const string RESOURCEPATHCLN = "ResourcePath";
         /// <summary>描述 </summary>
         const string DESCRIPTIONCLN = "Description";
+        /// <summary>动画编号 </summary>
+        const string ANIMENOCLN = "AnimeNO";
+        /// <summary>专辑类型编号 </summary>
+        const string ALBUMTYPEIDCLN = "AlbumTypeID";
+        /// <summary>曲目类型编号 </summary>
+        const string TRACKTYPEIDCLN = "TrackTypeID";
+        /// <summary>艺术家编号 </summary>
+        const string ARTISTIDCLN = "ArtistID";
         #endregion
 
         #region 常量
@@ -66,11 +77,22 @@ namespace Main.Music
         }
 
         DataGridViewStyle dgvStyle = new DataGridViewStyle();
+        ImportMusicService service = new ImportMusicService();
+        #endregion
 
-        MusicManageService service = new MusicManageService();
+        #region 变量
+        /// <summary>
+        /// Dataset
+        /// </summary>
         MusicDataSet.ImportMusicListDataTable importList = new MusicDataSet.ImportMusicListDataTable();
 
+        /// <summary>
+        /// 新增艺术家匹配
+        /// </summary>
+        Dictionary<string, int> newArtistDic = new Dictionary<string, int>();
         #endregion
+
+
 
         #region 方法
         /// <summary>
@@ -108,7 +130,7 @@ namespace Main.Music
 
                 //------做成新曲目 开始------
                 MusicDataSet.ImportMusicListRow importRow = importList.NewImportMusicListRow();
-                
+
                 //FilePath
                 importRow.FilePath = musicPath[i];
 
@@ -130,9 +152,9 @@ namespace Main.Music
                 //TrackTitleName
                 importRow.TrackTitleName = tag.TrackTitleName;
                 //ArtistName
-                importRow.ArtistName=tag.ArtistName;
+                importRow.ArtistName = tag.ArtistName;
                 //ArtistID
-                //importRow.ArtistID = service.GetArtistIDFromArtistName(tag.ArtistName);
+                
                 //AnimeNo
 
                 //SalesYear
@@ -164,9 +186,38 @@ namespace Main.Music
                     dr.Cells[DESCRIPTIONCLN].Value = ir.Description;
                 }
                 dr.Cells[RESOURCEPATHCLN].Value = ir.FilePath;
+
+                //艺术家处理             
+                //Todo：预留同名artist处理机制：复数artist
+                if (newArtistDic.ContainsKey(ir.ArtistName))
+                {
+                    //在dic中存在
+                    dr.Cells[ARTISTIDCLN].Value = newArtistDic[ir.ArtistName];
+                    dgvStyle.SetMappingTypeBackColor(dr.Cells[ARTISTNAMECLN], DataMappingType.Type.ExistInDic);
+                }
+                else 
+                {
+                    ArtistSeries artist = new ArtistSeries(ir.ArtistName);
+                    if (artist.Id > 0)
+                    {
+                        //不在dic,在DB中存在
+                        dr.Cells[ARTISTIDCLN].Value = artist.Id;
+                        dgvStyle.SetMappingTypeBackColor(dr.Cells[ARTISTNAMECLN], DataMappingType.Type.ExistInDB);
+                    }
+                    else
+                    {
+                        //不在DB->发番，加入dic
+                        artist.GetNewID();
+                        dr.Cells[ARTISTIDCLN].Value = artist.Id;
+                        newArtistDic.Add(artist.Name, artist.Id);
+                        dgvStyle.SetMappingTypeBackColor(dr.Cells[ARTISTNAMECLN], DataMappingType.Type.New);
+                    }
+                }
+                
             }
 
-            dgvStyle.SetDataGridViewColumnWidch(MusicDataGridView, new int[] { 80, 80, 160, 80, 160, 80, 160, 120, 40, 40, 80, 300, 150 });
+               
+            dgvStyle.SetDataGridViewColumnWidch(MusicDataGridView, new int[] { 80, 80, 160, 80, 80, 160, 80, 160, 120, 40, 40, 80, 300, 150 });
 
             string firstRowPath = null;
 
@@ -176,6 +227,51 @@ namespace Main.Music
 
                 ShowMP3TagInfo(firstRowPath);
             }
+        }
+
+        /// <summary>
+        /// 接受选择框内选择动画
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void SelectAnimeAccept(object sender, EventArgs e)
+        {
+            AbstractSelect target = (AbstractSelect)sender;       //接收到Form2的textBox1.Text     
+            object targetkey = target.ReturnResult;
+
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ANIMENOCLN].Value = (string)targetkey;
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ANIMENAMECLN].Value =
+                service.GetAnimeFromAnimeNo((string)targetkey).CNName;
+        }
+
+        /// <summary>
+        /// 接受选择框内选择专辑种类
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void SelectAlbumTypeAccept(object sender, EventArgs e)
+        {
+            AbstractSelect target = (AbstractSelect)sender;       //接收到Form2的textBox1.Text     
+            object targetkey = target.ReturnResult;
+
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ALBUMTYPEIDCLN].Value = targetkey.ToString();
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ALBUMANIMETYPECLN].Value =
+                service.GetAlbumTypeNameByAlbumTypeID(Convert.ToInt32(targetkey));
+        }
+
+        /// <summary>
+        /// 接受选择框内选择曲目种类
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void SelectTrackTypeAccept(object sender, EventArgs e)
+        {
+            AbstractSelect target = (AbstractSelect)sender;       //接收到Form2的textBox1.Text     
+            object targetkey = target.ReturnResult;
+
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[TRACKTYPEIDCLN].Value = targetkey.ToString();
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[TRACKTYPECLN].Value =
+                service.GetTrackTypeNameByAlbumTypeID(Convert.ToInt32(targetkey));
         }
 
         /// <summary>
@@ -245,10 +341,67 @@ namespace Main.Music
         #endregion
 
         #region 事件
+        /// <summary>
+        /// 改变选中行
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void MusicDataGridView_CurrentCellChanged(object sender, EventArgs e)
         {
             ShowMP3TagInfo();
         }
+
+
+        /// <summary>
+        /// 单元格单击
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void MusicDataGridView_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            try
+            {
+                if (e.ColumnIndex == MusicDataGridView.Columns[ANIMENAMECLN].Index)
+                {
+                    //动画名称
+                    AbstractSelect animes = new AbstractSelect(CommonConst.TableName.T_ANIME_TBL, "ANIME_NO", "ANIME_CHN_NAME", true
+                        , new string[] { "ANIME_NO", "ANIME_CHN_NAME", "ANIME_JPN_NAME", "ANIME_NN" });
+                    animes.accept += new EventHandler(SelectAnimeAccept);
+                    animes.ShowDialog(this);
+                }
+                else if (e.ColumnIndex == MusicDataGridView.Columns[ALBUMANIMETYPECLN].Index)
+                {
+                    //专辑种类
+                    AbstractSelect albumtype = new AbstractSelect(CommonConst.TableName.T_ALBUM_TYPE_MST, "ALBUM_TYPE_ID", "ALBUM_TYPE_NAME", false,
+                        new string[] { "ALBUM_TYPE_NAME", "DESCRIPTION" });
+                    albumtype.accept += new EventHandler(SelectAlbumTypeAccept);
+                    albumtype.ShowDialog(this);
+                }
+                else if (e.ColumnIndex == MusicDataGridView.Columns[TRACKTYPECLN].Index)
+                {
+                    //曲目种类
+                    AbstractSelect trackType = new AbstractSelect(CommonConst.TableName.T_TRACK_TYPE_MST, "TRACK_TYPE_ID", "TRACK_TYPE_NAME", false,
+                        new string[] { "TRACK_TYPE_NAME", "DESCRIPTION" });
+                    trackType.accept += new EventHandler(SelectTrackTypeAccept);
+                    trackType.ShowDialog(this);
+                }
+                else if (e.ColumnIndex == MusicDataGridView.Columns[ARTISTNAMECLN].Index)
+                {
+                    //艺术家
+                    int currentRowIndex = MusicDataGridView.CurrentRow.Index;
+                    DataGridViewRow dr = MusicDataGridView.Rows[currentRowIndex];
+                    SelectArtist artSelForm = new SelectArtist(Convert.ToInt32(dr.Cells[ARTISTIDCLN].Value), dr.Cells[ARTISTNAMECLN].Value.ToString());
+                    artSelForm.Show();
+                }
+
+            }
+            catch(Exception ex)
+            {
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
+            }
+
+        }
+
         #endregion
 
         #region 窗体
@@ -272,5 +425,7 @@ namespace Main.Music
         }
 
         #endregion
+
+       
     }
 }

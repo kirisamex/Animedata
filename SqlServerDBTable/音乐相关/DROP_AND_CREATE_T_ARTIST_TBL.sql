@@ -1,4 +1,4 @@
-USE [ANIMEDATA]
+USE [ANIMEDATA_DEV]
 GO
 
 /****** Object:  Table [dbo].[T_ARTIST_TBL]    Script Date: 2016/2/1 23:14:54 ******/
@@ -18,6 +18,7 @@ CREATE TABLE [dbo].[T_ARTIST_TBL](
 	[GENDER_ID] [tinyint] NOT NULL,
 	[CHARACTER_FLG] [bit] NOT NULL DEFAULT ((0)),
 	[CV_FLG] [bit] NOT NULL DEFAULT ((0)),
+	[SINGER_FLG] [bit] NOT NULL DEFAULT ((0)),
 	[DESCRIPTION] [nvarchar](1000) NULL,
 	[ENABLE_FLG] [bit] NOT NULL DEFAULT ((1)),
 	[LAST_UPDATE_DATETIME] [datetime] NOT NULL DEFAULT (getdate()),

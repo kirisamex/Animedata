@@ -12,7 +12,7 @@
   <xs:element name="MusicDataSet" msdata:IsDataSet="true" msdata:UseCurrentLocale="true" msprop:EnableTableAdapterManager="true" msprop:Generator_DataSetName="MusicDataSet" msprop:Generator_UserDSName="MusicDataSet">
     <xs:complexType>
       <xs:choice minOccurs="0" maxOccurs="unbounded">
-        <xs:element name="ImportMusicList" msprop:Generator_TableClassName="ImportMusicListDataTable" msprop:Generator_TableVarName="tableImportMusicList" msprop:Generator_TablePropName="ImportMusicList" msprop:Generator_RowDeletingName="ImportMusicListRowDeleting" msprop:Generator_RowChangingName="ImportMusicListRowChanging" msprop:Generator_RowEvHandlerName="ImportMusicListRowChangeEventHandler" msprop:Generator_RowDeletedName="ImportMusicListRowDeleted" msprop:Generator_UserTableName="ImportMusicList" msprop:Generator_RowChangedName="ImportMusicListRowChanged" msprop:Generator_RowEvArgName="ImportMusicListRowChangeEvent" msprop:Generator_RowClassName="ImportMusicListRow">
+        <xs:element name="ImportMusicList" msprop:Generator_TableClassName="ImportMusicListDataTable" msprop:Generator_TableVarName="tableImportMusicList" msprop:Generator_RowChangedName="ImportMusicListRowChanged" msprop:Generator_TablePropName="ImportMusicList" msprop:Generator_RowDeletingName="ImportMusicListRowDeleting" msprop:Generator_RowChangingName="ImportMusicListRowChanging" msprop:Generator_RowEvHandlerName="ImportMusicListRowChangeEventHandler" msprop:Generator_RowDeletedName="ImportMusicListRowDeleted" msprop:Generator_RowClassName="ImportMusicListRow" msprop:Generator_UserTableName="ImportMusicList" msprop:Generator_RowEvArgName="ImportMusicListRowChangeEvent">
           <xs:complexType>
             <xs:sequence>
               <xs:element name="TrackID" msprop:Generator_ColumnVarNameInTable="columnTrackID" msprop:Generator_ColumnPropNameInRow="TrackID" msprop:Generator_ColumnPropNameInTable="TrackIDColumn" msprop:Generator_UserColumnName="TrackID" type="xs:string" minOccurs="0" />
@@ -29,6 +29,7 @@
               <xs:element name="FilePath" msprop:Generator_ColumnVarNameInTable="columnFilePath" msprop:Generator_ColumnPropNameInRow="FilePath" msprop:Generator_ColumnPropNameInTable="FilePathColumn" msprop:Generator_UserColumnName="FilePath" type="xs:string" minOccurs="0" />
               <xs:element name="AlbumTitleName" msprop:Generator_ColumnVarNameInTable="columnAlbumTitleName" msprop:Generator_ColumnPropNameInRow="AlbumTitleName" msprop:Generator_ColumnPropNameInTable="AlbumTitleNameColumn" msprop:Generator_UserColumnName="AlbumTitleName" type="xs:string" minOccurs="0" />
               <xs:element name="ArtistName" msprop:Generator_ColumnVarNameInTable="columnArtistName" msprop:Generator_ColumnPropNameInRow="ArtistName" msprop:Generator_ColumnPropNameInTable="ArtistNameColumn" msprop:Generator_UserColumnName="ArtistName" type="xs:string" minOccurs="0" />
+              <xs:element name="AlbumTypeID" msprop:Generator_ColumnVarNameInTable="columnAlbumTypeID" msprop:Generator_ColumnPropNameInRow="AlbumTypeID" msprop:Generator_ColumnPropNameInTable="AlbumTypeIDColumn" msprop:Generator_UserColumnName="AlbumTypeID" type="xs:int" minOccurs="0" />
             </xs:sequence>
           </xs:complexType>
         </xs:element>

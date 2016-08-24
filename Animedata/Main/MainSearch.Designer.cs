@@ -55,7 +55,7 @@
             this.label10 = new System.Windows.Forms.Label();
             this.SearchButton = new System.Windows.Forms.Button();
             this.ClearButton = new System.Windows.Forms.Button();
-            this.CancelButton = new System.Windows.Forms.Button();
+            this.cancelButton = new System.Windows.Forms.Button();
             this.label11 = new System.Windows.Forms.Label();
             this.seiyuuBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
@@ -302,15 +302,15 @@
             this.ClearButton.UseVisualStyleBackColor = true;
             this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
             // 
-            // CancelButton
+            // cancelButton
             // 
-            this.CancelButton.Location = new System.Drawing.Point(373, 336);
-            this.CancelButton.Name = "CancelButton";
-            this.CancelButton.Size = new System.Drawing.Size(75, 23);
-            this.CancelButton.TabIndex = 202;
-            this.CancelButton.Text = "取消(&C)";
-            this.CancelButton.UseVisualStyleBackColor = true;
-            this.CancelButton.Click += new System.EventHandler(this.CancelButton_Click);
+            this.cancelButton.Location = new System.Drawing.Point(373, 336);
+            this.cancelButton.Name = "cancelButton";
+            this.cancelButton.Size = new System.Drawing.Size(75, 23);
+            this.cancelButton.TabIndex = 202;
+            this.cancelButton.Text = "取消(&C)";
+            this.cancelButton.UseVisualStyleBackColor = true;
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // label11
             // 
@@ -369,7 +369,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(497, 383);
-            this.Controls.Add(this.CancelButton);
+            this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.ClearButton);
             this.Controls.Add(this.SearchButton);
             this.Controls.Add(this.label9);
@@ -434,7 +434,7 @@
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Button SearchButton;
         private System.Windows.Forms.Button ClearButton;
-        private System.Windows.Forms.Button CancelButton;
+        private System.Windows.Forms.Button cancelButton;
         public System.Windows.Forms.TextBox AnimeNoBox;
         public System.Windows.Forms.TextBox AnimeNNBox;
         public System.Windows.Forms.TextBox PlaytimeToBox;

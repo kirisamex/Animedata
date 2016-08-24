@@ -60,6 +60,34 @@ namespace Main.Lib.DbAssistant
         }
 
         /// <summary>
+        /// 带变量的Select操作
+        /// </summary>
+        /// <param name="sqlcmd">操作语句</param>
+        /// <param name="columnname"虚拟列名</param>
+        /// <param name="paras">变量</param>
+        /// <returns></returns>
+        public DataSet DoSelect(string sqlcmd, string columnname, Collection<DbParameter> paras)
+        {
+            SqlConnection conn = Getconnection();
+
+            conn.Open();
+            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
+
+            foreach (DbParameter para in paras)
+            {
+                adp.SelectCommand.Parameters.Add(para);
+            }
+
+            DataSet ds = new DataSet();
+
+            adp.Fill(ds, columnname);
+            conn.Close();
+
+            return ds;
+        }
+
+
+        /// <summary>
         /// Insert/Update/Update等操作
         /// </summary>
         /// <param name="sqlcmd">操作语句</param>
