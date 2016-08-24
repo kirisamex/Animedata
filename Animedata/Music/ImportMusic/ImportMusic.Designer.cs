@@ -28,7 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle5 = new System.Windows.Forms.DataGridViewCellStyle();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
@@ -49,16 +53,21 @@
             this.OldTrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackType = new System.Windows.Forms.DataGridViewButtonColumn();
             this.AlbumID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlbumName = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlbumAnimeType = new System.Windows.Forms.DataGridViewButtonColumn();
-            this.ArtistName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArtistName = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.AnimeName = new System.Windows.Forms.DataGridViewButtonColumn();
             this.DiscNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResourcePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlbumTypeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackTypeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArtistID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -233,19 +242,20 @@
             // 
             this.MusicDataGridView.AllowUserToAddRows = false;
             this.MusicDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OldTrackNo,
             this.TrackID,
             this.TrackName,
+            this.TrackType,
             this.AlbumID,
             this.AlbumName,
             this.AlbumAnimeType,
@@ -255,7 +265,11 @@
             this.TrackNo,
             this.Year,
             this.ResourcePath,
-            this.Description});
+            this.Description,
+            this.AnimeNo,
+            this.AlbumTypeID,
+            this.TrackTypeID,
+            this.ArtistID});
             this.MusicDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MusicDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.MusicDataGridView.Location = new System.Drawing.Point(0, 0);
@@ -263,6 +277,7 @@
             this.MusicDataGridView.RowTemplate.Height = 21;
             this.MusicDataGridView.Size = new System.Drawing.Size(924, 612);
             this.MusicDataGridView.TabIndex = 1;
+            this.MusicDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MusicDataGridView_CellContentClick);
             this.MusicDataGridView.CurrentCellChanged += new System.EventHandler(this.MusicDataGridView_CurrentCellChanged);
             // 
             // flowLayoutPanel1
@@ -294,6 +309,13 @@
             this.TrackName.HeaderText = "曲名";
             this.TrackName.Name = "TrackName";
             // 
+            // TrackType
+            // 
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.TrackType.DefaultCellStyle = dataGridViewCellStyle2;
+            this.TrackType.HeaderText = "曲目类型";
+            this.TrackType.Name = "TrackType";
+            // 
             // AlbumID
             // 
             this.AlbumID.HeaderText = "专辑编号";
@@ -306,16 +328,23 @@
             // 
             // AlbumAnimeType
             // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.AlbumAnimeType.DefaultCellStyle = dataGridViewCellStyle3;
             this.AlbumAnimeType.HeaderText = "专辑类型";
             this.AlbumAnimeType.Name = "AlbumAnimeType";
             // 
             // ArtistName
             // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.ArtistName.DefaultCellStyle = dataGridViewCellStyle4;
+            this.ArtistName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ArtistName.HeaderText = "艺术家";
             this.ArtistName.Name = "ArtistName";
             // 
             // AnimeName
             // 
+            dataGridViewCellStyle5.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.AnimeName.DefaultCellStyle = dataGridViewCellStyle5;
             this.AnimeName.HeaderText = "所属动画";
             this.AnimeName.Name = "AnimeName";
             // 
@@ -343,6 +372,26 @@
             // 
             this.Description.HeaderText = "描述";
             this.Description.Name = "Description";
+            // 
+            // AnimeNo
+            // 
+            this.AnimeNo.HeaderText = "动画编号";
+            this.AnimeNo.Name = "AnimeNo";
+            // 
+            // AlbumTypeID
+            // 
+            this.AlbumTypeID.HeaderText = "专辑类型编号";
+            this.AlbumTypeID.Name = "AlbumTypeID";
+            // 
+            // TrackTypeID
+            // 
+            this.TrackTypeID.HeaderText = "曲目类型编号";
+            this.TrackTypeID.Name = "TrackTypeID";
+            // 
+            // ArtistID
+            // 
+            this.ArtistID.HeaderText = "艺术家编号";
+            this.ArtistID.Name = "ArtistID";
             // 
             // ImportMusic
             // 
@@ -394,15 +443,20 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn OldTrackNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackName;
+        private System.Windows.Forms.DataGridViewButtonColumn TrackType;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlbumID;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlbumName;
         private System.Windows.Forms.DataGridViewButtonColumn AlbumAnimeType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeName;
+        private System.Windows.Forms.DataGridViewButtonColumn ArtistName;
+        private System.Windows.Forms.DataGridViewButtonColumn AnimeName;
         private System.Windows.Forms.DataGridViewTextBoxColumn DiscNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResourcePath;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNo;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlbumTypeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TrackTypeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistID;
     }
 }

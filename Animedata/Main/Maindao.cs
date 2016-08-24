@@ -903,6 +903,72 @@ namespace Main
 
         #endregion
 
+        #region 音乐
+        /// <summary>
+        /// 通过专辑种类id获得专辑种类名
+        /// </summary>
+        /// <param name="albumTypeID"></param>
+        /// <returns></returns>
+        public string GetAlbumTypeNameByAlbumTypeID(int albumTypeID)
+        {
+            string sqlcmd = @"SELECT 
+                                    ALBUM_TYPE_NAME 
+                                    FROM {0}
+                                    WHERE ALBUM_TYPE_ID =  @albumTypeID ";
+
+            SqlParameter para = new SqlParameter("@albumTypeID", albumTypeID);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(para);
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TYPE_MST), paras);
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return null;
+            }
+            else if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
+            {
+                return ds.Tables[0].Rows[0][0].ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 通过曲目种类id获得专辑种类名
+        /// </summary>
+        /// <param name="albumTypeID"></param>
+        /// <returns></returns>
+        public string GetTrackTypeNameByAlbumTypeID(int trackTypeID)
+        {
+            string sqlcmd = @"SELECT 
+                                    TRACK_TYPE_NAME 
+                                    FROM {0}
+                                    WHERE TRACK_TYPE_ID =  @trackTypeID ";
+
+            SqlParameter para = new SqlParameter("@trackTypeID", trackTypeID);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(para);
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TYPE_MST), paras);
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return null;
+            }
+            else if (!Convert.IsDBNull(ds.Tables[0].Rows[0][0].ToString()))
+            {
+                return ds.Tables[0].Rows[0][0].ToString();
+            }
+            else
+            {
+                return null;
+            }
+        }
+        #endregion
+
         #region 方法
         /// <summary>
         /// 字符型检索用SQL文

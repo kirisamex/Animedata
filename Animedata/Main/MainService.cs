@@ -303,42 +303,6 @@ namespace Main
         }
 
         /// <summary>
-        /// 获得专辑动画类型描述
-        /// </summary>
-        /// <param name="type">字符</param>
-        /// <returns></returns>
-        public string GetAlbumAnimeTypeStringByID(string type)
-        {
-            //switch (type)
-            //{
-            //    case "A": return "OP/ED";
-            //    case "B": return "角色歌";
-            //    case "C": return "OST";
-            //    case "Z": return "其他";
-            //    default: return "未知";
-            //}
-            return null;
-        }
-
-        /// <summary>
-        /// 获得专辑动画类型字符
-        /// </summary>
-        /// <param name="type">描述</param>
-        /// <returns></returns>
-        public string GetAlbumAnimeTypeIDByString(string type)
-        {
-            //switch (type)
-            //{
-            //    case "OP/ED": return "A";
-            //    case "角色歌": return "B";
-            //    case "OST": return "C";
-            //    case "其他": return "Z";
-            //    default: throw new Exception("未知的专辑类型");
-            //}
-            return null;
-        }
-
-        /// <summary>
         /// 获得主角标记字符
         /// </summary>
         /// <param name="IsMain"></param>
@@ -415,6 +379,29 @@ namespace Main
         {
             return dao.LoadCharacterInfo(animeNo);
         }
+        #endregion
+
+        #region 音乐
+        /// <summary>
+        /// 根据专辑种类ID返回专辑种类名
+        /// </summary>
+        /// <param name="albumTypeID"></param>
+        /// <returns></returns>
+        public string GetAlbumTypeNameByAlbumTypeID(int albumTypeID)
+        {
+            return dao.GetAlbumTypeNameByAlbumTypeID(albumTypeID);
+        }
+
+        /// <summary>
+        /// 根据曲目种类ID返回专辑种类名
+        /// </summary>
+        /// <param name="trackTypeID"></param>
+        /// <returns></returns>
+        public string GetTrackTypeNameByAlbumTypeID(int trackTypeID)
+        {
+            return dao.GetTrackTypeNameByAlbumTypeID(trackTypeID);
+        }
+
         #endregion
 
     }

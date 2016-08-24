@@ -307,6 +307,8 @@ namespace Main.ClientDataSet {
             
             private global::System.Data.DataColumn columnArtistName;
             
+            private global::System.Data.DataColumn columnAlbumTypeID;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ImportMusicListDataTable() {
@@ -454,6 +456,14 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn AlbumTypeIDColumn {
+                get {
+                    return this.columnAlbumTypeID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -489,7 +499,7 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ImportMusicListRow AddImportMusicListRow(string TrackID, string AlbumID, string TrackTypeId, string DiscNo, string TrackNo, string OldTrackNo, string TrackTitleName, int ArtistID, string AnimeNo, string SalesYear, string Description, string FilePath, string AlbumTitleName, string ArtistName) {
+            public ImportMusicListRow AddImportMusicListRow(string TrackID, string AlbumID, string TrackTypeId, string DiscNo, string TrackNo, string OldTrackNo, string TrackTitleName, int ArtistID, string AnimeNo, string SalesYear, string Description, string FilePath, string AlbumTitleName, string ArtistName, int AlbumTypeID) {
                 ImportMusicListRow rowImportMusicListRow = ((ImportMusicListRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         TrackID,
@@ -505,7 +515,8 @@ namespace Main.ClientDataSet {
                         Description,
                         FilePath,
                         AlbumTitleName,
-                        ArtistName};
+                        ArtistName,
+                        AlbumTypeID};
                 rowImportMusicListRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowImportMusicListRow);
                 return rowImportMusicListRow;
@@ -542,6 +553,7 @@ namespace Main.ClientDataSet {
                 this.columnFilePath = base.Columns["FilePath"];
                 this.columnAlbumTitleName = base.Columns["AlbumTitleName"];
                 this.columnArtistName = base.Columns["ArtistName"];
+                this.columnAlbumTypeID = base.Columns["AlbumTypeID"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -575,6 +587,8 @@ namespace Main.ClientDataSet {
                 base.Columns.Add(this.columnAlbumTitleName);
                 this.columnArtistName = new global::System.Data.DataColumn("ArtistName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnArtistName);
+                this.columnAlbumTypeID = new global::System.Data.DataColumn("AlbumTypeID", typeof(int), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnAlbumTypeID);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -941,6 +955,22 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public int AlbumTypeID {
+                get {
+                    try {
+                        return ((int)(this[this.tableImportMusicList.AlbumTypeIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ImportMusicList\' にある列 \'AlbumTypeID\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableImportMusicList.AlbumTypeIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTrackIDNull() {
                 return this.IsNull(this.tableImportMusicList.TrackIDColumn);
             }
@@ -1105,6 +1135,18 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetArtistNameNull() {
                 this[this.tableImportMusicList.ArtistNameColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsAlbumTypeIDNull() {
+                return this.IsNull(this.tableImportMusicList.AlbumTypeIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetAlbumTypeIDNull() {
+                this[this.tableImportMusicList.AlbumTypeIDColumn] = global::System.Convert.DBNull;
             }
         }
         

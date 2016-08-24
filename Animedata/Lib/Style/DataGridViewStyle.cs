@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
 using System.Text;
 using System.Threading.Tasks;
+using Main.Lib.Const;
 
 namespace Main.Lib.Style
 {
@@ -42,6 +44,28 @@ namespace Main.Lib.Style
             for (int i = 0; i < colcnt; i++)
             {
                 dgv.Columns[i].Width = wid[i];
+            }
+        }
+
+        /// <summary>
+        /// 设置单元格背景颜色
+        /// </summary>
+        /// <param name="dc"></param>
+        /// <param name="type"></param>
+        public void SetMappingTypeBackColor(DataGridViewCell dc, DataMappingType.Type type)
+        {
+            switch(type)
+            {
+                case DataMappingType.Type.New:
+                case DataMappingType.Type.ExistInDic:
+                    dc.Style.BackColor = Color.Pink;
+                    break;
+                case DataMappingType.Type.ExistInDB:
+                    dc.Style.BackColor = Color.Aquamarine;
+                    break;
+                case DataMappingType.Type.MultiExistInDB:
+                    dc.Style.BackColor = Color.Khaki;
+                    break;
             }
         }
     }
