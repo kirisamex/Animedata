@@ -51,5 +51,11 @@
   
     <!--ImportMusic-->
     <message id="MSG-IMPORTMUSIC-001" text="指定的路径：{0} 不存在！" caption="文件不存在" category="W"/>
+
+    <!--SelectArtist-->
+    <message id="MSG-SELECTARTIST-001" text="数据填写不完整：未选择{0}。" caption="信息不完整" category="W"/>
+    <message id="MSG-SELECTARTIST-002" text="数据填写不完整：未填写{0}。" caption="信息不完整" category="W"/>
+    <message id="MSG-SELECTARTIST-003" text="数据填写不完整：未编辑匹配信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在匹配种类中选择“独自”。" caption="信息不完整" category="W"/>
+  
   </messages>
 </config>

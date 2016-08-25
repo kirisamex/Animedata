@@ -49,5 +49,24 @@ namespace Main.Music
         {
             return dao.GetNextArtistID();
         }
+
+        /// <summary>
+        /// 数据插入
+        /// </summary>
+        public bool Insert(ArtistSeries artist)
+        {
+            if (artist.Mapping.Count > 0)
+            {
+                foreach (ArtistMappingSeries map in artist.Mapping)
+                {
+                    if (!map.Insert())
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return dao.Insert(artist);
+        }
     }
 }

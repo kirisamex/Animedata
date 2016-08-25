@@ -33,7 +33,91 @@
             </xs:sequence>
           </xs:complexType>
         </xs:element>
+        <xs:element name="ArtistCVMapping" msprop:Generator_TableClassName="ArtistCVMappingDataTable" msprop:Generator_TableVarName="tableArtistCVMapping" msprop:Generator_RowChangedName="ArtistCVMappingRowChanged" msprop:Generator_TablePropName="ArtistCVMapping" msprop:Generator_RowDeletingName="ArtistCVMappingRowDeleting" msprop:Generator_RowChangingName="ArtistCVMappingRowChanging" msprop:Generator_RowEvHandlerName="ArtistCVMappingRowChangeEventHandler" msprop:Generator_RowDeletedName="ArtistCVMappingRowDeleted" msprop:Generator_RowClassName="ArtistCVMappingRow" msprop:Generator_UserTableName="ArtistCVMapping" msprop:Generator_RowEvArgName="ArtistCVMappingRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CVID" msprop:Generator_ColumnVarNameInTable="columnCVID" msprop:Generator_ColumnPropNameInRow="CVID" msprop:Generator_ColumnPropNameInTable="CVIDColumn" msprop:Generator_UserColumnName="CVID" type="xs:int" />
+              <xs:element name="CVName" msprop:Generator_ColumnVarNameInTable="columnCVName" msprop:Generator_ColumnPropNameInRow="CVName" msprop:Generator_ColumnPropNameInTable="CVNameColumn" msprop:Generator_UserColumnName="CVName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ArtistCharacterMapping" msprop:Generator_TableClassName="ArtistCharacterMappingDataTable" msprop:Generator_TableVarName="tableArtistCharacterMapping" msprop:Generator_RowChangedName="ArtistCharacterMappingRowChanged" msprop:Generator_TablePropName="ArtistCharacterMapping" msprop:Generator_RowDeletingName="ArtistCharacterMappingRowDeleting" msprop:Generator_RowChangingName="ArtistCharacterMappingRowChanging" msprop:Generator_RowEvHandlerName="ArtistCharacterMappingRowChangeEventHandler" msprop:Generator_RowDeletedName="ArtistCharacterMappingRowDeleted" msprop:Generator_RowClassName="ArtistCharacterMappingRow" msprop:Generator_UserTableName="ArtistCharacterMapping" msprop:Generator_RowEvArgName="ArtistCharacterMappingRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CharacterNo" msprop:Generator_ColumnVarNameInTable="columnCharacterNo" msprop:Generator_ColumnPropNameInRow="CharacterNo" msprop:Generator_ColumnPropNameInTable="CharacterNoColumn" msprop:Generator_UserColumnName="CharacterNo" type="xs:string" />
+              <xs:element name="CharacterName" msprop:Generator_ColumnVarNameInTable="columnCharacterName" msprop:Generator_ColumnPropNameInRow="CharacterName" msprop:Generator_ColumnPropNameInTable="CharacterNameColumn" msprop:Generator_UserColumnName="CharacterName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ArtistSingerMapping" msprop:Generator_TableClassName="ArtistSingerMappingDataTable" msprop:Generator_TableVarName="tableArtistSingerMapping" msprop:Generator_RowChangedName="ArtistSingerMappingRowChanged" msprop:Generator_TablePropName="ArtistSingerMapping" msprop:Generator_RowDeletingName="ArtistSingerMappingRowDeleting" msprop:Generator_RowChangingName="ArtistSingerMappingRowChanging" msprop:Generator_RowEvHandlerName="ArtistSingerMappingRowChangeEventHandler" msprop:Generator_RowDeletedName="ArtistSingerMappingRowDeleted" msprop:Generator_RowClassName="ArtistSingerMappingRow" msprop:Generator_UserTableName="ArtistSingerMapping" msprop:Generator_RowEvArgName="ArtistSingerMappingRowChangeEvent">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ChildArtistID" msprop:Generator_ColumnVarNameInTable="columnChildArtistID" msprop:Generator_ColumnPropNameInRow="ChildArtistID" msprop:Generator_ColumnPropNameInTable="ChildArtistIDColumn" msprop:Generator_UserColumnName="ChildArtistID" type="xs:int" />
+              <xs:element name="ChildArtistName" msprop:Generator_ColumnVarNameInTable="columnChildArtistName" msprop:Generator_ColumnPropNameInRow="ChildArtistName" msprop:Generator_ColumnPropNameInTable="ChildArtistNameColumn" msprop:Generator_UserColumnName="ChildArtistName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ResultMapping" msprop:Generator_TableClassName="ResultMappingDataTable" msprop:Generator_TableVarName="tableResultMapping" msprop:Generator_TablePropName="ResultMapping" msprop:Generator_RowDeletingName="ResultMappingRowDeleting" msprop:Generator_RowChangingName="ResultMappingRowChanging" msprop:Generator_RowEvHandlerName="ResultMappingRowChangeEventHandler" msprop:Generator_RowDeletedName="ResultMappingRowDeleted" msprop:Generator_UserTableName="ResultMapping" msprop:Generator_RowChangedName="ResultMappingRowChanged" msprop:Generator_RowEvArgName="ResultMappingRowChangeEvent" msprop:Generator_RowClassName="ResultMappingRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ChildKey" msprop:Generator_ColumnVarNameInTable="columnChildKey" msprop:Generator_ColumnPropNameInRow="ChildKey" msprop:Generator_ColumnPropNameInTable="ChildKeyColumn" msprop:Generator_UserColumnName="ChildKey" type="xs:string" />
+              <xs:element name="ChildName" msprop:Generator_ColumnVarNameInTable="columnChildName" msprop:Generator_ColumnPropNameInRow="ChildName" msprop:Generator_ColumnPropNameInTable="ChildNameColumn" msprop:Generator_UserColumnName="ChildName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ArtistCVMappingForSearch" msprop:Generator_TableClassName="ArtistCVMappingForSearchDataTable" msprop:Generator_TableVarName="tableArtistCVMappingForSearch" msprop:Generator_TablePropName="ArtistCVMappingForSearch" msprop:Generator_RowDeletingName="ArtistCVMappingForSearchRowDeleting" msprop:Generator_RowChangingName="ArtistCVMappingForSearchRowChanging" msprop:Generator_RowEvHandlerName="ArtistCVMappingForSearchRowChangeEventHandler" msprop:Generator_RowDeletedName="ArtistCVMappingForSearchRowDeleted" msprop:Generator_UserTableName="ArtistCVMappingForSearch" msprop:Generator_RowChangedName="ArtistCVMappingForSearchRowChanged" msprop:Generator_RowEvArgName="ArtistCVMappingForSearchRowChangeEvent" msprop:Generator_RowClassName="ArtistCVMappingForSearchRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CVID" msprop:Generator_ColumnVarNameInTable="columnCVID" msprop:Generator_ColumnPropNameInRow="CVID" msprop:Generator_ColumnPropNameInTable="CVIDColumn" msprop:Generator_UserColumnName="CVID" type="xs:int" />
+              <xs:element name="CVName" msprop:Generator_ColumnVarNameInTable="columnCVName" msprop:Generator_ColumnPropNameInRow="CVName" msprop:Generator_ColumnPropNameInTable="CVNameColumn" msprop:Generator_UserColumnName="CVName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ArtistCharacterMappingForSearch" msprop:Generator_TableClassName="ArtistCharacterMappingForSearchDataTable" msprop:Generator_TableVarName="tableArtistCharacterMappingForSearch" msprop:Generator_TablePropName="ArtistCharacterMappingForSearch" msprop:Generator_RowDeletingName="ArtistCharacterMappingForSearchRowDeleting" msprop:Generator_RowChangingName="ArtistCharacterMappingForSearchRowChanging" msprop:Generator_RowEvHandlerName="ArtistCharacterMappingForSearchRowChangeEventHandler" msprop:Generator_RowDeletedName="ArtistCharacterMappingForSearchRowDeleted" msprop:Generator_UserTableName="ArtistCharacterMappingForSearch" msprop:Generator_RowChangedName="ArtistCharacterMappingForSearchRowChanged" msprop:Generator_RowEvArgName="ArtistCharacterMappingForSearchRowChangeEvent" msprop:Generator_RowClassName="ArtistCharacterMappingForSearchRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="CharacterNo" msprop:Generator_ColumnVarNameInTable="columnCharacterNo" msprop:Generator_ColumnPropNameInRow="CharacterNo" msprop:Generator_ColumnPropNameInTable="CharacterNoColumn" msprop:Generator_UserColumnName="CharacterNo" type="xs:string" />
+              <xs:element name="CharacterName" msprop:Generator_ColumnVarNameInTable="columnCharacterName" msprop:Generator_ColumnPropNameInRow="CharacterName" msprop:Generator_ColumnPropNameInTable="CharacterNameColumn" msprop:Generator_UserColumnName="CharacterName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
+        <xs:element name="ArtistSingerMappingForSearch" msprop:Generator_TableClassName="ArtistSingerMappingForSearchDataTable" msprop:Generator_TableVarName="tableArtistSingerMappingForSearch" msprop:Generator_TablePropName="ArtistSingerMappingForSearch" msprop:Generator_RowDeletingName="ArtistSingerMappingForSearchRowDeleting" msprop:Generator_RowChangingName="ArtistSingerMappingForSearchRowChanging" msprop:Generator_RowEvHandlerName="ArtistSingerMappingForSearchRowChangeEventHandler" msprop:Generator_RowDeletedName="ArtistSingerMappingForSearchRowDeleted" msprop:Generator_UserTableName="ArtistSingerMappingForSearch" msprop:Generator_RowChangedName="ArtistSingerMappingForSearchRowChanged" msprop:Generator_RowEvArgName="ArtistSingerMappingForSearchRowChangeEvent" msprop:Generator_RowClassName="ArtistSingerMappingForSearchRow">
+          <xs:complexType>
+            <xs:sequence>
+              <xs:element name="ChildArtistID" msprop:Generator_ColumnVarNameInTable="columnChildArtistID" msprop:Generator_ColumnPropNameInRow="ChildArtistID" msprop:Generator_ColumnPropNameInTable="ChildArtistIDColumn" msprop:Generator_UserColumnName="ChildArtistID" type="xs:int" />
+              <xs:element name="ChildArtistName" msprop:Generator_ColumnVarNameInTable="columnChildArtistName" msprop:Generator_ColumnPropNameInRow="ChildArtistName" msprop:Generator_ColumnPropNameInTable="ChildArtistNameColumn" msprop:Generator_UserColumnName="ChildArtistName" type="xs:string" minOccurs="0" />
+            </xs:sequence>
+          </xs:complexType>
+        </xs:element>
       </xs:choice>
     </xs:complexType>
+    <xs:unique name="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ArtistCVMapping" />
+      <xs:field xpath="mstns:CVID" />
+    </xs:unique>
+    <xs:unique name="ArtistCharacterMapping_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ArtistCharacterMapping" />
+      <xs:field xpath="mstns:CharacterNo" />
+    </xs:unique>
+    <xs:unique name="ArtistSingerMapping_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ArtistSingerMapping" />
+      <xs:field xpath="mstns:ChildArtistID" />
+    </xs:unique>
+    <xs:unique name="ResultMapping_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ResultMapping" />
+      <xs:field xpath="mstns:ChildKey" />
+    </xs:unique>
+    <xs:unique name="ArtistCVMappingForSearch_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ArtistCVMappingForSearch" />
+      <xs:field xpath="mstns:CVID" />
+    </xs:unique>
+    <xs:unique name="ArtistCharacterMappingForSearch_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ArtistCharacterMappingForSearch" />
+      <xs:field xpath="mstns:CharacterNo" />
+    </xs:unique>
+    <xs:unique name="ArtistSingerMappingForSearch_Constraint1" msdata:ConstraintName="Constraint1" msdata:PrimaryKey="true">
+      <xs:selector xpath=".//mstns:ArtistSingerMappingForSearch" />
+      <xs:field xpath="mstns:ChildArtistID" />
+    </xs:unique>
   </xs:element>
 </xs:schema>
