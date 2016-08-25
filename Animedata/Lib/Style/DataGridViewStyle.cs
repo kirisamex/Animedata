@@ -45,6 +45,7 @@ namespace Main.Lib.Style
             {
                 dgv.Columns[i].Width = wid[i];
             }
+            
         }
 
         /// <summary>

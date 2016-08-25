@@ -680,8 +680,11 @@ namespace Main.Music
                     CVMap.AcceptChanges();
 
                     DataRow cvSDr = CVSearchMap.Rows.Find(map.ChildCVID);
-                    CVSearchMap.Rows.Remove(cvSDr);
-                    CVSearchMap.AcceptChanges();
+                    if (cvSDr != null)
+                    {
+                        CVSearchMap.Rows.Remove(cvSDr);
+                        CVSearchMap.AcceptChanges();
+                    }
 
                     break;
                 case MappingType.CharacterMapping:
@@ -696,8 +699,11 @@ namespace Main.Music
                     CharacterMap.AcceptChanges();
 
                     DataRow charaSDr = CharacterSearchMap.Rows.Find(map.ChildCharacterNo);
-                    CharacterSearchMap.Rows.Remove(charaSDr);
-                    CharacterSearchMap.AcceptChanges();
+                    if (charaSDr != null)
+                    {
+                        CharacterSearchMap.Rows.Remove(charaSDr);
+                        CharacterSearchMap.AcceptChanges();
+                    }
                     break;
                 case MappingType.Singer:
                     map.MappingTypeID = (int)MappingType.Singer;
@@ -712,8 +718,11 @@ namespace Main.Music
                     SingerMap.AcceptChanges();
 
                     DataRow singerSDr = SingerSearchMap.Rows.Find(map.ChildArtistID);
-                    SingerSearchMap.Rows.Remove(singerSDr);
-                    SingerSearchMap.AcceptChanges();
+                    if (singerSDr != null)
+                    {
+                        SingerSearchMap.Rows.Remove(singerSDr);
+                        SingerSearchMap.AcceptChanges();
+                    }
                     break;
             }
 
