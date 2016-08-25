@@ -92,8 +92,6 @@ namespace Main.Music
         Dictionary<string, int> newArtistDic = new Dictionary<string, int>();
         #endregion
 
-
-
         #region 方法
         /// <summary>
         /// 导入音乐
@@ -217,7 +215,8 @@ namespace Main.Music
             }
 
                
-            dgvStyle.SetDataGridViewColumnWidch(MusicDataGridView, new int[] { 80, 80, 160, 80, 80, 160, 80, 160, 120, 40, 40, 80, 300, 150 });
+            dgvStyle.SetDataGridViewColumnWidch(MusicDataGridView, new int[] { 120, 100, 200, 100, 100, 200, 80, 200, 120, 70, 70, 120, 300, 200 });
+            splitContainer2.SplitterDistance = 210;
 
             string firstRowPath = null;
 
