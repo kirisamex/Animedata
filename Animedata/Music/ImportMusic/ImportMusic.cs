@@ -275,6 +275,22 @@ namespace Main.Music
         }
 
         /// <summary>
+        /// 接受作成的艺术家种类
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void SelectArtistTypeAccept(object sender, EventArgs e)
+        {
+            SelectArtist target = (SelectArtist)sender;       //接收到Form2的textBox1.Text     
+            object targetkey = target.ReturnResult;
+
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ARTISTNAMECLN].Value = targetkey.ToString();
+            dgvStyle.SetMappingTypeBackColor(this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ARTISTNAMECLN], DataMappingType.Type.ExistInDB);
+            
+                
+        }
+
+        /// <summary>
         /// 显示MP3Tag信息
         /// </summary>
         private void ShowMP3TagInfo()
@@ -391,7 +407,9 @@ namespace Main.Music
                     int currentRowIndex = MusicDataGridView.CurrentRow.Index;
                     DataGridViewRow dr = MusicDataGridView.Rows[currentRowIndex];
                     SelectArtist artSelForm = new SelectArtist(Convert.ToInt32(dr.Cells[ARTISTIDCLN].Value), dr.Cells[ARTISTNAMECLN].Value.ToString());
-                    artSelForm.Show();
+                    artSelForm.accept += new EventHandler(SelectArtistTypeAccept);
+                    artSelForm.ShowDialog(this);
+
                 }
 
             }

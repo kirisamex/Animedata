@@ -8,6 +8,8 @@ namespace Main.Music
 {
     public class ArtistMappingSeries
     {
+        ArtistMappingSeriesService service = new ArtistMappingSeriesService();
+
         /// <summary>
         /// 艺术家匹配表
         /// </summary>
@@ -42,11 +44,20 @@ namespace Main.Music
         /// <summary>
         /// 子声优编号
         /// </summary>
-        public int ChildCVNo;
+        public int ChildCVID;
 
         /// <summary>
         /// 子艺术家编号
         /// </summary>
-        public int ChildArtistNo;
+        public int ChildArtistID;
+
+        /// <summary>
+        /// 插入数据
+        /// </summary>
+        public bool Insert()
+        {
+            return service.Insert(this);
+        }
+
     }
 }

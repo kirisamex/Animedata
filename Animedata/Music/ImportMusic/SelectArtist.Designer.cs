@@ -89,6 +89,7 @@
             this.nameListBox.Name = "nameListBox";
             this.nameListBox.Size = new System.Drawing.Size(272, 214);
             this.nameListBox.TabIndex = 8;
+            this.nameListBox.DoubleClick += new System.EventHandler(this.nameListBox_DoubleClick);
             // 
             // keyWordcomboBox
             // 
@@ -96,7 +97,7 @@
             this.keyWordcomboBox.FormattingEnabled = true;
             this.keyWordcomboBox.Location = new System.Drawing.Point(319, 100);
             this.keyWordcomboBox.Name = "keyWordcomboBox";
-            this.keyWordcomboBox.Size = new System.Drawing.Size(185, 23);
+            this.keyWordcomboBox.Size = new System.Drawing.Size(165, 23);
             this.keyWordcomboBox.TabIndex = 6;
             // 
             // label1
@@ -222,9 +223,9 @@
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.label4.Location = new System.Drawing.Point(316, 12);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(37, 15);
+            this.label4.Size = new System.Drawing.Size(67, 15);
             this.label4.TabIndex = 10;
-            this.label4.Text = "匹配";
+            this.label4.Text = "匹配种类";
             // 
             // panel2
             // 
@@ -297,10 +298,11 @@
             this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "取消(&C)";
             this.cancelButton.UseVisualStyleBackColor = true;
-            this.cancelButton.Click += new System.EventHandler(this.OKButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
             // 
             // addButton
             // 
+            this.addButton.Enabled = false;
             this.addButton.Font = new System.Drawing.Font("MS UI Gothic", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.addButton.Location = new System.Drawing.Point(510, 70);
             this.addButton.Name = "addButton";
@@ -319,7 +321,7 @@
             this.selectButton.TabIndex = 7;
             this.selectButton.Text = "<<";
             this.selectButton.UseVisualStyleBackColor = true;
-            this.selectButton.Click += new System.EventHandler(this.SearchButton_Click);
+            this.selectButton.Click += new System.EventHandler(this.selectButton_Click);
             // 
             // deleteButton
             // 
@@ -328,9 +330,9 @@
             this.deleteButton.Name = "deleteButton";
             this.deleteButton.Size = new System.Drawing.Size(40, 40);
             this.deleteButton.TabIndex = 7;
-            this.deleteButton.Text = "×";
+            this.deleteButton.Text = ">>";
             this.deleteButton.UseVisualStyleBackColor = true;
-            this.deleteButton.Click += new System.EventHandler(this.SearchButton_Click);
+            this.deleteButton.Click += new System.EventHandler(this.deleteButton_Click);
             // 
             // upButton
             // 

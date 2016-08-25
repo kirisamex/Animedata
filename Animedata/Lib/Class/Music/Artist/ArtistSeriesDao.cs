@@ -108,5 +108,58 @@ namespace Main.Music
             return DbCmd.DoCommandGetKey(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_ID_TBL));
         }
 
+        /// <summary>
+        /// 数据插入
+        /// </summary>
+        public bool Insert(ArtistSeries artist)
+        {
+            StringBuilder cmd1 = new StringBuilder();
+            StringBuilder cmd2 = new StringBuilder();
+            StringBuilder sqlcmd = new StringBuilder();
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+
+            if (artist.Description != null && !artist.Description.Trim().Equals(string.Empty))
+            {
+                cmd1.Append(",DESCRIPTION");
+                cmd2.Append(",@Description");
+                paras.Add(new SqlParameter("@Description", artist.Description));
+            }
+
+            sqlcmd.Append(@"INSERT INTO {0} (
+                                  ARTIST_ID
+                                 ,ARTIST_NAME
+                                 ,GENDER_ID
+                                 ,CHARACTER_FLG
+                                 ,CV_FLG
+                                 ,SINGER_FLG
+	                             ,ENABLE_FLG
+	                             ,LAST_UPDATE_DATETIME
+	                             ");
+            sqlcmd.Append(cmd1);
+            sqlcmd.Append(@")
+                            VALUES (
+                                    @id
+		                            ,@name
+		                            ,@gender
+		                            ,@charaFlg
+		                            ,@cvFlg
+		                            ,@singerFlg
+	                                ,1
+	                                ,GETDATE() ");
+            sqlcmd.Append(cmd2);
+            sqlcmd.Append(@")");
+            paras.Add(new SqlParameter("@id", artist.Id));
+            paras.Add(new SqlParameter("@name", artist.Name));
+            paras.Add(new SqlParameter("@gender", artist.Gender));
+            paras.Add(new SqlParameter("@charaFlg", artist.IsCharacter));
+            paras.Add(new SqlParameter("@cvFlg", artist.IsCV));
+            paras.Add(new SqlParameter("@singerFlg", artist.IsSinger));
+
+            DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_ARTIST_TBL), paras);
+
+            return true;
+
+        }
     }
 }

@@ -39,6 +39,11 @@ namespace Main.Music
         public bool IsCV = false;
 
         /// <summary>
+        /// 歌手Flag
+        /// </summary>
+        public bool IsSinger = false;
+
+        /// <summary>
         /// 描述
         /// </summary>
         public string Description;
@@ -46,7 +51,7 @@ namespace Main.Music
         /// <summary>
         /// 艺术家匹配列表
         /// </summary>
-        public List<ArtistMappingSeries> mapping = new List<ArtistMappingSeries>();
+        public List<ArtistMappingSeries> Mapping = new List<ArtistMappingSeries>();
         #endregion
 
         ///---------------
@@ -126,6 +131,14 @@ namespace Main.Music
         public void GetNewID()
         {
             Id = service.GetNextArtistID();
+        }
+
+        /// <summary>
+        /// 数据插入
+        /// </summary>
+        public bool Insert()
+        {
+            return service.Insert(this);
         }
         #endregion
     }

@@ -106,7 +106,13 @@
     <Compile Include="About\AboutBox1.Designer.cs">
       <DependentUpon>AboutBox1.cs</DependentUpon>
     </Compile>
+    <Compile Include="ClientDataSet\MusicDataSet.cs">
+      <DependentUpon>MusicDataSet.xsd</DependentUpon>
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeries.cs" />
+    <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeriesDao.cs" />
+    <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeriesService.cs" />
     <Compile Include="Lib\Class\Music\Artist\ArtistSeriesDao.cs" />
     <Compile Include="Lib\Class\Music\Artist\ArtistSeriesService.cs" />
     <Compile Include="Lib\Const\DataMappingType.cs" />
