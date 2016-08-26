@@ -39,6 +39,33 @@ namespace Main.Music
         }
 
         /// <summary>
+        /// 根据变换后的艺术家名确定变换后的艺术家是否存在
+        /// </summary>
+        /// <param name="artistName"></param>
+        /// <returns>存在的艺术家ID</returns>
+        public int isExistFormatted(string formattedArtistName)
+        {
+            string sqlcmd = @"SELECT 
+                                    ARTIST_ID
+                                    FROM {0}
+                                    WHERE replace(replace(ARTIST_NAME,' ',''),'　','') =  @formattedArtistName 
+                                    AND ENABLE_FLG = 1 ";
+
+            SqlParameter para = new SqlParameter("@formattedArtistName", formattedArtistName);
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(para);
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return -1;
+            }
+
+            return Convert.ToInt32(ds.Tables[0].Rows[0][0]);           
+        }
+
+        /// <summary>
         /// 根据艺术家ID确定艺术家是否存在
         /// </summary>
         /// <param name="artistName"></param>

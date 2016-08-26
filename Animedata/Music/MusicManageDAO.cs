@@ -82,6 +82,62 @@ namespace Main.Music
             }
         }
 
+        /// <summary>
+        /// 根据艺术家ID返回艺术家名
+        /// </summary>
+        /// <param name="artistID">艺术家ID</param>
+        /// <returns></returns>
+        public string GetArtistNameFromArtistID(int artistID)
+        {
+            string sqlcmd = @"SELECT ARTIST_NAME 
+                            FROM {0}
+                            WHERE ARTIST_ID = @artistID";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@artistID", artistID));
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return ds.Tables[0].Rows[0][0].ToString();
+            }
+        }
+
+        /// <summary>
+        /// 根据艺术家名返回艺术家ID
+        /// </summary>
+        /// <param name="artistName">艺术家名</param>
+        /// <returns></returns>
+        public int GetArtistIDFromArtistName(string artistName)
+        {
+            string sqlcmd = @"SELECT ARTIST_ID 
+                            FROM {0}
+                            WHERE ARTIST_NAME = @artistName";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@artistName", artistName));
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return -1;
+            }
+            else if (ds.Tables[0].Rows.Count > 1)
+            {
+                //预留：一名多ID
+                return -99;
+            }
+            else
+            {
+                return Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+            }
+        }
         
     }
 }

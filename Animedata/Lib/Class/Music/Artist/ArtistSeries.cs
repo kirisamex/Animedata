@@ -113,6 +113,19 @@ namespace Main.Music
         }
 
         /// <summary>
+        /// 整形后的艺术家姓名是否存在
+        /// </summary>
+        /// <param name="formattedName">变换后的姓名</param>
+        /// <returns>不存在：-1 存在：存在的艺术家ID</returns>
+        public int IsFormattedNameExists()
+        {
+            //去所有空格
+            string formattedName = Name.Trim().Replace(" ", string.Empty).Replace("　", string.Empty);
+
+            return service.isExistFormatted(formattedName);
+        }
+
+        /// <summary>
         /// 艺术家ID是否存在
         /// </summary>
         /// <returns></returns>

@@ -379,6 +379,21 @@ namespace Main
         {
             return dao.LoadCharacterInfo(animeNo);
         }
+
+        /// <summary>
+        /// 去空格后两文字是否完全相等
+        /// </summary>
+        /// <param name="str1"></param>
+        /// <param name="str2"></param>
+        /// <returns></returns>
+        public bool IsFormattenStringEquals(string str1, string str2)
+        {
+            if (str1.Replace(" ", string.Empty).Replace("　", string.Empty).Trim().Equals(str2.Replace(" ", string.Empty).Replace("　", string.Empty).Trim(),StringComparison.InvariantCultureIgnoreCase))
+            {
+                return true;
+            }
+            return false;
+        }
         #endregion
 
         #region 音乐

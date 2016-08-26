@@ -22,13 +22,14 @@ namespace Main.Lib.Const
             /// </summary>
             ExistInDB = 1,
             /// <summary>
-            /// 已在匹配Dic中存在
+            /// 在DB中存在类似
             /// </summary>
-            ExistInDic = 2,
+            LikeInDB = 2,
             /// <summary>
             /// 在DB中复数存在
             /// </summary>
             MultiExistInDB = 3,
+
         };
     }
 }

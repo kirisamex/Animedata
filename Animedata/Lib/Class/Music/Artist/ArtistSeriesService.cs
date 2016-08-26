@@ -21,6 +21,16 @@ namespace Main.Music
         }
 
         /// <summary>
+        /// 根据整形后的艺术家名确定整形后的艺术家是否存在
+        /// </summary>
+        /// <param name="artistName"></param>
+        /// <returns></returns>
+        public int isExistFormatted(string formattedArtistName)
+        {
+            return dao.isExistFormatted(formattedArtistName);
+        }
+
+        /// <summary>
         /// 根据艺术家ID确定艺术家是否存在
         /// </summary>
         /// <param name="artistName"></param>
