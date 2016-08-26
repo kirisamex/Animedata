@@ -52,5 +52,25 @@ namespace Main.Music
             return respath.ToString();
         }
 
+        /// <summary>
+        /// 根据艺术家ID返回艺术家名
+        /// </summary>
+        /// <param name="artistID">艺术家ID</param>
+        /// <returns></returns>
+        public string GetArtistNameFromArtistID(int artistID)
+        {
+            return dao.GetArtistNameFromArtistID(artistID);
+        }
+
+        /// <summary>
+        /// 根据艺术家名返回艺术家ID
+        /// </summary>
+        /// <param name="artistName">艺术家名</param>
+        /// <returns></returns>
+        public int GetArtistIDFromArtistName(string artistName)
+        {
+            return dao.GetArtistIDFromArtistName(artistName);
+        }
+
     }
 }

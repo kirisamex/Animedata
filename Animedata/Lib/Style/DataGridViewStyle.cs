@@ -58,13 +58,13 @@ namespace Main.Lib.Style
             switch(type)
             {
                 case DataMappingType.Type.New:
-                case DataMappingType.Type.ExistInDic:
                     dc.Style.BackColor = Color.Pink;
                     break;
                 case DataMappingType.Type.ExistInDB:
                     dc.Style.BackColor = Color.Aquamarine;
                     break;
                 case DataMappingType.Type.MultiExistInDB:
+                case DataMappingType.Type.LikeInDB:
                     dc.Style.BackColor = Color.Khaki;
                     break;
             }

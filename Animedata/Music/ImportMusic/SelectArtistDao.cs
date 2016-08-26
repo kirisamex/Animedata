@@ -61,13 +61,13 @@ namespace Main.Music
         {
             StringBuilder sqlcmd = new StringBuilder();
 
-            sqlcmd.Append(@"SELECT ART.ARTIST_ID , ART.ARTIST_NAME
+            sqlcmd.Append(@"SELECT DISTINCT ART.ARTIST_ID , ART.ARTIST_NAME
                                 FROM {0}  ART
                                 LEFT JOIN {1} MAP ON ART.ARTIST_ID = MAP.ARTIST_ID AND MAP.ENABLE_FLG = 1
                                 LEFT JOIN {0} ART2 ON MAP.CHILD_ARTIST_ID = ART2.ARTIST_ID AND ART2.ENABLE_FLG = 1
                                 WHERE ART.ENABLE_FLG = 1 
                                     AND ART.ARTIST_ID <> @artistID 
-                                    AND ART2.ARTIST_ID <> @artistID ");
+                                    AND (ART2.ARTIST_ID <> @artistID OR ART2.ARTIST_ID IS NULL)");
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             SqlParameter para = new SqlParameter("@artistID", artistID);

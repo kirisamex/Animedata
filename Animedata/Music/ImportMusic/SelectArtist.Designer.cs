@@ -55,6 +55,7 @@
             this.deleteButton = new System.Windows.Forms.Button();
             this.upButton = new System.Windows.Forms.Button();
             this.downButton = new System.Windows.Forms.Button();
+            this.ExistingArtistCheckBox = new System.Windows.Forms.CheckBox();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
             this.SuspendLayout();
@@ -221,11 +222,11 @@
             // 
             this.label4.AutoSize = true;
             this.label4.Font = new System.Drawing.Font("MS UI Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label4.Location = new System.Drawing.Point(316, 12);
+            this.label4.Location = new System.Drawing.Point(276, 43);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(67, 15);
+            this.label4.Size = new System.Drawing.Size(37, 15);
             this.label4.TabIndex = 10;
-            this.label4.Text = "匹配种类";
+            this.label4.Text = "构成";
             // 
             // panel2
             // 
@@ -358,11 +359,24 @@
             this.downButton.Visible = false;
             this.downButton.Click += new System.EventHandler(this.SearchButton_Click);
             // 
+            // ExistingArtistCheckBox
+            // 
+            this.ExistingArtistCheckBox.AutoSize = true;
+            this.ExistingArtistCheckBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
+            this.ExistingArtistCheckBox.Location = new System.Drawing.Point(322, 8);
+            this.ExistingArtistCheckBox.Name = "ExistingArtistCheckBox";
+            this.ExistingArtistCheckBox.Size = new System.Drawing.Size(101, 19);
+            this.ExistingArtistCheckBox.TabIndex = 14;
+            this.ExistingArtistCheckBox.Text = "既存艺术家";
+            this.ExistingArtistCheckBox.UseVisualStyleBackColor = true;
+            this.ExistingArtistCheckBox.CheckedChanged += new System.EventHandler(this.ExistingArtistCheckBox_CheckedChanged);
+            // 
             // SelectArtist
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(605, 372);
+            this.Controls.Add(this.ExistingArtistCheckBox);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
             this.Controls.Add(this.label4);
@@ -382,6 +396,7 @@
             this.Controls.Add(this.resultListBox);
             this.Controls.Add(this.nameListBox);
             this.Controls.Add(this.keyWordcomboBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
             this.Name = "SelectArtist";
             this.Text = "艺术家资料补充";
@@ -424,5 +439,6 @@
         private System.Windows.Forms.Button deleteButton;
         private System.Windows.Forms.Button upButton;
         private System.Windows.Forms.Button downButton;
+        private System.Windows.Forms.CheckBox ExistingArtistCheckBox;
     }
 }

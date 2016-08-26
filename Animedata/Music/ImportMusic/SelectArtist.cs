@@ -16,6 +16,8 @@ namespace Main.Music
 {
     public partial class SelectArtist : Form
     {
+        #region 常量
+
         #region 信息
         const string MSG_COMMON_001 = "MSG-COMMON-001";
         /// <summary>
@@ -30,9 +32,12 @@ namespace Main.Music
         /// 数据填写不完整：未编辑匹配信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在匹配种类中选择“独自”。
         /// </summary>
         const string MSG_SELECTARTIST_003 = "MSG-SELECTARTIST-003";
+        /// <summary>
+        /// 数据填写不完整：未选择匹配对象！请选择该艺术家对应的既存艺术家。若既存艺术家中不存在，请取消勾选“既存艺术家”并编辑匹配信息。
+        /// </summary>
+        const string MSG_SELECTARTIST_004 = "MSG-SELECTARTIST-004";
         #endregion
 
-        #region 常量
         /// <summary>
         /// 
         /// </summary>
@@ -60,9 +65,13 @@ namespace Main.Music
             /// </summary>
             CharacterMapping = 1,
             /// <summary>
-            /// 艺术家
+            /// 歌手
             /// </summary>
             Singer = 3,
+            /// <summary>
+            /// 艺术家
+            /// </summary>
+            Artist = 11,
         };
 
         /// <summary>
@@ -135,7 +144,14 @@ namespace Main.Music
         /// <param name="isExist">既存</param>
         public SelectArtist(int artistId, string artistName, bool isExist = false)
         {
-            this.targetArtist.Id = artistId;
+            if (artistId == null || artistId == 0)
+            {
+                this.targetArtist.GetNewID();
+            }
+            else
+            {
+                this.targetArtist.Id = artistId;
+            }
             this.targetArtist.Name = artistName;
             InitializeComponent();
         }
@@ -160,6 +176,7 @@ namespace Main.Music
         private void OnLoad()
         {
             //声优匹配信息
+            CVMap.Clear();
             DataTable cvdt = service.GetCVListData();
             foreach (DataRow dr in cvdt.Rows)
             {
@@ -169,6 +186,7 @@ namespace Main.Music
             CVMap.AcceptChanges();
 
             //角色匹配信息
+            CharacterMap.Clear();
             DataTable charaDt = service.GetCharacterListData();
             foreach (DataRow dr in charaDt.Rows)
             {
@@ -178,6 +196,7 @@ namespace Main.Music
             CharacterMap.AcceptChanges();
 
             //艺术家匹配信息
+            SingerMap.Clear();
             DataTable sedt = service.GetSingerListData(targetArtist.Id);
             foreach (DataRow dr in sedt.Rows)
             {
@@ -189,66 +208,91 @@ namespace Main.Music
         /// <summary>
         /// 插入艺术家
         /// </summary>
-        private void OnOK(EventArgs e)
+        private bool OnOK(EventArgs e)
         {
             try
             {
-                if (!FormatCheck())
+                //既存艺术家是否选中
+                if (ExistingArtistCheckBox.Checked)
                 {
-                    return;
-                }
-                //艺术家信息作成
-                //ID已传入，匹配信息已作成
-                //艺术家姓名
-                targetArtist.Name = artistNameTextBox.Text.Trim();
+                    #region 返回选中的艺术家数据
+                    if (nameListBox.Items.Count == 0 || nameListBox.SelectedItems.Count == 0)
+                    {
+                        MsgBox.Show(MSG_SELECTARTIST_004);
+                        return false;
+                    }
 
-                //性别
-                if (menRadioButton.Checked)
-                {
-                    targetArtist.Gender = (int)Sexual.Man;
-                }
-                else if (womanRadioButton.Checked)
-                {
-                    targetArtist.Gender = (int)Sexual.Woman;
-                }
-                else if (groupRadioButton.Checked)
-                {
-                    targetArtist.Gender = (int)Sexual.Group;
+                    targetArtist.Id = Convert.ToInt32(nameListBox.SelectedValue);
+                    AcceptChoose(e);
+
+                    return true;
+                    #endregion
                 }
                 else
                 {
-                    targetArtist.Gender = (int)Sexual.Others;
-                }
+                    #region 新建艺术家数据
+                    if (!FormatCheck())
+                    {
+                        return false;
+                    }
+                    //艺术家信息作成
+                    //ID已传入，匹配信息已作成
+                    //艺术家姓名
+                    targetArtist.Name = artistNameTextBox.Text.Trim();
 
-                //各Flag
-                foreach (ArtistMappingSeries ams in targetArtist.Mapping)
-                {
-                    if (!targetArtist.IsCV && ams.MappingTypeID == (int)MappingType.CVMapping)
+                    //性别
+                    if (menRadioButton.Checked)
                     {
-                        targetArtist.IsCV = true;
-                        break;
+                        targetArtist.Gender = (int)Sexual.Man;
                     }
-                    else if (!targetArtist.IsCharacter && ams.MappingTypeID == (int)MappingType.CharacterMapping)
+                    else if (womanRadioButton.Checked)
                     {
-                        targetArtist.IsCharacter = true;
-                        break;
+                        targetArtist.Gender = (int)Sexual.Woman;
                     }
-                    else if (!targetArtist.IsSinger && ams.MappingTypeID == (int)MappingType.Singer)
+                    else if (groupRadioButton.Checked)
                     {
-                        targetArtist.IsSinger = true;
-                        break;
+                        targetArtist.Gender = (int)Sexual.Group;
                     }
-                }
+                    else
+                    {
+                        targetArtist.Gender = (int)Sexual.Others;
+                    }
 
-                if (targetArtist.Insert())
-                {
-                    AcceptChoose(e);
+                    //各Flag
+                    foreach (ArtistMappingSeries ams in targetArtist.Mapping)
+                    {
+                        if (!targetArtist.IsCV && ams.MappingTypeID == (int)MappingType.CVMapping)
+                        {
+                            targetArtist.IsCV = true;
+                            break;
+                        }
+                        else if (!targetArtist.IsCharacter && ams.MappingTypeID == (int)MappingType.CharacterMapping)
+                        {
+                            targetArtist.IsCharacter = true;
+                            break;
+                        }
+                        else if (!targetArtist.IsSinger && ams.MappingTypeID == (int)MappingType.Singer)
+                        {
+                            targetArtist.IsSinger = true;
+                            break;
+                        }
+                    }
+
+                    if (targetArtist.Insert())
+                    {
+                        AcceptChoose(e);
+                        return true;
+                    }
+
+                    return false;
+                    #endregion
                 }
 
             }
             catch(Exception ex)
             {
                 MsgBox.Show(MSG_COMMON_001, ex.ToString());
+                return false;
             }
         }
 
@@ -315,6 +359,9 @@ namespace Main.Music
                     resultListBox.DataSource = null;
                     resultListBox.Items.Clear();
                     resultListBox.Enabled = false;
+
+                    selectButton.Enabled = false;
+                    deleteButton.Enabled = false;
                 }
 
             }
@@ -325,7 +372,7 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 声优匹配载入
+        /// 声优构成载入
         /// </summary>
         private void LoadCVMapping()
         {
@@ -338,6 +385,8 @@ namespace Main.Music
                     keyWordcomboBox.Enabled = true;
                     nameListBox.Enabled = true;
                     resultListBox.Enabled = true;
+                    selectButton.Enabled = true;
+                    deleteButton.Enabled = true;
 
                     if (isExist)
                     {
@@ -373,7 +422,7 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 角色匹配载入
+        /// 角色构成载入
         /// </summary>
         private void LoadCharacterMapping()
         {
@@ -386,6 +435,8 @@ namespace Main.Music
                     keyWordcomboBox.Enabled = true;
                     nameListBox.Enabled = true;
                     resultListBox.Enabled = true;
+                    selectButton.Enabled = true;
+                    deleteButton.Enabled = true;
 
                     if (isExist)
                     {
@@ -420,9 +471,9 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 艺术家匹配载入
+        /// 歌手构成载入
         /// </summary>
-        private void LoadArtistMapping()
+        private void LoadSingerMapping()
         {
             try
             {
@@ -433,6 +484,8 @@ namespace Main.Music
                     keyWordcomboBox.Enabled = true;
                     nameListBox.Enabled = true;
                     resultListBox.Enabled = true;
+                    selectButton.Enabled = true;
+                    deleteButton.Enabled = true;
 
                     if (isExist)
                     {
@@ -459,6 +512,47 @@ namespace Main.Music
                         keyWordcomboBox.Focus();
                     }
                 }
+
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
+            }
+        }
+
+        /// <summary>
+        /// 艺术家匹配载入
+        /// </summary>
+        private void LoadArtistMapping()
+        {
+            try
+            {
+                OnLoad();
+
+                keyWordcomboBox.Enabled = true;
+                nameListBox.Enabled = true;
+                //*已于checkbox设置过
+                //selectButton.Enabled = false;
+                //deleteButton.Enabled = false;
+
+                if (SingerMap.Rows.Count == 0)
+                {
+                    nameListBox.DataSource = null;
+                    keyWordcomboBox.DataSource = null;
+                    nameListBox.Items.Clear();
+                    keyWordcomboBox.Items.Clear();
+                    return;
+                }
+
+                nameListBox.DataSource = SingerMap;
+                nameListBox.ValueMember = "ChildArtistID";
+                nameListBox.DisplayMember = "ChildArtistName";
+                nameListBox.Focus();
+
+                keyWordcomboBox.DataSource = SingerMap;
+                keyWordcomboBox.ValueMember = "ChildArtistID";
+                keyWordcomboBox.DisplayMember = "ChildArtistName";
+                keyWordcomboBox.Focus();
 
             }
             catch (Exception ex)
@@ -531,7 +625,27 @@ namespace Main.Music
                         MusicDataSet.ArtistSingerMappingForSearchRow sgerSearchRow = SingerSearchMap.NewArtistSingerMappingForSearchRow();
                         sgerSearchRow.ChildArtistID = sgerMRow.ChildArtistID;
                         sgerSearchRow.ChildArtistName = sgerMRow.ChildArtistName;
-                        CharacterSearchMap.Rows.Add(sgerSearchRow);
+                        SingerSearchMap.Rows.Add(sgerSearchRow);
+                    }
+
+                    SingerSearchMap.AcceptChanges();
+
+                    nameListBox.DataSource = SingerSearchMap;
+                    nameListBox.ValueMember = "ChildArtistID";
+                    nameListBox.DisplayMember = "ChildArtistName";
+                    nameListBox.Focus();
+                    break;
+                case MappingType.Artist:
+                    var targetArtRows = from sger in this.SingerMap
+                                         where Compare.IndexOf(sger.ChildArtistName.Replace(" ", string.Empty).Replace("　", string.Empty).Trim(), targetKey.Replace(" ", string.Empty).Replace("　", string.Empty).Trim(), CompareOptions.IgnoreCase) > -1 
+                                         select sger;
+
+                    foreach (MusicDataSet.ArtistSingerMappingRow sgerMRow in targetArtRows)
+                    {
+                        MusicDataSet.ArtistSingerMappingForSearchRow sgerSearchRow = SingerSearchMap.NewArtistSingerMappingForSearchRow();
+                        sgerSearchRow.ChildArtistID = sgerMRow.ChildArtistID;
+                        sgerSearchRow.ChildArtistName = sgerMRow.ChildArtistName;
+                        SingerSearchMap.Rows.Add(sgerSearchRow);
                     }
 
                     SingerSearchMap.AcceptChanges();
@@ -547,9 +661,9 @@ namespace Main.Music
         /// <summary>
         /// 向目标列表中添加匹配
         /// </summary>
-        private void ChooseMapping()
+        private void OnChooseMapping()
         {
-            if (mType == MappingType.Original || nameListBox.Enabled == false
+            if (mType == MappingType.Original || nameListBox.Enabled == false||resultListBox.Enabled==false
                 || nameListBox.Items.Count == 0 || nameListBox.SelectedValue.ToString().Trim() == string.Empty)
             {
                 return;
@@ -561,8 +675,14 @@ namespace Main.Music
         /// <summary>
         /// 从目标列表中移除匹配
         /// </summary>
-        private void RemoveChooseMapping()
+        private void OnRemoveChooseMapping()
         {
+            if (mType == MappingType.Original || resultListBox.Enabled == false
+               || resultListBox.Items.Count == 0 || resultListBox.SelectedValue.ToString().Trim() == string.Empty)
+            {
+                return;
+            }
+
             //格式：匹配类型#主键
             string ChildKey = resultListBox.SelectedValue.ToString();
             string[] MapID = ChildKey.Split(new char[] { '#' });
@@ -631,14 +751,14 @@ namespace Main.Music
 
                             //作成新Row加回nameList中
                             MusicDataSet.ArtistSingerMappingRow singerRow = SingerMap.NewArtistSingerMappingRow();
-                            singerRow.ChildArtistID = ams.ChildCVID;
+                            singerRow.ChildArtistID = ams.ChildArtistID;
                             singerRow.ChildArtistName = resultDr["ChildName"].ToString();
                             SingerMap.Rows.InsertAt(singerRow, 0);
                             SingerMap.AcceptChanges();
 
                             //作成新Row加回SearchList中
                             MusicDataSet.ArtistSingerMappingForSearchRow singerSRow = SingerSearchMap.NewArtistSingerMappingForSearchRow();
-                            singerSRow.ChildArtistID = ams.ChildCVID;
+                            singerSRow.ChildArtistID = ams.ChildArtistID;
                             singerSRow.ChildArtistName = resultDr["ChildName"].ToString();
                             SingerSearchMap.Rows.InsertAt(singerSRow, 0);
                             SingerSearchMap.AcceptChanges();
@@ -726,10 +846,20 @@ namespace Main.Music
                     break;
             }
 
-            
+
+            var repeattarget = from repeat in this.ResultMap
+                               where repeat.ChildKey.Equals(resultMapRow.ChildKey)
+                               select repeat.ChildKey;
+
+            foreach (string i in repeattarget)
+            {
+                goto Repeat;
+            }
+
             ResultMap.Rows.Add(resultMapRow);
             ResultMap.AcceptChanges();
 
+        Repeat:
             resultListBox.DataSource = ResultMap;
             resultListBox.ValueMember = "ChildKey";
             resultListBox.DisplayMember = "ChildName";
@@ -767,6 +897,53 @@ namespace Main.Music
 
             return map;
         }
+
+        /// <summary>
+        /// 既存艺术家确认框状态改变
+        /// </summary>
+        private void OnExistingStatusChanged()
+        {
+            //选中
+            if (ExistingArtistCheckBox.Checked)
+            {
+                mType = MappingType.Artist;
+
+                artistIDTextBox.Text = targetArtist.IsFormattedNameExists().ToString();
+
+                artistNameTextBox.Enabled = false;
+                panel1.Enabled = false;
+                panel2.Enabled = false;
+                selectButton.Enabled = false;
+                deleteButton.Enabled = false;
+                upButton.Enabled = false;
+                downButton.Enabled = false;
+
+                LoadArtistMapping();
+
+                keyWordcomboBox.Text = artistNameTextBox.Text;
+                OnSearch();
+
+            }
+            //取消
+            else
+            {
+                artistIDTextBox.Text = targetArtist.Id.ToString();
+                artistNameTextBox.Enabled = true;
+                panel1.Enabled = true;
+                panel2.Enabled = true;
+                selectButton.Enabled = true;
+                deleteButton.Enabled = true;
+                upButton.Enabled = true;
+                downButton.Enabled = true;
+
+                nameListBox.DataSource = null;
+                nameListBox.Items.Clear();
+                keyWordcomboBox.DataSource = null;
+                keyWordcomboBox.Items.Clear();
+
+                OnLoad();
+            }
+        }
         #endregion
 
         #region 事件
@@ -777,10 +954,8 @@ namespace Main.Music
         /// <param name="target"></param>
         private void AcceptChoose(EventArgs e)
         {
-
-            result = targetArtist.Name.Trim();
+            result = targetArtist.Id;
             accept(this, e);
-            this.Close();
         }
             
         /// <summary>
@@ -790,6 +965,7 @@ namespace Main.Music
         /// <param name="e"></param>
         private void SelectArtist_Load(object sender, EventArgs e)
         {
+            //0：是否为完全相同的艺术家
             if (targetArtist.IsIDExists())
             {
                 isExist = true;
@@ -798,6 +974,15 @@ namespace Main.Music
             artistIDTextBox.Text = targetArtist.Id.ToString();
             artistNameTextBox.Text = targetArtist.Name;
 
+            //1：确定是否有去空格后完全一样的艺术家，有则默认按照同一艺术家处理
+            if (targetArtist.IsFormattedNameExists() > 0)
+            {
+                ExistingArtistCheckBox.CheckState = CheckState.Checked;
+                OnExistingStatusChanged();
+
+                return;
+            }
+            
             if (isExist)
             {
                 //ToDo
@@ -813,7 +998,7 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 匹配方式：独自
+        /// 构成：独自
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -823,7 +1008,7 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 匹配方式：声优
+        /// 构成：声优
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -833,7 +1018,7 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 匹配方式：角色
+        /// 构成：角色
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -843,13 +1028,23 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 匹配方式：歌手
+        /// 构成：歌手
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void singerRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            LoadArtistMapping();
+            LoadSingerMapping();
+        }
+
+        /// <summary>
+        /// 既存艺术家确认框
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ExistingArtistCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OnExistingStatusChanged();
         }
 
         /// <summary>
@@ -859,8 +1054,10 @@ namespace Main.Music
         /// <param name="e"></param>
         private void nameListBox_DoubleClick(object sender, EventArgs e)
         {
-            ChooseMapping();
+            OnChooseMapping();
         }
+
+        
         #endregion
 
         #region 按键
@@ -871,7 +1068,7 @@ namespace Main.Music
         /// <param name="e"></param>
         private void selectButton_Click(object sender, EventArgs e)
         {
-            ChooseMapping();
+            OnChooseMapping();
         }
 
         /// <summary>
@@ -881,7 +1078,7 @@ namespace Main.Music
         /// <param name="e"></param>
         private void deleteButton_Click(object sender, EventArgs e)
         {
-            RemoveChooseMapping();
+            OnRemoveChooseMapping();
         }
 
         /// <summary>
@@ -901,7 +1098,10 @@ namespace Main.Music
         /// <param name="e"></param>
         private void OKButton_Click(object sender, EventArgs e)
         {
-            OnOK(e);
+            if (OnOK(e))
+            {
+                this.Close();
+            }
         }
 
         /// <summary>
@@ -914,6 +1114,7 @@ namespace Main.Music
             this.Close();
         }
         #endregion
+
 
     }
 
