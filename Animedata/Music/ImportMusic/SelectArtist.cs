@@ -29,7 +29,7 @@ namespace Main.Music
         /// </summary>
         const string MSG_SELECTARTIST_002 = "MSG-SELECTARTIST-002";
         /// <summary>
-        /// 数据填写不完整：未编辑匹配信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在匹配种类中选择“独自”。
+        /// 数据填写不完整：未编辑构成信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在匹配种类中选择“独自”。
         /// </summary>
         const string MSG_SELECTARTIST_003 = "MSG-SELECTARTIST-003";
         /// <summary>
@@ -144,7 +144,7 @@ namespace Main.Music
         /// <param name="isExist">既存</param>
         public SelectArtist(int artistId, string artistName, bool isExist = false)
         {
-            if (artistId == null || artistId == 0)
+            if (artistId == 0)
             {
                 this.targetArtist.GetNewID();
             }
@@ -323,7 +323,7 @@ namespace Main.Music
             if (!originalRadioButton.Checked && !CVRadioButton.Checked
                 && !CharacterRadioButton.Checked && !singerRadioButton.Checked)
             {
-                MsgBox.Show(MSG_SELECTARTIST_001,"匹配信息");
+                MsgBox.Show(MSG_SELECTARTIST_001,"构成种类");
                 return false;
             }
 
@@ -335,7 +335,6 @@ namespace Main.Music
 
             return true;
         }
-
 
         /// <summary>
         /// 独自匹配载入
@@ -388,30 +387,26 @@ namespace Main.Music
                     selectButton.Enabled = true;
                     deleteButton.Enabled = true;
 
-                    if (isExist)
-                    {
-                    }
-                    else
-                    {
-                        if (CVMap.Rows.Count == 0)
-                        {
-                            nameListBox.DataSource = null;
-                            keyWordcomboBox.DataSource = null;
-                            nameListBox.Items.Clear();
-                            keyWordcomboBox.Items.Clear();
-                            return;
-                        }
 
-                        nameListBox.DataSource = CVMap;
-                        nameListBox.ValueMember = "CVID";
-                        nameListBox.DisplayMember = "CVNAME";
-                        nameListBox.Focus();
-
-                        keyWordcomboBox.DataSource = CVMap;
-                        keyWordcomboBox.ValueMember = "CVID";
-                        keyWordcomboBox.DisplayMember = "CVNAME";
-                        keyWordcomboBox.Focus();
+                    if (CVMap.Rows.Count == 0)
+                    {
+                        nameListBox.DataSource = null;
+                        keyWordcomboBox.DataSource = null;
+                        nameListBox.Items.Clear();
+                        keyWordcomboBox.Items.Clear();
+                        return;
                     }
+
+                    nameListBox.DataSource = CVMap;
+                    nameListBox.ValueMember = "CVID";
+                    nameListBox.DisplayMember = "CVNAME";
+                    nameListBox.Focus();
+
+                    keyWordcomboBox.DataSource = CVMap;
+                    keyWordcomboBox.ValueMember = "CVID";
+                    keyWordcomboBox.DisplayMember = "CVNAME";
+                    keyWordcomboBox.Focus();
+
                 }
 
             }
@@ -438,30 +433,25 @@ namespace Main.Music
                     selectButton.Enabled = true;
                     deleteButton.Enabled = true;
 
-                    if (isExist)
-                    {
-                    }
-                    else
-                    {
-                        if (CharacterMap.Rows.Count == 0)
-                        {
-                            nameListBox.DataSource = null;
-                            keyWordcomboBox.DataSource = null;
-                            nameListBox.Items.Clear();
-                            keyWordcomboBox.Items.Clear();
-                            return;
-                        }
 
-                        nameListBox.DataSource = CharacterMap;
-                        nameListBox.ValueMember = "CharacterNo";
-                        nameListBox.DisplayMember = "CharacterName";
-                        nameListBox.Focus();
-
-                        keyWordcomboBox.DataSource = CharacterMap;
-                        keyWordcomboBox.ValueMember = "CharacterNo";
-                        keyWordcomboBox.DisplayMember = "CharacterName";
-                        keyWordcomboBox.Focus();
+                    if (CharacterMap.Rows.Count == 0)
+                    {
+                        nameListBox.DataSource = null;
+                        keyWordcomboBox.DataSource = null;
+                        nameListBox.Items.Clear();
+                        keyWordcomboBox.Items.Clear();
+                        return;
                     }
+
+                    nameListBox.DataSource = CharacterMap;
+                    nameListBox.ValueMember = "CharacterNo";
+                    nameListBox.DisplayMember = "CharacterName";
+                    nameListBox.Focus();
+
+                    keyWordcomboBox.DataSource = CharacterMap;
+                    keyWordcomboBox.ValueMember = "CharacterNo";
+                    keyWordcomboBox.DisplayMember = "CharacterName";
+                    keyWordcomboBox.Focus();
                 }
             }
             catch (Exception ex)
@@ -487,30 +477,25 @@ namespace Main.Music
                     selectButton.Enabled = true;
                     deleteButton.Enabled = true;
 
-                    if (isExist)
+                    if (SingerMap.Rows.Count == 0)
                     {
+                        nameListBox.DataSource = null;
+                        keyWordcomboBox.DataSource = null;
+                        nameListBox.Items.Clear();
+                        keyWordcomboBox.Items.Clear();
+                        return;
                     }
-                    else
-                    {
-                        if (SingerMap.Rows.Count == 0)
-                        {
-                            nameListBox.DataSource = null;
-                            keyWordcomboBox.DataSource = null;
-                            nameListBox.Items.Clear();
-                            keyWordcomboBox.Items.Clear();
-                            return;
-                        }
 
-                        nameListBox.DataSource = SingerMap;
-                        nameListBox.ValueMember = "ChildArtistID";
-                        nameListBox.DisplayMember = "ChildArtistName";
-                        nameListBox.Focus();
+                    nameListBox.DataSource = SingerMap;
+                    nameListBox.ValueMember = "ChildArtistID";
+                    nameListBox.DisplayMember = "ChildArtistName";
+                    nameListBox.Focus();
 
-                        keyWordcomboBox.DataSource = SingerMap;
-                        keyWordcomboBox.ValueMember = "ChildArtistID";
-                        keyWordcomboBox.DisplayMember = "ChildArtistName";
-                        keyWordcomboBox.Focus();
-                    }
+                    keyWordcomboBox.DataSource = SingerMap;
+                    keyWordcomboBox.ValueMember = "ChildArtistID";
+                    keyWordcomboBox.DisplayMember = "ChildArtistName";
+                    keyWordcomboBox.Focus();
+
                 }
 
             }
@@ -927,6 +912,8 @@ namespace Main.Music
             //取消
             else
             {
+                targetArtist.GetNewID();
+
                 artistIDTextBox.Text = targetArtist.Id.ToString();
                 artistNameTextBox.Enabled = true;
                 panel1.Enabled = true;
@@ -965,27 +952,18 @@ namespace Main.Music
         /// <param name="e"></param>
         private void SelectArtist_Load(object sender, EventArgs e)
         {
-            //0：是否为完全相同的艺术家
-            if (targetArtist.IsIDExists())
-            {
-                isExist = true;
-            }
-
             artistIDTextBox.Text = targetArtist.Id.ToString();
             artistNameTextBox.Text = targetArtist.Name;
 
+            //0：是否为完全相同的艺术家
             //1：确定是否有去空格后完全一样的艺术家，有则默认按照同一艺术家处理
-            if (targetArtist.IsFormattedNameExists() > 0)
+            if (targetArtist.IsFormattedNameExists() > 0 || targetArtist.IsIDExists())
             {
+                isExist = true;
                 ExistingArtistCheckBox.CheckState = CheckState.Checked;
                 OnExistingStatusChanged();
 
                 return;
-            }
-            
-            if (isExist)
-            {
-                //ToDo
             }
             else
             {
@@ -1054,7 +1032,17 @@ namespace Main.Music
         /// <param name="e"></param>
         private void nameListBox_DoubleClick(object sender, EventArgs e)
         {
-            OnChooseMapping();
+            if (!isExist)
+            {
+                OnChooseMapping();
+            }
+            else
+            {
+                if (OnOK(e))
+                {
+                    this.Close();
+                }
+            }
         }
 
         

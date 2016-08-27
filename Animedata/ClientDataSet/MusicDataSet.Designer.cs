@@ -554,6 +554,10 @@ namespace Main.ClientDataSet {
             
             private global::System.Data.DataColumn columnAlbumTypeID;
             
+            private global::System.Data.DataColumn columnBitRate;
+            
+            private global::System.Data.DataColumn columnTrackLength;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ImportMusicListDataTable() {
@@ -709,6 +713,22 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn BitRateColumn {
+                get {
+                    return this.columnBitRate;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TrackLengthColumn {
+                get {
+                    return this.columnTrackLength;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -744,7 +764,24 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public ImportMusicListRow AddImportMusicListRow(string TrackID, string AlbumID, string TrackTypeId, string DiscNo, string TrackNo, string OldTrackNo, string TrackTitleName, int ArtistID, string AnimeNo, string SalesYear, string Description, string FilePath, string AlbumTitleName, string ArtistName, int AlbumTypeID) {
+            public ImportMusicListRow AddImportMusicListRow(
+                        string TrackID, 
+                        string AlbumID, 
+                        string TrackTypeId, 
+                        string DiscNo, 
+                        string TrackNo, 
+                        string OldTrackNo, 
+                        string TrackTitleName, 
+                        int ArtistID, 
+                        string AnimeNo, 
+                        string SalesYear, 
+                        string Description, 
+                        string FilePath, 
+                        string AlbumTitleName, 
+                        string ArtistName, 
+                        int AlbumTypeID, 
+                        string BitRate, 
+                        string TrackLength) {
                 ImportMusicListRow rowImportMusicListRow = ((ImportMusicListRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         TrackID,
@@ -761,7 +798,9 @@ namespace Main.ClientDataSet {
                         FilePath,
                         AlbumTitleName,
                         ArtistName,
-                        AlbumTypeID};
+                        AlbumTypeID,
+                        BitRate,
+                        TrackLength};
                 rowImportMusicListRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowImportMusicListRow);
                 return rowImportMusicListRow;
@@ -799,6 +838,8 @@ namespace Main.ClientDataSet {
                 this.columnAlbumTitleName = base.Columns["AlbumTitleName"];
                 this.columnArtistName = base.Columns["ArtistName"];
                 this.columnAlbumTypeID = base.Columns["AlbumTypeID"];
+                this.columnBitRate = base.Columns["BitRate"];
+                this.columnTrackLength = base.Columns["TrackLength"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -834,6 +875,10 @@ namespace Main.ClientDataSet {
                 base.Columns.Add(this.columnArtistName);
                 this.columnAlbumTypeID = new global::System.Data.DataColumn("AlbumTypeID", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAlbumTypeID);
+                this.columnBitRate = new global::System.Data.DataColumn("BitRate", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnBitRate);
+                this.columnTrackLength = new global::System.Data.DataColumn("TrackLength", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTrackLength);
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -3120,6 +3165,38 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string BitRate {
+                get {
+                    try {
+                        return ((string)(this[this.tableImportMusicList.BitRateColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ImportMusicList\' にある列 \'BitRate\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableImportMusicList.BitRateColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string TrackLength {
+                get {
+                    try {
+                        return ((string)(this[this.tableImportMusicList.TrackLengthColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'ImportMusicList\' にある列 \'TrackLength\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableImportMusicList.TrackLengthColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public bool IsTrackIDNull() {
                 return this.IsNull(this.tableImportMusicList.TrackIDColumn);
             }
@@ -3296,6 +3373,30 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetAlbumTypeIDNull() {
                 this[this.tableImportMusicList.AlbumTypeIDColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsBitRateNull() {
+                return this.IsNull(this.tableImportMusicList.BitRateColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetBitRateNull() {
+                this[this.tableImportMusicList.BitRateColumn] = global::System.Convert.DBNull;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsTrackLengthNull() {
+                return this.IsNull(this.tableImportMusicList.TrackLengthColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetTrackLengthNull() {
+                this[this.tableImportMusicList.TrackLengthColumn] = global::System.Convert.DBNull;
             }
         }
         

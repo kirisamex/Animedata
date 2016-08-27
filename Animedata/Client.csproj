@@ -116,6 +116,7 @@
     <Compile Include="Lib\Class\Music\Artist\ArtistSeriesDao.cs" />
     <Compile Include="Lib\Class\Music\Artist\ArtistSeriesService.cs" />
     <Compile Include="Lib\Const\DataMappingType.cs" />
+    <Compile Include="Lib\Format\MainFormat.cs" />
     <Compile Include="Main\AddAnime\AddAnime.cs">
       <SubType>Form</SubType>
     </Compile>

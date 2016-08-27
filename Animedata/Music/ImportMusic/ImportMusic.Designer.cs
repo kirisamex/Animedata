@@ -28,15 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle31 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle36 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle32 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle33 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle34 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle35 = new System.Windows.Forms.DataGridViewCellStyle();
-            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.components = new System.ComponentModel.Container();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle13 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle18 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle14 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle15 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle16 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle17 = new System.Windows.Forms.DataGridViewCellStyle();
+            this.musicDataSet1 = new Main.ClientDataSet.MusicDataSet();
             this.splitContainer2 = new System.Windows.Forms.SplitContainer();
             this.splitContainer3 = new System.Windows.Forms.SplitContainer();
+            this.tagsavesuccesslabel = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.DiscNoTextBox = new System.Windows.Forms.TextBox();
@@ -48,6 +50,8 @@
             this.vocalortypelabel = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.coverPictureBox = new System.Windows.Forms.PictureBox();
+            this.ImportMusicButton = new System.Windows.Forms.Button();
+            this.saveID3TagButton = new System.Windows.Forms.Button();
             this.MusicDataGridView = new System.Windows.Forms.DataGridView();
             this.OldTrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackID = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -58,50 +62,35 @@
             this.AlbumAnimeType = new System.Windows.Forms.DataGridViewButtonColumn();
             this.ArtistName = new System.Windows.Forms.DataGridViewButtonColumn();
             this.AnimeName = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.BitRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DiscNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackTimeLength = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResourcePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AnimeNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlbumTypeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackTypeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ArtistID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
-            this.musicDataSet1 = new Main.ClientDataSet.MusicDataSet();
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
-            this.splitContainer1.Panel1.SuspendLayout();
-            this.splitContainer1.Panel2.SuspendLayout();
-            this.splitContainer1.SuspendLayout();
+            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.musicDataSet1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).BeginInit();
             this.splitContainer2.Panel1.SuspendLayout();
             this.splitContainer2.Panel2.SuspendLayout();
             this.splitContainer2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).BeginInit();
             this.splitContainer3.Panel1.SuspendLayout();
+            this.splitContainer3.Panel2.SuspendLayout();
             this.splitContainer3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.MusicDataGridView)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.musicDataSet1)).BeginInit();
             this.SuspendLayout();
             // 
-            // splitContainer1
+            // musicDataSet1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.splitContainer1.Location = new System.Drawing.Point(0, 0);
-            this.splitContainer1.Name = "splitContainer1";
-            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
-            // 
-            // splitContainer1.Panel1
-            // 
-            this.splitContainer1.Panel1.Controls.Add(this.splitContainer2);
-            // 
-            // splitContainer1.Panel2
-            // 
-            this.splitContainer1.Panel2.Controls.Add(this.flowLayoutPanel1);
-            this.splitContainer1.Size = new System.Drawing.Size(1350, 729);
-            this.splitContainer1.SplitterDistance = 691;
-            this.splitContainer1.TabIndex = 0;
+            this.musicDataSet1.DataSetName = "MusicDataSet";
+            this.musicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
             // 
             // splitContainer2
             // 
@@ -116,9 +105,9 @@
             // splitContainer2.Panel2
             // 
             this.splitContainer2.Panel2.Controls.Add(this.MusicDataGridView);
-            this.splitContainer2.Size = new System.Drawing.Size(1350, 691);
+            this.splitContainer2.Size = new System.Drawing.Size(1350, 729);
             this.splitContainer2.SplitterDistance = 210;
-            this.splitContainer2.TabIndex = 0;
+            this.splitContainer2.TabIndex = 1;
             // 
             // splitContainer3
             // 
@@ -129,6 +118,7 @@
             // 
             // splitContainer3.Panel1
             // 
+            this.splitContainer3.Panel1.Controls.Add(this.tagsavesuccesslabel);
             this.splitContainer3.Panel1.Controls.Add(this.label2);
             this.splitContainer3.Panel1.Controls.Add(this.label3);
             this.splitContainer3.Panel1.Controls.Add(this.DiscNoTextBox);
@@ -140,9 +130,24 @@
             this.splitContainer3.Panel1.Controls.Add(this.vocalortypelabel);
             this.splitContainer3.Panel1.Controls.Add(this.label1);
             this.splitContainer3.Panel1.Controls.Add(this.coverPictureBox);
-            this.splitContainer3.Size = new System.Drawing.Size(210, 691);
-            this.splitContainer3.SplitterDistance = 461;
+            // 
+            // splitContainer3.Panel2
+            // 
+            this.splitContainer3.Panel2.Controls.Add(this.ImportMusicButton);
+            this.splitContainer3.Panel2.Controls.Add(this.saveID3TagButton);
+            this.splitContainer3.Size = new System.Drawing.Size(210, 729);
+            this.splitContainer3.SplitterDistance = 485;
             this.splitContainer3.TabIndex = 0;
+            // 
+            // tagsavesuccesslabel
+            // 
+            this.tagsavesuccesslabel.AutoSize = true;
+            this.tagsavesuccesslabel.Location = new System.Drawing.Point(22, 347);
+            this.tagsavesuccesslabel.Name = "tagsavesuccesslabel";
+            this.tagsavesuccesslabel.Size = new System.Drawing.Size(113, 12);
+            this.tagsavesuccesslabel.TabIndex = 13;
+            this.tagsavesuccesslabel.Text = "标签信息保存成功！";
+            this.tagsavesuccesslabel.Visible = false;
             // 
             // label2
             // 
@@ -244,18 +249,40 @@
             this.coverPictureBox.TabIndex = 0;
             this.coverPictureBox.TabStop = false;
             // 
+            // ImportMusicButton
+            // 
+            this.ImportMusicButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
+            this.ImportMusicButton.Location = new System.Drawing.Point(22, 205);
+            this.ImportMusicButton.Name = "ImportMusicButton";
+            this.ImportMusicButton.Size = new System.Drawing.Size(200, 23);
+            this.ImportMusicButton.TabIndex = 13;
+            this.ImportMusicButton.Text = "导入音乐(&A)";
+            this.ImportMusicButton.UseVisualStyleBackColor = true;
+            this.ImportMusicButton.Click += new System.EventHandler(this.ImportMusicButton_Click);
+            // 
+            // saveID3TagButton
+            // 
+            this.saveID3TagButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
+            this.saveID3TagButton.Location = new System.Drawing.Point(22, 176);
+            this.saveID3TagButton.Name = "saveID3TagButton";
+            this.saveID3TagButton.Size = new System.Drawing.Size(200, 23);
+            this.saveID3TagButton.TabIndex = 13;
+            this.saveID3TagButton.Text = "保存ID3Tag(&S)";
+            this.saveID3TagButton.UseVisualStyleBackColor = true;
+            this.saveID3TagButton.Click += new System.EventHandler(this.saveID3TagButton_Click);
+            // 
             // MusicDataGridView
             // 
             this.MusicDataGridView.AllowUserToAddRows = false;
             this.MusicDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle31.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle31.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle31.Font = new System.Drawing.Font("MS UI Gothic", 11F);
-            dataGridViewCellStyle31.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle31.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle31.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle31.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle31;
+            dataGridViewCellStyle13.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle13.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle13.Font = new System.Drawing.Font("MS UI Gothic", 11F);
+            dataGridViewCellStyle13.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle13.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle13.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle13.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle13;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OldTrackNo,
@@ -267,29 +294,31 @@
             this.AlbumAnimeType,
             this.ArtistName,
             this.AnimeName,
+            this.BitRate,
             this.DiscNo,
             this.TrackNo,
             this.Year,
+            this.TrackTimeLength,
             this.ResourcePath,
             this.Description,
             this.AnimeNo,
             this.AlbumTypeID,
             this.TrackTypeID,
             this.ArtistID});
-            dataGridViewCellStyle36.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle36.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle36.Font = new System.Drawing.Font("SimSun", 11F);
-            dataGridViewCellStyle36.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle36.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle36.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle36.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MusicDataGridView.DefaultCellStyle = dataGridViewCellStyle36;
+            dataGridViewCellStyle18.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle18.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle18.Font = new System.Drawing.Font("SimSun", 11F);
+            dataGridViewCellStyle18.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle18.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle18.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle18.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MusicDataGridView.DefaultCellStyle = dataGridViewCellStyle18;
             this.MusicDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
             this.MusicDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.MusicDataGridView.Location = new System.Drawing.Point(0, 0);
             this.MusicDataGridView.Name = "MusicDataGridView";
-            this.MusicDataGridView.RowTemplate.Height = 21;
-            this.MusicDataGridView.Size = new System.Drawing.Size(1136, 691);
+            this.MusicDataGridView.RowTemplate.Height = 25;
+            this.MusicDataGridView.Size = new System.Drawing.Size(1136, 729);
             this.MusicDataGridView.TabIndex = 1;
             this.MusicDataGridView.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MusicDataGridView_CellContentClick);
             this.MusicDataGridView.CurrentCellChanged += new System.EventHandler(this.MusicDataGridView_CurrentCellChanged);
@@ -312,8 +341,8 @@
             // 
             // TrackType
             // 
-            dataGridViewCellStyle32.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.TrackType.DefaultCellStyle = dataGridViewCellStyle32;
+            dataGridViewCellStyle14.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.TrackType.DefaultCellStyle = dataGridViewCellStyle14;
             this.TrackType.HeaderText = "曲目类型";
             this.TrackType.Name = "TrackType";
             // 
@@ -329,25 +358,31 @@
             // 
             // AlbumAnimeType
             // 
-            dataGridViewCellStyle33.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.AlbumAnimeType.DefaultCellStyle = dataGridViewCellStyle33;
+            dataGridViewCellStyle15.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.AlbumAnimeType.DefaultCellStyle = dataGridViewCellStyle15;
             this.AlbumAnimeType.HeaderText = "专辑类型";
             this.AlbumAnimeType.Name = "AlbumAnimeType";
             // 
             // ArtistName
             // 
-            dataGridViewCellStyle34.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.ArtistName.DefaultCellStyle = dataGridViewCellStyle34;
+            dataGridViewCellStyle16.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.ArtistName.DefaultCellStyle = dataGridViewCellStyle16;
             this.ArtistName.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.ArtistName.HeaderText = "艺术家";
             this.ArtistName.Name = "ArtistName";
             // 
             // AnimeName
             // 
-            dataGridViewCellStyle35.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.AnimeName.DefaultCellStyle = dataGridViewCellStyle35;
+            dataGridViewCellStyle17.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.AnimeName.DefaultCellStyle = dataGridViewCellStyle17;
             this.AnimeName.HeaderText = "所属动画";
             this.AnimeName.Name = "AnimeName";
+            // 
+            // BitRate
+            // 
+            this.BitRate.HeaderText = "比特率";
+            this.BitRate.Name = "BitRate";
+            this.BitRate.ReadOnly = true;
             // 
             // DiscNo
             // 
@@ -364,10 +399,17 @@
             this.Year.HeaderText = "发售年份";
             this.Year.Name = "Year";
             // 
+            // TrackTimeLength
+            // 
+            this.TrackTimeLength.HeaderText = "歌曲长度";
+            this.TrackTimeLength.Name = "TrackTimeLength";
+            this.TrackTimeLength.ReadOnly = true;
+            // 
             // ResourcePath
             // 
             this.ResourcePath.HeaderText = "资源地址";
             this.ResourcePath.Name = "ResourcePath";
+            this.ResourcePath.ReadOnly = true;
             // 
             // Description
             // 
@@ -378,35 +420,29 @@
             // 
             this.AnimeNo.HeaderText = "动画编号";
             this.AnimeNo.Name = "AnimeNo";
+            this.AnimeNo.Visible = false;
             // 
             // AlbumTypeID
             // 
             this.AlbumTypeID.HeaderText = "专辑类型编号";
             this.AlbumTypeID.Name = "AlbumTypeID";
+            this.AlbumTypeID.Visible = false;
             // 
             // TrackTypeID
             // 
             this.TrackTypeID.HeaderText = "曲目类型编号";
             this.TrackTypeID.Name = "TrackTypeID";
+            this.TrackTypeID.Visible = false;
             // 
             // ArtistID
             // 
             this.ArtistID.HeaderText = "艺术家编号";
             this.ArtistID.Name = "ArtistID";
+            this.ArtistID.Visible = false;
             // 
-            // flowLayoutPanel1
+            // timer1
             // 
-            this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(0, 0);
-            this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.RightToLeft = System.Windows.Forms.RightToLeft.Yes;
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(1350, 34);
-            this.flowLayoutPanel1.TabIndex = 0;
-            // 
-            // musicDataSet1
-            // 
-            this.musicDataSet1.DataSetName = "MusicDataSet";
-            this.musicDataSet1.SchemaSerializationMode = System.Data.SchemaSerializationMode.IncludeSchema;
+            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
             // ImportMusic
             // 
@@ -414,36 +450,31 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(255)))));
             this.ClientSize = new System.Drawing.Size(1350, 729);
-            this.Controls.Add(this.splitContainer1);
+            this.Controls.Add(this.splitContainer2);
             this.Name = "ImportMusic";
             this.Text = "导入音乐";
             this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
-            this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel2.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
-            this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.musicDataSet1)).EndInit();
             this.splitContainer2.Panel1.ResumeLayout(false);
             this.splitContainer2.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer2)).EndInit();
             this.splitContainer2.ResumeLayout(false);
             this.splitContainer3.Panel1.ResumeLayout(false);
             this.splitContainer3.Panel1.PerformLayout();
+            this.splitContainer3.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer3)).EndInit();
             this.splitContainer3.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.coverPictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.MusicDataGridView)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.musicDataSet1)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.SplitContainer splitContainer1;
+        private ClientDataSet.MusicDataSet musicDataSet1;
         private System.Windows.Forms.SplitContainer splitContainer2;
         private System.Windows.Forms.SplitContainer splitContainer3;
-        private System.Windows.Forms.PictureBox coverPictureBox;
-        private System.Windows.Forms.FlowLayoutPanel flowLayoutPanel1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox DiscNoTextBox;
@@ -454,8 +485,10 @@
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label vocalortypelabel;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.PictureBox coverPictureBox;
+        private System.Windows.Forms.Button ImportMusicButton;
+        private System.Windows.Forms.Button saveID3TagButton;
         private System.Windows.Forms.DataGridView MusicDataGridView;
-        private ClientDataSet.MusicDataSet musicDataSet1;
         private System.Windows.Forms.DataGridViewTextBoxColumn OldTrackNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackName;
@@ -465,14 +498,18 @@
         private System.Windows.Forms.DataGridViewButtonColumn AlbumAnimeType;
         private System.Windows.Forms.DataGridViewButtonColumn ArtistName;
         private System.Windows.Forms.DataGridViewButtonColumn AnimeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BitRate;
         private System.Windows.Forms.DataGridViewTextBoxColumn DiscNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TrackTimeLength;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResourcePath;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
         private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlbumTypeID;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackTypeID;
         private System.Windows.Forms.DataGridViewTextBoxColumn ArtistID;
+        private System.Windows.Forms.Label tagsavesuccesslabel;
+        private System.Windows.Forms.Timer timer1;
     }
 }
