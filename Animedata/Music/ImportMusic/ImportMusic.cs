@@ -22,6 +22,8 @@ namespace Main.Music
         const string MSG_COMMON_001 = "MSG-COMMON-001";
         /// <summary>指定的路径：{0} 不存在！\n{0}</summary>
         const string MSG_IMPORTMUSIC_001 = "MSG-IMPORTMUSIC-001";
+        /// <summary>修改标签时，必须仅选择一个单元格进行修改，请勿多选。</summary>
+        const string MSG_IMPORTMUSIC_002 = "MSG-IMPORTMUSIC-002";
         #endregion 
   
         #region 列名
@@ -61,6 +63,10 @@ namespace Main.Music
         const string TRACKTYPEIDCLN = "TrackTypeID";
         /// <summary>艺术家编号 </summary>
         const string ARTISTIDCLN = "ArtistID";
+        /// <summary>比特率 </summary>
+        const string BITRATECLN = "BitRate";
+        /// <summary>歌曲长度 </summary>
+        const string TRACKTIMELENGTHCLN = "TrackTimeLength";
         #endregion
 
         #region 常量
@@ -101,7 +107,6 @@ namespace Main.Music
         public ImportMusic(ImportType type, string[] musicPath)
         {
             InitializeComponent();
-
             importType = type;
 
             if (importType == ImportType.ByOldMP3)
@@ -151,13 +156,15 @@ namespace Main.Music
                 importRow.TrackTitleName = tag.TrackTitleName;
                 //ArtistName
                 importRow.ArtistName = tag.ArtistName;
-                //ArtistID
-                
+                //ArtistID               
                 //AnimeNo
-
                 //SalesYear
                 importRow.SalesYear = tag.SalesYear;
-                //Descrtiption
+                //TrackLength
+                importRow.TrackLength = tag.TrackLength;
+                //BitRate
+                importRow.BitRate = tag.BitRate;
+
 
                 importList.AddImportMusicListRow(importRow);
             }
@@ -198,6 +205,14 @@ namespace Main.Music
                 {
                     dr.Cells[DESCRIPTIONCLN].Value = ir.Description;
                 }
+                if (!ir.IsBitRateNull())
+                {
+                    dr.Cells[BITRATECLN].Value = ir.BitRate;
+                }
+                if (!ir.IsTrackLengthNull())
+                {
+                    dr.Cells[TRACKTIMELENGTHCLN].Value = ir.TrackLength;
+                }
                 dr.Cells[RESOURCEPATHCLN].Value = ir.FilePath;
 
                 //艺术家处理             
@@ -213,8 +228,24 @@ namespace Main.Music
 
             }
 
-               
-            dgvStyle.SetDataGridViewColumnWidch(MusicDataGridView, new int[] { 120, 100, 200, 100, 100, 200, 80, 200, 120, 70, 70, 120, 300, 200 });
+            dgvStyle.SetDataGridViewColumnWidch(MusicDataGridView, new int[] { 
+                120,    //OldTrackNo
+                100,    //TrackNo
+                200,    //TrackName
+                80,    //TrackType
+                100,    //AlbumNo
+                200,    //AlbumName
+                80,     //AlbumType
+                200,    //ArtistName
+                120,    //AnimeCHNName
+                80,     //BitRate
+                70,     //DiscNo
+                70,     //TrackNo
+                120,    //Year
+                100,    //TrackLength
+                300,    //ResourcePath
+                200     //Description
+            });
 
             string firstRowPath = null;
 
@@ -385,6 +416,35 @@ namespace Main.Music
         }
 
         /// <summary>
+        /// 保存MP3ID3V2TAG
+        /// </summary>
+        /// <param name="filePath"></param>
+        private void SaveMP3TagInfo(string filePath)
+        {
+            try
+            {
+                ID3V2Tag tag = new ID3V2Tag(filePath);
+
+                //曲名
+                tag.TrackTitleName = TrackNameTextBox.Text;
+                //艺术家
+                tag.ArtistName = ArtistTextBox.Text;
+                //专辑
+                tag.AlbumName = AlbumNameTextBox.Text;
+                //音轨
+                tag.TrackNo = TrackNoTextBox.Text;
+                //碟号
+                tag.DiscNo = DiscNoTextBox.Text;
+
+                tag.Save(filePath);
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
+            }
+        }
+
+        /// <summary>
         /// 显示指定路径的MP3Tag信息
         /// </summary>
         /// <param name="filePath">文件路径</param>
@@ -474,6 +534,52 @@ namespace Main.Music
                 }
         }
 
+        /// <summary>
+        /// 保存ID3Tag
+        /// </summary>
+        private void OnSaveID3Tag()
+        {
+            //ToDo：复选行可以修改相同的TAG
+             if (MusicDataGridView.SelectedCells.Count == 1)
+            {
+                SaveMP3TagInfo(MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[RESOURCEPATHCLN].Value.ToString());              
+                SetLabel();
+                return;
+            }
+
+            MsgBox.Show(MSG_IMPORTMUSIC_002);
+        }
+
+        /// <summary>
+        /// 保存成功信息可见
+        /// </summary>
+        private void SetLabel()
+        {
+            timer1.Enabled = false;
+            tagsavesuccesslabel.Visible = true; 
+            timer1.Interval = 3000;
+            timer1.Enabled = true;
+        }
+
+        private void OnImportMusic()
+        {
+            List<AlbumSeries> AlbumSeries = new List<AlbumSeries>();
+            List<TrackSeries> TrackSeries = new List<TrackSeries>();
+
+
+            #region 专辑作成
+            
+            #endregion
+
+            #region 曲目作成
+            #endregion
+
+            #region 资源作成
+            #endregion
+        }
+
+
+
         #endregion
 
         #region 事件
@@ -561,6 +667,15 @@ namespace Main.Music
 
         }
 
+        /// <summary>
+        /// 保存成功信息不可见
+        /// </summary>
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            tagsavesuccesslabel.Visible = false;
+            timer1.Enabled = false;
+        }
+
         #endregion
 
         #region 窗体
@@ -586,8 +701,30 @@ namespace Main.Music
         #endregion
 
         #region 按键
+        /// <summary>
+        /// 导入音乐
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void ImportMusicButton_Click(object sender, EventArgs e)
+        {
+            OnImportMusic();
+        }
 
+        /// <summary>
+        /// 保存ID3TAG
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void saveID3TagButton_Click(object sender, EventArgs e)
+        {
+           OnSaveID3Tag();
+        }
         #endregion
+
+        
+
+        
 
     }
 }

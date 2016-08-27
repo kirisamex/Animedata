@@ -43,7 +43,7 @@ PName=T_RESOURCE_TYPE_MST
 LName=资源类型表
 Comment=
 TableOption=
-Page=Main
+Page=MAIN
 Left=1500
 Top=1650
 Field="资源类型编号","RESOURCE_TYPE_ID","smallint","NOT NULL",0,"","",$FFFFFFFF,""
@@ -56,7 +56,7 @@ Tag=ANIMEDATA
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20160823110630
-Position="Main",1500,1650
+Position="MAIN",1500,1650
 
 [Entity]
 PName=T_ALBUM_TYPE_MST
@@ -279,14 +279,14 @@ Fields1=COMPANY_ID
 Fields2=COMPANY_ID
 Cardinarity1=
 Cardinarity2=
-Position="MAIN",0,1707,5141,6999,R,R
+Position="MAIN",0,1707,5141,7024,R,R
 Dependence=0
 Caption=
 PName=
 LineMode=0
 Bar1=171
 Bar2=514
-Bar3=700
+Bar3=702
 TermPos1=R
 TermPos2=R
 
@@ -398,7 +398,7 @@ TableOption=
 Page=MAIN
 Left=1600
 Top=450
-Field="专辑编号\n专辑编号","ALBUM_ID","nchar(10)","NOT NULL",0,"","A+9位数字，代码中发番\nA+9位数字，代码中发番",$FFFFFFFF,""
+Field="专辑编号","ALBUM_ID","nchar(10)","NOT NULL",0,"","A+9位数字，代码中发番\nA+9位数字，代码中发番",$FFFFFFFF,""
 Field="专辑种类编号","ALBUM_TYPE_ID","int","NOT NULL",,"","专辑种类<T_ALBUM_TYPE_MST>",$FFFFFFFF,""
 Field="所属动画内专辑编号","ALBUM_INANIME_NO","int",,,"","",$FFFFFFFF,""
 Field="动画编号","ANIME_NO","nchar(4)","NOT NULL",,"","",$FFFFFFFF,""
@@ -412,7 +412,7 @@ EffectMode=None
 Tag=ANIMEDATA
 Color=$000000
 BkColor=$FAEBB4
-ModifiedDateTime=20160819152037
+ModifiedDateTime=20160827154116
 Position="MAIN",1600,450,293,279
 
 [Entity]
@@ -513,8 +513,8 @@ LName=制作公司表
 Comment=
 TableOption=
 Page=MAIN
-Left=2600
-Top=600
+Left=3500
+Top=700
 Field="制作公司序号","COMPANY_ID","int","NOT NULL",0,"","",$FFFFFFFF,""
 Field="制作公司名称","COMPANY_NAME","varchar(255)","NOT NULL",,"","",$FFFFFFFF,""
 Field="有效性FLAG","ENABLE_FLG","bit","NOT NULL",,"1","",$FFFFFFFF,""
@@ -524,7 +524,7 @@ Tag=ANIMEDATA
 Color=$000000
 BkColor=$FFFFFF
 ModifiedDateTime=20160226103921
-Position="MAIN",2600,600,293,102
+Position="MAIN",3500,700,293,102
 
 [Entity]
 PName=T_CV_TBL
@@ -585,14 +585,17 @@ Field="资源序号","RESOURCE_ID","int","NOT NULL",0,"","",$FFFFFFFF,""
 Field="资源类型编号","RESOURCE_TYPE_ID","tinyint","NOT NULL",,"1","[1]mp3音源\n[11]lrc歌词\n[21]专辑封面",$FFFFFFFF,""
 Field="存储路径序号","STORAGE_ID","tinyint",,,"","",$FFFFFFFF,""
 Field="资源路径","RESOURCE_FILEPATH","nvarchar(1000)",,,"","",$FFFFFFFF,""
-Field="资源名称","RESOURCE_FILENAME","nvarchar(1000)",,,"","",$FFFFFFFF,""
+Field="资源名称","RESOURCE_FILENAME","nvarchar(1000)",,,"","不含后缀名",$FFFFFFFF,""
+Field="资源后缀名","RESOURCE_SUFFIX","nvarchar(10)",,,"","含\Q.\Q",$FFFFFFFF,""
+Field="音源比特率","TRACK_BITRATE","nvarchar(20)",,,"","",$FFFFFFFF,""
+Field="音源长度","TRACK_LENGTH","int",,,"","秒",$FFFFFFFF,""
 Field="有效性FLAG","ENABLE_FLG","bit","NOT NULL",,"1","",$FFFFFFFF,""
 Field="最终更新时间","LAST_UPDATE_DATETIME","datetime","NOT NULL",,"getdate()","",$FFFFFFFF,""
 EffectMode=None
 Tag=ANIMEDATA
 Color=$000000
 BkColor=$FAEBB4
-ModifiedDateTime=20160823105143
+ModifiedDateTime=20160827141416
 Position="MAIN",1100,1450,308,178
 
 [Entity]

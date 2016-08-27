@@ -51,11 +51,12 @@
   
     <!--ImportMusic-->
     <message id="MSG-IMPORTMUSIC-001" text="指定的路径：{0} 不存在！" caption="文件不存在" category="W"/>
+    <message id="MSG-IMPORTMUSIC-002" text="修改标签时，必须仅选择一个单元格进行修改，请勿多选。" caption="" category="E"/>
 
     <!--SelectArtist-->
     <message id="MSG-SELECTARTIST-001" text="数据填写不完整：未选择{0}。" caption="信息不完整" category="W"/>
     <message id="MSG-SELECTARTIST-002" text="数据填写不完整：未填写{0}。" caption="信息不完整" category="W"/>
-    <message id="MSG-SELECTARTIST-003" text="数据填写不完整：未编辑构成信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在匹配种类中选择“独自”。" caption="信息不完整" category="W"/>
+    <message id="MSG-SELECTARTIST-003" text="数据填写不完整：未编辑构成信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在构成种类中选择“独自”。" caption="信息不完整" category="W"/>
     <message id="MSG-SELECTARTIST-004" text="数据填写不完整：未选择匹配对象！请选择该艺术家对应的既存艺术家。若既存艺术家中不存在，请取消勾选“既存艺术家”并编辑匹配信息。" caption="信息不完整" category="W"/>
   
   </messages>
