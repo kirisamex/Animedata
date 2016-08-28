@@ -105,6 +105,11 @@ namespace Main.Music
         /// <returns></returns>
         public bool IsNameExists()
         {
+            if (string.IsNullOrEmpty(Name))
+            {
+                return false;
+            }
+
             if (service.isExist(Name))
             {
                 return true;
@@ -119,6 +124,11 @@ namespace Main.Music
         /// <returns>不存在：-1 存在：存在的艺术家ID</returns>
         public int IsFormattedNameExists()
         {
+            if(string.IsNullOrEmpty(Name))
+            {
+                return -1;
+            }
+
             //去所有空格
             string formattedName = Name.Trim().Replace(" ", string.Empty).Replace("　", string.Empty);
 

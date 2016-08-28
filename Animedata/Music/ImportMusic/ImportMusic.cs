@@ -164,14 +164,17 @@ namespace Main.Music
                 importRow.TrackLength = tag.TrackLength;
                 //BitRate
                 importRow.BitRate = tag.BitRate;
-
-
                 importList.AddImportMusicListRow(importRow);
             }
 
             importList.AcceptChanges();
 
-            foreach (MusicDataSet.ImportMusicListRow ir in importList.Rows)
+            DataView dv = importList.DefaultView;
+            dv.Sort = "AlbumID asc , DiscNo asc , TrackNo asc";
+            MusicDataSet.ImportMusicListDataTable newImportList = new MusicDataSet.ImportMusicListDataTable();
+            newImportList.Merge(dv.ToTable());
+
+            foreach (MusicDataSet.ImportMusicListRow ir in newImportList.Rows)
             {
                 DataGridViewRow dr = MusicDataGridView.Rows[MusicDataGridView.Rows.Add()];
 
@@ -226,6 +229,7 @@ namespace Main.Music
 
                 SetArtistCellStyle(dr.Cells[ARTISTNAMECLN], ir.ArtistName);
 
+                //MusicDataGridView.Sort(MusicDataGridView.Columns[ALBUMIDCLN], ListSortDirection.Ascending);
             }
 
             dgvStyle.SetDataGridViewColumnWidch(MusicDataGridView, new int[] { 
