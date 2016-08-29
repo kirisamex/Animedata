@@ -8,6 +8,7 @@ using System.Text;
 using System.Globalization;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using Main.Lib;
 using Main.Lib.Message;
 using Main.Lib.Const;
 
@@ -24,6 +25,7 @@ namespace Main
         //实例
         AddanimeDao dao = new AddanimeDao();
         AddAnimeService service = new AddAnimeService();
+        MainFormat format = new MainFormat();
 
         #region 信息框
         /// <summary>系统错误，请联系开发者。\n{0}</summary>
@@ -666,19 +668,10 @@ namespace Main
                 if (PlayInfoDataGridView.Rows[i].Cells["playcounts"].Value != null)
                 {
                     string seriesnum = PlayInfoDataGridView.Rows[i].Cells["playcounts"].Value.ToString();
-                    if (!string.IsNullOrEmpty(seriesnum))
-                    {
-                        Regex reg = new Regex(@"^[0-9]+$");
-                        Match mth = reg.Match(seriesnum);
 
-                        if (!mth.Success)
-                        {
-                            MsgBox.Show(MSG_ADDANIME_004, (i + 1).ToString());
-                            return false;
-                        }
-                    }
-                    else
+                    if (!format.IsNumber(seriesnum))
                     {
+                        MsgBox.Show(MSG_ADDANIME_004, (i + 1).ToString());
                         return false;
                     }
                 }

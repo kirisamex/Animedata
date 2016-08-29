@@ -122,7 +122,7 @@ namespace Main.Lib.DbAssistant
         }
 
         /// <summary>
-        /// Insert操作自增表返回主键<用于采番>
+        /// Insert操作自增表返回主键（用于采番）
         /// 语句中不必包含SELECT @@IDENTITY!!!
         /// </summary>
         /// <param name="sqlcmd">操作语句</param>

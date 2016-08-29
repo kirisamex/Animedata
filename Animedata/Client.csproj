@@ -115,6 +115,12 @@
     <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeriesService.cs" />
     <Compile Include="Lib\Class\Music\Artist\ArtistSeriesDao.cs" />
     <Compile Include="Lib\Class\Music\Artist\ArtistSeriesService.cs" />
+    <Compile Include="Lib\Class\Music\TrackResourceMapping\TrackResourceDao.cs" />
+    <Compile Include="Lib\Class\Music\TrackResourceMapping\TrackResource.cs" />
+    <Compile Include="Lib\Class\Music\TrackResourceMapping\TrackResourceService.cs" />
+    <Compile Include="Lib\Class\Music\Resource\ResourceSeries.cs" />
+    <Compile Include="Lib\Class\Music\Resource\ResourceSeriesDao.cs" />
+    <Compile Include="Lib\Class\Music\Resource\ResourceSeriesService.cs" />
     <Compile Include="Lib\Const\DataMappingType.cs" />
     <Compile Include="Lib\Format\MainFormat.cs" />
     <Compile Include="Main\AddAnime\AddAnime.cs">

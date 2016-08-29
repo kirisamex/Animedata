@@ -13,6 +13,29 @@ namespace Main.Music
 {
     class ImportMusicDao : MusicManageDAO
     {
+        /// <summary>
+        /// 返回动画对应的最大专辑内编号
+        /// </summary>
+        /// <param name="animeNo"></param>
+        /// <returns></returns>
+        public int GetMaxAlbumInAnimeNo(string animeNo)
+        {
+            string sqlcmd = @"SELECT MAX(ALBUM_INANIME_NO) 
+                            FROM {0}
+                            WHERE ENABLE_FLG = 1 
+                            AND ANIME_NO = @animeNo ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@animeNo", animeNo));
+
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TBL),paras);
+
+            if (ds.Tables[0].Rows.Count == 0)
+                return 0;
+            else
+                return Convert.ToInt32(ds.Tables[0].Rows[0][0]);
+
+        }
 
         /// <summary>
         /// 获取下一曲目编号
@@ -24,6 +47,7 @@ namespace Main.Music
                             FROM {0}";
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_ID_TBL));
+
             string maxNo;
 
             if (ds.Tables[0].Rows.Count == 0 || ds.Tables[0].Rows[0][0] == DBNull.Value)
@@ -40,8 +64,10 @@ namespace Main.Music
 
             string insertcmd = @"INSERT INTO {0} (TRACK_ID,LAST_UPDATE_DATETIME)
                                 VALUES (@trackid,GETDATE())";
+
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@trackid", nextNo));
+
             DbCmd.DoCommand(string.Format(insertcmd, CommonConst.TableName.T_TRACK_ID_TBL), paras);
 
             return nextNo;

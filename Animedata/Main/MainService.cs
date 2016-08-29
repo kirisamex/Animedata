@@ -29,6 +29,8 @@ namespace Main
         const string MSG_COMMON_001 = "MSG-COMMON-001";
         /// <summary>[ {0} ]的年月格式不正确！时间格式：yyyyMM。</summary>
         const string MSG_COMMON_006 = "MSG-COMMON-006";
+        /// <summary>[ {0} ]的年份格式不正确！时间格式：yyyy。</summary>
+        const string MSG_COMMON_009 = "MSG-COMMON-009";
 
         #endregion
 
@@ -238,6 +240,18 @@ namespace Main
         }
 
         /// <summary>
+        /// 根据YYYY转换为日期
+        /// </summary>
+        /// <param name="YYYYMM"></param>
+        /// <returns></returns>
+        public DateTime ConvertToDateTimeFromYYYY(string YYYY)
+        {
+            DateTime dt;
+            DateTime.TryParseExact(YYYY, "yyyy", null, DateTimeStyles.None, out dt);
+            return dt;
+        }
+
+        /// <summary>
         /// YYYYMM格式检查
         /// </summary>
         /// <param name="YYYYMM"></param>
@@ -253,17 +267,28 @@ namespace Main
                 return false;
             }
 
-            //▼#3_考虑到登记新企划以及搜索的需要，不使用该检查
-            //是否超过今天
-            //if (ConvertToDateTimeFromYYYYMM(YYYYMM) > DateTime.Today)
-            //{
-            //    ShowErrorMessage("\n[ " + YYYYMM + " ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！",ERRORINFO);
-            //    return false;
-            //}
-            //▲#3
+            return true;
+        }
+
+
+        /// <summary>
+        /// YYYY格式检查
+        /// </summary>
+        /// <param name="YYYYMM"></param>
+        /// <returns>null-true;YYYYMM-false</returns>
+        public bool YYYYFormatCheck(string YYYY)
+        {
+            //四位数字，年
+            Regex yyyy = new Regex(@"^(19[5-9][0-9]|20[0-9]{2})$");
+            Match yatch = yyyy.Match(YYYY);
+            if (!yatch.Success)
+            {
+                return false;
+            }          
 
             return true;
         }
+
 
         /// <summary>
         /// 动画编号格式检查
