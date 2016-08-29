@@ -80,6 +80,11 @@ namespace Main.Lib.Const
             public static readonly string T_RESOURCE_TBL = "dbo.T_RESOURCE_TBL";
 
             /// <summary>
+            /// <para>资源编号表</para>
+            /// </summary>
+            public static readonly string T_RESOURCE_ID_TBL = "dbo.T_RESOURCE_ID_TBL";
+
+            /// <summary>
             /// <para>存储路径表</para>
             /// </summary>
             public static readonly string T_STORAGE_MST = "dbo.T_STORAGE_MST";

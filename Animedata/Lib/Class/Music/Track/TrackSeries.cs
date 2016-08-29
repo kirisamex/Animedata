@@ -44,7 +44,7 @@ namespace Main.Music
         /// <summary>
         /// 艺术家编号
         /// </summary>
-        public string ArtistID { get; set; }
+        public int ArtistID { get; set; }
 
         /// <summary>
         /// 动画编号
@@ -65,6 +65,16 @@ namespace Main.Music
         /// 路径
         /// </summary>
         public string Path { get; set; }
+
+        /// <summary>
+        /// 资源信息
+        /// </summary>
+        List<ResourceSeries> Resource = new List<ResourceSeries>();
+
+        /// <summary>
+        /// 曲目资源匹配信息
+        /// </summary>
+        List<TrackResource> ResourceMap = new List<TrackResource>();
         #endregion
 
         #region 常量
@@ -95,7 +105,7 @@ namespace Main.Music
             DiscNo=Convert.ToInt32(ds.Tables[0].Rows[0]["DISC_NO"]);
             TrackNo = Convert.ToInt32(ds.Tables[0].Rows[0]["TRACK_NO"]);
             TrackTitleName = ds.Tables[0].Rows[0]["TRACK_TITLE_NAME"].ToString();
-            ArtistID = ds.Tables[0].Rows[0]["ARTIST_ID"].ToString();
+            ArtistID = Convert.ToInt32(ds.Tables[0].Rows[0]["ARTIST_ID"]);
             if (ds.Tables[0].Rows[0]["ANIME_NO"] != null)
             {
                 AnimeNo = ds.Tables[0].Rows[0]["ANIME_NO"].ToString();

@@ -62,16 +62,17 @@ namespace Main.Music
         public AlbumSeries()
         {
         }
-
-        /// <summary>
-        /// 构造
-        /// ！！！空壳类
-        /// </summary>
-        /// <param name="albumID"></param>
-        public AlbumSeries(string albumID)
-        {
-            ID = albumID;
-        }
         #endregion
+
+        #region 方法
+        /// <summary>
+        /// 添加曲目
+        /// </summary>
+        /// <param name="track"></param>
+        public void AddTracks(TrackSeries track)
+        {
+            this.Tracks.Add(track);
+        }
+        #endregion 
     }
 }

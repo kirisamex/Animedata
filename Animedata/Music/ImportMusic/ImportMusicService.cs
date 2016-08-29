@@ -16,6 +16,12 @@ namespace Main.Music
         /// 专辑名匹配表
         /// </summary>
         Dictionary<string, string> albumdic = new Dictionary<string, string>();
+
+        /// <summary>
+        /// 专辑内编号匹配表
+        /// </summary>
+        Dictionary<string, int> albumInAnimeNoDic = new Dictionary<string, int>();
+
         /// <summary>
         /// 获取新专辑ID
         /// </summary>
@@ -32,6 +38,27 @@ namespace Main.Music
             albumdic.Add(albumTitleName, albumid);
 
             return albumid;
+        }
+
+        /// <summary>
+        /// 获取下一动画内专辑编号
+        /// </summary>
+        /// <param name="AnimeNo"></param>
+        /// <returns></returns>
+        public int GetNextInAnimeAlbumNo(string AnimeNo)
+        {
+            if (albumInAnimeNoDic.ContainsKey(AnimeNo))
+            {
+                int nextNo = albumInAnimeNoDic[AnimeNo] + 1;
+                albumInAnimeNoDic[AnimeNo] = nextNo;
+                return nextNo;
+            }
+            else
+            {
+                int nextNo = dao.GetMaxAlbumInAnimeNo(AnimeNo)+1;
+                albumInAnimeNoDic.Add(AnimeNo, nextNo);
+                return nextNo;
+            }
         }
 
         /// <summary>

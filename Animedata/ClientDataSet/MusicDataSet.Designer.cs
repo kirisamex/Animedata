@@ -767,7 +767,7 @@ namespace Main.ClientDataSet {
             public ImportMusicListRow AddImportMusicListRow(
                         string TrackID, 
                         string AlbumID, 
-                        string TrackTypeId, 
+                        int TrackTypeId, 
                         string DiscNo, 
                         string TrackNo, 
                         string OldTrackNo, 
@@ -849,7 +849,7 @@ namespace Main.ClientDataSet {
                 base.Columns.Add(this.columnTrackID);
                 this.columnAlbumID = new global::System.Data.DataColumn("AlbumID", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnAlbumID);
-                this.columnTrackTypeId = new global::System.Data.DataColumn("TrackTypeId", typeof(string), null, global::System.Data.MappingType.Element);
+                this.columnTrackTypeId = new global::System.Data.DataColumn("TrackTypeId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTrackTypeId);
                 this.columnDiscNo = new global::System.Data.DataColumn("DiscNo", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDiscNo);
@@ -2957,10 +2957,10 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public string TrackTypeId {
+            public int TrackTypeId {
                 get {
                     try {
-                        return ((string)(this[this.tableImportMusicList.TrackTypeIdColumn]));
+                        return ((int)(this[this.tableImportMusicList.TrackTypeIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
                         throw new global::System.Data.StrongTypingException("テーブル \'ImportMusicList\' にある列 \'TrackTypeId\' の値は DBNull です。", e);

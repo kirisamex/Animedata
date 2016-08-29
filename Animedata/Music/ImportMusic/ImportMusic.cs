@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Main.ClientDataSet;
+using Main.Lib;
 using Main.Lib.Const;
 using Main.Lib.Message;
 using Main.Lib.Style;
@@ -17,15 +18,39 @@ namespace Main.Music
 {
     public partial class ImportMusic : Form
     {
+        #region 常量
+
         #region 信息
-        /// <summary>系统错误，请联系开发者。\n{0}</summary>
+        /// <summary> 系统错误，请联系开发者。\n{0}</summary>
         const string MSG_COMMON_001 = "MSG-COMMON-001";
-        /// <summary>指定的路径：{0} 不存在！\n{0}</summary>
+        /// <summary> 指定的路径：{0} 不存在！\n{0}</summary>
         const string MSG_IMPORTMUSIC_001 = "MSG-IMPORTMUSIC-001";
-        /// <summary>修改标签时，必须仅选择一个单元格进行修改，请勿多选。</summary>
+        /// <summary> 修改标签时，必须仅选择一个单元格进行修改，请勿多选。</summary>
         const string MSG_IMPORTMUSIC_002 = "MSG-IMPORTMUSIC-002";
+        /// <summary> 专辑 {0} 内曲目编号为 {1} 的曲目标题为空，请补充。</summary>
+        const string MSG_IMPORTMUSIC_003 = "MSG-IMPORTMUSIC-003";
+        /// <summary> 专辑编号 {0} 的专辑标题为空，请补充。</summary>
+        const string MSG_IMPORTMUSIC_004 = "MSG-IMPORTMUSIC-004";
+        /// <summary> 专辑 {0} 内曲目 {1} 的碟号为空，请补充。</summary>
+        const string MSG_IMPORTMUSIC_005 = "MSG-IMPORTMUSIC-005";
+        /// <summary> 专辑 {0} 内曲目 {1} 的碟号格式不正确，必须为半角数字！</summary>
+        const string MSG_IMPORTMUSIC_006 = "MSG-IMPORTMUSIC-006";
+        /// <summary> 专辑 {0} 内曲目 {1} 的音轨为空，请补充。</summary>
+        const string MSG_IMPORTMUSIC_007 = "MSG-IMPORTMUSIC-007";
+        /// <summary> 专辑 {0} 内曲目 {1} 的音轨格式不正确，必须为半角数字！</summary>
+        const string MSG_IMPORTMUSIC_008 = "MSG-IMPORTMUSIC-008";
+        /// <summary> 专辑 {0} 内曲目 {1} 的发售年份格式不正确，必须为半角数字年份。</summary>
+        const string MSG_IMPORTMUSIC_009 = "MSG-IMPORTMUSIC-009";
+        /// <summary> 专辑 {0} 内曲目 {1} 的专辑类型未选择，请补充。</summary>
+        const string MSG_IMPORTMUSIC_010 = "MSG-IMPORTMUSIC-010";
+        /// <summary> 专辑 {0} 内曲目 {1} 的曲目类型未选择，请补充。</summary>
+        const string MSG_IMPORTMUSIC_011 = "MSG-IMPORTMUSIC-011";
+        /// <summary> 专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。</summary>
+        const string MSG_IMPORTMUSIC_012 = "MSG-IMPORTMUSIC-012";
+        /// <summary> </summary>
+        const string MSG_IMPORTMUSIC_013 = "MSG-IMPORTMUSIC-013";
         #endregion 
-  
+
         #region 列名
         /// <summary>既有编号 </summary>
         const string OLDTRACKNOCLN = "OldTrackNo";
@@ -37,8 +62,8 @@ namespace Main.Music
         const string ALBUMIDCLN = "AlbumID";
         /// <summary>专辑名 </summary>
         const string ALBUMNAMECLN = "AlbumName";
-        /// <summary>专辑动画类型 </summary>
-        const string ALBUMANIMETYPECLN = "AlbumAnimeType";
+        /// <summary>专辑类型 </summary>
+        const string ALBUMTYPECLN = "AlbumAnimeType";
         /// <summary>艺术家 </summary>
         const string ARTISTNAMECLN = "ArtistName";
         /// <summary>动画名 </summary>
@@ -69,9 +94,9 @@ namespace Main.Music
         const string TRACKTIMELENGTHCLN = "TrackTimeLength";
         #endregion
 
-        #region 常量
-        private ImportType importType;
-
+        /// <summary>
+        /// 导入数据类型
+        /// </summary>
         public enum ImportType
         {
             /// <summary>通过新下载的MP3 </summary>
@@ -84,18 +109,20 @@ namespace Main.Music
 
         DataGridViewStyle dgvStyle = new DataGridViewStyle();
         ImportMusicService service = new ImportMusicService();
+        MainFormat format = new MainFormat();
         #endregion
 
         #region 变量
         /// <summary>
-        /// Dataset
-        /// </summary>
-        MusicDataSet.ImportMusicListDataTable importList = new MusicDataSet.ImportMusicListDataTable();
-
-        /// <summary>
         /// 新增艺术家匹配
         /// </summary>
         Dictionary<string, DataMappingType.Type> newArtistDic = new Dictionary<string, DataMappingType.Type>();
+
+        /// <summary>
+        /// 导入数据类型
+        /// </summary>
+        private ImportType importType;
+
         #endregion
 
         #region 方法
@@ -123,13 +150,16 @@ namespace Main.Music
         /// <param name="musicPath">音乐路径数组</param>
         private void ShowMusicInfo(string[] musicPath)
         {
+            //导入列表
+            MusicDataSet.ImportMusicListDataTable importList = new MusicDataSet.ImportMusicListDataTable();
+
             for (int i = 0; i < musicPath.Length; i++)
             {
                 if (!System.IO.File.Exists(musicPath[i]))
                 {
                     MsgBox.Show(MSG_IMPORTMUSIC_001, musicPath[i]);
                     continue;
-                }
+                }              
 
                 //------做成新曲目 开始------
                 MusicDataSet.ImportMusicListRow importRow = importList.NewImportMusicListRow();
@@ -308,7 +338,7 @@ namespace Main.Music
             string AlbumTypeName = service.GetAlbumTypeNameByAlbumTypeID(Convert.ToInt32(targetkey));
 
             this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ALBUMTYPEIDCLN].Value = targetkey.ToString();
-            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ALBUMANIMETYPECLN].Value = AlbumTypeName;
+            this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[ALBUMTYPECLN].Value = AlbumTypeName;
             
             //同名专辑一并设定
             foreach (DataGridViewRow dr in MusicDataGridView.Rows)
@@ -316,7 +346,7 @@ namespace Main.Music
                 if (dr.Cells[ALBUMNAMECLN].Value.ToString().Equals(AlbumName))
                 {
                     dr.Cells[ALBUMTYPEIDCLN].Value = targetkey.ToString();
-                    dr.Cells[ALBUMANIMETYPECLN].Value = AlbumTypeName;
+                    dr.Cells[ALBUMTYPECLN].Value = AlbumTypeName;
                 }
             }
         }
@@ -554,6 +584,15 @@ namespace Main.Music
             MsgBox.Show(MSG_IMPORTMUSIC_002);
         }
 
+        private void OnImportMusic()
+        {
+            if (ImportMusicToDB())
+            {
+                //Todo:主界面操作
+                this.Close();
+            }
+        }
+
         /// <summary>
         /// 保存成功信息可见
         /// </summary>
@@ -565,24 +604,303 @@ namespace Main.Music
             timer1.Enabled = true;
         }
 
-        private void OnImportMusic()
+        private bool ImportMusicToDB()
         {
-            List<AlbumSeries> AlbumSeries = new List<AlbumSeries>();
-            List<TrackSeries> TrackSeries = new List<TrackSeries>();
+            try
+            {
+                //格式检查
+                if (!FormatCheck())
+                {
+                    return false;
+                }
+
+                //导入列表
+                MusicDataSet.ImportMusicListDataTable resultList = new MusicDataSet.ImportMusicListDataTable();
+                
+                #region resultList作成
+                foreach (DataGridViewRow dr in MusicDataGridView.Rows)
+                {
+                    //------做成需要导入的曲目 开始------
+                    MusicDataSet.ImportMusicListRow resRow = resultList.NewImportMusicListRow();
+
+                    //曲号
+                    resRow.TrackID = dr.Cells[TRACKIDCLN].Value.ToString();
+                    //曲名
+                    resRow.TrackTitleName = dr.Cells[TRACKNAMECLN].Value.ToString().Trim();
+                    //曲目类型
+                    resRow.TrackTypeId = Convert.ToInt32(dr.Cells[TRACKTYPEIDCLN].Value);
+                    //专辑号
+                    resRow.AlbumID = dr.Cells[ALBUMIDCLN].Value.ToString();
+                    //专辑名
+                    resRow.TrackTitleName = dr.Cells[ALBUMNAMECLN].Value.ToString().Trim();
+                    //专辑类型
+                    resRow.AlbumTypeID = Convert.ToInt32(dr.Cells[ALBUMTYPECLN].Value);
+                    //艺术家编号
+                    resRow.ArtistID = Convert.ToInt32(dr.Cells[ARTISTIDCLN].Value);
+                    //碟号
+                    resRow.DiscNo = dr.Cells[DISCNOCLN].Value.ToString().Trim();
+                    //音轨
+                    resRow.TrackNo = dr.Cells[TRACKNOCLN].Value.ToString().Trim();
+                    //发售年份
+                    resRow.SalesYear = dr.Cells[YEARCLN].Value.ToString().Trim();
+                    //资源路径
+                    resRow.FilePath = dr.Cells[RESOURCEPATHCLN].Value.ToString();
+                    //描述
+                    resRow.Description = dr.Cells[DESCRIPTIONCLN].Value.ToString();
+                    //动画编号
+                    resRow.AnimeNo = dr.Cells[ANIMENOCLN].Value.ToString();
+                    //专辑类型编号
+                    resRow.AlbumTypeID = Convert.ToInt32(dr.Cells[ALBUMTYPECLN].Value);
+                    //曲目类型编号
+                    resRow.TrackTypeId = Convert.ToInt32(dr.Cells[TRACKTYPEIDCLN].Value);
+                    //比特率
+                    resRow.BitRate = dr.Cells[BITRATECLN].Value.ToString();
+                    //歌曲长度
+                    resRow.TrackLength = dr.Cells[TRACKTIMELENGTHCLN].Value.ToString();
+
+                    resultList.Rows.Add(resRow);
+                }
+
+                resultList.AcceptChanges();
+                #endregion
+
+                //所有需要插入数据物理表对应的List
+                List<AlbumSeries> AlbumSeriesList = new List<AlbumSeries>();
+                List<TrackSeries> TrackSeriesList = new List<TrackSeries>();
+                List<ResourceSeries> ResourceSeriesList = new List<ResourceSeries>();
+                List<TrackResource> MappingSeriesList = new List<TrackResource>();
+
+                
+                
+                #region 专辑作成
+
+                var targetAlbum = (from v in resultList
+                                   select new
+                                   {
+                                       v.AlbumID,
+                                       v.AlbumTitleName,
+                                       v.AlbumTypeID,
+                                       v.AnimeNo
+                                   }).Distinct().ToList();
+
+                foreach (var albumInfo in targetAlbum)
+                {
+                    //专辑信息作成
+                    AlbumSeries album = new AlbumSeries();
+
+                    album.ID = albumInfo.AlbumID;
+                    album.AlbumTitleName = albumInfo.AlbumTitleName;
+                    album.AlbumTypeId = albumInfo.AlbumTypeID;
+                    album.AnimeNo = albumInfo.AnimeNo;
+                    album.InAnimeNo = service.GetNextInAnimeAlbumNo(album.ID);
+
+                    //计算总碟数：maxdiscno
+                    var countdisc = (from discc in resultList
+                                 select discc.DiscNo).Max();
+                    album.TotalDiscCount = Convert.ToInt32(countdisc);
+
+                    //计算总曲数：count
+                    var counttrack = (from discc in resultList
+                                 select discc.TrackID).Count();
+                    album.TotalTrackCount = Convert.ToInt32(counttrack);
+
+                    //曲目信息作成
+                    var targetTrack = from v in resultList
+                                      where v.AlbumID.Equals(album.ID)
+                                      select v;
+                    foreach (MusicDataSet.ImportMusicListRow ir in targetTrack)
+                    {
+                        //曲目基本信息
+                        TrackSeries track = new TrackSeries();
+
+                        track.ID = ir.TrackID;
+                        track.PAlbumID = ir.AlbumID;
+                        track.TrackTypeId = ir.TrackTypeId;
+                        track.TrackTitleName = ir.TrackTitleName;
+                        track.ArtistID = ir.ArtistID;
+                        track.AnimeNo = ir.AnimeNo;
+                        track.SalesYear = Convert.ToInt32(ir.SalesYear);
+                        track.Description = ir.Description;
+
+                        if (!string.IsNullOrEmpty(ir.DiscNo))
+                        {
+                            track.DiscNo = Convert.ToInt32(ir.DiscNo);
+                        }
+                        else
+                        {
+                            track.DiscNo = 0;
+                        }
+                        if (!string.IsNullOrEmpty(ir.TrackNo))
+                        {
+                            track.TrackNo = Convert.ToInt32(ir.TrackNo);
+                        }
+                        else
+                        {
+                            track.TrackNo = 0;
+                        }
+                        //曲目资源信息
+
+                        ResourceSeries sound = new ResourceSeries();
+
+                        
+                        
+                    }
+
+                                       
+                }
+                #endregion
 
 
-            #region 专辑作成
-            
-            #endregion
 
-            #region 曲目作成
-            #endregion
-
-            #region 资源作成
-            #endregion
+                return true;
+            }
+            catch (Exception ex)
+            {
+                MsgBox.Show(MSG_COMMON_001, ex.ToString());
+                return false;
+            }
         }
 
+        
 
+        /// <summary>
+        /// 格式检查 
+        /// </summary>
+        /// <returns></returns>
+        private bool FormatCheck()
+        {
+            foreach (DataGridViewRow dr in MusicDataGridView.Rows)
+            {
+                //TRACK_ID非空
+                if(dr.Cells[TRACKIDCLN].Value == null ||string.IsNullOrEmpty(dr.Cells[TRACKIDCLN].Value.ToString()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[TRACKIDCLN];
+                    MsgBox.Show(MSG_COMMON_001,"INFO:TRACK_ID IS NULL OR EMPTY");
+                    return false;
+                }
+
+                //ALBUM_ID非空
+                if(dr.Cells[ALBUMIDCLN].Value == null ||string.IsNullOrEmpty(dr.Cells[ALBUMIDCLN].Value.ToString()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[ALBUMIDCLN];
+                    MsgBox.Show(MSG_COMMON_001, "INFO:ALBUM_ID IS NULL OR EMPTY");
+                    return false;
+                }
+
+                //BITRATE非空
+                if (dr.Cells[BITRATECLN].Value == null || string.IsNullOrEmpty(dr.Cells[BITRATECLN].Value.ToString()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[BITRATECLN];
+                    MsgBox.Show(MSG_COMMON_001, "INFO:BITRATE IS NULL OR EMPTY");
+                    return false;
+                }
+
+                //TRACKTIMELENGTH非空
+                if (dr.Cells[TRACKTIMELENGTHCLN].Value == null || string.IsNullOrEmpty(dr.Cells[TRACKTIMELENGTHCLN].Value.ToString()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[TRACKTIMELENGTHCLN];
+                    MsgBox.Show(MSG_COMMON_001, "INFO:TRACKTIMELENGTH IS NULL OR EMPTY");
+                    return false;
+                }
+
+                //TrackName
+                if (dr.Cells[TRACKNAMECLN].Value == null || string.IsNullOrEmpty(dr.Cells[TRACKNAMECLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[TRACKTIMELENGTHCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_003, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKIDCLN].Value.ToString());
+                    return false;
+                }
+
+                //AlbumName
+                if (dr.Cells[ALBUMNAMECLN].Value == null || string.IsNullOrEmpty(dr.Cells[ALBUMNAMECLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[ALBUMNAMECLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_004, dr.Cells[ALBUMNAMECLN].Value.ToString());
+                    return false;
+                }
+
+                //DiscNo
+                if (dr.Cells[DISCNOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[DISCNOCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[DISCNOCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_005, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+                else if (!format.IsNumber(dr.Cells[DISCNOCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[DISCNOCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_006, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+
+                //TrackNo
+                if (dr.Cells[TRACKNOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[TRACKNOCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[TRACKNOCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_007, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+                else if (!format.IsNumber(dr.Cells[TRACKNOCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[TRACKNOCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_008, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+
+                //Year
+                if (dr.Cells[YEARCLN].Value != null && !service.YYYYFormatCheck(dr.Cells[YEARCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[YEARCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_008, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+
+                //ResourcePath非空
+                if (dr.Cells[RESOURCEPATHCLN].Value == null || string.IsNullOrEmpty(dr.Cells[RESOURCEPATHCLN].Value.ToString()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[RESOURCEPATHCLN];
+                    MsgBox.Show(MSG_COMMON_001, "INFO:RESOURCEPATHCLN IS NULL OR EMPTY");
+                    return false;
+                }
+
+                //ANIME_NO
+                if (dr.Cells[ANIMENOCLN] != null && service.AnimeNoCheck(dr.Cells[ANIMENOCLN].ToString()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[ANIMENAMECLN];
+                    MsgBox.Show(MSG_COMMON_001, "INFO:ANIMENOCLN FORMAT ERROR");
+                    return false;
+                }
+
+                //AlbumTypeID
+                if (dr.Cells[ALBUMTYPEIDCLN].Value != null && !string.IsNullOrEmpty(dr.Cells[ALBUMTYPEIDCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[ALBUMTYPEIDCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_010, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+
+                //TrackTypeID
+                if (dr.Cells[TRACKTYPEIDCLN].Value != null && !string.IsNullOrEmpty(dr.Cells[TRACKTYPEIDCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[TRACKTYPEIDCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_011, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+
+                //ArtistID
+                if (dr.Cells[ARTISTIDCLN].Value != null && !string.IsNullOrEmpty(dr.Cells[ARTISTIDCLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[ARTISTIDCLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_012, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+
+                //放送时间格式检查
+                //目前放送时间不可编辑，直接从文件Shell32中取出，不做检查
+
+            }
+            return true;
+        }
 
         #endregion
 
@@ -626,7 +944,7 @@ namespace Main.Music
                         animes.ShowDialog(this);
                     }
                 }
-                else if (e.ColumnIndex == MusicDataGridView.Columns[ALBUMANIMETYPECLN].Index)
+                else if (e.ColumnIndex == MusicDataGridView.Columns[ALBUMTYPECLN].Index)
                 {
                     //专辑种类
                     AbstractSelect albumtype = new AbstractSelect(CommonConst.TableName.T_ALBUM_TYPE_MST, "ALBUM_TYPE_ID", "ALBUM_TYPE_NAME", false,
@@ -724,11 +1042,7 @@ namespace Main.Music
         {
            OnSaveID3Tag();
         }
-        #endregion
-
-        
-
-        
+        #endregion  
 
     }
 }
