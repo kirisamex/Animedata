@@ -141,8 +141,7 @@ namespace Main.Music
                 {
                     storageid=Convert.ToInt32(musicdt.Rows[i]["STORAGE_ID"]);
                 }
-                respath = service.GetResourcePath(storageid,
-                    fpath, fname);
+                //respath = service.GetResourcePath(storageid,                    fpath, fname,);
 
                 #endregion
 
@@ -194,8 +193,6 @@ namespace Main.Music
         /// <param name="filePath">文件路径</param>
         public void ShowMP3TagInfo(string filePath)
         {
-            //text
-            //filePath = "C:\\Users\\Public\\Music\\Sample Music\\Kalimba.mp3";
             if (filePath == null || filePath.ToString().Equals(string.Empty))
             {
                 TrackNameTextBox.Text = string.Empty;
@@ -262,10 +259,9 @@ namespace Main.Music
                 TrackSeries track = GetCurrentTrack();
                 MusicResource res = new MusicResource(track.ID, 1); //音源
 
-                string respath = service.GetResourcePath(res.StorageID,
-                    res.FilePath, res.FileName);
-
-                ShowMP3TagInfo(respath);
+                //string respath = service.GetResourcePath(res.StorageID,                    res.FilePath, res.FileName);
+                
+                //ShowMP3TagInfo(respath);
             }
             catch (Exception ex)
             {

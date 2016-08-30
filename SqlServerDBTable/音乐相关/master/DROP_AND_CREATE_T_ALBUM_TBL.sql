@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[T_ALBUM_TBL](
 	[ALBUM_ID] [nchar](10) NOT NULL,
 	[ALBUM_TYPE_ID] [int] NOT NULL,
 	[ALBUM_INANIME_NO] [int] NULL,
-	[ANIME_NO] [nchar](4) NOT NULL,
+	[ANIME_NO] [nchar](4) NULL,
 	[ALBUM_TITLE_NAME] [char](1000) NOT NULL,
 	[TOTAL_DISC_COUNT] [smallint] NOT NULL,
 	[TOTAL_TRACK_COUNT] [smallint] NOT NULL,

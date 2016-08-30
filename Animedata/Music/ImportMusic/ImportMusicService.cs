@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Main.Music
 {
-    class ImportMusicService:MusicManageService
+    class ImportMusicService : MusicManageService
     {
 
         //实例
@@ -45,7 +45,7 @@ namespace Main.Music
         /// </summary>
         /// <param name="AnimeNo"></param>
         /// <returns></returns>
-        public int GetNextInAnimeAlbumNo(string AnimeNo)
+        public int GetNextInAnimeAlbumNo(string AnimeNo, int albumTypeID)
         {
             if (albumInAnimeNoDic.ContainsKey(AnimeNo))
             {
@@ -55,7 +55,7 @@ namespace Main.Music
             }
             else
             {
-                int nextNo = dao.GetMaxAlbumInAnimeNo(AnimeNo)+1;
+                int nextNo = dao.GetMaxAlbumInAnimeNo(AnimeNo, albumTypeID) + 1;
                 albumInAnimeNoDic.Add(AnimeNo, nextNo);
                 return nextNo;
             }

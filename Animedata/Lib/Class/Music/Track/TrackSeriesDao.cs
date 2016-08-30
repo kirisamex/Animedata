@@ -11,10 +11,15 @@ using Main.Lib.Const;
 
 namespace Main.Music
 {
-    public class TrackSeriesDao : Maindao
+    class TrackSeriesDao : Maindao
     {
         public TrackSeriesDao() : base() { }
 
+        /// <summary>
+        /// 通过曲目ID获得曲目信息
+        /// </summary>
+        /// <param name="trackID"></param>
+        /// <returns></returns>
         public DataSet GetTrackByTrackId(string trackID)
         {
             DataSet ds = new DataSet();
@@ -37,6 +42,77 @@ namespace Main.Music
             paras.Add(new SqlParameter("@trackid", trackID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TBL), paras);
+        }
+
+        /// <summary>
+        /// 数据插入
+        /// </summary>
+        public bool Insert(TrackSeries track)
+        {
+            StringBuilder cmd1 = new StringBuilder();
+            StringBuilder cmd2 = new StringBuilder();
+            StringBuilder sqlcmd = new StringBuilder();
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+
+            if (track.AnimeNo != null && !track.AnimeNo.Trim().Equals(string.Empty))
+            {
+                cmd1.Append(",ANIME_NO");
+                cmd2.Append(",@AnimeNo");
+                paras.Add(new SqlParameter("@AnimeNo", track.AnimeNo));
+            }
+
+            if (track.SalesYear > 0)
+            {
+                cmd1.Append(",SALES_YEAR");
+                cmd2.Append(",@SalesYear");
+                paras.Add(new SqlParameter("@SalesYear", track.SalesYear));
+            }
+
+            if (track.Description != null && !track.Description.Trim().Equals(string.Empty))
+            {
+                cmd1.Append(",DESCRIPTION");
+                cmd2.Append(",@Description");
+                paras.Add(new SqlParameter("@Description", track.Description));
+            }
+
+            sqlcmd.Append(@"INSERT INTO {0} (
+                                  TRACK_ID
+                                 ,P_ALBUM_ID
+                                 ,TRACK_TYPE_ID
+                                 ,DISC_NO
+                                 ,TRACK_NO
+                                 ,TRACK_TITLE_NAME
+                                 ,ARTIST_ID
+	                             ,ENABLE_FLG
+	                             ,LAST_UPDATE_DATETIME
+	                             ");
+            sqlcmd.Append(cmd1);
+            sqlcmd.Append(@")
+                            VALUES (
+                                    @id
+		                            ,@PAlbumID
+		                            ,@TrackTypeId
+		                            ,@DiscNo
+		                            ,@TrackNo
+		                            ,@TrackTitleName
+		                            ,@ArtistID
+	                                ,1
+	                                ,GETDATE() ");
+            sqlcmd.Append(cmd2);
+            sqlcmd.Append(@")");
+            paras.Add(new SqlParameter("@id", track.ID));
+            paras.Add(new SqlParameter("@PAlbumID", track.PAlbumID));
+            paras.Add(new SqlParameter("@TrackTypeId", track.TrackTypeId));
+            paras.Add(new SqlParameter("@DiscNo", track.DiscNo));
+            paras.Add(new SqlParameter("@TrackNo", track.TrackNo));
+            paras.Add(new SqlParameter("@TrackTitleName", track.TrackTitleName));
+            paras.Add(new SqlParameter("@ArtistID", track.ArtistID));
+
+            DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_TRACK_TBL), paras);
+
+            return true;
+
         }
     }
 }
