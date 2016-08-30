@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Main.Music
 {
-    public class TrackSeries
+    class TrackSeries
     {
         #region 变量
         /// <summary>
@@ -69,17 +69,17 @@ namespace Main.Music
         /// <summary>
         /// 资源信息
         /// </summary>
-        List<ResourceSeries> Resource = new List<ResourceSeries>();
+        public List<ResourceSeries> Resource = new List<ResourceSeries>();
 
         /// <summary>
         /// 曲目资源匹配信息
         /// </summary>
-        List<TrackResource> ResourceMap = new List<TrackResource>();
+        public List<TrackResource> ResourceMap = new List<TrackResource>();
         #endregion
 
         #region 常量
         //实例
-        TrackSeriesDao dao = new TrackSeriesDao();      
+        TrackSeriesService service = new TrackSeriesService();      
 
         #endregion
 
@@ -98,7 +98,7 @@ namespace Main.Music
         public TrackSeries(string TrackID)
         {
             ID = TrackID;
-            DataSet ds = dao.GetTrackByTrackId(TrackID);
+            DataSet ds = service.GetTrackByTrackId(TrackID);
 
             PAlbumID = ds.Tables[0].Rows[0]["P_ALBUM_ID"].ToString();
             TrackTypeId = Convert.ToInt32(ds.Tables[0].Rows[0]["TRACK_TYPE"]);
@@ -118,6 +118,35 @@ namespace Main.Music
             {
                 Description = ds.Tables[0].Rows[0]["SALES_YEAR"].ToString();
             }
+        }
+        #endregion
+
+        #region 方法
+        /// <summary>
+        /// 添加资源
+        /// </summary>
+        /// <param name="track"></param>
+        public void AddResource(ResourceSeries resource)
+        {
+            this.Resource.Add(resource);
+        }
+
+        /// <summary>
+        /// 添加资源匹配
+        /// </summary>
+        /// <param name="track"></param>
+        public void AddMapping(TrackResource map)
+        {
+            this.ResourceMap.Add(map);
+        }
+
+        /// <summary>
+        /// 数据插入
+        /// </summary>
+        /// <returns></returns>
+        public bool Insert()
+        {
+            return service.Insert(this);
         }
         #endregion
     }

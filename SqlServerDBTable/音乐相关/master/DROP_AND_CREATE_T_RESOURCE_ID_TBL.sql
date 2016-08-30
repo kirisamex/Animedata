@@ -1,4 +1,4 @@
-USE [Animedata_dev]
+USE [ANIMEDATA]
 GO
 
 IF  EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_T_RESOURCE_ID_TBL_LAST_UDPATE_DATETIME]') AND type = 'D')
@@ -8,7 +8,7 @@ END
 
 GO
 
-USE [Animedata_dev]
+USE [ANIMEDATA]
 GO
 
 /****** Object:  Table [dbo].[T_RESOURCE_ID_TBL]    Script Date: 08/29/2016 10:23:34 ******/
@@ -16,7 +16,7 @@ IF  EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[T_RES
 DROP TABLE [dbo].[T_RESOURCE_ID_TBL]
 GO
 
-USE [Animedata_dev]
+USE [ANIMEDATA]
 GO
 
 /****** Object:  Table [dbo].[T_RESOURCE_ID_TBL]    Script Date: 08/29/2016 10:23:34 ******/
@@ -28,7 +28,7 @@ GO
 
 CREATE TABLE [dbo].[T_RESOURCE_ID_TBL](
 	[RESOURCE_ID] [int] IDENTITY(1,1) NOT NULL,
-	[LAST_UDPATE_DATETIME] [datetime] NOT NULL
+	[LAST_UPDATE_DATETIME] [datetime] NOT NULL
 ) ON [PRIMARY]
 
 GO

@@ -9,7 +9,7 @@ namespace Main.Music
     /// <summary>
     /// 资源
     /// </summary>
-    class ResourceSeries
+    public class ResourceSeries
     {
         #region 变量
         /// <summary>
@@ -51,6 +51,11 @@ namespace Main.Music
         /// 音源长度
         /// </summary>
         public int TrackLength;
+
+        /// <summary>
+        /// 原文件绝对路径
+        /// </summary>
+        public string objectFilePath;
         #endregion
 
         #region 常量与构造

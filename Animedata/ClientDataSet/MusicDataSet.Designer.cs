@@ -3055,11 +3055,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string AnimeNo {
                 get {
-                    try {
-                        return ((string)(this[this.tableImportMusicList.AnimeNoColumn]));
+                    if (this.IsAnimeNoNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'ImportMusicList\' にある列 \'AnimeNo\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableImportMusicList.AnimeNoColumn]));
                     }
                 }
                 set {

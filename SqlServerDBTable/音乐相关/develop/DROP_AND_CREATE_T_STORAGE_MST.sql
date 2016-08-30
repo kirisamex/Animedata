@@ -1,4 +1,4 @@
-USE [ANIMEDATA]
+USE [ANIMEDATA_DEV]
 GO
 
 /****** Object:  Table [dbo].[T_STORAGE_MST]    Script Date: 2016/2/1 23:16:39 ******/
@@ -15,6 +15,7 @@ GO
 CREATE TABLE [dbo].[T_STORAGE_MST](
 	[STORAGE_ID] [int] NOT NULL,
 	[STORAGE_PATH] [nvarchar](1000) NULL,
+	[DESCRTITION] [nvarchar](1000) NULL,
 	[LAST_UPDATE_DATETIME] [datetime] NOT NULL DEFAULT (getdate()),
 PRIMARY KEY CLUSTERED 
 (

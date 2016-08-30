@@ -12,12 +12,12 @@ namespace Main.Music
         /// <summary>
         /// 曲目编号
         /// </summary>
-        public string TrackID;
+        public string TrackID= string.Empty;
 
         /// <summary>
         /// 资源编号
         /// </summary>
-        public int ResourceID;
+        public int ResourceID = 0;
         #endregion
 
         TrackResourceService service = new TrackResourceService();

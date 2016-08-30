@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.IO;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -47,8 +48,13 @@ namespace Main.Music
         const string MSG_IMPORTMUSIC_011 = "MSG-IMPORTMUSIC-011";
         /// <summary> 专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。</summary>
         const string MSG_IMPORTMUSIC_012 = "MSG-IMPORTMUSIC-012";
-        /// <summary> </summary>
+        /// <summary> 专辑 {0} 内曲目 {1} 的所属动画未选择，请补充。 </summary>
         const string MSG_IMPORTMUSIC_013 = "MSG-IMPORTMUSIC-013";
+        /// <summary> 文件{0}不存在！</summary>
+        const string MSG_IMPORTMUSIC_014 = "MSG-IMPORTMUSIC-014";
+        const string MSG_IMPORTMUSIC_015 = "MSG-IMPORTMUSIC-015";
+        const string MSG_IMPORTMUSIC_016 = "MSG-IMPORTMUSIC-016";
+        const string MSG_IMPORTMUSIC_017 = "MSG-IMPORTMUSIC-017";
         #endregion 
 
         #region 列名
@@ -632,9 +638,9 @@ namespace Main.Music
                     //专辑号
                     resRow.AlbumID = dr.Cells[ALBUMIDCLN].Value.ToString();
                     //专辑名
-                    resRow.TrackTitleName = dr.Cells[ALBUMNAMECLN].Value.ToString().Trim();
+                    resRow.AlbumTitleName = dr.Cells[ALBUMNAMECLN].Value.ToString().Trim();
                     //专辑类型
-                    resRow.AlbumTypeID = Convert.ToInt32(dr.Cells[ALBUMTYPECLN].Value);
+                    resRow.AlbumTypeID = Convert.ToInt32(dr.Cells[ALBUMTYPEIDCLN].Value);
                     //艺术家编号
                     resRow.ArtistID = Convert.ToInt32(dr.Cells[ARTISTIDCLN].Value);
                     //碟号
@@ -642,21 +648,32 @@ namespace Main.Music
                     //音轨
                     resRow.TrackNo = dr.Cells[TRACKNOCLN].Value.ToString().Trim();
                     //发售年份
-                    resRow.SalesYear = dr.Cells[YEARCLN].Value.ToString().Trim();
+                    if (dr.Cells[YEARCLN].Value != null)
+                    {
+                        resRow.SalesYear = dr.Cells[YEARCLN].Value.ToString().Trim();
+                    }
                     //资源路径
                     resRow.FilePath = dr.Cells[RESOURCEPATHCLN].Value.ToString();
                     //描述
-                    resRow.Description = dr.Cells[DESCRIPTIONCLN].Value.ToString();
+                    if (dr.Cells[DESCRIPTIONCLN].Value != null)
+                    {
+                        resRow.Description = dr.Cells[DESCRIPTIONCLN].Value.ToString();
+                    }
                     //动画编号
-                    resRow.AnimeNo = dr.Cells[ANIMENOCLN].Value.ToString();
+                    if (dr.Cells[ANIMENOCLN].Value != null)
+                    {
+                        resRow.AnimeNo = dr.Cells[ANIMENOCLN].Value.ToString();
+                    }
                     //专辑类型编号
-                    resRow.AlbumTypeID = Convert.ToInt32(dr.Cells[ALBUMTYPECLN].Value);
+                    resRow.AlbumTypeID = Convert.ToInt32(dr.Cells[ALBUMTYPEIDCLN].Value);
                     //曲目类型编号
                     resRow.TrackTypeId = Convert.ToInt32(dr.Cells[TRACKTYPEIDCLN].Value);
                     //比特率
                     resRow.BitRate = dr.Cells[BITRATECLN].Value.ToString();
                     //歌曲长度
                     resRow.TrackLength = dr.Cells[TRACKTIMELENGTHCLN].Value.ToString();
+                    //艺术家姓名
+                    resRow.ArtistName = dr.Cells[ARTISTNAMECLN].Value.ToString();
 
                     resultList.Rows.Add(resRow);
                 }
@@ -666,13 +683,10 @@ namespace Main.Music
 
                 //所有需要插入数据物理表对应的List
                 List<AlbumSeries> AlbumSeriesList = new List<AlbumSeries>();
-                List<TrackSeries> TrackSeriesList = new List<TrackSeries>();
-                List<ResourceSeries> ResourceSeriesList = new List<ResourceSeries>();
-                List<TrackResource> MappingSeriesList = new List<TrackResource>();
-
+                //所有需要复制的资源，考虑到以后的专辑封面图预留
+                List<ResourceSeries> ResourceToCopy = new List<ResourceSeries>();
                 
-                
-                #region 专辑作成
+                #region 所有信息作成
 
                 var targetAlbum = (from v in resultList
                                    select new
@@ -692,7 +706,7 @@ namespace Main.Music
                     album.AlbumTitleName = albumInfo.AlbumTitleName;
                     album.AlbumTypeId = albumInfo.AlbumTypeID;
                     album.AnimeNo = albumInfo.AnimeNo;
-                    album.InAnimeNo = service.GetNextInAnimeAlbumNo(album.ID);
+                    album.InAnimeNo = service.GetNextInAnimeAlbumNo(album.ID, album.AlbumTypeId);
 
                     //计算总碟数：maxdiscno
                     var countdisc = (from discc in resultList
@@ -719,8 +733,14 @@ namespace Main.Music
                         track.TrackTitleName = ir.TrackTitleName;
                         track.ArtistID = ir.ArtistID;
                         track.AnimeNo = ir.AnimeNo;
-                        track.SalesYear = Convert.ToInt32(ir.SalesYear);
-                        track.Description = ir.Description;
+                        if (!string.IsNullOrEmpty(ir.SalesYear))
+                        {
+                            track.SalesYear = Convert.ToInt32(ir.SalesYear);
+                        }
+                        if (!string.IsNullOrEmpty(track.Description))
+                        {
+                            track.Description = ir.Description;
+                        }
 
                         if (!string.IsNullOrEmpty(ir.DiscNo))
                         {
@@ -738,20 +758,142 @@ namespace Main.Music
                         {
                             track.TrackNo = 0;
                         }
+
+                        //既存音源文件
+                        FileInfo MusicResource = new FileInfo(ir.FilePath);
+
+                        if (!MusicResource.Exists)
+                        {
+                            MsgBox.Show(MSG_IMPORTMUSIC_014, MusicResource.FullName);
+                        }
+
                         //曲目资源信息
+                        //1.备份音源
+                        ResourceSeries bakMusic = new ResourceSeries();
 
-                        ResourceSeries sound = new ResourceSeries();
+                        bakMusic.GetNewID();
+                        bakMusic.TypeID = ResourceFileType.Type.MUSIC_MP3_1;
+                        bakMusic.StorageID = StorageID.Path.BAK_RESOURCE_BUCKET_101;
+                        //sound.FilePath = null;
+                        bakMusic.FileName = bakMusic.ID.ToString();
+                        bakMusic.Suffix = ".mp3";
+                        bakMusic.TrackBitRate = ir.BitRate;
+                        bakMusic.TrackLength = format.GetSecondFromTime(ir.TrackLength);
+                        bakMusic.objectFilePath = ir.FilePath;
+                        track.AddResource(bakMusic);
+                        ResourceToCopy.Add(bakMusic);
 
+                        TrackResource bakMusicMap = new TrackResource();
+                        bakMusicMap.ResourceID = bakMusic.ID;
+                        bakMusicMap.TrackID = ir.TrackID;
+                        track.AddMapping(bakMusicMap);
+
+                        //2.主要音源
+                        ResourceSeries mainMusic = new ResourceSeries();
+                        mainMusic.GetNewID();
+                        mainMusic.TypeID = ResourceFileType.Type.MUSIC_MP3_1;
+                        mainMusic.StorageID = StorageID.Path.MAIN_RESOURCE_BUCKET_201;
+                        //..\@anime_no\@album_type_name\@album_title_name\@artistname_@tracktitlename.mp3
+                        mainMusic.FilePath = ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName;
+                        mainMusic.FileName = ir.ArtistName + "_" + ir.TrackTitleName;
+                        mainMusic.Suffix = ".mp3";
+                        mainMusic.TrackBitRate = ir.BitRate;
+                        mainMusic.TrackLength = format.GetSecondFromTime(ir.TrackLength);
+                        mainMusic.objectFilePath = ir.FilePath;
+                        track.AddResource(mainMusic);
+                        ResourceToCopy.Add(mainMusic);
+
+                        TrackResource mainMusicMap = new TrackResource();
+                        mainMusicMap.ResourceID = mainMusic.ID;
+                        mainMusicMap.TrackID = ir.TrackID;
+                        track.AddMapping(mainMusicMap);
                         
-                        
+                        //歌词文件存否判断
+                        string Directory = MusicResource.DirectoryName;
+                        string ResourceName = Path.GetFileNameWithoutExtension(MusicResource.Name);
+                        string LrcFullPath = Directory + "\\" + ResourceName + ".lrc";
+                        FileInfo LrcResource = new FileInfo(LrcFullPath);
+
+                        if (LrcResource.Exists)
+                        {
+                            //3.备份歌词
+                            ResourceSeries bakLrc = new ResourceSeries();
+
+                            bakLrc.GetNewID();
+                            bakLrc.TypeID = ResourceFileType.Type.LYRIC_LRC_201;
+                            bakLrc.StorageID = StorageID.Path.BAK_RESOURCE_BUCKET_101;
+                            //sound.FilePath = null;
+                            bakLrc.FileName = bakLrc.ID.ToString();
+                            bakLrc.Suffix = ".lrc";
+                            bakLrc.objectFilePath = ir.FilePath;
+                            track.AddResource(bakLrc);
+                            ResourceToCopy.Add(bakLrc);
+
+                            TrackResource bakLrcMap = new TrackResource();
+                            bakLrcMap.ResourceID = bakLrc.ID;
+                            bakLrcMap.TrackID = LrcFullPath;
+                            track.AddMapping(bakLrcMap);
+
+                            //4.主要歌词
+                            ResourceSeries mainLrc = new ResourceSeries();
+                            mainLrc.GetNewID();
+                            mainLrc.TypeID = ResourceFileType.Type.LYRIC_LRC_201;
+                            mainLrc.StorageID = StorageID.Path.MAIN_RESOURCE_BUCKET_201;
+                            //..\@anime_no\@album_type_name\@album_title_name\@artistname_@tracktitlename.lrc
+                            mainLrc.FilePath = ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName;
+                            mainLrc.FileName = ir.ArtistName + "_" + ir.TrackTitleName;
+                            mainLrc.objectFilePath = LrcFullPath;
+                            track.AddResource(mainLrc);
+                            ResourceToCopy.Add(mainLrc);
+
+                            TrackResource mainLrcMap = new TrackResource();
+                            mainLrcMap.ResourceID = mainLrc.ID;
+                            mainLrcMap.TrackID = ir.TrackID;
+                            track.AddMapping(mainLrcMap);
+                        }
+
+                        album.AddTracks(track);
                     }
-
-                                       
+                    AlbumSeriesList.Add(album);
                 }
                 #endregion
 
+                #region DB操作
+
+                foreach (AlbumSeries album in AlbumSeriesList)
+                {
+                    album.Insert();
+                }
+
+                #endregion
+
+                #region 文件操作
+
+                foreach (ResourceSeries resource in ResourceToCopy)
+                {
+                    string DirPath = service.GetResourceDirectoryPath(resource.StorageID, resource.FilePath);
+                    if (!Directory.Exists(DirPath))
+                    {
+                        Directory.CreateDirectory(DirPath);
+                    }
+
+                    //非法字符剔除
+                    string rPath = resource.FilePath;
+                    StringBuilder path = new StringBuilder(rPath);
+                    foreach (char rInvalidChar in Path.GetInvalidPathChars())
+                        path.Replace(rInvalidChar.ToString(), string.Empty);
+
+                    string rName = resource.FileName;
+                    StringBuilder name = new StringBuilder(rName);
+                    foreach (char rInvalidChar in Path.GetInvalidFileNameChars())
+                        name.Replace(rInvalidChar.ToString(), "-");
 
 
+                    string targetPath = service.GetResourcePath(resource.StorageID, path.ToString(), name.ToString(), resource.Suffix);
+                    File.Copy(resource.objectFilePath, targetPath);
+                }
+
+                #endregion
                 return true;
             }
             catch (Exception ex)
@@ -819,6 +961,14 @@ namespace Main.Music
                     return false;
                 }
 
+                //AnimeName
+                if (dr.Cells[ANIMENAMECLN].Value == null || string.IsNullOrEmpty(dr.Cells[ANIMENAMECLN].Value.ToString().Trim()))
+                {
+                    MusicDataGridView.CurrentCell = dr.Cells[ANIMENAMECLN];
+                    MsgBox.Show(MSG_IMPORTMUSIC_013, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    return false;
+                }
+
                 //DiscNo
                 if (dr.Cells[DISCNOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[DISCNOCLN].Value.ToString().Trim()))
                 {
@@ -872,25 +1022,25 @@ namespace Main.Music
                 }
 
                 //AlbumTypeID
-                if (dr.Cells[ALBUMTYPEIDCLN].Value != null && !string.IsNullOrEmpty(dr.Cells[ALBUMTYPEIDCLN].Value.ToString().Trim()))
+                if (dr.Cells[ALBUMTYPEIDCLN].Value == null || string.IsNullOrEmpty(dr.Cells[ALBUMTYPEIDCLN].Value.ToString().Trim()))
                 {
-                    MusicDataGridView.CurrentCell = dr.Cells[ALBUMTYPEIDCLN];
+                    MusicDataGridView.CurrentCell = dr.Cells[ALBUMTYPECLN];
                     MsgBox.Show(MSG_IMPORTMUSIC_010, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
                     return false;
                 }
 
                 //TrackTypeID
-                if (dr.Cells[TRACKTYPEIDCLN].Value != null && !string.IsNullOrEmpty(dr.Cells[TRACKTYPEIDCLN].Value.ToString().Trim()))
+                if (dr.Cells[TRACKTYPEIDCLN].Value == null || string.IsNullOrEmpty(dr.Cells[TRACKTYPEIDCLN].Value.ToString().Trim()))
                 {
-                    MusicDataGridView.CurrentCell = dr.Cells[TRACKTYPEIDCLN];
+                    MusicDataGridView.CurrentCell = dr.Cells[TRACKTYPECLN];
                     MsgBox.Show(MSG_IMPORTMUSIC_011, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
                     return false;
                 }
 
                 //ArtistID
-                if (dr.Cells[ARTISTIDCLN].Value != null && !string.IsNullOrEmpty(dr.Cells[ARTISTIDCLN].Value.ToString().Trim()))
+                if (dr.Cells[ARTISTIDCLN].Value == null || string.IsNullOrEmpty(dr.Cells[ARTISTIDCLN].Value.ToString().Trim()))
                 {
-                    MusicDataGridView.CurrentCell = dr.Cells[ARTISTIDCLN];
+                    MusicDataGridView.CurrentCell = dr.Cells[ARTISTNAMECLN];
                     MsgBox.Show(MSG_IMPORTMUSIC_012, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
                     return false;
                 }

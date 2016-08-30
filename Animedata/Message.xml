@@ -63,6 +63,8 @@
     <message id="MSG-IMPORTMUSIC-010" text="专辑 {0} 内曲目 {1} 的专辑类型未选择，请补充。" caption="信息不完整" category="W"/>
     <message id="MSG-IMPORTMUSIC-011" text="专辑 {0} 内曲目 {1} 的曲目类型未选择，请补充。" caption="信息不完整" category="W"/>
     <message id="MSG-IMPORTMUSIC-012" text="专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。\艺术家信息中，红色背景的艺术家为新艺术家；黄色背景的艺术家为不完全相同的艺术家；绿色背景的艺术家为匹配成功的艺术家。\请将所有艺术家内容编辑为绿色后再导入。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-013" text="专辑 {0} 内曲目 {1} 的所属动画未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-014" text="文件{0}不存在！" caption="文件不存在" category="E"/>
 
     <!--SelectArtist-->
     <message id="MSG-SELECTARTIST-001" text="数据填写不完整：未选择{0}。" caption="信息不完整" category="W"/>

@@ -33,22 +33,48 @@ namespace Main.Music
         /// <param name="StorageID">存储路径</param>
         /// <param name="FilePath">文件路径</param>
         /// <param name="FileName">文件名</param>
+        /// <param name="FileSuffix">后缀名</param>
         /// <returns></returns>
-        public string GetResourcePath(int StorageID, string FilePath, string FileName)
+        public string GetResourcePath(int StorageID, string FilePath, string FileName, string FileSuffix)
         {
             if (FileName == string.Empty || StorageID == 0)
             {
                 return string.Empty;
             }
+
             StringBuilder respath = new StringBuilder();
+
             respath.Append(dao.GetStoragePath(StorageID));
+
             if (FilePath != null)
             {
-                respath.Append(@"\");
+                respath.Append("\\");
+                respath.Append(FilePath);
+            }
+            respath.Append("\\");
+            respath.Append(FileName);
+            respath.Append(FileSuffix);
+            return respath.ToString();
+        }
+
+        /// <summary>
+        /// 获得资源文件夹路径
+        /// </summary>
+        /// <param name="StorageID">存储路径</param>
+        /// <param name="FilePath">文件路径</param>
+        /// <returns></returns>
+        public string GetResourceDirectoryPath(int StorageID, string FilePath)
+        {
+            StringBuilder respath = new StringBuilder();
+
+            respath.Append(dao.GetStoragePath(StorageID));
+
+            if (FilePath != null)
+            {
+                respath.Append("\\");
                 respath.Append(FilePath);
             }
             respath.Append(@"");
-            respath.Append(FileName);
             return respath.ToString();
         }
 

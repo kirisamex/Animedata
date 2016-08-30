@@ -110,6 +110,8 @@
       <DependentUpon>MusicDataSet.xsd</DependentUpon>
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Lib\Class\Music\Album\AlbumSeriesDao.cs" />
+    <Compile Include="Lib\Class\Music\Album\AlbumSeriesService.cs" />
     <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeries.cs" />
     <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeriesDao.cs" />
     <Compile Include="Lib\Class\Music\ArtistMapping\ArtistMappingSeriesService.cs" />
@@ -121,7 +123,10 @@
     <Compile Include="Lib\Class\Music\Resource\ResourceSeries.cs" />
     <Compile Include="Lib\Class\Music\Resource\ResourceSeriesDao.cs" />
     <Compile Include="Lib\Class\Music\Resource\ResourceSeriesService.cs" />
+    <Compile Include="Lib\Class\Music\Track\TrackSeriesService.cs" />
     <Compile Include="Lib\Const\DataMappingType.cs" />
+    <Compile Include="Lib\Const\ResourceFileType.cs" />
+    <Compile Include="Lib\Const\StorageID.cs" />
     <Compile Include="Lib\Format\MainFormat.cs" />
     <Compile Include="Main\AddAnime\AddAnime.cs">
       <SubType>Form</SubType>

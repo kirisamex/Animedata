@@ -18,19 +18,21 @@ namespace Main.Music
         /// </summary>
         /// <param name="animeNo"></param>
         /// <returns></returns>
-        public int GetMaxAlbumInAnimeNo(string animeNo)
+        public int GetMaxAlbumInAnimeNo(string animeNo,int albumTypeID)
         {
             string sqlcmd = @"SELECT MAX(ALBUM_INANIME_NO) 
                             FROM {0}
                             WHERE ENABLE_FLG = 1 
+                            AND ALBUM_TYPE_ID = @albumTypeID
                             AND ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new SqlParameter("@albumTypeID", albumTypeID));
 
-            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TBL),paras);
+            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TBL), paras);
 
-            if (ds.Tables[0].Rows.Count == 0)
+            if (ds.Tables[0].Rows.Count == 0 || ds.Tables[0].Rows[0][0] == DBNull.Value)
                 return 0;
             else
                 return Convert.ToInt32(ds.Tables[0].Rows[0][0]);
