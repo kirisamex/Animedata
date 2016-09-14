@@ -14,6 +14,56 @@ namespace Main.Music
     class AlbumSeriesDao : MusicManageDAO
     {
         /// <summary>
+        /// 通过专辑ID获得专辑信息
+        /// </summary>
+        /// <param name="albumID"></param>
+        /// <returns></returns>
+        public DataSet GetAlbumByAlbumID(string albumID)
+        {
+            DataSet ds = new DataSet();
+
+            string sqlcmd = @"SELECT 
+                                        ALB.ALBUM_ID,
+                                        ALB.ALBUM_TYPE_ID,
+                                        ALB.ALBUM_INANIME_NO,
+                                        ALB.ANIME_NO,
+                                        ALB.ALBUM_TITLE_NAME,
+                                        ALB.TOTAL_DISC_COUNT,
+                                        ALB.TOTAL_TRACK_COUNT,
+                                        ALB.DESCRIPTION
+                                    FROM {0} ALB
+                                    WHERE ALB.ENABLE_FLG = 1
+                                    AND ALB.ALBUM_ID = @albumID ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@albumID", albumID));
+
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TBL), paras);
+        }
+
+        /// <summary>
+        /// 通过专辑ID获得曲目ID
+        /// </summary>
+        /// <param name="AlbumID"></param>
+        /// <returns></returns>
+        public DataSet GetTrackIDByAlbumID(string AlbumID)
+        {
+            DataSet ds = new DataSet();
+
+            string sqlcmd = @"SELECT 
+                                        TT.TRACK_ID
+                                    FROM {0} TT
+                                    WHERE TT.ENABLE_FLG = 1
+                                    AND TT.P_ALBUM_ID = @AlbumID ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@AlbumID", AlbumID));
+
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TBL), paras);
+        }
+
+
+        /// <summary>
         /// 数据插入
         /// </summary>
         public bool Insert(AlbumSeries album)

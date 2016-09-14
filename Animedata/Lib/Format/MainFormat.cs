@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -38,7 +39,7 @@ namespace Main.Lib
             int mm = (sec % 3600) / 60;
             int ss = (sec % 3600) % 60;
 
-            string res = hh.ToString() + ":" + mm.ToString().PadLeft(2, '0') + ss.ToString().PadLeft(2, '0');
+            string res = hh.ToString() + ":" + mm.ToString().PadLeft(2, '0') + ":" + ss.ToString().PadLeft(2, '0');
             return res;
         }
 
@@ -60,6 +61,40 @@ namespace Main.Lib
                 }
             }
             return false;
+        }
+
+        /// <summary>
+        /// 路径名非法字符转化为全角
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public string FilePathFormat(string target)
+        {
+            string rPath = target;
+            StringBuilder path = new StringBuilder(target);
+            foreach (char rInvalidChar in Path.GetInvalidPathChars())
+            {
+                path.Replace(rInvalidChar.ToString(), ((char)(rInvalidChar + 65248)).ToString());
+            }
+            
+            return path.ToString();
+        }
+
+        /// <summary>
+        /// 文件名非法字符转化为全角
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public string FileNameFormat(string target)
+        {
+            string rPath = target;
+            StringBuilder path = new StringBuilder(target);
+            foreach (char rInvalidChar in Path.GetInvalidFileNameChars())
+            {
+                path.Replace(rInvalidChar.ToString(), ((char)(rInvalidChar + 65248)).ToString());
+            }
+
+            return path.ToString();
         }
     }
 }

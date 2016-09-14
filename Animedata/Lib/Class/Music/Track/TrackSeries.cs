@@ -5,9 +5,13 @@ using System.Data.Common;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Main.Lib.Const;
 
 namespace Main.Music
 {
+    /// <summary>
+    /// 曲目信息
+    /// </summary>
     class TrackSeries
     {
         #region 变量
@@ -92,32 +96,42 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 构造：通过曲目编号获得曲目
+        /// 通过曲目编号获得曲目
         /// </summary>
         /// <param name="TrackID">曲目编号</param>
         public TrackSeries(string TrackID)
         {
             ID = TrackID;
+
             DataSet ds = service.GetTrackByTrackId(TrackID);
 
-            PAlbumID = ds.Tables[0].Rows[0]["P_ALBUM_ID"].ToString();
-            TrackTypeId = Convert.ToInt32(ds.Tables[0].Rows[0]["TRACK_TYPE"]);
-            DiscNo=Convert.ToInt32(ds.Tables[0].Rows[0]["DISC_NO"]);
-            TrackNo = Convert.ToInt32(ds.Tables[0].Rows[0]["TRACK_NO"]);
-            TrackTitleName = ds.Tables[0].Rows[0]["TRACK_TITLE_NAME"].ToString();
-            ArtistID = Convert.ToInt32(ds.Tables[0].Rows[0]["ARTIST_ID"]);
-            if (ds.Tables[0].Rows[0]["ANIME_NO"] != null)
+            if (ds.Tables[0].Rows.Count == 0)
             {
-                AnimeNo = ds.Tables[0].Rows[0]["ANIME_NO"].ToString();
+                return;
             }
-            if (ds.Tables[0].Rows[0]["SALES_YEAR"] != null)
+
+            PAlbumID = ds.Tables[0].Rows[0][CommonConst.ColumnName.P_ALBUM_ID].ToString();
+            TrackTypeId = Convert.ToInt32(ds.Tables[0].Rows[0][CommonConst.ColumnName.TRACK_TYPE_ID]);
+            DiscNo = Convert.ToInt32(ds.Tables[0].Rows[0][CommonConst.ColumnName.DISC_NO]);
+            TrackNo = Convert.ToInt32(ds.Tables[0].Rows[0][CommonConst.ColumnName.TRACK_NO]);
+            TrackTitleName = ds.Tables[0].Rows[0][CommonConst.ColumnName.TRACK_TITLE_NAME].ToString();
+            ArtistID = Convert.ToInt32(ds.Tables[0].Rows[0][CommonConst.ColumnName.ARTIST_ID]);
+            if (ds.Tables[0].Rows[0][CommonConst.ColumnName.ANIME_NO] != null)
             {
-                SalesYear = Convert.ToInt32(ds.Tables[0].Rows[0]["SALES_YEAR"]);
+                AnimeNo = ds.Tables[0].Rows[0][CommonConst.ColumnName.ANIME_NO].ToString();
             }
-            if (ds.Tables[0].Rows[0]["ANIME_NO"] != null)
+            if (ds.Tables[0].Rows[0][CommonConst.ColumnName.SALES_YEAR] != null)
             {
-                Description = ds.Tables[0].Rows[0]["SALES_YEAR"].ToString();
+                SalesYear = Convert.ToInt32(ds.Tables[0].Rows[0][CommonConst.ColumnName.SALES_YEAR]);
             }
+            if (ds.Tables[0].Rows[0][CommonConst.ColumnName.DESCRIPTION] != null)
+            {
+                Description = ds.Tables[0].Rows[0][CommonConst.ColumnName.DESCRIPTION].ToString();
+            }
+
+            Resource = service.GetResources(TrackID);
+            ResourceMap = service.GetResourceMaps(TrackID);
+
         }
         #endregion
 

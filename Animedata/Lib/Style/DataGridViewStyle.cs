@@ -69,5 +69,24 @@ namespace Main.Lib.Style
                     break;
             }
         }
+
+        /// <summary>
+        /// 设定选中式按钮背景色
+        /// </summary>
+        /// <param name="bt">按钮</param>
+        /// <param name="choosed">是否选中</param>
+        public void SetButtonSelectedColor(Button bt, bool choosed)
+        {
+            if (choosed)
+            {
+                bt.BackColor = Color.RoyalBlue;
+                bt.ForeColor = Color.White;
+            }
+            else
+            {
+                bt.BackColor = Color.Transparent;
+                bt.ForeColor = Color.Black;
+            }
+        }
     }
 }

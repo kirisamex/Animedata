@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Main.Lib.Const
 {
-    public partial class ResourceFileType
+    public partial class ResourceFile
     {
         public sealed class Type
         {

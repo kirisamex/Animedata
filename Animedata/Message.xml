@@ -71,6 +71,21 @@
     <message id="MSG-SELECTARTIST-002" text="数据填写不完整：未填写{0}。" caption="信息不完整" category="W"/>
     <message id="MSG-SELECTARTIST-003" text="未编辑构成信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在构成种类中选择“独自”。" caption="信息不完整" category="W"/>
     <message id="MSG-SELECTARTIST-004" text="未选择匹配对象！请选择该艺术家对应的既存艺术家。若既存艺术家中不存在，请取消勾选“既存艺术家”并编辑匹配信息。" caption="信息不完整" category="W"/>
+    
+    <!--MusicManage-->
+    <message id="MSG-MUSICMANAGE-001" text="修改标签时，必须仅选择一个单元格进行修改，请勿多选。" caption="" category="E"/>
+    <message id="MSG-MUSICMANAGE-002" text="专辑 {0} 内曲目 {1} 的碟号为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-003" text="专辑 {0} 内曲目 {1} 的碟号格式不正确，必须为半角数字！" caption="格式错误" category="E"/>
+    <message id="MSG-MUSICMANAGE-004" text="专辑 {0} 内曲目 {1} 的音轨为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-005" text="专辑 {0} 内曲目 {1} 的音轨格式不正确，必须为半角数字！" caption="格式错误" category="E"/>
+    <message id="MSG-MUSICMANAGE-006" text="专辑 {0} 内曲目 {1} 的发售年份格式不正确，必须为半角数字年份。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-007" text="专辑 {0} 内曲目 {1} 的专辑类型未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-008" text="专辑 {0} 内曲目 {1} 的曲目类型未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-009" text="专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-010" text="专辑 {0} 内曲目 {1} 的所属动画未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-011" text="文件{0}不存在！" caption="文件不存在" category="E"/>
+    <message id="MSG-MUSICMANAGE-012" text="专辑 {0} 内曲目编号为 {1} 的曲目标题为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-013" text="专辑编号 {0} 的专辑标题为空，请补充。" caption="信息不完整" category="W"/>
   
   </messages>
 </config>

@@ -28,8 +28,8 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.基本操作ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.刷新ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -50,8 +50,10 @@
             this.从MP3ToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
             this.从曲目信息保存至MPToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.statusStrip1 = new System.Windows.Forms.StatusStrip();
+            this.statusStrip = new System.Windows.Forms.StatusStrip();
+            this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.saveID3TagButton = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.DiscNoTextBox = new System.Windows.Forms.TextBox();
@@ -65,18 +67,29 @@
             this.AlbumPictureBox = new System.Windows.Forms.PictureBox();
             this.MusicDataGridView = new System.Windows.Forms.DataGridView();
             this.OldTrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TrackName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlbumID = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AlbumName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AlbumAnimeType = new System.Windows.Forms.DataGridViewComboBoxColumn();
-            this.ArtistName = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.AnimeName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlbumType = new System.Windows.Forms.DataGridViewButtonColumn();
             this.TrackID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackType = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.ArtistName = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeName = new System.Windows.Forms.DataGridViewButtonColumn();
+            this.BitRate = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.DiscNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.TrackNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Year = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackTimeLength = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.ResourcePath = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Description = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AnimeNO = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.AlbumTypeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.TrackTypeID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ArtistID = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.isModified = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.UpdateButton = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
+            this.statusStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -234,13 +247,20 @@
             this.从曲目信息保存至MPToolStripMenuItem.Size = new System.Drawing.Size(245, 22);
             this.从曲目信息保存至MPToolStripMenuItem.Text = "自曲目信息保存至MP3标签（&R)";
             // 
-            // statusStrip1
+            // statusStrip
             // 
-            this.statusStrip1.Location = new System.Drawing.Point(0, 640);
-            this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1350, 22);
-            this.statusStrip1.TabIndex = 1;
-            this.statusStrip1.Text = "statusStrip1";
+            this.statusStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel});
+            this.statusStrip.Location = new System.Drawing.Point(0, 640);
+            this.statusStrip.Name = "statusStrip";
+            this.statusStrip.Size = new System.Drawing.Size(1350, 22);
+            this.statusStrip.TabIndex = 1;
+            this.statusStrip.Text = "statusStrip1";
+            // 
+            // toolStripStatusLabel
+            // 
+            this.toolStripStatusLabel.Name = "toolStripStatusLabel";
+            this.toolStripStatusLabel.Size = new System.Drawing.Size(0, 17);
             // 
             // splitContainer1
             // 
@@ -251,6 +271,8 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.splitContainer1.Panel1.Controls.Add(this.UpdateButton);
+            this.splitContainer1.Panel1.Controls.Add(this.saveID3TagButton);
             this.splitContainer1.Panel1.Controls.Add(this.label2);
             this.splitContainer1.Panel1.Controls.Add(this.label3);
             this.splitContainer1.Panel1.Controls.Add(this.DiscNoTextBox);
@@ -270,6 +292,16 @@
             this.splitContainer1.Size = new System.Drawing.Size(1350, 614);
             this.splitContainer1.SplitterDistance = 220;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // saveID3TagButton
+            // 
+            this.saveID3TagButton.Location = new System.Drawing.Point(15, 509);
+            this.saveID3TagButton.Name = "saveID3TagButton";
+            this.saveID3TagButton.Size = new System.Drawing.Size(197, 23);
+            this.saveID3TagButton.TabIndex = 30;
+            this.saveID3TagButton.Text = "保存MP3Tag(&S)";
+            this.saveID3TagButton.UseVisualStyleBackColor = true;
+            this.saveID3TagButton.Click += new System.EventHandler(this.saveID3TagButton_Click);
             // 
             // label2
             // 
@@ -376,114 +408,213 @@
             // 
             this.MusicDataGridView.AllowUserToAddRows = false;
             this.MusicDataGridView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
-            dataGridViewCellStyle1.Font = new System.Drawing.Font("MS UI Gothic", 11F);
-            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle3.Font = new System.Drawing.Font("MS UI Gothic", 10F);
+            dataGridViewCellStyle3.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.MusicDataGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             this.MusicDataGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.MusicDataGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.OldTrackNo,
-            this.TrackName,
+            this.AlbumID,
             this.AlbumName,
-            this.AlbumAnimeType,
+            this.AlbumType,
+            this.TrackID,
+            this.TrackName,
+            this.TrackType,
             this.ArtistName,
             this.AnimeName,
-            this.TrackID,
+            this.BitRate,
             this.DiscNo,
             this.TrackNo,
             this.Year,
+            this.TrackTimeLength,
             this.ResourcePath,
-            this.Description});
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("MS UI Gothic", 11F);
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.MusicDataGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.Description,
+            this.AnimeNO,
+            this.AlbumTypeID,
+            this.TrackTypeID,
+            this.ArtistID,
+            this.isModified});
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("MS UI Gothic", 11F);
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.MusicDataGridView.DefaultCellStyle = dataGridViewCellStyle4;
             this.MusicDataGridView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.MusicDataGridView.EditMode = System.Windows.Forms.DataGridViewEditMode.EditOnEnter;
             this.MusicDataGridView.Location = new System.Drawing.Point(0, 0);
-            this.MusicDataGridView.MultiSelect = false;
             this.MusicDataGridView.Name = "MusicDataGridView";
-            this.MusicDataGridView.RowTemplate.Height = 21;
+            this.MusicDataGridView.RowTemplate.Height = 23;
             this.MusicDataGridView.Size = new System.Drawing.Size(1126, 614);
             this.MusicDataGridView.TabIndex = 10;
-            this.MusicDataGridView.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.MusicDataGridView_CellClick);
+            this.MusicDataGridView.CurrentCellChanged += new System.EventHandler(this.MusicDataGridView_CurrentCellChanged);
             this.MusicDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.MusicDataGridView_KeyDown);
             // 
             // OldTrackNo
             // 
+            this.OldTrackNo.DataPropertyName = "OldTrackNo";
             this.OldTrackNo.HeaderText = "既有曲号";
             this.OldTrackNo.Name = "OldTrackNo";
             this.OldTrackNo.Visible = false;
+            this.OldTrackNo.Width = 150;
             // 
-            // TrackName
+            // AlbumID
             // 
-            this.TrackName.HeaderText = "曲名";
-            this.TrackName.Name = "TrackName";
+            this.AlbumID.DataPropertyName = "AlbumID";
+            this.AlbumID.HeaderText = "专辑编号";
+            this.AlbumID.Name = "AlbumID";
+            this.AlbumID.ReadOnly = true;
             // 
             // AlbumName
             // 
+            this.AlbumName.DataPropertyName = "AlbumName";
             this.AlbumName.HeaderText = "专辑";
             this.AlbumName.Name = "AlbumName";
+            this.AlbumName.Width = 200;
             // 
-            // AlbumAnimeType
+            // AlbumType
             // 
-            this.AlbumAnimeType.DisplayStyle = System.Windows.Forms.DataGridViewComboBoxDisplayStyle.ComboBox;
-            this.AlbumAnimeType.HeaderText = "专辑类型";
-            this.AlbumAnimeType.Items.AddRange(new object[] {
-            "OP/ED",
-            "角色歌",
-            "OST",
-            "其他"});
-            this.AlbumAnimeType.Name = "AlbumAnimeType";
-            this.AlbumAnimeType.Resizable = System.Windows.Forms.DataGridViewTriState.True;
-            this.AlbumAnimeType.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.Automatic;
-            // 
-            // ArtistName
-            // 
-            this.ArtistName.HeaderText = "艺术家";
-            this.ArtistName.Name = "ArtistName";
-            // 
-            // AnimeName
-            // 
-            this.AnimeName.HeaderText = "所属动画";
-            this.AnimeName.Name = "AnimeName";
+            this.AlbumType.DataPropertyName = "AlbumType";
+            this.AlbumType.HeaderText = "专辑类型";
+            this.AlbumType.Name = "AlbumType";
+            this.AlbumType.Width = 80;
             // 
             // TrackID
             // 
+            this.TrackID.DataPropertyName = "TrackID";
             this.TrackID.HeaderText = "曲目编号";
             this.TrackID.Name = "TrackID";
+            this.TrackID.ReadOnly = true;
+            // 
+            // TrackName
+            // 
+            this.TrackName.DataPropertyName = "TrackName";
+            this.TrackName.HeaderText = "曲名";
+            this.TrackName.Name = "TrackName";
+            this.TrackName.Width = 200;
+            // 
+            // TrackType
+            // 
+            this.TrackType.DataPropertyName = "TrackType";
+            this.TrackType.HeaderText = "曲目类型";
+            this.TrackType.Name = "TrackType";
+            this.TrackType.Width = 80;
+            // 
+            // ArtistName
+            // 
+            this.ArtistName.DataPropertyName = "ArtistName";
+            this.ArtistName.HeaderText = "艺术家";
+            this.ArtistName.Name = "ArtistName";
+            this.ArtistName.ReadOnly = true;
+            this.ArtistName.Width = 200;
+            // 
+            // AnimeName
+            // 
+            this.AnimeName.DataPropertyName = "AnimeName";
+            this.AnimeName.HeaderText = "动画";
+            this.AnimeName.Name = "AnimeName";
+            this.AnimeName.Width = 120;
+            // 
+            // BitRate
+            // 
+            this.BitRate.DataPropertyName = "BitRate";
+            this.BitRate.HeaderText = "比特率";
+            this.BitRate.Name = "BitRate";
+            this.BitRate.ReadOnly = true;
+            this.BitRate.Width = 80;
             // 
             // DiscNo
             // 
+            this.DiscNo.DataPropertyName = "DiscNo";
             this.DiscNo.HeaderText = "碟号";
             this.DiscNo.Name = "DiscNo";
+            this.DiscNo.Width = 60;
             // 
             // TrackNo
             // 
+            this.TrackNo.DataPropertyName = "TrackNo";
             this.TrackNo.HeaderText = "音轨";
             this.TrackNo.Name = "TrackNo";
+            this.TrackNo.Width = 60;
             // 
             // Year
             // 
+            this.Year.DataPropertyName = "Year";
             this.Year.HeaderText = "发售年份";
             this.Year.Name = "Year";
             // 
+            // TrackTimeLength
+            // 
+            this.TrackTimeLength.DataPropertyName = "TrackTimeLength";
+            this.TrackTimeLength.HeaderText = "歌曲长度";
+            this.TrackTimeLength.Name = "TrackTimeLength";
+            this.TrackTimeLength.ReadOnly = true;
+            // 
             // ResourcePath
             // 
+            this.ResourcePath.DataPropertyName = "ResourcePath";
             this.ResourcePath.HeaderText = "资源地址";
             this.ResourcePath.Name = "ResourcePath";
+            this.ResourcePath.ReadOnly = true;
+            this.ResourcePath.Width = 200;
             // 
             // Description
             // 
+            this.Description.DataPropertyName = "Description";
             this.Description.HeaderText = "描述";
             this.Description.Name = "Description";
+            this.Description.Width = 200;
+            // 
+            // AnimeNO
+            // 
+            this.AnimeNO.DataPropertyName = "AnimeNO";
+            this.AnimeNO.HeaderText = "动画编号";
+            this.AnimeNO.Name = "AnimeNO";
+            this.AnimeNO.Visible = false;
+            // 
+            // AlbumTypeID
+            // 
+            this.AlbumTypeID.DataPropertyName = "AlbumTypeID";
+            this.AlbumTypeID.HeaderText = "专辑类型编号";
+            this.AlbumTypeID.Name = "AlbumTypeID";
+            this.AlbumTypeID.Visible = false;
+            // 
+            // TrackTypeID
+            // 
+            this.TrackTypeID.DataPropertyName = "TrackTypeID";
+            this.TrackTypeID.HeaderText = "曲目类型编号";
+            this.TrackTypeID.Name = "TrackTypeID";
+            this.TrackTypeID.Visible = false;
+            // 
+            // ArtistID
+            // 
+            this.ArtistID.DataPropertyName = "ArtistID";
+            this.ArtistID.HeaderText = "艺术家编号";
+            this.ArtistID.Name = "ArtistID";
+            this.ArtistID.Visible = false;
+            // 
+            // isModified
+            // 
+            this.isModified.HeaderText = "是否变化";
+            this.isModified.Name = "isModified";
+            this.isModified.Visible = false;
+            // 
+            // UpdateButton
+            // 
+            this.UpdateButton.Location = new System.Drawing.Point(15, 538);
+            this.UpdateButton.Name = "UpdateButton";
+            this.UpdateButton.Size = new System.Drawing.Size(197, 23);
+            this.UpdateButton.TabIndex = 30;
+            this.UpdateButton.Text = "更新曲目(&D)";
+            this.UpdateButton.UseVisualStyleBackColor = true;
+            this.UpdateButton.Click += new System.EventHandler(this.UpdateButton_Click);
             // 
             // MusicManage
             // 
@@ -491,15 +622,18 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1350, 662);
             this.Controls.Add(this.splitContainer1);
-            this.Controls.Add(this.statusStrip1);
+            this.Controls.Add(this.statusStrip);
             this.Controls.Add(this.menuStrip);
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip;
             this.Name = "MusicManage";
             this.Text = "MusicManage";
+            this.WindowState = System.Windows.Forms.FormWindowState.Maximized;
             this.Load += new System.EventHandler(this.MusicManage_Load);
             this.menuStrip.ResumeLayout(false);
             this.menuStrip.PerformLayout();
+            this.statusStrip.ResumeLayout(false);
+            this.statusStrip.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
@@ -515,7 +649,7 @@
         #endregion
 
         private System.Windows.Forms.MenuStrip menuStrip;
-        private System.Windows.Forms.StatusStrip statusStrip1;
+        private System.Windows.Forms.StatusStrip statusStrip;
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.DataGridView MusicDataGridView;
         private System.Windows.Forms.PictureBox AlbumPictureBox;
@@ -546,20 +680,32 @@
         private System.Windows.Forms.ToolStripMenuItem 从曲目信息保存至MPToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
         private System.Windows.Forms.ToolStripMenuItem 查询EF6ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 导入新下载的MP3ToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem 导入既有的MP3ToolStripMenuItem;
+        private System.Windows.Forms.Button saveID3TagButton;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel;
         private System.Windows.Forms.DataGridViewTextBoxColumn OldTrackNo;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TrackName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlbumID;
         private System.Windows.Forms.DataGridViewTextBoxColumn AlbumName;
-        private System.Windows.Forms.DataGridViewComboBoxColumn AlbumAnimeType;
-        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistName;
-        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeName;
+        private System.Windows.Forms.DataGridViewButtonColumn AlbumType;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TrackName;
+        private System.Windows.Forms.DataGridViewButtonColumn TrackType;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistName;
+        private System.Windows.Forms.DataGridViewButtonColumn AnimeName;
+        private System.Windows.Forms.DataGridViewTextBoxColumn BitRate;
         private System.Windows.Forms.DataGridViewTextBoxColumn DiscNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn TrackNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn Year;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TrackTimeLength;
         private System.Windows.Forms.DataGridViewTextBoxColumn ResourcePath;
         private System.Windows.Forms.DataGridViewTextBoxColumn Description;
-        private System.Windows.Forms.ToolStripMenuItem 导入新下载的MP3ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem 导入既有的MP3ToolStripMenuItem;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AnimeNO;
+        private System.Windows.Forms.DataGridViewTextBoxColumn AlbumTypeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn TrackTypeID;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ArtistID;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn isModified;
+        private System.Windows.Forms.Button UpdateButton;
 
     }
 }

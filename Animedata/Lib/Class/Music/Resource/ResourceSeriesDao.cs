@@ -12,6 +12,34 @@ namespace Main.Music
     class ResourceSeriesDao : MusicManageDAO
     {
         /// <summary>
+        /// 通过资源ID获得资源
+        /// </summary>
+        /// <param name="resourceID"></param>
+        /// <returns></returns>
+        public DataSet GetResourceByResourceID(int resourceID)
+        {
+            DataSet ds = new DataSet();
+
+            string sqlcmd = @"SELECT 
+                                        RT.RESOURCE_ID,
+                                        RT.RESOURCE_TYPE_ID,
+                                        RT.STORAGE_ID,
+                                        RT.RESOURCE_FILEPATH,
+                                        RT.RESOURCE_FILENAME,
+                                        RT.RESOURCE_SUFFIX,
+                                        RT.TRACK_BITRATE,
+                                        RT.TRACK_LENGTH
+                                    FROM {0} RT
+                                    WHERE RT.ENABLE_FLG = 1
+                                    AND RT.RESOURCE_ID = @resourceID ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@resourceID", resourceID));
+
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_RESOURCE_TBL), paras);
+        }
+
+        /// <summary>
         /// 获取下一资源ID
         /// </summary>
         /// <returns></returns>

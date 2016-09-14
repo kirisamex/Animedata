@@ -610,6 +610,10 @@ namespace Main.Music
             timer1.Enabled = true;
         }
 
+        /// <summary>
+        /// 插入音乐信息
+        /// </summary>
+        /// <returns></returns>
         private bool ImportMusicToDB()
         {
             try
@@ -710,12 +714,12 @@ namespace Main.Music
 
                     //计算总碟数：maxdiscno
                     var countdisc = (from discc in resultList
-                                 select discc.DiscNo).Max();
+                                     select discc.DiscNo).Max();
                     album.TotalDiscCount = Convert.ToInt32(countdisc);
 
                     //计算总曲数：count
                     var counttrack = (from discc in resultList
-                                 select discc.TrackID).Count();
+                                      select discc.TrackID).Count();
                     album.TotalTrackCount = Convert.ToInt32(counttrack);
 
                     //曲目信息作成
@@ -772,10 +776,10 @@ namespace Main.Music
                         ResourceSeries bakMusic = new ResourceSeries();
 
                         bakMusic.GetNewID();
-                        bakMusic.TypeID = ResourceFileType.Type.MUSIC_MP3_1;
+                        bakMusic.TypeID = ResourceFile.Type.MUSIC_MP3_1;
                         bakMusic.StorageID = StorageID.Path.BAK_RESOURCE_BUCKET_101;
                         //sound.FilePath = null;
-                        bakMusic.FileName = bakMusic.ID.ToString();
+                        bakMusic.FileName = format.FileNameFormat(bakMusic.ID.ToString());
                         bakMusic.Suffix = ".mp3";
                         bakMusic.TrackBitRate = ir.BitRate;
                         bakMusic.TrackLength = format.GetSecondFromTime(ir.TrackLength);
@@ -791,11 +795,11 @@ namespace Main.Music
                         //2.主要音源
                         ResourceSeries mainMusic = new ResourceSeries();
                         mainMusic.GetNewID();
-                        mainMusic.TypeID = ResourceFileType.Type.MUSIC_MP3_1;
+                        mainMusic.TypeID = ResourceFile.Type.MUSIC_MP3_1;
                         mainMusic.StorageID = StorageID.Path.MAIN_RESOURCE_BUCKET_201;
                         //..\@anime_no\@album_type_name\@album_title_name\@artistname_@tracktitlename.mp3
-                        mainMusic.FilePath = ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName;
-                        mainMusic.FileName = ir.ArtistName + "_" + ir.TrackTitleName;
+                        mainMusic.FilePath = format.FilePathFormat(ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName);
+                        mainMusic.FileName = format.FileNameFormat(ir.ArtistName + "_" + ir.TrackTitleName);
                         mainMusic.Suffix = ".mp3";
                         mainMusic.TrackBitRate = ir.BitRate;
                         mainMusic.TrackLength = format.GetSecondFromTime(ir.TrackLength);
@@ -807,7 +811,7 @@ namespace Main.Music
                         mainMusicMap.ResourceID = mainMusic.ID;
                         mainMusicMap.TrackID = ir.TrackID;
                         track.AddMapping(mainMusicMap);
-                        
+
                         //歌词文件存否判断
                         string Directory = MusicResource.DirectoryName;
                         string ResourceName = Path.GetFileNameWithoutExtension(MusicResource.Name);
@@ -820,10 +824,10 @@ namespace Main.Music
                             ResourceSeries bakLrc = new ResourceSeries();
 
                             bakLrc.GetNewID();
-                            bakLrc.TypeID = ResourceFileType.Type.LYRIC_LRC_201;
+                            bakLrc.TypeID = ResourceFile.Type.LYRIC_LRC_201;
                             bakLrc.StorageID = StorageID.Path.BAK_RESOURCE_BUCKET_101;
                             //sound.FilePath = null;
-                            bakLrc.FileName = bakLrc.ID.ToString();
+                            bakLrc.FileName = format.FileNameFormat(bakLrc.ID.ToString());
                             bakLrc.Suffix = ".lrc";
                             bakLrc.objectFilePath = ir.FilePath;
                             track.AddResource(bakLrc);
@@ -837,11 +841,11 @@ namespace Main.Music
                             //4.主要歌词
                             ResourceSeries mainLrc = new ResourceSeries();
                             mainLrc.GetNewID();
-                            mainLrc.TypeID = ResourceFileType.Type.LYRIC_LRC_201;
+                            mainLrc.TypeID = ResourceFile.Type.LYRIC_LRC_201;
                             mainLrc.StorageID = StorageID.Path.MAIN_RESOURCE_BUCKET_201;
                             //..\@anime_no\@album_type_name\@album_title_name\@artistname_@tracktitlename.lrc
-                            mainLrc.FilePath = ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName;
-                            mainLrc.FileName = ir.ArtistName + "_" + ir.TrackTitleName;
+                            mainLrc.FilePath = format.FilePathFormat(ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName);
+                            mainLrc.FileName = format.FileNameFormat(ir.ArtistName + "_" + ir.TrackTitleName);
                             mainLrc.objectFilePath = LrcFullPath;
                             track.AddResource(mainLrc);
                             ResourceToCopy.Add(mainLrc);
@@ -877,19 +881,7 @@ namespace Main.Music
                         Directory.CreateDirectory(DirPath);
                     }
 
-                    //非法字符剔除
-                    string rPath = resource.FilePath;
-                    StringBuilder path = new StringBuilder(rPath);
-                    foreach (char rInvalidChar in Path.GetInvalidPathChars())
-                        path.Replace(rInvalidChar.ToString(), string.Empty);
-
-                    string rName = resource.FileName;
-                    StringBuilder name = new StringBuilder(rName);
-                    foreach (char rInvalidChar in Path.GetInvalidFileNameChars())
-                        name.Replace(rInvalidChar.ToString(), "-");
-
-
-                    string targetPath = service.GetResourcePath(resource.StorageID, path.ToString(), name.ToString(), resource.Suffix);
+                    string targetPath = service.GetResourcePath(resource.StorageID, resource.FilePath, resource.FileName, resource.Suffix);
                     File.Copy(resource.objectFilePath, targetPath);
                 }
 

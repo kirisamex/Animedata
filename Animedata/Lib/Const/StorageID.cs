@@ -18,7 +18,7 @@ namespace Main.Lib.Const
             public static readonly int BAK_RESOURCE_BUCKET_101 = 101;
 
             /// <summary>
-            /// lrc歌词文件
+            /// 主资源库
             /// </summary>
             public static readonly int MAIN_RESOURCE_BUCKET_201 = 201;
             #endregion

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Data;
+using Main.Lib.Const;
 
 namespace Main.Music
 {
@@ -66,6 +68,43 @@ namespace Main.Music
         /// </summary>
         public AlbumSeries()
         {
+        }
+
+        /// <summary>
+        /// 通过专辑编号获得专辑
+        /// </summary>
+        /// <param name="AlbumID"></param>
+        public AlbumSeries(string AlbumID)
+        {
+            this.ID = AlbumID;
+
+            DataSet ds = service.GetAlbumByAlbumID(AlbumID);
+
+            if (ds.Tables[0].Rows.Count == 0)
+            {
+                return;
+            }
+
+            DataRow dr = ds.Tables[0].Rows[0];
+
+            AlbumTypeId = Convert.ToInt32(dr[CommonConst.ColumnName.ALBUM_TYPE_ID]);
+            if (DBNull.Value != dr[CommonConst.ColumnName.ALBUM_INANIME_NO])
+            {
+                InAnimeNo = Convert.ToInt32( dr[CommonConst.ColumnName.ALBUM_INANIME_NO]);
+            }
+            if (DBNull.Value != dr[CommonConst.ColumnName.ANIME_NO])
+            {
+                AnimeNo = dr[CommonConst.ColumnName.ANIME_NO].ToString();
+            }
+            AlbumTitleName = dr[CommonConst.ColumnName.ALBUM_TITLE_NAME].ToString();
+            TotalDiscCount = Convert.ToInt32(dr[CommonConst.ColumnName.TOTAL_DISC_COUNT]);
+            TotalTrackCount = Convert.ToInt32(dr[CommonConst.ColumnName.TOTAL_TRACK_COUNT]);
+            if (DBNull.Value != dr[CommonConst.ColumnName.DESCRIPTION])
+            {
+                Description = dr[CommonConst.ColumnName.DESCRIPTION].ToString();
+            }
+
+            Tracks = service.GetTracks(AlbumID);
         }
         #endregion
 
