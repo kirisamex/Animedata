@@ -4,6 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Main.Lib.Const;
 
 namespace Main.Music
 {
@@ -18,13 +19,51 @@ namespace Main.Music
         Dictionary<string, string> albumdic = new Dictionary<string, string>();
 
         /// <summary>
+        /// 获得专辑
+        /// 默认
+        /// </summary>
+        /// <returns></returns>
+        public List<AlbumSeries> GetAlbums()
+        {
+            DataTable AlbumListDt = dao.GetAlbumIDs().Tables[0];
+            List<AlbumSeries> albumList = new List<AlbumSeries>();
+
+            if (AlbumListDt.Rows.Count == 0)
+            {
+                return albumList;
+            }
+
+            foreach (DataRow dr in AlbumListDt.Rows)
+            {
+                AlbumSeries al = new AlbumSeries(dr[CommonConst.ColumnName.ALBUM_ID].ToString());
+                albumList.Add(al);
+            }
+
+            return albumList;
+        }
+
+        /// <summary>
         /// 获得曲目
         /// 默认
         /// </summary>
         /// <returns></returns>
-        public DataSet GetTracks()
+        public DataTable GetTracks()
         {
-            return dao.GetTracks();
+            DataTable TrackListDt = dao.GetTracks().Tables[0];
+            //List<TrackSeries> trackList = new List<TrackSeries>();
+
+            //if (TrackListDt.Rows.Count == 0)
+            //{
+            //    return trackList;
+            //}
+
+            //foreach (DataRow dr in TrackListDt.Rows)
+            //{
+            //    TrackSeries tr = new TrackSeries(dr[CommonConst.ColumnName.TRACK_ID].ToString());
+            //    trackList.Add(tr);
+            //}
+
+            return TrackListDt;
         }
 
         /// <summary>

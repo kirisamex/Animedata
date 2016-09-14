@@ -168,8 +168,6 @@
     <Compile Include="Main\CompanyManage\CompanyManageDao.cs" />
     <Compile Include="Main\CompanyManage\CompanyManageService.cs" />
     <Compile Include="Lib\Tool\ID3V2Tag.cs" />
-    <Compile Include="Lib\Class\Resource\MusicResource.cs" />
-    <Compile Include="Lib\Class\Resource\MusicResourceDao.cs" />
     <Compile Include="Lib\Class\Music\Track\TrackSeries.cs" />
     <Compile Include="Lib\Class\Music\Track\TrackSeriesDao.cs" />
     <Compile Include="Lib\Const\FormText.cs" />
@@ -202,6 +200,14 @@
     <Compile Include="Lib\Class\PlayInfo\Playinfo.cs" />
     <Compile Include="Lib\Class\PlayInfo\PlayInfoDao.cs" />
     <Compile Include="Main\MainService.cs" />
+    <Compile Include="Music\EditMusic\EditMusic.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Music\EditMusic\EditMusic.Designer.cs">
+      <DependentUpon>EditMusic.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Music\EditMusic\EditMusicDao.cs" />
+    <Compile Include="Music\EditMusic\EditMusicService.cs" />
     <Compile Include="Music\ImportMusic\ImportMusicDao.cs" />
     <Compile Include="Music\ImportMusic\ImportMusicService.cs" />
     <Compile Include="Music\ImportMusic\SelectArtist.cs">
@@ -257,6 +263,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Main\MainSearch.resx">
       <DependentUpon>MainSearch.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Music\EditMusic\EditMusic.resx">
+      <DependentUpon>EditMusic.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Music\ImportMusic\SelectArtist.resx">
       <DependentUpon>SelectArtist.cs</DependentUpon>

@@ -16,35 +16,71 @@ namespace Main.Music
         public MusicManageDAO() : base() { }
 
         /// <summary>
+        /// 获得所有专辑编号
+        /// </summary>
+        /// <returns></returns>
+        public DataSet GetAlbumIDs()
+        {
+            const string sqlcmd = @"SELECT DISTINCT ALB.ALBUM_ID  FROM {0} ALB WHERE ALB.ENABLE_FLG = 1";
+
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_ALBUM_TBL
+                 ));
+        }
+
+        /// <summary>
         /// 获得所有曲目
         /// </summary>
         /// <returns></returns>
         public DataSet GetTracks()
         {
-            const string sqlcmd = @"SELECT 
-                                        TRT.TRACK_TITLE_NAME,
-                                        ALT.ALBUM_TITLE_NAME,
-                                        ART.ARTIST_NAME,
-                                        ANT.ANIME_JPN_NAME,
-                                        TRT.TRACK_ID,
-                                        TRT.DISC_NO,
-                                        TRT.TRACK_NO,
-                                        TRT.SALES_YEAR,
-                                        TRT.DESCRIPTION,    --<-直接使用部分 合成部分->
-                                        ALT.ANIME_NO,
-                                        ATM.ALBUM_TYPE_NAME,
-                                        ALT.ALBUM_INANIME_NO,
-                                        RT.STORAGE_ID,
-                                        RT.RESOURCE_FILEPATH,
-                                        RT.RESOURCE_FILENAME
-                                    FROM {0} TRT
-                                    INNER JOIN {1} ALT ON TRT.P_ALBUM_ID = ALT.ALBUM_ID AND ALT.ENABLE_FLG = 1
-                                    INNER JOIN {2} ART ON TRT.ARTIST_ID = ART.ARTIST_ID AND ART.ENABLE_FLG = 1
-                                    INNER JOIN {3} ANT ON ANT.ANIME_NO = TRT.ANIME_NO AND ANT.ENABLE_FLG = 1
-                                    LEFT JOIN {4} TTRT ON TTRT.TRACK_ID = TRT.TRACK_ID AND TTRT.ENABLE_FLG = 1
-                                    LEFT JOIN {5} RT ON RT.RESOURCE_ID = TTRT.RESOURCE_ID AND RT.ENABLE_FLG = 1
-                                    INNER JOIN {6} ATM ON ALT.ALBUM_TYPE_ID = ATM.ALBUM_TYPE_ID AND ALT.ENABLE_FLG = 1
-                                    WHERE TRT.ENABLE_FLG = 1";
+            string sqlcmd = @"SELECT DISTINCT 
+                                        TRT.TRACK_ID            AS  TrackID,
+                                        TRT.TRACK_TITLE_NAME    AS  TrackName,
+                                        TRT.TRACK_TYPE_ID       AS  TrackTypeID,
+
+
+                                        ALT.ALBUM_ID            AS  AlbumID,
+                                        ALT.ALBUM_TITLE_NAME    AS  AlbumName,
+                                        ATM.ALBUM_TYPE_NAME     AS  AlbumType,
+
+                                        ART.ARTIST_NAME         AS  ArtistName,
+                                        ANT.ANIME_JPN_NAME      AS  AnimeName,
+
+                                        RT.TRACK_BITRATE        AS  BitRate,
+                                        TRT.DISC_NO             AS  DiscNo,
+                                        TRT.TRACK_NO            AS  TrackNo,
+                                        TRT.SALES_YEAR          AS  Year,
+                                        RT.TRACK_LENGTH         AS  TrackTimeLength,
+
+                                        CASE WHEN (RT.RESOURCE_FILEPATH IS NOT NULL)
+                                            THEN SM.STORAGE_PATH + '\' + RT.RESOURCE_FILEPATH+ '\' +RT.RESOURCE_FILENAME+RT.RESOURCE_SUFFIX
+                                            ELSE SM.STORAGE_PATH + '\' +RT.RESOURCE_FILENAME+RT.RESOURCE_SUFFIX
+                                        END                     AS ResourcePath,
+
+                                        TRT.DESCRIPTION         AS  Description,
+
+                                        ALT.ANIME_NO            AS  AnimeNO,
+                                        TRT.ARTIST_ID           AS  ArtistID,
+                                        TTM.TRACK_TYPE_NAME     AS  TrackType,
+                                        ALT.ALBUM_TYPE_ID       AS  AlbumTypeID
+
+                                    FROM {0} TRT 
+                                    INNER JOIN {1} ALT  ON TRT.P_ALBUM_ID = ALT.ALBUM_ID AND ALT.ENABLE_FLG = 1
+                                    INNER JOIN {2} ART  ON TRT.ARTIST_ID = ART.ARTIST_ID AND ART.ENABLE_FLG = 1
+                                    INNER JOIN {3} ANT  ON ANT.ANIME_NO = TRT.ANIME_NO AND ANT.ENABLE_FLG = 1
+                                    INNER JOIN {4} TTRT ON TTRT.TRACK_ID = TRT.TRACK_ID AND TTRT.ENABLE_FLG = 1
+                                    INNER JOIN {5} RT   ON RT.RESOURCE_ID = TTRT.RESOURCE_ID AND RT.ENABLE_FLG = 1 AND STORAGE_ID = @storageID AND RESOURCE_TYPE_ID = @resourceTypeID
+                                    INNER JOIN {6} ATM  ON ALT.ALBUM_TYPE_ID = ATM.ALBUM_TYPE_ID 
+                                    INNER JOIN {7} TTM  ON TRT.TRACK_TYPE_ID = TTM.TRACK_TYPE_ID 
+                                    INNER JOIN {8} SM   ON RT.STORAGE_ID = SM.STORAGE_ID
+                                    WHERE TRT.ENABLE_FLG = 1
+                                    ";
+            //ALT.ALBUM_INANIME_NO,
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@storageID", StorageID.Path.MAIN_RESOURCE_BUCKET_201));
+            paras.Add(new SqlParameter("@resourceTypeID", ResourceFile.Type.MUSIC_MP3_1));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_TRACK_TBL
@@ -53,7 +89,11 @@ namespace Main.Music
                 , CommonConst.TableName.T_ANIME_TBL
                 , CommonConst.TableName.T_TRACK_RESOURCE_TBL
                 , CommonConst.TableName.T_RESOURCE_TBL
-                ,CommonConst.TableName.T_ALBUM_TYPE_MST));
+                , CommonConst.TableName.T_ALBUM_TYPE_MST
+                , CommonConst.TableName.T_TRACK_TYPE_MST
+                , CommonConst.TableName.T_STORAGE_MST
+                 )
+                 , paras);
         }
 
         /// <summary>

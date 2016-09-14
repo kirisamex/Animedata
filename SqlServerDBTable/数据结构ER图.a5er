@@ -438,7 +438,7 @@ Field="专辑编号","ALBUM_ID","nchar(10)","NOT NULL",0,"","A+9位数字，代�
 Field="专辑种类编号","ALBUM_TYPE_ID","int","NOT NULL",,"","专辑种类<T_ALBUM_TYPE_MST>",$FFFFFFFF,""
 Field="所属动画内专辑编号","ALBUM_INANIME_NO","int",,,"","",$FFFFFFFF,""
 Field="动画编号","ANIME_NO","nchar(4)",,,"","",$FFFFFFFF,""
-Field="专辑名","ALBUM_TITLE_NAME","char(1000)","NOT NULL",,"","",$FFFFFFFF,""
+Field="专辑名","ALBUM_TITLE_NAME","nvarchar(1000)","NOT NULL",,"","",$FFFFFFFF,""
 Field="总碟数","TOTAL_DISC_COUNT","smallint","NOT NULL",,"","",$FFFFFFFF,""
 Field="总曲数","TOTAL_TRACK_COUNT","smallint","NOT NULL",,"","",$FFFFFFFF,""
 Field="描述","DESCRIPTION","nvarchar(1000)",,,"","",$FFFFFFFF,""
@@ -448,7 +448,7 @@ EffectMode=None
 Tag=ANIMEDATA
 Color=$000000
 BkColor=$FAEBB4
-ModifiedDateTime=20160830154417
+ModifiedDateTime=20160913110625
 Position="MAIN",1600,450,293,279
 
 [Entity]

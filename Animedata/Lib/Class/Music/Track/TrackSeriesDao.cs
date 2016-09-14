@@ -27,7 +27,7 @@ namespace Main.Music
             string sqlcmd = @"SELECT 
                                         TRT.TRACK_TITLE_NAME,
                                         TRT.P_ALBUM_ID,
-                                        TRT.TRACK_TYPE,
+                                        TRT.TRACK_TYPE_ID,
                                         TRT.DISC_NO,
                                         TRT.TRACK_NO,
                                         TRT.ARTIST_ID,
@@ -42,6 +42,50 @@ namespace Main.Music
             paras.Add(new SqlParameter("@trackid", trackID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TBL), paras);
+        }
+
+        /// <summary>
+        /// 通过曲目ID获得资源信息
+        /// </summary>
+        /// <param name="trackID"></param>
+        /// <returns></returns>
+        public DataSet GetResourceIDByTrackId(string trackID)
+        {
+            DataSet ds = new DataSet();
+
+            string sqlcmd = @"SELECT 
+                                        RT.RESOURCE_ID
+                                    FROM {0} RT
+                                    INNER JOIN {1} TRT ON RT.RESOURCE_ID = TRT.RESOURCE_ID AND TRT.ENABLE_FLG = 1
+                                    WHERE RT.ENABLE_FLG = 1
+                                    AND TRT.TRACK_ID = @trackid ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@trackid", trackID));
+
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_RESOURCE_TBL, CommonConst.TableName.T_TRACK_RESOURCE_TBL), paras);
+        }
+
+        /// <summary>
+        /// 通过曲目ID获得资源匹配信息
+        /// </summary>
+        /// <param name="trackID"></param>
+        /// <returns></returns>
+        public DataSet GetResourceMapByTrackId(string trackID)
+        {
+            DataSet ds = new DataSet();
+            
+            string sqlcmd = @"SELECT 
+                                        TRT.TRACK_ID,
+                                        TRT.RESOURCE_ID
+                                    FROM {0} TRT
+                                    WHERE TRT.ENABLE_FLG = 1
+                                    AND TRT.TRACK_ID = @trackid ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@trackid", trackID));
+
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_RESOURCE_TBL), paras);
         }
 
         /// <summary>
