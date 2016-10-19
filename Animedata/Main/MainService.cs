@@ -433,13 +433,13 @@ namespace Main
         }
 
         /// <summary>
-        /// 根据曲目种类ID返回专辑种类名
+        /// 根据曲目种类ID返回曲目种类名
         /// </summary>
         /// <param name="trackTypeID"></param>
         /// <returns></returns>
-        public string GetTrackTypeNameByAlbumTypeID(int trackTypeID)
+        public string GetTrackTypeNameByTrackTypeID(int trackTypeID)
         {
-            return dao.GetTrackTypeNameByAlbumTypeID(trackTypeID);
+            return dao.GetTrackTypeNameByTrackTypeID(trackTypeID);
         }
 
         #endregion

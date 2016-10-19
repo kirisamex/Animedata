@@ -369,7 +369,7 @@ namespace Main.Music
 
             this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[TRACKTYPEIDCLN].Value = targetkey.ToString();
             this.MusicDataGridView.Rows[MusicDataGridView.CurrentCell.RowIndex].Cells[TRACKTYPECLN].Value =
-                service.GetTrackTypeNameByAlbumTypeID(Convert.ToInt32(targetkey));
+                service.GetTrackTypeNameByTrackTypeID(Convert.ToInt32(targetkey));
         }
 
         /// <summary>
@@ -386,7 +386,7 @@ namespace Main.Music
             {
                 this.MusicDataGridView.Rows[dc.RowIndex].Cells[TRACKTYPEIDCLN].Value = targetkey.ToString();
                 this.MusicDataGridView.Rows[dc.RowIndex].Cells[TRACKTYPECLN].Value =
-                    service.GetTrackTypeNameByAlbumTypeID(Convert.ToInt32(targetkey));
+                    service.GetTrackTypeNameByTrackTypeID(Convert.ToInt32(targetkey));
             }
 
 
@@ -397,7 +397,7 @@ namespace Main.Music
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void SelectArtistTypeAccept(object sender, EventArgs e)
+        void SelectArtistAccept(object sender, EventArgs e)
         {
             SelectArtist target = (SelectArtist)sender;       //接收到Form2的textBox1.Text     
             object targetkey = target.ReturnResult;
@@ -1072,16 +1072,16 @@ namespace Main.Music
                     if (MusicDataGridView.SelectedCells.Count == 1)
                     {
                         //动画名称
-                        AbstractSelect animes = new AbstractSelect(CommonConst.TableName.T_ANIME_TBL, "ANIME_NO", "ANIME_CHN_NAME", true
-                            , new string[] { "ANIME_NO", "ANIME_CHN_NAME", "ANIME_JPN_NAME", "ANIME_NN" });
+                        AbstractSelect animes = new AbstractSelect(CommonConst.TableName.T_ANIME_TBL, CommonConst.ColumnName.ANIME_NO, CommonConst.ColumnName.ANIME_CHN_NAME, true
+                            , new string[] { CommonConst.ColumnName.ANIME_NO, CommonConst.ColumnName.ANIME_CHN_NAME, CommonConst.ColumnName.ANIME_JPN_NAME, CommonConst.ColumnName.ANIME_NN });
                         animes.accept += new EventHandler(SelectAnimeAccept);
                         animes.ShowDialog(this);
                     }
                     else if (MusicDataGridView.SelectedCells.Count > 1)
                     {
                         //动画名称
-                        AbstractSelect animes = new AbstractSelect(CommonConst.TableName.T_ANIME_TBL, "ANIME_NO", "ANIME_CHN_NAME", true
-                            , new string[] { "ANIME_NO", "ANIME_CHN_NAME", "ANIME_JPN_NAME", "ANIME_NN" });
+                        AbstractSelect animes = new AbstractSelect(CommonConst.TableName.T_ANIME_TBL, CommonConst.ColumnName.ANIME_NO, CommonConst.ColumnName.ANIME_CHN_NAME, true
+                            , new string[] { CommonConst.ColumnName.ANIME_NO, CommonConst.ColumnName.ANIME_CHN_NAME, CommonConst.ColumnName.ANIME_JPN_NAME, CommonConst.ColumnName.ANIME_NN });
                         animes.accept += new EventHandler(SelectAllAnimeAccept);
                         animes.ShowDialog(this);
                     }
@@ -1089,8 +1089,8 @@ namespace Main.Music
                 else if (e.ColumnIndex == MusicDataGridView.Columns[ALBUMTYPECLN].Index)
                 {
                     //专辑种类
-                    AbstractSelect albumtype = new AbstractSelect(CommonConst.TableName.T_ALBUM_TYPE_MST, "ALBUM_TYPE_ID", "ALBUM_TYPE_NAME", false,
-                        new string[] { "ALBUM_TYPE_NAME", "DESCRIPTION" });
+                    AbstractSelect albumtype = new AbstractSelect(CommonConst.TableName.T_ALBUM_TYPE_MST, CommonConst.ColumnName.ALBUM_TYPE_ID, CommonConst.ColumnName.ALBUM_TYPE_NAME, false,
+                        new string[] { CommonConst.ColumnName.ALBUM_TYPE_NAME, CommonConst.ColumnName.DESCRIPTION });
                     albumtype.accept += new EventHandler(SelectAlbumTypeAccept);
                     albumtype.ShowDialog(this);
                 }
@@ -1099,16 +1099,16 @@ namespace Main.Music
                     if (MusicDataGridView.SelectedCells.Count == 1)
                     {
                         //曲目种类
-                        AbstractSelect trackType = new AbstractSelect(CommonConst.TableName.T_TRACK_TYPE_MST, "TRACK_TYPE_ID", "TRACK_TYPE_NAME", false,
-                            new string[] { "TRACK_TYPE_NAME", "DESCRIPTION" });
+                        AbstractSelect trackType = new AbstractSelect(CommonConst.TableName.T_TRACK_TYPE_MST, CommonConst.ColumnName.TRACK_TYPE_ID, CommonConst.ColumnName.TRACK_TYPE_NAME, false,
+                            new string[] { CommonConst.ColumnName.TRACK_TYPE_NAME, CommonConst.ColumnName.DESCRIPTION });
                         trackType.accept += new EventHandler(SelectTrackTypeAccept);
                         trackType.ShowDialog(this);
                     }
                     else if (MusicDataGridView.SelectedCells.Count > 1)
                     {
                         //曲目种类
-                        AbstractSelect trackType = new AbstractSelect(CommonConst.TableName.T_TRACK_TYPE_MST, "TRACK_TYPE_ID", "TRACK_TYPE_NAME", false,
-                            new string[] { "TRACK_TYPE_NAME", "DESCRIPTION" });
+                        AbstractSelect trackType = new AbstractSelect(CommonConst.TableName.T_TRACK_TYPE_MST, CommonConst.ColumnName.TRACK_TYPE_ID, CommonConst.ColumnName.TRACK_TYPE_NAME, false,
+                            new string[] { CommonConst.ColumnName.TRACK_TYPE_NAME, CommonConst.ColumnName.DESCRIPTION });
                         trackType.accept += new EventHandler(SelectAllTrackTypeAccept);
                         trackType.ShowDialog(this);
                     }
@@ -1119,7 +1119,7 @@ namespace Main.Music
                     int currentRowIndex = MusicDataGridView.CurrentRow.Index;
                     DataGridViewRow dr = MusicDataGridView.Rows[currentRowIndex];
                     SelectArtist artSelForm = new SelectArtist(Convert.ToInt32(dr.Cells[ARTISTIDCLN].Value), dr.Cells[ARTISTNAMECLN].Value.ToString());
-                    artSelForm.accept += new EventHandler(SelectArtistTypeAccept);
+                    artSelForm.accept += new EventHandler(SelectArtistAccept);
                     artSelForm.ShowDialog(this);
                 }
 

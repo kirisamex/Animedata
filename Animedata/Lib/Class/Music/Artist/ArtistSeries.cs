@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
+using Main.Lib.Const;
 
 
 namespace Main.Music
@@ -71,12 +73,28 @@ namespace Main.Music
 
         /// <summary>
         /// 构造
-        /// ！！！空壳
         /// </summary>
         /// <param name="ArtistID"></param>
         public ArtistSeries(int ArtistID)
         {
             Id = ArtistID;
+            DataTable dt = service.GetArtistByArtistID(Id);
+
+            if (dt.Rows.Count == 0)
+            {
+                return;
+            }
+
+            DataRow dr = dt.Rows[0];
+
+            this.Name = dr[CommonConst.ColumnName.ARTIST_NAME].ToString();
+            this.Gender = Convert.ToInt32(dr[CommonConst.ColumnName.GENDER_ID]);
+            this.Description = dr[CommonConst.ColumnName.DESCRIPTION].ToString();
+            this.IsCharacter = Convert.ToBoolean(dr[CommonConst.ColumnName.CHARACTER_FLG]);
+            this.IsCV = Convert.ToBoolean(dr[CommonConst.ColumnName.CV_FLG]);
+            this.IsSinger = Convert.ToBoolean(dr[CommonConst.ColumnName.SINGER_FLG]);
+
+
         }
 
         /// <summary>
@@ -99,6 +117,16 @@ namespace Main.Music
         #endregion
 
         #region 方法
+
+        /// <summary>
+        /// 获取成员信息
+        /// </summary>
+        /// <returns></returns>
+        public string GetMembers()
+        {
+            return service.GetMembers(this.Id);
+        }
+
         /// <summary>
         /// 艺术家姓名是否存在
         /// </summary>

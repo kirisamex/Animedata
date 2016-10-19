@@ -29,17 +29,16 @@ namespace Main.Lib
         }
 
         /// <summary>
-        /// 由秒数转换成hh:mm:ss
+        /// 由秒数转换成mm:ss
         /// </summary>
         /// <param name="sec"></param>
         /// <returns></returns>
         public string GetTimeFromSecond(int sec)
         {
-            int hh = sec / 3600;
-            int mm = (sec % 3600) / 60;
-            int ss = (sec % 3600) % 60;
+            int mm = sec / 60;
+            int ss = (sec % 60) % 60;
 
-            string res = hh.ToString() + ":" + mm.ToString().PadLeft(2, '0') + ":" + ss.ToString().PadLeft(2, '0');
+            string res = mm.ToString() + ":" + ss.ToString().PadLeft(2, '0');
             return res;
         }
 
