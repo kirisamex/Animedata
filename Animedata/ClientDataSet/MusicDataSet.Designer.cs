@@ -52,6 +52,8 @@ namespace Main.ClientDataSet {
         
         private ResourceInfoDataTable tableResourceInfo;
         
+        private TrackResourceInfoDataTable tableTrackResourceInfo;
+        
         private global::System.Data.SchemaSerializationMode _schemaSerializationMode = global::System.Data.SchemaSerializationMode.IncludeSchema;
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -121,6 +123,9 @@ namespace Main.ClientDataSet {
                 }
                 if ((ds.Tables["ResourceInfo"] != null)) {
                     base.Tables.Add(new ResourceInfoDataTable(ds.Tables["ResourceInfo"]));
+                }
+                if ((ds.Tables["TrackResourceInfo"] != null)) {
+                    base.Tables.Add(new TrackResourceInfoDataTable(ds.Tables["TrackResourceInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -282,6 +287,16 @@ namespace Main.ClientDataSet {
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        [global::System.ComponentModel.Browsable(false)]
+        [global::System.ComponentModel.DesignerSerializationVisibility(global::System.ComponentModel.DesignerSerializationVisibility.Content)]
+        public TrackResourceInfoDataTable TrackResourceInfo {
+            get {
+                return this.tableTrackResourceInfo;
+            }
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         [global::System.ComponentModel.BrowsableAttribute(true)]
         [global::System.ComponentModel.DesignerSerializationVisibilityAttribute(global::System.ComponentModel.DesignerSerializationVisibility.Visible)]
         public override global::System.Data.SchemaSerializationMode SchemaSerializationMode {
@@ -388,6 +403,9 @@ namespace Main.ClientDataSet {
                 }
                 if ((ds.Tables["ResourceInfo"] != null)) {
                     base.Tables.Add(new ResourceInfoDataTable(ds.Tables["ResourceInfo"]));
+                }
+                if ((ds.Tables["TrackResourceInfo"] != null)) {
+                    base.Tables.Add(new TrackResourceInfoDataTable(ds.Tables["TrackResourceInfo"]));
                 }
                 this.DataSetName = ds.DataSetName;
                 this.Prefix = ds.Prefix;
@@ -506,6 +524,12 @@ namespace Main.ClientDataSet {
                     this.tableResourceInfo.InitVars();
                 }
             }
+            this.tableTrackResourceInfo = ((TrackResourceInfoDataTable)(base.Tables["TrackResourceInfo"]));
+            if ((initTable == true)) {
+                if ((this.tableTrackResourceInfo != null)) {
+                    this.tableTrackResourceInfo.InitVars();
+                }
+            }
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -544,6 +568,8 @@ namespace Main.ClientDataSet {
             base.Tables.Add(this.tableArtistInfo);
             this.tableResourceInfo = new ResourceInfoDataTable();
             base.Tables.Add(this.tableResourceInfo);
+            this.tableTrackResourceInfo = new TrackResourceInfoDataTable();
+            base.Tables.Add(this.tableTrackResourceInfo);
         }
         
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -627,6 +653,12 @@ namespace Main.ClientDataSet {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         private bool ShouldSerializeResourceInfo() {
+            return false;
+        }
+        
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        private bool ShouldSerializeTrackResourceInfo() {
             return false;
         }
         
@@ -726,6 +758,9 @@ namespace Main.ClientDataSet {
         
         [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
         public delegate void ResourceInfoRowChangeEventHandler(object sender, ResourceInfoRowChangeEvent e);
+        
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public delegate void TrackResourceInfoRowChangeEventHandler(object sender, TrackResourceInfoRowChangeEvent e);
         
         /// <summary>
         ///Represents the strongly named DataTable class.
@@ -4058,6 +4093,8 @@ namespace Main.ClientDataSet {
             
             private global::System.Data.DataColumn columnDescription;
             
+            private global::System.Data.DataColumn columnUpdateFlg;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public AlbumInfoDataTable() {
@@ -4165,6 +4202,14 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn UpdateFlgColumn {
+                get {
+                    return this.columnUpdateFlg;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4200,7 +4245,7 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public AlbumInfoRow AddAlbumInfoRow(string AlbumID, string AlbumTitleName, string AlbumTypeID, string AlbumTypeName, string AnimeNo, string AnimeName, string TotalDiscCount, string TotalTrackCount, string Description) {
+            public AlbumInfoRow AddAlbumInfoRow(string AlbumID, string AlbumTitleName, string AlbumTypeID, string AlbumTypeName, string AnimeNo, string AnimeName, string TotalDiscCount, string TotalTrackCount, string Description, bool UpdateFlg) {
                 AlbumInfoRow rowAlbumInfoRow = ((AlbumInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         AlbumID,
@@ -4211,7 +4256,8 @@ namespace Main.ClientDataSet {
                         AnimeName,
                         TotalDiscCount,
                         TotalTrackCount,
-                        Description};
+                        Description,
+                        UpdateFlg};
                 rowAlbumInfoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowAlbumInfoRow);
                 return rowAlbumInfoRow;
@@ -4250,6 +4296,7 @@ namespace Main.ClientDataSet {
                 this.columnTotalDiscCount = base.Columns["TotalDiscCount"];
                 this.columnTotalTrackCount = base.Columns["TotalTrackCount"];
                 this.columnDescription = base.Columns["Description"];
+                this.columnUpdateFlg = base.Columns["UpdateFlg"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4273,10 +4320,16 @@ namespace Main.ClientDataSet {
                 base.Columns.Add(this.columnTotalTrackCount);
                 this.columnDescription = new global::System.Data.DataColumn("Description", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnDescription);
+                this.columnUpdateFlg = new global::System.Data.DataColumn("UpdateFlg", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUpdateFlg);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnAlbumID}, true));
                 this.columnAlbumID.AllowDBNull = false;
                 this.columnAlbumID.Unique = true;
+                this.columnAnimeNo.DefaultValue = ((string)("null"));
+                this.columnAnimeName.DefaultValue = ((string)("null"));
+                this.columnDescription.DefaultValue = ((string)("null"));
+                this.columnUpdateFlg.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4434,6 +4487,8 @@ namespace Main.ClientDataSet {
             
             private global::System.Data.DataColumn columnTrackTitleName;
             
+            private global::System.Data.DataColumn columnUpdateFlg;
+            
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public TrackInfoDataTable() {
@@ -4565,6 +4620,14 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn UpdateFlgColumn {
+                get {
+                    return this.columnUpdateFlg;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             [global::System.ComponentModel.Browsable(false)]
             public int Count {
                 get {
@@ -4600,7 +4663,7 @@ namespace Main.ClientDataSet {
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
-            public TrackInfoRow AddTrackInfoRow(string TrackID, string TrackTypeId, string TrackTypeName, string AnimeNo, string AnimeName, string DiscNo, string TrackNo, string Description, string ArtistID, string SalesYear, string ArtistName, string TrackTitleName) {
+            public TrackInfoRow AddTrackInfoRow(string TrackID, string TrackTypeId, string TrackTypeName, string AnimeNo, string AnimeName, string DiscNo, string TrackNo, string Description, string ArtistID, string SalesYear, string ArtistName, string TrackTitleName, bool UpdateFlg) {
                 TrackInfoRow rowTrackInfoRow = ((TrackInfoRow)(this.NewRow()));
                 object[] columnValuesArray = new object[] {
                         TrackID,
@@ -4614,7 +4677,8 @@ namespace Main.ClientDataSet {
                         ArtistID,
                         SalesYear,
                         ArtistName,
-                        TrackTitleName};
+                        TrackTitleName,
+                        UpdateFlg};
                 rowTrackInfoRow.ItemArray = columnValuesArray;
                 this.Rows.Add(rowTrackInfoRow);
                 return rowTrackInfoRow;
@@ -4656,6 +4720,7 @@ namespace Main.ClientDataSet {
                 this.columnSalesYear = base.Columns["SalesYear"];
                 this.columnArtistName = base.Columns["ArtistName"];
                 this.columnTrackTitleName = base.Columns["TrackTitleName"];
+                this.columnUpdateFlg = base.Columns["UpdateFlg"];
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -4685,6 +4750,8 @@ namespace Main.ClientDataSet {
                 base.Columns.Add(this.columnArtistName);
                 this.columnTrackTitleName = new global::System.Data.DataColumn("TrackTitleName", typeof(string), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnTrackTitleName);
+                this.columnUpdateFlg = new global::System.Data.DataColumn("UpdateFlg", typeof(bool), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnUpdateFlg);
                 this.Constraints.Add(new global::System.Data.UniqueConstraint("Constraint1", new global::System.Data.DataColumn[] {
                                 this.columnTrackID}, true));
                 this.columnTrackID.AllowDBNull = false;
@@ -4692,8 +4759,14 @@ namespace Main.ClientDataSet {
                 this.columnTrackID.Caption = "AlbumID";
                 this.columnTrackTypeId.Caption = "AlbumTypeID";
                 this.columnTrackTypeName.Caption = "AlbumTypeName";
+                this.columnAnimeNo.DefaultValue = ((string)("null"));
+                this.columnAnimeName.DefaultValue = ((string)("null"));
                 this.columnDiscNo.Caption = "TotalDiscCount";
                 this.columnTrackNo.Caption = "TotalTrackCount";
+                this.columnDescription.DefaultValue = ((string)("null"));
+                this.columnSalesYear.DefaultValue = ((string)("null"));
+                this.columnTrackTitleName.DefaultValue = ((string)("null"));
+                this.columnUpdateFlg.DefaultValue = ((bool)(false));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5027,6 +5100,7 @@ namespace Main.ClientDataSet {
                 this.columnGenderID.Caption = "AlbumTypeID";
                 this.columnGenderName.Caption = "AlbumTypeName";
                 this.columnMembers.Caption = "SalesYear";
+                this.columnDescription.DefaultValue = ((string)("null"));
             }
             
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
@@ -5445,6 +5519,270 @@ namespace Main.ClientDataSet {
                 global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
                 attribute2.Name = "tableTypeName";
                 attribute2.FixedValue = "ResourceInfoDataTable";
+                type.Attributes.Add(attribute2);
+                type.Particle = sequence;
+                global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
+                if (xs.Contains(dsSchema.TargetNamespace)) {
+                    global::System.IO.MemoryStream s1 = new global::System.IO.MemoryStream();
+                    global::System.IO.MemoryStream s2 = new global::System.IO.MemoryStream();
+                    try {
+                        global::System.Xml.Schema.XmlSchema schema = null;
+                        dsSchema.Write(s1);
+                        for (global::System.Collections.IEnumerator schemas = xs.Schemas(dsSchema.TargetNamespace).GetEnumerator(); schemas.MoveNext(); ) {
+                            schema = ((global::System.Xml.Schema.XmlSchema)(schemas.Current));
+                            s2.SetLength(0);
+                            schema.Write(s2);
+                            if ((s1.Length == s2.Length)) {
+                                s1.Position = 0;
+                                s2.Position = 0;
+                                for (; ((s1.Position != s1.Length) 
+                                            && (s1.ReadByte() == s2.ReadByte())); ) {
+                                    ;
+                                }
+                                if ((s1.Position == s1.Length)) {
+                                    return type;
+                                }
+                            }
+                        }
+                    }
+                    finally {
+                        if ((s1 != null)) {
+                            s1.Close();
+                        }
+                        if ((s2 != null)) {
+                            s2.Close();
+                        }
+                    }
+                }
+                xs.Add(dsSchema);
+                return type;
+            }
+        }
+        
+        /// <summary>
+        ///Represents the strongly named DataTable class.
+        ///</summary>
+        [global::System.Serializable()]
+        [global::System.Xml.Serialization.XmlSchemaProviderAttribute("GetTypedTableSchema")]
+        public partial class TrackResourceInfoDataTable : global::System.Data.TypedTableBase<TrackResourceInfoRow> {
+            
+            private global::System.Data.DataColumn columnTrackID;
+            
+            private global::System.Data.DataColumn columnResourceID;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TrackResourceInfoDataTable() {
+                this.TableName = "TrackResourceInfo";
+                this.BeginInit();
+                this.InitClass();
+                this.EndInit();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal TrackResourceInfoDataTable(global::System.Data.DataTable table) {
+                this.TableName = table.TableName;
+                if ((table.CaseSensitive != table.DataSet.CaseSensitive)) {
+                    this.CaseSensitive = table.CaseSensitive;
+                }
+                if ((table.Locale.ToString() != table.DataSet.Locale.ToString())) {
+                    this.Locale = table.Locale;
+                }
+                if ((table.Namespace != table.DataSet.Namespace)) {
+                    this.Namespace = table.Namespace;
+                }
+                this.Prefix = table.Prefix;
+                this.MinimumCapacity = table.MinimumCapacity;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected TrackResourceInfoDataTable(global::System.Runtime.Serialization.SerializationInfo info, global::System.Runtime.Serialization.StreamingContext context) : 
+                    base(info, context) {
+                this.InitVars();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn TrackIDColumn {
+                get {
+                    return this.columnTrackID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataColumn ResourceIDColumn {
+                get {
+                    return this.columnResourceID;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            [global::System.ComponentModel.Browsable(false)]
+            public int Count {
+                get {
+                    return this.Rows.Count;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TrackResourceInfoRow this[int index] {
+                get {
+                    return ((TrackResourceInfoRow)(this.Rows[index]));
+                }
+            }
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TrackResourceInfoRowChangeEventHandler TrackResourceInfoRowChanging;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TrackResourceInfoRowChangeEventHandler TrackResourceInfoRowChanged;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TrackResourceInfoRowChangeEventHandler TrackResourceInfoRowDeleting;
+            
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public event TrackResourceInfoRowChangeEventHandler TrackResourceInfoRowDeleted;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void AddTrackResourceInfoRow(TrackResourceInfoRow row) {
+                this.Rows.Add(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TrackResourceInfoRow AddTrackResourceInfoRow(string TrackID, string ResourceID) {
+                TrackResourceInfoRow rowTrackResourceInfoRow = ((TrackResourceInfoRow)(this.NewRow()));
+                object[] columnValuesArray = new object[] {
+                        TrackID,
+                        ResourceID};
+                rowTrackResourceInfoRow.ItemArray = columnValuesArray;
+                this.Rows.Add(rowTrackResourceInfoRow);
+                return rowTrackResourceInfoRow;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public override global::System.Data.DataTable Clone() {
+                TrackResourceInfoDataTable cln = ((TrackResourceInfoDataTable)(base.Clone()));
+                cln.InitVars();
+                return cln;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataTable CreateInstance() {
+                return new TrackResourceInfoDataTable();
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal void InitVars() {
+                this.columnTrackID = base.Columns["TrackID"];
+                this.columnResourceID = base.Columns["ResourceID"];
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            private void InitClass() {
+                this.columnTrackID = new global::System.Data.DataColumn("TrackID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnTrackID);
+                this.columnResourceID = new global::System.Data.DataColumn("ResourceID", typeof(string), null, global::System.Data.MappingType.Element);
+                base.Columns.Add(this.columnResourceID);
+                this.columnTrackID.AllowDBNull = false;
+                this.columnTrackID.Caption = "AlbumID";
+                this.columnResourceID.Caption = "AlbumTitleName";
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TrackResourceInfoRow NewTrackResourceInfoRow() {
+                return ((TrackResourceInfoRow)(this.NewRow()));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Data.DataRow NewRowFromBuilder(global::System.Data.DataRowBuilder builder) {
+                return new TrackResourceInfoRow(builder);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override global::System.Type GetRowType() {
+                return typeof(TrackResourceInfoRow);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanged(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanged(e);
+                if ((this.TrackResourceInfoRowChanged != null)) {
+                    this.TrackResourceInfoRowChanged(this, new TrackResourceInfoRowChangeEvent(((TrackResourceInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowChanging(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowChanging(e);
+                if ((this.TrackResourceInfoRowChanging != null)) {
+                    this.TrackResourceInfoRowChanging(this, new TrackResourceInfoRowChangeEvent(((TrackResourceInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleted(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleted(e);
+                if ((this.TrackResourceInfoRowDeleted != null)) {
+                    this.TrackResourceInfoRowDeleted(this, new TrackResourceInfoRowChangeEvent(((TrackResourceInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            protected override void OnRowDeleting(global::System.Data.DataRowChangeEventArgs e) {
+                base.OnRowDeleting(e);
+                if ((this.TrackResourceInfoRowDeleting != null)) {
+                    this.TrackResourceInfoRowDeleting(this, new TrackResourceInfoRowChangeEvent(((TrackResourceInfoRow)(e.Row)), e.Action));
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void RemoveTrackResourceInfoRow(TrackResourceInfoRow row) {
+                this.Rows.Remove(row);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public static global::System.Xml.Schema.XmlSchemaComplexType GetTypedTableSchema(global::System.Xml.Schema.XmlSchemaSet xs) {
+                global::System.Xml.Schema.XmlSchemaComplexType type = new global::System.Xml.Schema.XmlSchemaComplexType();
+                global::System.Xml.Schema.XmlSchemaSequence sequence = new global::System.Xml.Schema.XmlSchemaSequence();
+                MusicDataSet ds = new MusicDataSet();
+                global::System.Xml.Schema.XmlSchemaAny any1 = new global::System.Xml.Schema.XmlSchemaAny();
+                any1.Namespace = "http://www.w3.org/2001/XMLSchema";
+                any1.MinOccurs = new decimal(0);
+                any1.MaxOccurs = decimal.MaxValue;
+                any1.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any1);
+                global::System.Xml.Schema.XmlSchemaAny any2 = new global::System.Xml.Schema.XmlSchemaAny();
+                any2.Namespace = "urn:schemas-microsoft-com:xml-diffgram-v1";
+                any2.MinOccurs = new decimal(1);
+                any2.ProcessContents = global::System.Xml.Schema.XmlSchemaContentProcessing.Lax;
+                sequence.Items.Add(any2);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute1 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute1.Name = "namespace";
+                attribute1.FixedValue = ds.Namespace;
+                type.Attributes.Add(attribute1);
+                global::System.Xml.Schema.XmlSchemaAttribute attribute2 = new global::System.Xml.Schema.XmlSchemaAttribute();
+                attribute2.Name = "tableTypeName";
+                attribute2.FixedValue = "TrackResourceInfoDataTable";
                 type.Attributes.Add(attribute2);
                 type.Particle = sequence;
                 global::System.Xml.Schema.XmlSchema dsSchema = ds.GetSchemaSerializable();
@@ -7284,11 +7622,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string AnimeNo {
                 get {
-                    try {
-                        return ((string)(this[this.tableAlbumInfo.AnimeNoColumn]));
+                    if (this.IsAnimeNoNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'AlbumInfo\' にある列 \'AnimeNo\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableAlbumInfo.AnimeNoColumn]));
                     }
                 }
                 set {
@@ -7300,11 +7638,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string AnimeName {
                 get {
-                    try {
-                        return ((string)(this[this.tableAlbumInfo.AnimeNameColumn]));
+                    if (this.IsAnimeNameNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'AlbumInfo\' にある列 \'AnimeName\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableAlbumInfo.AnimeNameColumn]));
                     }
                 }
                 set {
@@ -7348,15 +7686,31 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Description {
                 get {
-                    try {
-                        return ((string)(this[this.tableAlbumInfo.DescriptionColumn]));
+                    if (this.IsDescriptionNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'AlbumInfo\' にある列 \'Description\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableAlbumInfo.DescriptionColumn]));
                     }
                 }
                 set {
                     this[this.tableAlbumInfo.DescriptionColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool UpdateFlg {
+                get {
+                    if (this.IsUpdateFlgNull()) {
+                        return false;
+                    }
+                    else {
+                        return ((bool)(this[this.tableAlbumInfo.UpdateFlgColumn]));
+                    }
+                }
+                set {
+                    this[this.tableAlbumInfo.UpdateFlgColumn] = value;
                 }
             }
             
@@ -7455,6 +7809,18 @@ namespace Main.ClientDataSet {
             public void SetDescriptionNull() {
                 this[this.tableAlbumInfo.DescriptionColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsUpdateFlgNull() {
+                return this.IsNull(this.tableAlbumInfo.UpdateFlgColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetUpdateFlgNull() {
+                this[this.tableAlbumInfo.UpdateFlgColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -7518,11 +7884,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string AnimeNo {
                 get {
-                    try {
-                        return ((string)(this[this.tableTrackInfo.AnimeNoColumn]));
+                    if (this.IsAnimeNoNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TrackInfo\' にある列 \'AnimeNo\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableTrackInfo.AnimeNoColumn]));
                     }
                 }
                 set {
@@ -7534,11 +7900,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string AnimeName {
                 get {
-                    try {
-                        return ((string)(this[this.tableTrackInfo.AnimeNameColumn]));
+                    if (this.IsAnimeNameNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TrackInfo\' にある列 \'AnimeName\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableTrackInfo.AnimeNameColumn]));
                     }
                 }
                 set {
@@ -7582,11 +7948,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Description {
                 get {
-                    try {
-                        return ((string)(this[this.tableTrackInfo.DescriptionColumn]));
+                    if (this.IsDescriptionNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TrackInfo\' にある列 \'Description\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableTrackInfo.DescriptionColumn]));
                     }
                 }
                 set {
@@ -7614,11 +7980,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string SalesYear {
                 get {
-                    try {
-                        return ((string)(this[this.tableTrackInfo.SalesYearColumn]));
+                    if (this.IsSalesYearNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'TrackInfo\' にある列 \'SalesYear\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableTrackInfo.SalesYearColumn]));
                     }
                 }
                 set {
@@ -7655,6 +8021,22 @@ namespace Main.ClientDataSet {
                 }
                 set {
                     this[this.tableTrackInfo.TrackTitleNameColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool UpdateFlg {
+                get {
+                    if (this.IsUpdateFlgNull()) {
+                        return false;
+                    }
+                    else {
+                        return ((bool)(this[this.tableTrackInfo.UpdateFlgColumn]));
+                    }
+                }
+                set {
+                    this[this.tableTrackInfo.UpdateFlgColumn] = value;
                 }
             }
             
@@ -7789,6 +8171,18 @@ namespace Main.ClientDataSet {
             public void SetTrackTitleNameNull() {
                 this[this.tableTrackInfo.TrackTitleNameColumn] = global::System.Convert.DBNull;
             }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsUpdateFlgNull() {
+                return this.IsNull(this.tableTrackInfo.UpdateFlgColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetUpdateFlgNull() {
+                this[this.tableTrackInfo.UpdateFlgColumn] = global::System.Convert.DBNull;
+            }
         }
         
         /// <summary>
@@ -7884,11 +8278,11 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public string Description {
                 get {
-                    try {
-                        return ((string)(this[this.tableArtistInfo.DescriptionColumn]));
+                    if (this.IsDescriptionNull()) {
+                        return null;
                     }
-                    catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("テーブル \'ArtistInfo\' にある列 \'Description\' の値は DBNull です。", e);
+                    else {
+                        return ((string)(this[this.tableArtistInfo.DescriptionColumn]));
                     }
                 }
                 set {
@@ -8120,6 +8514,60 @@ namespace Main.ClientDataSet {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public void SetTrackLengthNull() {
                 this[this.tableResourceInfo.TrackLengthColumn] = global::System.Convert.DBNull;
+            }
+        }
+        
+        /// <summary>
+        ///Represents strongly named DataRow class.
+        ///</summary>
+        public partial class TrackResourceInfoRow : global::System.Data.DataRow {
+            
+            private TrackResourceInfoDataTable tableTrackResourceInfo;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            internal TrackResourceInfoRow(global::System.Data.DataRowBuilder rb) : 
+                    base(rb) {
+                this.tableTrackResourceInfo = ((TrackResourceInfoDataTable)(this.Table));
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string TrackID {
+                get {
+                    return ((string)(this[this.tableTrackResourceInfo.TrackIDColumn]));
+                }
+                set {
+                    this[this.tableTrackResourceInfo.TrackIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public string ResourceID {
+                get {
+                    try {
+                        return ((string)(this[this.tableTrackResourceInfo.ResourceIDColumn]));
+                    }
+                    catch (global::System.InvalidCastException e) {
+                        throw new global::System.Data.StrongTypingException("テーブル \'TrackResourceInfo\' にある列 \'ResourceID\' の値は DBNull です。", e);
+                    }
+                }
+                set {
+                    this[this.tableTrackResourceInfo.ResourceIDColumn] = value;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public bool IsResourceIDNull() {
+                return this.IsNull(this.tableTrackResourceInfo.ResourceIDColumn);
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public void SetResourceIDNull() {
+                this[this.tableTrackResourceInfo.ResourceIDColumn] = global::System.Convert.DBNull;
             }
         }
         
@@ -8585,6 +9033,40 @@ namespace Main.ClientDataSet {
             [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             public ResourceInfoRow Row {
+                get {
+                    return this.eventRow;
+                }
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public global::System.Data.DataRowAction Action {
+                get {
+                    return this.eventAction;
+                }
+            }
+        }
+        
+        /// <summary>
+        ///Row event argument class
+        ///</summary>
+        [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+        public class TrackResourceInfoRowChangeEvent : global::System.EventArgs {
+            
+            private TrackResourceInfoRow eventRow;
+            
+            private global::System.Data.DataRowAction eventAction;
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TrackResourceInfoRowChangeEvent(TrackResourceInfoRow row, global::System.Data.DataRowAction action) {
+                this.eventRow = row;
+                this.eventAction = action;
+            }
+            
+            [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+            [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
+            public TrackResourceInfoRow Row {
                 get {
                     return this.eventRow;
                 }

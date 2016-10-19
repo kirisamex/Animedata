@@ -941,7 +941,7 @@ namespace Main
         /// </summary>
         /// <param name="albumTypeID"></param>
         /// <returns></returns>
-        public string GetTrackTypeNameByAlbumTypeID(int trackTypeID)
+        public string GetTrackTypeNameByTrackTypeID(int trackTypeID)
         {
             string sqlcmd = @"SELECT 
                                     TRACK_TYPE_NAME 

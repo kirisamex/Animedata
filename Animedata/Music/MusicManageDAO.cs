@@ -51,7 +51,7 @@ namespace Main.Music
                                         TRT.DISC_NO             AS  DiscNo,
                                         TRT.TRACK_NO            AS  TrackNo,
                                         TRT.SALES_YEAR          AS  Year,
-                                        RT.TRACK_LENGTH         AS  TrackTimeLength,
+                                        RT.TRACK_LENGTH         AS  TrackLength,
 
                                         CASE WHEN (RT.RESOURCE_FILEPATH IS NOT NULL)
                                             THEN SM.STORAGE_PATH + '\' + RT.RESOURCE_FILEPATH+ '\' +RT.RESOURCE_FILENAME+RT.RESOURCE_SUFFIX

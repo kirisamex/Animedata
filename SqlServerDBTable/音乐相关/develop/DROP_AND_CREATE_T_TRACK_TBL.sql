@@ -19,7 +19,7 @@ CREATE TABLE [dbo].[T_TRACK_TBL](
 	[DISC_NO] [smallint] NOT NULL DEFAULT ((1)),
 	[TRACK_NO] [smallint] NOT NULL,
 	[TRACK_TITLE_NAME] [nvarchar](1000) NULL,
-	[ARTIST_ID] [nchar](10) NOT NULL,
+	[ARTIST_ID] [int] NOT NULL,
 	[ANIME_NO] [nchar](4) NULL,
 	[SALES_YEAR] [int] NULL,
 	[DESCRIPTION] [nvarchar](1000) NULL,

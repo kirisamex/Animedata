@@ -9,7 +9,7 @@ using Main.Lib.Const;
 
 namespace Main.Music
 {
-    class ArtistSeriesDao:Maindao
+    class ArtistSeriesDao:MusicManageDAO
     {
         /// <summary>
         /// 根据艺术家名确定艺术家是否存在
@@ -93,36 +93,66 @@ namespace Main.Music
         }
 
         /// <summary>
-        /// 从艺术家ID获取艺术家姓名
+        /// 获取艺术家成员
         /// </summary>
-        /// <param name="ArtistName"></param>
         /// <returns></returns>
-        public int GetArtistIDFromArtistName(string ArtistName)
+        public DataSet GetArtistMembers(int artistID)
         {
-            string sqlcmd = @"SELECT 
-                                    ARTIST_ID 
-                                    FROM {0}
-                                    WHERE ARTIST_NAME =  @ArtistName 
-                                    AND ENABLE_FLG = 1 ";
+            string sqlcmd = @" SELECT DISTINCT
+                                        ART.ARTIST_ID AS ArtistID,
+                                        CASE AMT.MAPPING_TYPE
+                                        	WHEN 1 THEN CRT.CHARACTER_NAME
+                                        	WHEN 2 THEN CVT.CV_NAME
+                                        	WHEN 3 THEN ARTT.ARTIST_NAME
+                                        END AS Members
+                               FROM {0} ART
+                               INNER JOIN {1} AMT ON ART.ARTIST_ID = AMT.ARTIST_ID
+                               LEFT JOIN {2} CVT ON CVT.CV_ID = AMT.CHILD_CV_ID AND CVT.ENABLE_FLG = 1
+                               LEFT JOIN {3} CRT ON CRT.CHARACTER_NO = AMT.CHILD_CHARACTER_NO AND CRT.ENABLE_FLG = 1
+                               LEFT JOIN {0} ARTT ON ARTT.ARTIST_ID = AMT.CHILD_ARTIST_ID AND ARTT.ENABLE_FLG = 1
+                               WHERE ART.ENABLE_FLG = 1
+                                   AND ART.ARTIST_ID = @artistID
+                                    ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            SqlParameter para = new SqlParameter("@ArtistName", ArtistName);
-            paras.Add(para);
+            paras.Add(new SqlParameter("@artistID", artistID));
 
-            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd
+                , CommonConst.TableName.T_ARTIST_TBL
+                , CommonConst.TableName.T_ARTIST_MAPPING_TBL
+                , CommonConst.TableName.T_CV_TBL
+                , CommonConst.TableName.T_CHARACTER_TBL
+                 )
+                 , paras);
+        }
 
-            if (ds.Tables[0].Rows.Count == 1)
-            {
-                return Convert.ToInt32(ds.Tables[0].Rows[0][0]);
-            }
-            else if (ds.Tables[0].Rows.Count == 0)
-            {
-                return GetNextArtistID();
-            }
-            else //if (ds.Tables[0].Rows.Count > 1) 同一名称对应多个ID 待对应
-            {
-                return -99;
-            }
+        /// <summary>
+        /// 通过艺术家ID获得艺术家信息
+        /// </summary>
+        /// <param name="albumID"></param>
+        /// <returns></returns>
+        public DataSet GetArtistByArtistID(int artistID)
+        {
+            DataSet ds = new DataSet();
+
+            string sqlcmd = @"SELECT  
+                                        ART.ARTIST_ID,
+                                        ART.ARTIST_NAME,
+                                        ART.GENDER_ID,
+                                        ART.CHARACTER_FLG,
+                                        ART.CV_FLG,
+                                        ART.SINGER_FLG,
+                                        ART.DESCRIPTION
+
+                                    FROM {0} ART 
+
+                                    WHERE ART.ENABLE_FLG = 1
+                                        AND ART.ARTIST_ID = @artistID ";
+
+            Collection<DbParameter> paras = new Collection<DbParameter>();
+            paras.Add(new SqlParameter("@artistID", artistID));
+
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
         }
 
         /// <summary>

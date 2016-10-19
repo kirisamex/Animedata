@@ -711,6 +711,12 @@ namespace Main.Music
         {
             OnUpdate();
         }
+        
+
+        private void MusicDataGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
         #endregion
 
 

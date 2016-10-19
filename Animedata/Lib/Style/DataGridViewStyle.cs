@@ -88,5 +88,40 @@ namespace Main.Lib.Style
                 bt.ForeColor = Color.Black;
             }
         }
+
+        /// <summary>
+        /// 对字典式datagridview增加行
+        /// 字典式dgv：固定三列：tag+key,tag+name,tag+value
+        /// </summary>
+        /// <param name="dgv">对应DataGridView</param>
+        /// <param name="tag">标签名</param>
+        /// <param name="key">字段名</param>
+        /// <param name="name">显示名称</param>
+        /// <param name="value">显示值</param>
+        /// <param name="isReadonly">该行是否只读</param>
+        /// <param name="isVisible">该行是否可见</param>
+        public void AddDicDataGridView(DataGridView dgv, string tag, string key, string name, string value,
+            bool isReadonly, bool isVisible, bool isChooseful = false)
+        {
+            int idx = dgv.Rows.Add();
+            DataGridViewRow dr = dgv.Rows[idx];
+            dr.Cells[tag + "key"].Value = key;
+            dr.Cells[tag + "name"].Value = name;
+            if (value != null)
+            {
+                dr.Cells[tag + "value"].Value = value;
+            }
+            dr.Cells[tag + "value"].ReadOnly = isReadonly;
+            dr.Visible = isVisible;
+
+            if (!isReadonly)
+            {
+                dr.Cells[tag + "value"].Style.BackColor = Color.PaleGreen;
+            }
+            else if (isChooseful)
+            {
+                dr.Cells[tag + "value"].Style.BackColor = Color.PaleTurquoise;
+            }
+        }
     }
 }
