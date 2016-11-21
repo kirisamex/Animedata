@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C9783C84-8650-4D11-AE6F-0D1B5FAB91F3}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Lib</RootNamespace>
+    <AssemblyName>Lib</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="ID3, Version=1.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Tool\ID3.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Lib\Const\AnimeCommand.cs" />
+    <Compile Include="Lib\Class\Abstract\AbstractService.cs" />
+    <Compile Include="Lib\Class\Abstract\MusicAbstractDao.cs" />
+    <Compile Include="Lib\Class\Abstract\MusicAbstractService.cs" />
+    <Compile Include="Lib\Class\Animes\Animation.cs" />
+    <Compile Include="Lib\Class\Animes\AnimationDao.cs" />
+    <Compile Include="Lib\Class\Animes\CharacterInfo.cs" />
+    <Compile Include="Lib\Class\Animes\CharacterInfoDao.cs" />
+    <Compile Include="Lib\Class\Animes\Company.cs" />
+    <Compile Include="Lib\Class\Animes\CompanyDao.cs" />
+    <Compile Include="Lib\Class\Animes\CV.cs" />
+    <Compile Include="Lib\Class\Animes\CVDao.cs" />
+    <Compile Include="Lib\Class\Musics\AlbumSeries.cs" />
+    <Compile Include="Lib\Class\Musics\AlbumSeriesDao.cs" />
+    <Compile Include="Lib\Class\Musics\AlbumSeriesService.cs" />
+    <Compile Include="Lib\Class\Musics\ArtistMappingSeries.cs" />
+    <Compile Include="Lib\Class\Musics\ArtistMappingSeriesDao.cs" />
+    <Compile Include="Lib\Class\Musics\ArtistMappingSeriesService.cs" />
+    <Compile Include="Lib\Class\Musics\ArtistSeries.cs" />
+    <Compile Include="Lib\Class\Musics\ArtistSeriesDao.cs" />
+    <Compile Include="Lib\Class\Musics\ArtistSeriesService.cs" />
+    <Compile Include="Lib\Class\Musics\ResourceSeries.cs" />
+    <Compile Include="Lib\Class\Musics\ResourceSeriesDao.cs" />
+    <Compile Include="Lib\Class\Musics\ResourceSeriesService.cs" />
+    <Compile Include="Lib\Class\Musics\TrackResource.cs" />
+    <Compile Include="Lib\Class\Musics\TrackResourceDao.cs" />
+    <Compile Include="Lib\Class\Musics\TrackResourceService.cs" />
+    <Compile Include="Lib\Class\Musics\TrackSeries.cs" />
+    <Compile Include="Lib\Class\Musics\TrackSeriesDao.cs" />
+    <Compile Include="Lib\Class\Musics\TrackSeriesService.cs" />
+    <Compile Include="Lib\Class\Animes\Playinfo.cs" />
+    <Compile Include="Lib\Class\Animes\PlayInfoDao.cs" />
+    <Compile Include="Lib\Const\CommonConst.cs" />
+    <Compile Include="Lib\Const\DataMappingType.cs" />
+    <Compile Include="Lib\Const\FormText.cs" />
+    <Compile Include="Lib\Const\ImportMusicType.cs" />
+    <Compile Include="Lib\Const\ResourceFileType.cs" />
+    <Compile Include="Lib\Const\StorageID.cs" />
+    <Compile Include="Lib\Class\Abstract\AbstractDao.cs" />
+    <Compile Include="Lib\DbAssistant\AbstractDbCommand.cs" />
+    <Compile Include="Lib\DbAssistant\Connection.cs" />
+    <Compile Include="Lib\DbAssistant\MainDbCommand.cs" />
+    <Compile Include="Lib\Format\MainFormat.cs" />
+    <Compile Include="Lib\Message\MsgBox.cs" />
+    <Compile Include="Lib\Model\AnimeOriginalModule.cs" />
+    <Compile Include="Lib\Model\AnimeStatusModule.cs" />
+    <Compile Include="Lib\Model\SearchModule.cs" />
+    <Compile Include="Lib\Tools\ID3V2Tag.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Lib\Tools\ID3.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Shell32">
+      <Guid>{50A7E9B0-70EF-11D1-B75A-00A0C90564FE}</Guid>
+      <VersionMajor>1</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

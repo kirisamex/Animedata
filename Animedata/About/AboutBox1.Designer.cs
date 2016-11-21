@@ -1,4 +1,4 @@
-﻿namespace Main
+﻿namespace Client.About
 {
     partial class AboutBox
     {
