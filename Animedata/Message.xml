@@ -62,7 +62,8 @@
     <message id="MSG-IMPORTMUSIC-009" text="专辑 {0} 内曲目 {1} 的发售年份格式不正确，必须为半角数字年份。" caption="信息不完整" category="W"/>
     <message id="MSG-IMPORTMUSIC-010" text="专辑 {0} 内曲目 {1} 的专辑类型未选择，请补充。" caption="信息不完整" category="W"/>
     <message id="MSG-IMPORTMUSIC-011" text="专辑 {0} 内曲目 {1} 的曲目类型未选择，请补充。" caption="信息不完整" category="W"/>
-    <message id="MSG-IMPORTMUSIC-012" text="专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。\艺术家信息中，红色背景的艺术家为新艺术家；黄色背景的艺术家为不完全相同的艺术家；绿色背景的艺术家为匹配成功的艺术家。\请将所有艺术家内容编辑为绿色后再导入。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-012" text="专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。\n\n艺术家信息中，红色背景的艺术家为新艺术家；黄色背景的艺术家为不完全相同的艺术家；绿色背景的艺术家为匹配成功的艺术家。\n\n请将所有艺术家内容编辑为绿色后再导入。" caption="信息不完整" category="W"/>
+
     <message id="MSG-IMPORTMUSIC-013" text="专辑 {0} 内曲目 {1} 的所属动画未选择，请补充。" caption="信息不完整" category="W"/>
     <message id="MSG-IMPORTMUSIC-014" text="文件{0}不存在！" caption="文件不存在" category="E"/>
 
@@ -86,6 +87,7 @@
     <message id="MSG-MUSICMANAGE-011" text="文件{0}不存在！" caption="文件不存在" category="E"/>
     <message id="MSG-MUSICMANAGE-012" text="专辑 {0} 内曲目编号为 {1} 的曲目标题为空，请补充。" caption="信息不完整" category="W"/>
     <message id="MSG-MUSICMANAGE-013" text="专辑编号 {0} 的专辑标题为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-014" text="必须选择一个单元格进行修改。" caption="" category="E"/>
   
   </messages>
 </config>

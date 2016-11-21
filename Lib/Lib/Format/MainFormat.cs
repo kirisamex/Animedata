@@ -63,6 +63,63 @@ namespace Lib.Lib.Format
         }
 
         /// <summary>
+        /// 判断文字列是否曲号或碟号格式
+        /// 允许格式 ①纯数字 ②1/1 1/2（取前半）
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public bool IsDiscNoOrTrackNo(string target)
+        {
+            if (IsNumber(target))
+            {
+                return true;
+            }
+            else 
+            {
+                Regex reg = new Regex(@"^[0-9]+(/[0-9]+)?$");
+                Match mth = reg.Match(target);
+
+                if (mth.Success)
+                {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// 返回曲号或碟号的整形
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int GetDiscNoOrTrackNo(string target)
+        {
+            if (!IsNumber(target))
+            {
+                target = target.Substring(0, target.IndexOf('/'));
+            }
+
+            return Convert.ToInt32(target);
+        }
+
+        /// <summary>
+        /// 返回曲号或碟号的总碟/曲数部分
+        /// </summary>
+        /// <param name="target"></param>
+        /// <returns></returns>
+        public int GetAllDiscNoOrTrackNo(string target)
+        {
+            if (!IsNumber(target))
+            {
+                int i = target.IndexOf('/');
+                int j = target.Length-1;
+                target = target.Substring(target.IndexOf('/')+1);
+            }
+
+            return Convert.ToInt32(target);
+        }
+
+        /// <summary>
         /// 路径名非法字符转化为全角
         /// </summary>
         /// <param name="target"></param>

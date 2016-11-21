@@ -255,7 +255,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Lib\Lib.csproj">
       <Project>{c9783c84-8650-4d11-ae6f-0d1b5fab91f3}</Project>
-      <Name>Lib %28Lib\Lib%29</Name>
+      <Name>Lib</Name>
     </ProjectReference>
     <ProjectReference Include="..\UILib\UILib.csproj">
       <Project>{37a6eef9-6781-45b8-8262-172a9f048a24}</Project>

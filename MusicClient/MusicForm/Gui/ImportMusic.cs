@@ -178,19 +178,19 @@ namespace MusicClient.MusicForm.Gui
                 //OldTrackNo
 
                 //AlbumTitleName
-                importRow.AlbumTitleName = tag.AlbumName;
+                importRow.AlbumTitleName = tag.AlbumName.Replace('�', char.MinValue);
                 //TrackTitleName
-                importRow.TrackTitleName = tag.TrackTitleName;
+                importRow.TrackTitleName = tag.TrackTitleName.Replace('�', char.MinValue);
                 //ArtistName
-                importRow.ArtistName = tag.ArtistName;
+                importRow.ArtistName = tag.ArtistName.Replace('�', char.MinValue);
                 //ArtistID               
                 //AnimeNo
                 //SalesYear
-                importRow.SalesYear = tag.SalesYear;
+                importRow.SalesYear = tag.SalesYear.Replace('�', char.MinValue);
                 //TrackLength
-                importRow.TrackLength = tag.TrackLength;
+                importRow.TrackLength = tag.TrackLength.Replace('�', char.MinValue);
                 //BitRate
-                importRow.BitRate = tag.BitRate;
+                importRow.BitRate = tag.BitRate.TrimEnd('\0');
                 importList.AddImportMusicListRow(importRow);
             }
 
@@ -206,30 +206,30 @@ namespace MusicClient.MusicForm.Gui
                 DataGridViewRow dr = MusicDataGridView.Rows[MusicDataGridView.Rows.Add()];
 
                 dr.Cells[TRACKIDCLN].Value = ir.TrackID;
-                if (ir.TrackTitleName != null)
+          if (ir.TrackTitleName != null)
                 {
-                    dr.Cells[TRACKNAMECLN].Value = ir.TrackTitleName;
+                    dr.Cells[TRACKNAMECLN].Value = ir.TrackTitleName.Replace('�', char.MinValue).Trim('\0');
                 }
                 dr.Cells[ALBUMIDCLN].Value = ir.AlbumID;
                 if (ir.AlbumTitleName != null)
                 {
-                    dr.Cells[ALBUMNAMECLN].Value = ir.AlbumTitleName;
+                    dr.Cells[ALBUMNAMECLN].Value = ir.AlbumTitleName.Replace('�', char.MinValue).Trim('\0');
                 }
                 if (ir.ArtistName != null)
                 {
-                    dr.Cells[ARTISTNAMECLN].Value = ir.ArtistName;
+                    dr.Cells[ARTISTNAMECLN].Value = ir.ArtistName.Replace('�', char.MinValue).Trim('\0');
                 }
                 if (ir.DiscNo != null)
                 {
-                    dr.Cells[DISCNOCLN].Value = ir.DiscNo;
+                    dr.Cells[DISCNOCLN].Value = ir.DiscNo.Replace('�', char.MinValue).Trim('\0');
                 }
                 if (ir.TrackNo != null)
                 {
-                    dr.Cells[TRACKNOCLN].Value = ir.TrackNo;
+                    dr.Cells[TRACKNOCLN].Value = ir.TrackNo.Replace('�', char.MinValue).Trim('\0');
                 }
                 if (!ir.IsSalesYearNull())
                 {
-                    dr.Cells[YEARCLN].Value = ir.SalesYear;
+                    dr.Cells[YEARCLN].Value = ir.SalesYear.Replace('�', char.MinValue).Trim('\0');
                 }
                 if (!ir.IsDescriptionNull())
                 {
@@ -457,15 +457,15 @@ namespace MusicClient.MusicForm.Gui
                 ID3V2Tag tag = new ID3V2Tag(filePath);
 
                 //曲名
-                tag.TrackTitleName = TrackNameTextBox.Text;
+                tag.TrackTitleName = TrackNameTextBox.Text.Replace('�', char.MinValue);
                 //艺术家
-                tag.ArtistName = ArtistTextBox.Text;
+                tag.ArtistName = ArtistTextBox.Text.Replace('�', char.MinValue);
                 //专辑
-                tag.AlbumName = AlbumNameTextBox.Text;
+                tag.AlbumName = AlbumNameTextBox.Text.Replace('�', char.MinValue);
                 //音轨
-                tag.TrackNo = TrackNoTextBox.Text;
+                tag.TrackNo = TrackNoTextBox.Text.Replace('�', char.MinValue);
                 //碟号
-                tag.DiscNo = DiscNoTextBox.Text;
+                tag.DiscNo = DiscNoTextBox.Text.Replace('�', char.MinValue);
 
                 tag.Save(filePath);
             }
@@ -502,15 +502,15 @@ namespace MusicClient.MusicForm.Gui
                     coverPictureBox.Image = img;
                 }
                 //曲名
-                TrackNameTextBox.Text = tag.TrackTitleName;
+                TrackNameTextBox.Text = tag.TrackTitleName.Replace('�', char.MinValue);
                 //艺术家
-                ArtistTextBox.Text = tag.ArtistName;
+                ArtistTextBox.Text = tag.ArtistName.Replace('�', char.MinValue);
                 //专辑
-                AlbumNameTextBox.Text = tag.AlbumName;
+                AlbumNameTextBox.Text = tag.AlbumName.Replace('�', char.MinValue);
                 //音轨
-                TrackNoTextBox.Text = tag.TrackNo;
+                TrackNoTextBox.Text = tag.TrackNo.Replace('�', char.MinValue);
                 //碟号
-                DiscNoTextBox.Text = tag.DiscNo;
+                DiscNoTextBox.Text = tag.DiscNo.Replace('�', char.MinValue);
             }
             catch (Exception ex)
             {
@@ -525,6 +525,12 @@ namespace MusicClient.MusicForm.Gui
         /// <param name="artistName"></param>
         private void SetArtistCellStyle(DataGridViewCell cell,string artistName)
         {
+            if(artistName ==string.Empty)
+            {
+                dgvStyle.SetMappingTypeBackColor(cell, DataMappingType.Type.ExistInDB);
+                return;
+            }
+			
             if (newArtistDic.ContainsKey(artistName))
                 {
                     //在dic中存在
@@ -704,9 +710,7 @@ namespace MusicClient.MusicForm.Gui
                     album.InAnimeNo = service.GetNextInAnimeAlbumNo(album.ID, album.AlbumTypeId);
 
                     //计算总碟数：maxdiscno
-                    var countdisc = (from discc in resultList
-                                     select discc.DiscNo).Max();
-                    album.TotalDiscCount = Convert.ToInt32(countdisc);
+                    album.TotalDiscCount = GetTotalDisc(album.ID, resultList);
 
                     //计算总曲数：count
                     var counttrack = (from discc in resultList
@@ -739,7 +743,7 @@ namespace MusicClient.MusicForm.Gui
 
                         if (!string.IsNullOrEmpty(ir.DiscNo))
                         {
-                            track.DiscNo = Convert.ToInt32(ir.DiscNo);
+                            track.DiscNo = format.GetDiscNoOrTrackNo(ir.DiscNo);
                         }
                         else
                         {
@@ -747,7 +751,7 @@ namespace MusicClient.MusicForm.Gui
                         }
                         if (!string.IsNullOrEmpty(ir.TrackNo))
                         {
-                            track.TrackNo = Convert.ToInt32(ir.TrackNo);
+                            track.TrackNo = format.GetDiscNoOrTrackNo(ir.TrackNo);
                         }
                         else
                         {
@@ -789,7 +793,7 @@ namespace MusicClient.MusicForm.Gui
                         mainMusic.TypeID = ResourceFile.Type.MUSIC_MP3_1;
                         mainMusic.StorageID = StorageID.Path.MAIN_RESOURCE_BUCKET_201;
                         //..\@anime_no\@album_type_name\@album_title_name\@artistname_@tracktitlename.mp3
-                        mainMusic.FilePath = format.FilePathFormat(ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName);
+                        mainMusic.FilePath = format.FilePathFormat(ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + format.FileNameFormat(ir.AlbumTitleName));
                         mainMusic.FileName = format.FileNameFormat(ir.ArtistName + "_" + ir.TrackTitleName);
                         mainMusic.Suffix = ".mp3";
                         mainMusic.TrackBitRate = ir.BitRate;
@@ -835,7 +839,7 @@ namespace MusicClient.MusicForm.Gui
                             mainLrc.TypeID = ResourceFile.Type.LYRIC_LRC_201;
                             mainLrc.StorageID = StorageID.Path.MAIN_RESOURCE_BUCKET_201;
                             //..\@anime_no\@album_type_name\@album_title_name\@artistname_@tracktitlename.lrc
-                            mainLrc.FilePath = format.FilePathFormat(ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + ir.AlbumTitleName);
+                            mainLrc.FilePath = format.FilePathFormat(ir.AnimeNo + "\\" + service.GetAlbumTypeNameByAlbumTypeID(ir.AlbumTypeID) + "\\" + format.FileNameFormat(ir.AlbumTitleName));
                             mainLrc.FileName = format.FileNameFormat(ir.ArtistName + "_" + ir.TrackTitleName);
                             mainLrc.objectFilePath = LrcFullPath;
                             track.AddResource(mainLrc);
@@ -953,13 +957,13 @@ namespace MusicClient.MusicForm.Gui
                 }
 
                 //DiscNo
-                if (dr.Cells[DISCNOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[DISCNOCLN].Value.ToString().Trim()))
+                if (dr.Cells[DISCNOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[DISCNOCLN].Value.ToString().Trim('\0')))
                 {
                     MusicDataGridView.CurrentCell = dr.Cells[DISCNOCLN];
                     MsgBox.Show(MSG_IMPORTMUSIC_005, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
                     return false;
                 }
-                else if (!format.IsNumber(dr.Cells[DISCNOCLN].Value.ToString().Trim()))
+                else if (!format.IsDiscNoOrTrackNo(dr.Cells[DISCNOCLN].Value.ToString().Trim('\0')))
                 {
                     MusicDataGridView.CurrentCell = dr.Cells[DISCNOCLN];
                     MsgBox.Show(MSG_IMPORTMUSIC_006, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
@@ -967,13 +971,13 @@ namespace MusicClient.MusicForm.Gui
                 }
 
                 //TrackNo
-                if (dr.Cells[TRACKNOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[TRACKNOCLN].Value.ToString().Trim()))
+                if (dr.Cells[TRACKNOCLN].Value == null || string.IsNullOrEmpty(dr.Cells[TRACKNOCLN].Value.ToString().Trim('\0')))
                 {
                     MusicDataGridView.CurrentCell = dr.Cells[TRACKNOCLN];
                     MsgBox.Show(MSG_IMPORTMUSIC_007, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
                     return false;
                 }
-                else if (!format.IsNumber(dr.Cells[TRACKNOCLN].Value.ToString().Trim()))
+                else if (!format.IsDiscNoOrTrackNo(dr.Cells[TRACKNOCLN].Value.ToString().Trim('\0')))
                 {
                     MusicDataGridView.CurrentCell = dr.Cells[TRACKNOCLN];
                     MsgBox.Show(MSG_IMPORTMUSIC_008, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
@@ -981,10 +985,10 @@ namespace MusicClient.MusicForm.Gui
                 }
 
                 //Year
-                if (dr.Cells[YEARCLN].Value != null && !service.YYYYFormatCheck(dr.Cells[YEARCLN].Value.ToString().Trim()))
+                if (dr.Cells[YEARCLN].Value != null && !dr.Cells[YEARCLN].Value.ToString().Equals(string.Empty) && !service.YYYYFormatCheck(dr.Cells[YEARCLN].Value.ToString().Trim('\0')))
                 {
                     MusicDataGridView.CurrentCell = dr.Cells[YEARCLN];
-                    MsgBox.Show(MSG_IMPORTMUSIC_008, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
+                    MsgBox.Show(MSG_IMPORTMUSIC_009, dr.Cells[ALBUMNAMECLN].Value.ToString(), dr.Cells[TRACKNAMECLN].Value.ToString());
                     return false;
                 }
 
@@ -1035,6 +1039,44 @@ namespace MusicClient.MusicForm.Gui
             return true;
         }
 
+		/// <summary>
+        /// 获取总碟数
+        /// </summary>
+        /// <param name="AlbumID"></param>
+        /// <param name="resultList"></param>
+        /// <returns></returns>
+        private int GetTotalDisc(string AlbumID,MusicDataSet.ImportMusicListDataTable resultList)
+        {
+            var countdisc = (from target in resultList
+                             where target.AlbumID.Equals(AlbumID)
+                             select target);
+
+            List<int> discnoList = new List<int>();
+
+            foreach (MusicDataSet.ImportMusicListRow ir in countdisc)
+            {
+                if (ir.IsDiscNoNull())
+                {
+                    continue;
+                }
+
+                if (format.IsNumber(ir.DiscNo))
+                {
+                    discnoList.Add(Convert.ToInt32(ir.DiscNo));
+                }
+                else
+                {
+                    discnoList.Add(format.GetDiscNoOrTrackNo(ir.DiscNo));
+                    discnoList.Add(format.GetAllDiscNoOrTrackNo(ir.DiscNo));
+                }
+            }
+
+            int totalDisc = 1;//默认值
+
+            totalDisc = discnoList.ToArray().Max();
+
+            return totalDisc;
+        }
         #endregion
 
         #region 事件
