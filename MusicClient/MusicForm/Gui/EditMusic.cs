@@ -441,12 +441,13 @@ namespace MusicClient.MusicForm.Gui
                 //1.获取当前曲目ID
                 string curTrackID = string.Empty;
 
-                foreach (MusicDataSet.TrackInfoRow track in TrackCurInfo.Rows)
-                {
-                    curTrackID = track.TrackID;
-                    break;
-                }
+				//foreach (MusicDataSet.TrackInfoRow track in TrackCurInfo.Rows)
+                //{
+                //    curTrackID = track.TrackID;
+                //    break;
+                //}
 
+                curTrackID = TrackCurInfo.FirstOrDefault().TrackID;
                 //2.修改TrackInfo中对应信息
                 foreach (MusicDataSet.TrackInfoRow track in TrackInfo.Rows)
                 {

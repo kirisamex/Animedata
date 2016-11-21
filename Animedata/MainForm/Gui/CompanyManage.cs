@@ -2,9 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
-using System.Data.OleDb;
-using System.Drawing;
-using Client.MainForm;
 using Client.MainForm.Service;
 using Lib.Lib.Class.Animes;
 using Lib.Lib.Message;

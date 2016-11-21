@@ -71,6 +71,8 @@ namespace MusicClient.MusicForm.Gui
         const string MSG_MUSICMANAGE_012 = "MSG-MUSICMANAGE-012";
         /// <summary>专辑编号 {0} 的专辑标题为空，请补充。</summary>
         const string MSG_MUSICMANAGE_013 = "MSG-MUSICMANAGE-013";
+
+        const string MSG_MUSICMANAGE_014 = "MSG-MUSICMANAGE-014";
         #endregion
 
         #region 变量
@@ -604,6 +606,11 @@ namespace MusicClient.MusicForm.Gui
 
         private void OnUpdate()
         {
+            if (GetCurrentRow() == null)
+            {
+                MsgBox.Show(MSG_MUSICMANAGE_014);
+                return;
+            }
             string targetAlbumID = GetCurrentRow().Cells[ALBUMIDCLN].Value.ToString();
             EditMusic edit = new EditMusic(targetAlbumID);
             edit.Show();
