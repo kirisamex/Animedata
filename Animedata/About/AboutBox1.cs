@@ -6,7 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Windows.Forms;
 
-namespace Main
+namespace Client.About
 {
     partial class AboutBox : Form
     {

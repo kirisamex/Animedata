@@ -11,3 +11,6 @@ bin
 /Ticket
 /Animedata.suo
 /.vs/Animedata/v14
+/UILib/obj
+/MusicClient/obj
+/Lib/obj
