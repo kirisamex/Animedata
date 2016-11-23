@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.DbAssistant;
 using Lib.Lib.Class.Animes;
 using Lib.Lib.Const;
@@ -21,7 +21,7 @@ namespace Lib.Lib.Class.Abstract
         /// <summary>
         /// 数据库操作
         /// </summary>
-        public MainDbCommand DbCmd = new MainDbCommand();
+        public MySqlDbCommand DbCmd = new MySqlDbCommand();
 
         #endregion
 
@@ -35,15 +35,16 @@ namespace Lib.Lib.Class.Abstract
         /// <returns></returns>
         public Animation GetAnimeFromAnimeNo(string animeNo)
         {
-            string sqlcmd = @"SELECT TOP 1 *
+            string sqlcmd = @"SELECT *
                                 FROM {0}
                                 WHERE ANIME_NO = @animeNo
-                                AND ENABLE_FLG = 1 ";
+                                AND ENABLE_FLG = 1 
+                                LIMIT 1";
 
 
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ANIME_TBL), paras);
 
@@ -80,7 +81,7 @@ namespace Lib.Lib.Class.Abstract
                                     AND ENABLE_FLG = 1 ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@companyName", companyName));
+            paras.Add(new MySqlParameter("@companyName", companyName));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
 
@@ -110,7 +111,7 @@ namespace Lib.Lib.Class.Abstract
                                     AND ENABLE_FLG = 1 ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            SqlParameter para = new SqlParameter("@CVName", CVName);
+            MySqlParameter para = new MySqlParameter("@CVName", CVName);
             paras.Add(para);
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL), paras);
@@ -140,7 +141,7 @@ namespace Lib.Lib.Class.Abstract
                                     WHERE CV_ID=  @cvId 
                                     AND ENABLE_FLG = 1 ";
 
-            SqlParameter para = new SqlParameter("@cvId", CVID);
+            MySqlParameter para = new MySqlParameter("@cvId", CVID);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -171,7 +172,7 @@ namespace Lib.Lib.Class.Abstract
                                     WHERE COMPANY_ID=  @companyId 
                                     AND ENABLE_FLG = 1 ";
 
-            SqlParameter para = new SqlParameter("@companyId", companyId);
+            MySqlParameter para = new MySqlParameter("@companyId", companyId);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -238,13 +239,13 @@ namespace Lib.Lib.Class.Abstract
             {
                 case (3):
                     sqlcmd = @"SELECT 
-                                    MAX (PLAYINFO_ID)
+                                    MAX(PLAYINFO_ID)
                                     FROM {0}
                                     WHERE ANIME_NO = @animeNo";
                     break;
             }
 
-            SqlParameter para = new SqlParameter("@animeNo", animeNo);
+            MySqlParameter para = new MySqlParameter("@animeNo", animeNo);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -280,7 +281,7 @@ namespace Lib.Lib.Class.Abstract
 									START_TIME";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
@@ -337,7 +338,7 @@ namespace Lib.Lib.Class.Abstract
                                 ORDER BY LEADING_FLG DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
 
@@ -378,11 +379,11 @@ namespace Lib.Lib.Class.Abstract
 										@companyid,
 										@companyname,
                                         1,
-                                        GETDATE())";
+                                        NOW())";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@companyid", comp.ID));
-            paras.Add(new SqlParameter("@companyname", comp.Name));
+            paras.Add(new MySqlParameter("@companyid", comp.ID));
+            paras.Add(new MySqlParameter("@companyname", comp.Name));
 
             DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_COMPANY_TBL), paras);
         }
@@ -404,7 +405,7 @@ namespace Lib.Lib.Class.Abstract
                                     FROM {0}
                                     WHERE ALBUM_TYPE_ID =  @albumTypeID ";
 
-            SqlParameter para = new SqlParameter("@albumTypeID", albumTypeID);
+            MySqlParameter para = new MySqlParameter("@albumTypeID", albumTypeID);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -436,7 +437,7 @@ namespace Lib.Lib.Class.Abstract
                                     FROM {0}
                                     WHERE TRACK_TYPE_ID =  @trackTypeID ";
 
-            SqlParameter para = new SqlParameter("@trackTypeID", trackTypeID);
+            MySqlParameter para = new MySqlParameter("@trackTypeID", trackTypeID);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -662,9 +663,9 @@ namespace Lib.Lib.Class.Abstract
         /// <param name="pname">变量名</param>
         /// <param name="pvalue">变量值</param>
         /// <returns></returns>
-        public static SqlParameter AddParam(SearchModule.StringSearchWay way, string pname, string pvalue)
+        public static MySqlParameter AddParam(SearchModule.StringSearchWay way, string pname, string pvalue)
         {
-            SqlParameter param = new SqlParameter(pname, SqlDbType.NChar);
+            MySqlParameter param = new MySqlParameter(pname, MySqlDbType.VarChar);
             param.Value = ReplaceParamValueAmbiguous((SearchModule.StringSearchWay)way, pvalue.ToString());
 
             return param;
@@ -676,9 +677,9 @@ namespace Lib.Lib.Class.Abstract
         /// <param name="pname">变量名</param>
         /// <param name="pvalue">变量值</param>
         /// <returns></returns>
-        public static SqlParameter AddParam(string pname, DateTime pvalue)
+        public static MySqlParameter AddParam(string pname, DateTime pvalue)
         {
-            SqlParameter param = new SqlParameter(pname, SqlDbType.DateTime);
+            MySqlParameter param = new MySqlParameter(pname, MySqlDbType.DateTime);
             param.Value = new DateTime(pvalue.Year, pvalue.Month, pvalue.Day);
 
             return param;
@@ -738,7 +739,7 @@ namespace Lib.Lib.Class.Abstract
 										GROUP BY ANIME_NO
                                     ) AS PT ON AT.ANIME_NO = PT.ANIME_NO
                                     WHERE AT.ENABLE_FLG = 1 
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY field(AT.STATUS,1,3,2,9) ,
 										PT.TIME DESC";
 
             return DbCmd.DoSelect(string.Format(sqlcmd
@@ -762,7 +763,7 @@ namespace Lib.Lib.Class.Abstract
                                     AT.STATUS,
 									AT.ORIGINAL
                                     FROM {0} AT
-									LEFT JOIN {1} PT ON AT.ANIME_NO=PT.ANIME_NO
+									LEFT JOIN {1} PT ON AT.ANIME_NO = PT.ANIME_NO
 									LEFT JOIN 
                                     (
 										SELECT ANIME_NO,MAX(START_TIME) AS TIME
@@ -773,11 +774,11 @@ namespace Lib.Lib.Class.Abstract
                                     WHERE PT.COMPANY_ID	= @companyid
                                     AND AT.ENABLE_FLG = 1
                                     AND PT.ENABLE_FLG = 1
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY FIELD(AT.STATUS,1,3,2,9) ,
 									WT.TIME DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@companyid", comp.ID));
+            paras.Add(new MySqlParameter("@companyid", comp.ID));
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_ANIME_TBL
                 , CommonConst.TableName.T_PLAYINFO_TBL
@@ -825,11 +826,11 @@ namespace Lib.Lib.Class.Abstract
                                     AND AT.ENABLE_FLG = 1 
                                     AND CHT.ENABLE_FLG = 1
                                     AND CVT.ENABLE_FLG = 1
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY FIELD(AT.STATUS,1,3,2,9) ,
 									WT.TIME DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            SqlParameter para = new SqlParameter("@CVID", cvDic.ToString());
+            MySqlParameter para = new MySqlParameter("@CVID", cvDic.ToString());
             paras.Add(para);
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_ANIME_TBL
@@ -881,7 +882,7 @@ namespace Lib.Lib.Class.Abstract
                 AddWhereAnd(joincmd);
                 joincmd.Append(@" AT.ANIME_NO = @anime_no ");
 
-                paras.Add(new SqlParameter("@anime_no", search.animeNo));
+                paras.Add(new MySqlParameter("@anime_no", search.animeNo));
             }
             #endregion
 
@@ -914,7 +915,7 @@ namespace Lib.Lib.Class.Abstract
                 AddWhereAnd(joincmd);
                 joincmd.Append(@" AT.ANIME_NN = @anime_nn ");
 
-                paras.Add(new SqlParameter("@anime_nn", search.animeNN));
+                paras.Add(new MySqlParameter("@anime_nn", search.animeNN));
             }
             #endregion
 
@@ -1096,7 +1097,7 @@ namespace Lib.Lib.Class.Abstract
             #endregion
 
             #region ORDERBY
-            joincmd.Append(@"ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+            joincmd.Append(@"ORDER BY field(AT.STATUS ,1,3,2,9) ,
 									WT.TIME DESC");
             #endregion
 
@@ -1145,7 +1146,7 @@ namespace Lib.Lib.Class.Abstract
 									CPT.COMPANY_NAME LIKE @target OR 
 									CVT.CV_NAME LIKE @target)
                                     AND AT.ENABLE_FLG = 1
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY field(AT.STATUS,1,3,2,9) ,
 									WT.TIME DESC
 									";
 
@@ -1188,7 +1189,7 @@ namespace Lib.Lib.Class.Abstract
                                     ORDER BY TPT.PLAYINFO_ID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL, CommonConst.TableName.T_COMPANY_TBL), paras);
         }
@@ -1214,7 +1215,7 @@ namespace Lib.Lib.Class.Abstract
                                     ORDER BY TCHT.LEADING_FLG DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL, CommonConst.TableName.T_CV_TBL), paras);
         }

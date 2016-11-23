@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -71,7 +71,7 @@ namespace MusicClient.MusicForm.Dao
                                     AND (ART2.ARTIST_ID <> @artistID OR ART2.ARTIST_ID IS NULL)");
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            SqlParameter para = new SqlParameter("@artistID", artistID);
+            MySqlParameter para = new MySqlParameter("@artistID", artistID);
             paras.Add(para);
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd.ToString(),

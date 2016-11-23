@@ -10,7 +10,7 @@ namespace Lib.Lib.DbAssistant
     /// <summary>
     /// SqlServer连接
     /// </summary>
-    public class Connection
+    public class MSSqlConn
     {
         /// <summary>
         /// 获取连接字符串

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using Lib.Lib.Class.Abstract;
@@ -36,28 +36,28 @@ namespace Lib.Lib.Class.Animes
             {
                 cmd1.Append(",START_TIME");
                 cmd2.Append(",@starttime");
-                paras.Add(new SqlParameter("@starttime", pInfo.startTime));
+                paras.Add(new MySqlParameter("@starttime", pInfo.startTime));
             }
 
             if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue)
             {
                 cmd1.Append(",WATCH_TIME");
                 cmd2.Append(",@watchtime");
-                paras.Add(new SqlParameter("@watchtime", pInfo.watchedTime));
+                paras.Add(new MySqlParameter("@watchtime", pInfo.watchedTime));
             }
 
             if (pInfo.parts != 0)
             {
                 cmd1.Append(",PARTS");
                 cmd2.Append(",@parts");
-                paras.Add(new SqlParameter("@parts", pInfo.parts));
+                paras.Add(new MySqlParameter("@parts", pInfo.parts));
             }
 
             if (pInfo.companyID != 0)
             {
                 cmd1.Append(",COMPANY_ID");
                 cmd2.Append(",@company_ID");
-                paras.Add(new SqlParameter("@company_ID", pInfo.companyID));
+                paras.Add(new MySqlParameter("@company_ID", pInfo.companyID));
             }
 
 
@@ -77,13 +77,13 @@ namespace Lib.Lib.Class.Animes
 		                            ,@playinfo
 		                            ,@status
 	                                ,1
-	                                ,GETDATE() ");
+	                                ,NOW() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
-            paras.Add(new SqlParameter("@id", pInfo.ID));
-            paras.Add(new SqlParameter("@playinfo", pInfo.info));
-            paras.Add(new SqlParameter("@animeNo", pInfo.animeNo));
-            paras.Add(new SqlParameter("@status", pInfo.status));
+            paras.Add(new MySqlParameter("@id", pInfo.ID));
+            paras.Add(new MySqlParameter("@playinfo", pInfo.info));
+            paras.Add(new MySqlParameter("@animeNo", pInfo.animeNo));
+            paras.Add(new MySqlParameter("@status", pInfo.status));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
@@ -112,16 +112,16 @@ namespace Lib.Lib.Class.Animes
             sqlcmd.Append(@"UPDATE {0} SET
   	                             ANIME_PLAYINFO = @playinfo
 	                            ,STATUS = @status
-	                            ,LAST_UPDATE_DATETIME = GETDATE()
+	                            ,LAST_UPDATE_DATETIME = NOW()
 	                           ");
 
-            paras.Add(new SqlParameter("@playinfo", pInfo.info));
-            paras.Add(new SqlParameter("@status", pInfo.status));
+            paras.Add(new MySqlParameter("@playinfo", pInfo.info));
+            paras.Add(new MySqlParameter("@status", pInfo.status));
 
             if (pInfo.startTime != DateTime.MinValue && pInfo.startTime != DateTime.MaxValue && pInfo.startTime != null)
             {
                 sqlcmd.Append(@" ,START_TIME = @starttime ");
-                paras.Add(new SqlParameter("@starttime", pInfo.startTime));
+                paras.Add(new MySqlParameter("@starttime", pInfo.startTime));
             }
             else
             {
@@ -131,7 +131,7 @@ namespace Lib.Lib.Class.Animes
             if (pInfo.watchedTime != DateTime.MinValue && pInfo.watchedTime != DateTime.MaxValue && pInfo.watchedTime != null)
             {
                 sqlcmd.Append(@" ,WATCH_TIME = @watchtime ");
-                paras.Add(new SqlParameter("@watchtime", pInfo.watchedTime));
+                paras.Add(new MySqlParameter("@watchtime", pInfo.watchedTime));
             }
             else
             {
@@ -141,7 +141,7 @@ namespace Lib.Lib.Class.Animes
             if (pInfo.parts != 0)
             {
                 sqlcmd.Append(@" ,PARTS = @parts ");
-                paras.Add(new SqlParameter("@parts", pInfo.parts));
+                paras.Add(new MySqlParameter("@parts", pInfo.parts));
             }
             else
             {
@@ -151,7 +151,7 @@ namespace Lib.Lib.Class.Animes
             if (pInfo.companyID != 0)
             {
                 sqlcmd.Append(@" ,COMPANY_ID = @company_ID ");
-                paras.Add(new SqlParameter("@company_ID", pInfo.companyID));
+                paras.Add(new MySqlParameter("@company_ID", pInfo.companyID));
             }
             else
             {
@@ -160,8 +160,8 @@ namespace Lib.Lib.Class.Animes
 
             sqlcmd.Append(@" WHERE PLAYINFO_ID = @id 
                              AND ANIME_NO = @animeNo");
-            paras.Add(new SqlParameter("@animeNo", pInfo.animeNo));
-            paras.Add(new SqlParameter("@id", pInfo.ID));
+            paras.Add(new MySqlParameter("@animeNo", pInfo.animeNo));
+            paras.Add(new MySqlParameter("@id", pInfo.ID));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
@@ -178,13 +178,13 @@ namespace Lib.Lib.Class.Animes
             string sqlcmd = @"                            
                             UPDATE {0}
                             SET ENABLE_FLG = 0
-                            ,LAST_UPDATE_DATETIME = GETDATE()
+                            ,LAST_UPDATE_DATETIME = NOW()
                             WHERE PLAYINFO_ID = @playinfoID 
                             AND ANIME_NO = @animeNo";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@playinfoID", pInfo.ID));
-            paras.Add(new SqlParameter("@animeNo", pInfo.animeNo));
+            paras.Add(new MySqlParameter("@playinfoID", pInfo.ID));
+            paras.Add(new MySqlParameter("@animeNo", pInfo.animeNo));
 
             try
             {

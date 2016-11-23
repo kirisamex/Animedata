@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Text;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Const;
@@ -75,16 +75,16 @@ namespace Lib.Lib.Class.Animes
 	                            	,@status
 	                            	,@original
 	                            	,1
-	                            	,GETDATE()
+	                            	,NOW()
 	                            	)";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", anime.No));
-            paras.Add(new SqlParameter("@animeCNName", anime.CNName));
-            paras.Add(new SqlParameter("@animeJPName", anime.JPName));
-            paras.Add(new SqlParameter("@animeNickName", anime.Nickname));
-            paras.Add(new SqlParameter("@status", anime.status));
-            paras.Add(new SqlParameter("@original", anime.original));
+            paras.Add(new MySqlParameter("@animeNo", anime.No));
+            paras.Add(new MySqlParameter("@animeCNName", anime.CNName));
+            paras.Add(new MySqlParameter("@animeJPName", anime.JPName));
+            paras.Add(new MySqlParameter("@animeNickName", anime.Nickname));
+            paras.Add(new MySqlParameter("@status", anime.status));
+            paras.Add(new MySqlParameter("@original", anime.original));
             
             try
             {
@@ -112,7 +112,7 @@ namespace Lib.Lib.Class.Animes
                             WHERE ANIME_NO = @animeNo";
 
             Collection<DbParameter> paras1 = new Collection<DbParameter>();
-            paras1.Add(new SqlParameter("@animeNo",anime.No));
+            paras1.Add(new MySqlParameter("@animeNo",anime.No));
 
             DataSet ds1 = DbCmd.DoSelect(string.Format(sql1, CommonConst.TableName.T_PLAYINFO_TBL), paras1);
             List<int> ToDelPlayinfoIds = new List<int>();
@@ -136,8 +136,8 @@ namespace Lib.Lib.Class.Animes
                                 AND ANIME_NO = @animeno ";
 
                 Collection<DbParameter> paras = new Collection<DbParameter>();
-                paras.Add(new SqlParameter("@playinfoID", pInfo.ID));
-                paras.Add(new SqlParameter("@animeno", anime.No));
+                paras.Add(new MySqlParameter("@playinfoID", pInfo.ID));
+                paras.Add(new MySqlParameter("@animeno", anime.No));
 
                 try
                 {
@@ -182,7 +182,7 @@ namespace Lib.Lib.Class.Animes
                             WHERE ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras2 = new Collection<DbParameter>();
-            paras2.Add(new SqlParameter("@animeNo", anime.No));
+            paras2.Add(new MySqlParameter("@animeNo", anime.No));
 
             DataSet ds2 = DbCmd.DoSelect(string.Format(sql2, CommonConst.TableName.T_CHARACTER_TBL), paras2);
             List<string> ToDelCharacterNos = new List<string>();
@@ -205,7 +205,7 @@ namespace Lib.Lib.Class.Animes
                                 WHERE CHARACTER_NO = @characterNo";
 
                 Collection<DbParameter> paras = new Collection<DbParameter>();
-                paras.Add(new SqlParameter("@characterNo", cInfo.No));
+                paras.Add(new MySqlParameter("@characterNo", cInfo.No));
 
                 try
                 {
@@ -247,17 +247,17 @@ namespace Lib.Lib.Class.Animes
                             		,ANIME_NN = @animeNickName
 	                            	,STATUS = @status
                             		,ORIGINAL = @original
-                                    ,LAST_UPDATE_DATETIME = GETDATE()
+                                    ,LAST_UPDATE_DATETIME = NOW()
                                WHERE ANIME_NO = @animeNo
                              ";
 
             Collection<DbParameter> paras0 = new Collection<DbParameter>();
-            paras0.Add(new SqlParameter("@animeNo", anime.No));
-            paras0.Add(new SqlParameter("@animeCNName", anime.CNName));
-            paras0.Add(new SqlParameter("@animeJPName", anime.JPName));
-            paras0.Add(new SqlParameter("@animeNickName", anime.Nickname));
-            paras0.Add(new SqlParameter("@status", anime.status));
-            paras0.Add(new SqlParameter("@original", anime.original));
+            paras0.Add(new MySqlParameter("@animeNo", anime.No));
+            paras0.Add(new MySqlParameter("@animeCNName", anime.CNName));
+            paras0.Add(new MySqlParameter("@animeJPName", anime.JPName));
+            paras0.Add(new MySqlParameter("@animeNickName", anime.Nickname));
+            paras0.Add(new MySqlParameter("@status", anime.status));
+            paras0.Add(new MySqlParameter("@original", anime.original));
 
             try
             {
@@ -280,21 +280,21 @@ namespace Lib.Lib.Class.Animes
         {
             string sqlcmd = @"UPDATE {0} SET 
 	                           ENABLE_FLG = 0,
-                               LAST_UPDATE_DATETIME = GETDATE()
+                               LAST_UPDATE_DATETIME = NOW()
                                WHERE ANIME_NO = @animeNo
 
                               UPDATE {1} SET 
 	                           ENABLE_FLG = 0,
-                               LAST_UPDATE_DATETIME = GETDATE()
+                               LAST_UPDATE_DATETIME = NOW()
                                WHERE ANIME_NO = @animeNo
 
                               UPDATE {2} SET 
 	                           ENABLE_FLG = 0,
-                               LAST_UPDATE_DATETIME = GETDATE()
+                               LAST_UPDATE_DATETIME = NOW()
                                WHERE ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             try
             {
@@ -331,15 +331,15 @@ namespace Lib.Lib.Class.Animes
 	                            ,@CVID
 	                            ,@leadingFlg
 	                            ,1
-	                            ,GETDATE()
+	                            ,NOW()
 	                            )";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@characterNo", cInfo.No));
-            paras.Add(new SqlParameter("@charactername", cInfo.name));
-            paras.Add(new SqlParameter("@animeNo", cInfo.animeNo));
-            paras.Add(new SqlParameter("@CVID", cInfo.CVID));
-            paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
+            paras.Add(new MySqlParameter("@characterNo", cInfo.No));
+            paras.Add(new MySqlParameter("@charactername", cInfo.name));
+            paras.Add(new MySqlParameter("@animeNo", cInfo.animeNo));
+            paras.Add(new MySqlParameter("@CVID", cInfo.CVID));
+            paras.Add(new MySqlParameter("@leadingFlg", cInfo.leadingFLG));
 
             DbCmd.DoCommand(string.Format(sqlcmd,CommonConst.TableName.T_CHARACTER_TBL), paras);
         }
@@ -384,7 +384,7 @@ namespace Lib.Lib.Class.Animes
                                     ORDER BY TPT.PLAYINFO_ID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
             DataTable dt = ds.Tables[0];
@@ -408,7 +408,7 @@ namespace Lib.Lib.Class.Animes
                                     ORDER BY CHARACTER_NO";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
             return ds.Tables[0];

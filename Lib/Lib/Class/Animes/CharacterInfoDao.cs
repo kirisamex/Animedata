@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using Lib.Lib.Class.Abstract;
@@ -41,15 +41,15 @@ namespace Lib.Lib.Class.Animes
 	                            ,@CVID
 	                            ,@leadingFlg
 	                            ,1
-	                            ,GETDATE()
+	                            ,NOW()
 	                            )";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@characterNo", cInfo.No));
-            paras.Add(new SqlParameter("@charactername", cInfo.name));
-            paras.Add(new SqlParameter("@animeNo", cInfo.animeNo));
-            paras.Add(new SqlParameter("@CVID", cInfo.CVID));
-            paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
+            paras.Add(new MySqlParameter("@characterNo", cInfo.No));
+            paras.Add(new MySqlParameter("@charactername", cInfo.name));
+            paras.Add(new MySqlParameter("@animeNo", cInfo.animeNo));
+            paras.Add(new MySqlParameter("@CVID", cInfo.CVID));
+            paras.Add(new MySqlParameter("@leadingFlg", cInfo.leadingFLG));
 
             DbCmd.DoCommand(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
             
@@ -75,15 +75,15 @@ namespace Lib.Lib.Class.Animes
 	                            ,CHARACTER_NAME = @charactername
 	                            ,CV_ID = @cvid
                                 ,LEADING_FLG = @leadingFlg
-	                            ,LAST_UPDATE_DATETIME = GETDATE()
+	                            ,LAST_UPDATE_DATETIME = NOW()
 	                        WHERE CHARACTER_NO = @characterNo ");
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@characterNo", cInfo.No));
-            paras.Add(new SqlParameter("@charactername", cInfo.name));
-            paras.Add(new SqlParameter("@animeNo", cInfo.animeNo));
-            paras.Add(new SqlParameter("@CVID", cInfo.CVID));
-            paras.Add(new SqlParameter("@leadingFlg", cInfo.leadingFLG));
+            paras.Add(new MySqlParameter("@characterNo", cInfo.No));
+            paras.Add(new MySqlParameter("@charactername", cInfo.name));
+            paras.Add(new MySqlParameter("@animeNo", cInfo.animeNo));
+            paras.Add(new MySqlParameter("@CVID", cInfo.CVID));
+            paras.Add(new MySqlParameter("@leadingFlg", cInfo.leadingFLG));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_CHARACTER_TBL), paras);
 
@@ -100,11 +100,11 @@ namespace Lib.Lib.Class.Animes
             string sqlcmd = @"                            
                             UPDATE {0}
                             SET ENABLE_FLG = 0
-                            ,LAST_UPDATE_DATETIME = GETDATE()
+                            ,LAST_UPDATE_DATETIME = NOW()
                             WHERE CHARACTER_NO = @characterNo ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@characterNo", cInfo.No));
+            paras.Add(new MySqlParameter("@characterNo", cInfo.No));
 
             try
             {

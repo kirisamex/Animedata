@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Const;
 
@@ -31,11 +31,11 @@ namespace Lib.Lib.Class.Musics
                                     @TrackID
 		                            ,@ResourceID
 	                                ,1
-	                                ,GETDATE())");
+	                                ,NOW())");
 
                 Collection<DbParameter> paras = new Collection<DbParameter>();
-                paras.Add(new SqlParameter("@TrackID", map.TrackID));
-                paras.Add(new SqlParameter("@ResourceID", map.ResourceID));
+                paras.Add(new MySqlParameter("@TrackID", map.TrackID));
+                paras.Add(new MySqlParameter("@ResourceID", map.ResourceID));
 
                 DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_TRACK_RESOURCE_TBL), paras);
             }

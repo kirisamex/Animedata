@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using Lib.Lib.Class.Abstract;
@@ -28,14 +28,14 @@ namespace Lib.Lib.Class.Musics
             {
                 cmd1.Append(",CHILD_ARTIST_ID");
                 cmd2.Append(",@ChildArtistID");
-                paras.Add(new SqlParameter("@ChildArtistID", mapping.ChildArtistID));
+                paras.Add(new MySqlParameter("@ChildArtistID", mapping.ChildArtistID));
             }
 
             if ( mapping.ChildCVID > 0)
             {
                 cmd1.Append(",CHILD_CV_ID");
                 cmd2.Append(",@ChildCVID");
-                paras.Add(new SqlParameter("@ChildCVID", mapping.ChildCVID));
+                paras.Add(new MySqlParameter("@ChildCVID", mapping.ChildCVID));
             }
 
 
@@ -43,7 +43,7 @@ namespace Lib.Lib.Class.Musics
             {
                 cmd1.Append(",CHILD_CHARACTER_NO");
                 cmd2.Append(",@ChildCharacterNo");
-                paras.Add(new SqlParameter("@ChildCharacterNo", mapping.ChildCharacterNo));
+                paras.Add(new MySqlParameter("@ChildCharacterNo", mapping.ChildCharacterNo));
             }
 
             sqlcmd.Append(@"INSERT INTO {0} (
@@ -58,11 +58,11 @@ namespace Lib.Lib.Class.Musics
                                     @id
 		                            ,@mappingType
 	                                ,1
-	                                ,GETDATE() ");
+	                                ,NOW() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
-            paras.Add(new SqlParameter("@id", mapping.ArtistId));
-            paras.Add(new SqlParameter("@mappingType", mapping.MappingTypeID));
+            paras.Add(new MySqlParameter("@id", mapping.ArtistId));
+            paras.Add(new MySqlParameter("@mappingType", mapping.MappingTypeID));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_ARTIST_MAPPING_TBL), paras);
 

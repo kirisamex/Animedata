@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Const;
 
@@ -35,7 +35,7 @@ namespace Lib.Lib.Class.Musics
                                     AND RT.RESOURCE_ID = @resourceID ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@resourceID", resourceID));
+            paras.Add(new MySqlParameter("@resourceID", resourceID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_RESOURCE_TBL), paras);
         }
@@ -46,7 +46,7 @@ namespace Lib.Lib.Class.Musics
         /// <returns></returns>
         public int GetNextResourceID()
         {
-            string sqlcmd = @"INSERT INTO {0} (LAST_UPDATE_DATETIME) VALUES (GETDATE()) ";
+            string sqlcmd = @"INSERT INTO {0} (LAST_UPDATE_DATETIME) VALUES (NOW()) ";
             return DbCmd.DoCommandGetKey(string.Format(sqlcmd, CommonConst.TableName.T_RESOURCE_ID_TBL));
         }
 
@@ -65,21 +65,21 @@ namespace Lib.Lib.Class.Musics
             {
                 cmd1.Append(",RESOURCE_FILEPATH");
                 cmd2.Append(",@ResourceFilePath");
-                paras.Add(new SqlParameter("@ResourceFilePath", resource.FilePath));
+                paras.Add(new MySqlParameter("@ResourceFilePath", resource.FilePath));
             }
 
             if (resource.TrackBitRate != null && !resource.TrackBitRate.Trim().Equals(string.Empty))
             {
                 cmd1.Append(",TRACK_BITRATE");
                 cmd2.Append(",@TrackBitRate");
-                paras.Add(new SqlParameter("@TrackBitRate", resource.TrackBitRate));
+                paras.Add(new MySqlParameter("@TrackBitRate", resource.TrackBitRate));
             }
 
             if (resource.TrackLength > 0 )
             {
                 cmd1.Append(",TRACK_LENGTH");
                 cmd2.Append(",@TrackLength");
-                paras.Add(new SqlParameter("@TrackLength", resource.TrackLength));
+                paras.Add(new MySqlParameter("@TrackLength", resource.TrackLength));
             }
 
             sqlcmd.Append(@"INSERT INTO {0} (
@@ -100,14 +100,14 @@ namespace Lib.Lib.Class.Musics
 		                            ,@FileName
 		                            ,@Suffix
 	                                ,1
-	                                ,GETDATE() ");
+	                                ,NOW() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
-            paras.Add(new SqlParameter("@ID", resource.ID));
-            paras.Add(new SqlParameter("@TypeID", resource.TypeID));
-            paras.Add(new SqlParameter("@StorageID", resource.StorageID));
-            paras.Add(new SqlParameter("@FileName", resource.FileName));
-            paras.Add(new SqlParameter("@Suffix", resource.Suffix));
+            paras.Add(new MySqlParameter("@ID", resource.ID));
+            paras.Add(new MySqlParameter("@TypeID", resource.TypeID));
+            paras.Add(new MySqlParameter("@StorageID", resource.StorageID));
+            paras.Add(new MySqlParameter("@FileName", resource.FileName));
+            paras.Add(new MySqlParameter("@Suffix", resource.Suffix));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_RESOURCE_TBL), paras);
 

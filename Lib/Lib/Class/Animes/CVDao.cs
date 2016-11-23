@@ -3,7 +3,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using Lib.Lib.Class.Abstract;
@@ -28,7 +28,7 @@ namespace Lib.Lib.Class.Animes
                                     WHERE CV_ID = @CVID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@CVID", CVID));
+            paras.Add(new MySqlParameter("@CVID", CVID));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);          
 
@@ -57,11 +57,11 @@ namespace Lib.Lib.Class.Animes
         {
             string sqlcmd = @"UPDATE {0}
                             SET ENABLE_FLG = 0,
-                            LAST_UPDATE_DATETIME = GETDATE()
+                            LAST_UPDATE_DATETIME = NOW()
                             WHERE CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@cvID", CVID));
+            paras.Add(new MySqlParameter("@cvID", CVID));
             
             try
             {
@@ -90,7 +90,7 @@ namespace Lib.Lib.Class.Animes
             {
                 cmd1.Append(",CV_GENDER");
                 cmd2.Append(",@cvgender");
-                paras.Add(new SqlParameter("@cvgender", cvInfo.Gender));
+                paras.Add(new MySqlParameter("@cvgender", cvInfo.Gender));
 
             }
 
@@ -98,7 +98,7 @@ namespace Lib.Lib.Class.Animes
             {
                 cmd1.Append(",CV_BIRTH");
                 cmd2.Append(",@cvbirth");
-                paras.Add(new SqlParameter("@cvbirth", cvInfo.Brithday));
+                paras.Add(new MySqlParameter("@cvbirth", cvInfo.Brithday));
             }
 
             sqlcmd.Append(@"INSERT INTO {0}(
@@ -112,12 +112,12 @@ namespace Lib.Lib.Class.Animes
 										@cvid,
 										@cvname,
                                         1,
-                                        GETDATE() ");
+                                        NOW() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(")");
 
-            paras.Add(new SqlParameter("@cvid", cvInfo.ID));
-            paras.Add(new SqlParameter("@cvname", cvInfo.Name));
+            paras.Add(new MySqlParameter("@cvid", cvInfo.ID));
+            paras.Add(new MySqlParameter("@cvname", cvInfo.Name));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_CV_TBL), paras);
             return true;

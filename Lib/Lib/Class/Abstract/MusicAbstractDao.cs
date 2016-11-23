@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.DbAssistant;
 using Lib.Lib.Class.Animes;
 using Lib.Lib.Const;
@@ -78,8 +78,8 @@ namespace Lib.Lib.Class.Abstract
             //ALT.ALBUM_INANIME_NO,
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@storageID", StorageID.Path.MAIN_RESOURCE_BUCKET_201));
-            paras.Add(new SqlParameter("@resourceTypeID", ResourceFile.Type.MUSIC_MP3_1));
+            paras.Add(new MySqlParameter("@storageID", StorageID.Path.MAIN_RESOURCE_BUCKET_201));
+            paras.Add(new MySqlParameter("@resourceTypeID", ResourceFile.Type.MUSIC_MP3_1));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_TRACK_TBL
@@ -107,7 +107,7 @@ namespace Lib.Lib.Class.Abstract
                             WHERE STORAGE_ID = @storageid";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@storageid",storageID));
+            paras.Add(new MySqlParameter("@storageid",storageID));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_STORAGE_MST), paras);
 
@@ -133,7 +133,7 @@ namespace Lib.Lib.Class.Abstract
                             WHERE ARTIST_ID = @artistID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@artistID", artistID));
+            paras.Add(new MySqlParameter("@artistID", artistID));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
 
@@ -159,7 +159,7 @@ namespace Lib.Lib.Class.Abstract
                             WHERE ARTIST_NAME = @artistName";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@artistName", artistName));
+            paras.Add(new MySqlParameter("@artistName", artistName));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
 

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Model;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Class.Animes;
@@ -62,12 +62,12 @@ namespace Client.MainForm.Dao
         {
             string sqlcmd = @"UPDATE {0} SET
                             COMPANY_NAME = @newName ,
-                            LAST_UPDATE_DATETIME = GETDATE()
+                            LAST_UPDATE_DATETIME = NOW()
                             WHERE COMPANY_ID = @companyID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add( new SqlParameter("@newName", newName));
-            paras.Add(new SqlParameter("@companyID", companyID));
+            paras.Add( new MySqlParameter("@newName", newName));
+            paras.Add(new MySqlParameter("@companyID", companyID));
 
             try
             {

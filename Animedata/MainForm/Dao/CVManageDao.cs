@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Class.Animes;
 using Lib.Lib.DbAssistant;
@@ -47,7 +47,7 @@ namespace Client.MainForm.Dao
 									CV_BIRTH 
                                     FROM {0}
                                     WHERE ENABLE_FLG = 1
-                                    AND CV_NAME LIKE @target
+                                    AND CV_NAME LIKE ?target
                                     ORDER BY CV_ID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -79,7 +79,7 @@ namespace Client.MainForm.Dao
                                     AND CRT.CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@cvid",cvInfo.ID));
+            paras.Add(new MySqlParameter("@cvid",cvInfo.ID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, 
                 CommonConst.TableName.T_CHARACTER_TBL,
@@ -145,24 +145,24 @@ namespace Client.MainForm.Dao
             if (cvInfo.Gender != null)
             {
                 cmd1.Append(",CV_GENDER = @cvgender");
-                SqlParameter para = new SqlParameter("@cvgender", cvInfo.Gender);
+                MySqlParameter para = new MySqlParameter("@cvgender", cvInfo.Gender);
                 paras.Add(para);
             }
 
             if (cvInfo.Brithday != DateTime.MinValue && cvInfo.Brithday != DateTime.MaxValue && cvInfo.Brithday != null)
             {
                 cmd1.Append(",CV_BIRTH = @cvbirth");
-                SqlParameter para = new SqlParameter("@cvbirth", cvInfo.Brithday);
+                MySqlParameter para = new MySqlParameter("@cvbirth", cvInfo.Brithday);
                 paras.Add(para);
             }
 
-            cmd1.Append(",LAST_UPDATE_DATETIME = GETDATE() ");
+            cmd1.Append(",LAST_UPDATE_DATETIME = NOW() ");
 
             sqlcmd.Append(cmd1);
             sqlcmd.Append(@" WHERE CV_ID =@cvid ");
 
-            SqlParameter para1 = new SqlParameter("@cvname",cvInfo.Name );
-            SqlParameter para2 = new SqlParameter("@cvid", cvInfo.ID);
+            MySqlParameter para1 = new MySqlParameter("@cvname",cvInfo.Name );
+            MySqlParameter para2 = new MySqlParameter("@cvid", cvInfo.ID);
 
             paras.Add(para1);
             paras.Add(para2);
@@ -183,7 +183,7 @@ namespace Client.MainForm.Dao
                                 WHERE CV_ID = @cvID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@cvID", CVID));
+            paras.Add(new MySqlParameter("@cvID", CVID));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CV_TBL), paras);
 

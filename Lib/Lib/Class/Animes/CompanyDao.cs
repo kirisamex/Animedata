@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Const;
 
@@ -28,7 +28,7 @@ namespace Lib.Lib.Class.Animes
                                     ORDER BY ANIME_NO, ANIME_PLAYINFO ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@companyID", companyID));
+            paras.Add(new MySqlParameter("@companyID", companyID));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_PLAYINFO_TBL), paras);
 
@@ -57,11 +57,11 @@ namespace Lib.Lib.Class.Animes
         {
             string sqlcmd = @"UPDATE {0}
                              SET ENABLE_FLG = 0,
-                             LAST_UPDATE_DATETIME = GETDATE()
+                             LAST_UPDATE_DATETIME = NOW()
                             WHERE COMPANY_ID = @companyID";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@companyID", companyID));
+            paras.Add(new MySqlParameter("@companyID", companyID));
             
             try
             {

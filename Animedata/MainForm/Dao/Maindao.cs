@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Class.Animes;
 using Lib.Lib.DbAssistant;

@@ -34,6 +34,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Lib\Tool\ID3.dll</HintPath>
     </Reference>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Lib\Tools\MySql.Data.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -86,8 +90,10 @@
     <Compile Include="Lib\Const\StorageID.cs" />
     <Compile Include="Lib\Class\Abstract\AbstractDao.cs" />
     <Compile Include="Lib\DbAssistant\AbstractDbCommand.cs" />
-    <Compile Include="Lib\DbAssistant\Connection.cs" />
-    <Compile Include="Lib\DbAssistant\MainDbCommand.cs" />
+    <Compile Include="Lib\DbAssistant\MSSqlConn.cs" />
+    <Compile Include="Lib\DbAssistant\MSSqlDbCommand.cs" />
+    <Compile Include="Lib\DbAssistant\MySqlConn.cs" />
+    <Compile Include="Lib\DbAssistant\MySqlDbCommand.cs" />
     <Compile Include="Lib\Format\MainFormat.cs" />
     <Compile Include="Lib\Message\MsgBox.cs" />
     <Compile Include="Lib\Model\AnimeOriginalModule.cs" />

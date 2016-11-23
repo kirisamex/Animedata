@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -48,7 +48,7 @@ namespace MusicClient.MusicForm.Dao
             //ALT.ALBUM_INANIME_NO,
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@TrackID", TrackID));
+            paras.Add(new MySqlParameter("@TrackID", TrackID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_TRACK_TBL
@@ -89,7 +89,7 @@ namespace MusicClient.MusicForm.Dao
 //            //ALT.ALBUM_INANIME_NO,
 
 //            Collection<DbParameter> paras = new Collection<DbParameter>();
-//            paras.Add(new SqlParameter("@TrackID", TrackID));
+//            paras.Add(new MySqlParameter("@TrackID", TrackID));
 
 //            return DbCmd.DoSelect(string.Format(sqlcmd
 //                , CommonConst.TableName.T_ALBUM_TBL
@@ -130,7 +130,7 @@ namespace MusicClient.MusicForm.Dao
                                     ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@TrackID", TrackID));
+            paras.Add(new MySqlParameter("@TrackID", TrackID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_TRACK_TBL
@@ -174,7 +174,7 @@ namespace MusicClient.MusicForm.Dao
             //ALT.ALBUM_INANIME_NO,
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@AlbumID", AlbumID));
+            paras.Add(new MySqlParameter("@AlbumID", AlbumID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_ALBUM_TBL
@@ -219,7 +219,7 @@ namespace MusicClient.MusicForm.Dao
             //ALT.ALBUM_INANIME_NO,
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@AlbumID", AlbumID));
+            paras.Add(new MySqlParameter("@AlbumID", AlbumID));
 
             DataTable dt = DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_TRACK_TBL
@@ -279,7 +279,7 @@ namespace MusicClient.MusicForm.Dao
                                     ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@AlbumID", AlbumID));
+            paras.Add(new MySqlParameter("@AlbumID", AlbumID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 ,CommonConst.TableName.T_ARTIST_TBL
@@ -323,7 +323,7 @@ namespace MusicClient.MusicForm.Dao
                                     ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@AlbumID", AlbumID));
+            paras.Add(new MySqlParameter("@AlbumID", AlbumID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_TRACK_TBL
@@ -353,7 +353,7 @@ namespace MusicClient.MusicForm.Dao
                                     ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@AlbumID", AlbumID));
+            paras.Add(new MySqlParameter("@AlbumID", AlbumID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_TRACK_RESOURCE_TBL
@@ -404,7 +404,7 @@ namespace MusicClient.MusicForm.Dao
                                     ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@artistID", artistID));
+            paras.Add(new MySqlParameter("@artistID", artistID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_ARTIST_TBL

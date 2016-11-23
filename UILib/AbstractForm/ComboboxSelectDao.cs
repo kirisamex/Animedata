@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -70,7 +70,7 @@ namespace UILib.AbstractForm
             {
                 sqlcmd.Append(@"WHERE {3} LIKE @target");
                 
-                SqlParameter para = new SqlParameter("@target", targetKeyWord);
+                MySqlParameter para = new MySqlParameter("@target", targetKeyWord);
                 paras.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", targetKeyWord));
 
                 sql = string.Format(sqlcmd.ToString(), idColName, displayColName, tableName, targetKeyColNames[0]);
@@ -96,7 +96,7 @@ namespace UILib.AbstractForm
                     sqllike += string.Format(sqllikepart.ToString(), targetCol);
                 }
 
-                SqlParameter para = new SqlParameter("@target", targetKeyWord);
+                MySqlParameter para = new MySqlParameter("@target", targetKeyWord);
                 paras.Add(AddParam(SearchModule.StringSearchWay.Broad, "target", targetKeyWord));
                 sqlcmd.Append(sqllike);
 

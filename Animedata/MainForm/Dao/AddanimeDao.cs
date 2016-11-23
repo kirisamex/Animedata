@@ -5,7 +5,7 @@ using System.Linq;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Class.Animes;
 using Lib.Lib.Const;
@@ -62,8 +62,8 @@ namespace Client.MainForm.Dao
                                     AND LEADING_FLG = @leadingflg";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", chara.animeNo));
-            paras.Add(new SqlParameter("@leadingflg", chara.leadingFLG));
+            paras.Add(new MySqlParameter("@animeNo", chara.animeNo));
+            paras.Add(new MySqlParameter("@leadingflg", chara.leadingFLG));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_CHARACTER_TBL), paras);
 
@@ -93,10 +93,10 @@ namespace Client.MainForm.Dao
 	                                OR ANIME_NN = @nickname";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", anime.No));
-            paras.Add(new SqlParameter("@animeCNName", anime.CNName));
-            paras.Add(new SqlParameter("@animeJPName", anime.JPName));
-            paras.Add(new SqlParameter("@nickname", anime.Nickname));
+            paras.Add(new MySqlParameter("@animeNo", anime.No));
+            paras.Add(new MySqlParameter("@animeCNName", anime.CNName));
+            paras.Add(new MySqlParameter("@animeJPName", anime.JPName));
+            paras.Add(new MySqlParameter("@nickname", anime.Nickname));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd,CommonConst.TableName.T_ANIME_TBL), paras);
 

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.Common;
 using System.Text;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using Lib.Lib.Class.Abstract;
 using Lib.Lib.Const;
 
@@ -25,7 +25,7 @@ namespace Lib.Lib.Class.Musics
                                     WHERE ARTIST_NAME =  @artistName 
                                     AND ENABLE_FLG = 1 ";
 
-            SqlParameter para = new SqlParameter("@artistName", artistName);
+            MySqlParameter para = new MySqlParameter("@artistName", artistName);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -52,7 +52,7 @@ namespace Lib.Lib.Class.Musics
                                     WHERE replace(replace(ARTIST_NAME,' ',''),'　','') =  @formattedArtistName 
                                     AND ENABLE_FLG = 1 ";
 
-            SqlParameter para = new SqlParameter("@formattedArtistName", formattedArtistName);
+            MySqlParameter para = new MySqlParameter("@formattedArtistName", formattedArtistName);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -79,7 +79,7 @@ namespace Lib.Lib.Class.Musics
                                     WHERE ARTIST_ID =  @artistID 
                                     AND ENABLE_FLG = 1 ";
 
-            SqlParameter para = new SqlParameter("@artistID", artistID);
+            MySqlParameter para = new MySqlParameter("@artistID", artistID);
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(para);
 
@@ -116,7 +116,7 @@ namespace Lib.Lib.Class.Musics
                                     ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@artistID", artistID));
+            paras.Add(new MySqlParameter("@artistID", artistID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd
                 , CommonConst.TableName.T_ARTIST_TBL
@@ -151,7 +151,7 @@ namespace Lib.Lib.Class.Musics
                                         AND ART.ARTIST_ID = @artistID ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@artistID", artistID));
+            paras.Add(new MySqlParameter("@artistID", artistID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_TBL), paras);
         }
@@ -162,7 +162,7 @@ namespace Lib.Lib.Class.Musics
         /// <returns></returns>
         public int GetNextArtistID()
         {
-            string sqlcmd = @"INSERT INTO {0} (LAST_UPDATE_DATETIME) VALUES (GETDATE()) ";
+            string sqlcmd = @"INSERT INTO {0} (LAST_UPDATE_DATETIME) VALUES (NOW()) ";
             return DbCmd.DoCommandGetKey(string.Format(sqlcmd, CommonConst.TableName.T_ARTIST_ID_TBL));
         }
 
@@ -181,7 +181,7 @@ namespace Lib.Lib.Class.Musics
             {
                 cmd1.Append(",DESCRIPTION");
                 cmd2.Append(",@Description");
-                paras.Add(new SqlParameter("@Description", artist.Description));
+                paras.Add(new MySqlParameter("@Description", artist.Description));
             }
 
             sqlcmd.Append(@"INSERT INTO {0} (
@@ -204,15 +204,15 @@ namespace Lib.Lib.Class.Musics
 		                            ,@cvFlg
 		                            ,@singerFlg
 	                                ,1
-	                                ,GETDATE() ");
+	                                ,NOW() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
-            paras.Add(new SqlParameter("@id", artist.Id));
-            paras.Add(new SqlParameter("@name", artist.Name));
-            paras.Add(new SqlParameter("@gender", artist.Gender));
-            paras.Add(new SqlParameter("@charaFlg", artist.IsCharacter));
-            paras.Add(new SqlParameter("@cvFlg", artist.IsCV));
-            paras.Add(new SqlParameter("@singerFlg", artist.IsSinger));
+            paras.Add(new MySqlParameter("@id", artist.Id));
+            paras.Add(new MySqlParameter("@name", artist.Name));
+            paras.Add(new MySqlParameter("@gender", artist.Gender));
+            paras.Add(new MySqlParameter("@charaFlg", artist.IsCharacter));
+            paras.Add(new MySqlParameter("@cvFlg", artist.IsCV));
+            paras.Add(new MySqlParameter("@singerFlg", artist.IsSinger));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_ARTIST_TBL), paras);
 

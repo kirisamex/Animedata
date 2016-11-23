@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -28,8 +28,8 @@ namespace MusicClient.MusicForm.Dao
                             AND ANIME_NO = @animeNo ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@animeNo", animeNo));
-            paras.Add(new SqlParameter("@albumTypeID", albumTypeID));
+            paras.Add(new MySqlParameter("@animeNo", animeNo));
+            paras.Add(new MySqlParameter("@albumTypeID", albumTypeID));
 
             DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TBL), paras);
 
@@ -66,10 +66,10 @@ namespace MusicClient.MusicForm.Dao
             string nextNo = "T" + (nextNum + 1).ToString("d9");
 
             string insertcmd = @"INSERT INTO {0} (TRACK_ID,LAST_UPDATE_DATETIME)
-                                VALUES (@trackid,GETDATE())";
+                                VALUES (@trackid,NOW())";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@trackid", nextNo));
+            paras.Add(new MySqlParameter("@trackid", nextNo));
 
             DbCmd.DoCommand(string.Format(insertcmd, CommonConst.TableName.T_TRACK_ID_TBL), paras);
 
@@ -102,9 +102,9 @@ namespace MusicClient.MusicForm.Dao
             string nextNo = "A" + (nextNum + 1).ToString("d9");
 
             string insertcmd = @"INSERT INTO {0} (ALBUM_ID,LAST_UPDATE_DATETIME)
-                                VALUES (@albumid,GETDATE())";
+                                VALUES (@albumid,NOW())";
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@albumid", nextNo));
+            paras.Add(new MySqlParameter("@albumid", nextNo));
             DbCmd.DoCommand(string.Format(insertcmd, CommonConst.TableName.T_ALBUM_ID_TBL), paras);
 
             return nextNo;

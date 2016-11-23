@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -37,7 +37,7 @@ namespace Lib.Lib.Class.Musics
                                     AND ALB.ALBUM_ID = @albumID ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@albumID", albumID));
+            paras.Add(new MySqlParameter("@albumID", albumID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ALBUM_TBL), paras);
         }
@@ -58,7 +58,7 @@ namespace Lib.Lib.Class.Musics
                                     AND TT.P_ALBUM_ID = @AlbumID ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@AlbumID", AlbumID));
+            paras.Add(new MySqlParameter("@AlbumID", AlbumID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TBL), paras);
         }
@@ -79,21 +79,21 @@ namespace Lib.Lib.Class.Musics
             {
                 cmd1.Append(",ALBUM_INANIME_NO");
                 cmd2.Append(",@InAnimeNo");
-                paras.Add(new SqlParameter("@InAnimeNo", album.InAnimeNo));
+                paras.Add(new MySqlParameter("@InAnimeNo", album.InAnimeNo));
             }
 
             if (album.Description != null && !album.Description.Trim().Equals(string.Empty))
             {
                 cmd1.Append(",DESCRIPTION");
                 cmd2.Append(",@Description");
-                paras.Add(new SqlParameter("@Description", album.Description));
+                paras.Add(new MySqlParameter("@Description", album.Description));
             }
 
             if (album.AnimeNo != null && !album.AnimeNo.Trim().Equals(string.Empty))
             {
                 cmd1.Append(",ANIME_NO");
                 cmd2.Append(",@AnimeNo");
-                paras.Add(new SqlParameter("@AnimeNo", album.AnimeNo));
+                paras.Add(new MySqlParameter("@AnimeNo", album.AnimeNo));
             }
 
             sqlcmd.Append(@"INSERT INTO {0} (
@@ -114,14 +114,14 @@ namespace Lib.Lib.Class.Musics
 		                            ,@TotalDiscCount
 		                            ,@TotalTrackCount
 	                                ,1
-	                                ,GETDATE() ");
+	                                ,NOW() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
-            paras.Add(new SqlParameter("@id", album.ID));
-            paras.Add(new SqlParameter("@AlbumTypeId", album.AlbumTypeId));
-            paras.Add(new SqlParameter("@AlbumTitleName", album.AlbumTitleName));
-            paras.Add(new SqlParameter("@TotalDiscCount", album.TotalDiscCount));
-            paras.Add(new SqlParameter("@TotalTrackCount", album.TotalTrackCount));
+            paras.Add(new MySqlParameter("@id", album.ID));
+            paras.Add(new MySqlParameter("@AlbumTypeId", album.AlbumTypeId));
+            paras.Add(new MySqlParameter("@AlbumTitleName", album.AlbumTitleName));
+            paras.Add(new MySqlParameter("@TotalDiscCount", album.TotalDiscCount));
+            paras.Add(new MySqlParameter("@TotalTrackCount", album.TotalTrackCount));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_ALBUM_TBL), paras);
 

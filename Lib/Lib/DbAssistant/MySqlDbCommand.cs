@@ -3,19 +3,15 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MySql.Data.MySqlClient;
 
 namespace Lib.Lib.DbAssistant
 {
-    public class MainDbCommand : AbstractDbCommand
+    public class MySqlDbCommand : AbstractDbCommand
     {
-        public MainDbCommand()
-        {
-        }
-
         /// <summary>
         /// 带变量的Select操作
         /// </summary>
@@ -24,10 +20,10 @@ namespace Lib.Lib.DbAssistant
         /// <returns></returns>
         public DataSet DoSelect(string sqlcmd, Collection<DbParameter> paras)
         {
-            SqlConnection conn = Getconnection();
+            MySqlConnection conn = GetMySqlConn();
 
             conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd, conn);
 
             foreach (DbParameter para in paras)
             {
@@ -49,10 +45,10 @@ namespace Lib.Lib.DbAssistant
         /// <returns></returns>
         public DataSet DoSelect(string sqlcmd)
         {
-            SqlConnection conn = Getconnection();
+            MySqlConnection conn = GetMySqlConn();
 
             conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd, conn);
             DataSet ds = new DataSet();
             adp.Fill(ds);
             conn.Close();
@@ -68,10 +64,10 @@ namespace Lib.Lib.DbAssistant
         /// <returns></returns>
         public DataSet DoSelect(string sqlcmd, string columnname, Collection<DbParameter> paras)
         {
-            SqlConnection conn = Getconnection();
+            MySqlConnection conn = GetMySqlConn();
 
             conn.Open();
-            SqlDataAdapter adp = new SqlDataAdapter(sqlcmd, conn);
+            MySqlDataAdapter adp = new MySqlDataAdapter(sqlcmd, conn);
 
             foreach (DbParameter para in paras)
             {
@@ -94,10 +90,10 @@ namespace Lib.Lib.DbAssistant
         /// <returns>影响行数</returns>
         public int DoCommand(string sqlcmd)
         {
-            SqlConnection conn = Getconnection();
+            MySqlConnection conn = GetMySqlConn();
             conn.Open();
-            SqlCommand cmd = new SqlCommand();
-            SqlTransaction tran;
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlTransaction tran;
             int res = -1;
 
             tran = conn.BeginTransaction();
@@ -129,10 +125,10 @@ namespace Lib.Lib.DbAssistant
         /// <returns>主键id</returns>
         public int DoCommandGetKey(string sqlcmd)
         {
-            SqlConnection conn = Getconnection();
+            MySqlConnection conn = GetMySqlConn();
             conn.Open();
-            SqlCommand cmd = new SqlCommand();
-            SqlTransaction tran;
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlTransaction tran;
             int res = -1;
 
             tran = conn.BeginTransaction();
@@ -165,10 +161,10 @@ namespace Lib.Lib.DbAssistant
         /// <returns>影响行数</returns>
         public int DoCommand(string sqlcmd, Collection<DbParameter> paras)
         {
-            SqlConnection conn = Getconnection();
+            MySqlConnection conn = GetMySqlConn();
             conn.Open();
-            SqlCommand cmd = new SqlCommand();
-            SqlTransaction tran;
+            MySqlCommand cmd = new MySqlCommand();
+            MySqlTransaction tran;
             int res = -1;
 
             tran = conn.BeginTransaction();
@@ -190,7 +186,7 @@ namespace Lib.Lib.DbAssistant
             }
             catch (Exception ex)
             {
-                throw new ApplicationException("Trans Error," + ex.ToString());
+                throw new ApplicationException("MySql Trans Error," + ex.ToString());
             }
 
             conn.Close();

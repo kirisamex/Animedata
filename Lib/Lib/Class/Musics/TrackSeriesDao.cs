@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 using System.Data.Common;
-using System.Data.SqlClient;
+using MySql.Data.MySqlClient;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -40,7 +40,7 @@ namespace Lib.Lib.Class.Musics
                                     AND TRT.TRACK_ID = @trackid ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@trackid", trackID));
+            paras.Add(new MySqlParameter("@trackid", trackID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_TBL), paras);
         }
@@ -62,7 +62,7 @@ namespace Lib.Lib.Class.Musics
                                     AND TRT.TRACK_ID = @trackid ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@trackid", trackID));
+            paras.Add(new MySqlParameter("@trackid", trackID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_RESOURCE_TBL, CommonConst.TableName.T_TRACK_RESOURCE_TBL), paras);
         }
@@ -84,7 +84,7 @@ namespace Lib.Lib.Class.Musics
                                     AND TRT.TRACK_ID = @trackid ";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
-            paras.Add(new SqlParameter("@trackid", trackID));
+            paras.Add(new MySqlParameter("@trackid", trackID));
 
             return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_TRACK_RESOURCE_TBL), paras);
         }
@@ -104,21 +104,21 @@ namespace Lib.Lib.Class.Musics
             {
                 cmd1.Append(",ANIME_NO");
                 cmd2.Append(",@AnimeNo");
-                paras.Add(new SqlParameter("@AnimeNo", track.AnimeNo));
+                paras.Add(new MySqlParameter("@AnimeNo", track.AnimeNo));
             }
 
             if (track.SalesYear > 0)
             {
                 cmd1.Append(",SALES_YEAR");
                 cmd2.Append(",@SalesYear");
-                paras.Add(new SqlParameter("@SalesYear", track.SalesYear));
+                paras.Add(new MySqlParameter("@SalesYear", track.SalesYear));
             }
 
             if (track.Description != null && !track.Description.Trim().Equals(string.Empty))
             {
                 cmd1.Append(",DESCRIPTION");
                 cmd2.Append(",@Description");
-                paras.Add(new SqlParameter("@Description", track.Description));
+                paras.Add(new MySqlParameter("@Description", track.Description));
             }
 
             sqlcmd.Append(@"INSERT INTO {0} (
@@ -143,16 +143,16 @@ namespace Lib.Lib.Class.Musics
 		                            ,@TrackTitleName
 		                            ,@ArtistID
 	                                ,1
-	                                ,GETDATE() ");
+	                                ,NOW() ");
             sqlcmd.Append(cmd2);
             sqlcmd.Append(@")");
-            paras.Add(new SqlParameter("@id", track.ID));
-            paras.Add(new SqlParameter("@PAlbumID", track.PAlbumID));
-            paras.Add(new SqlParameter("@TrackTypeId", track.TrackTypeId));
-            paras.Add(new SqlParameter("@DiscNo", track.DiscNo));
-            paras.Add(new SqlParameter("@TrackNo", track.TrackNo));
-            paras.Add(new SqlParameter("@TrackTitleName", track.TrackTitleName));
-            paras.Add(new SqlParameter("@ArtistID", track.ArtistID));
+            paras.Add(new MySqlParameter("@id", track.ID));
+            paras.Add(new MySqlParameter("@PAlbumID", track.PAlbumID));
+            paras.Add(new MySqlParameter("@TrackTypeId", track.TrackTypeId));
+            paras.Add(new MySqlParameter("@DiscNo", track.DiscNo));
+            paras.Add(new MySqlParameter("@TrackNo", track.TrackNo));
+            paras.Add(new MySqlParameter("@TrackTitleName", track.TrackTitleName));
+            paras.Add(new MySqlParameter("@ArtistID", track.ArtistID));
 
             DbCmd.DoCommand(string.Format(sqlcmd.ToString(), CommonConst.TableName.T_TRACK_TBL), paras);
 
