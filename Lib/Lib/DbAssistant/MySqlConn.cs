@@ -26,6 +26,9 @@ namespace Lib.Lib.DbAssistant
             //数据库地址
             string MySqlDBServerIP = config.AppSettings.Settings["MySqlDBServerIP"].Value;
 
+            //数据库端口
+            string MySqlDBServerPort = config.AppSettings.Settings["MySqlDBServerPort"].Value;
+
             //数据库名称
             string MySqlDBName = config.AppSettings.Settings["MySqlDBName"].Value;
 
@@ -41,6 +44,7 @@ namespace Lib.Lib.DbAssistant
             // 连接语句
             string connectString = "server=" + MySqlDBServerIP +
                 ";User Id=" + MySqlDBAccount +
+                ";Port=" + MySqlDBServerPort +
                 ";database=" + MySqlDBName +
                 ";CharSet=" + MySqlCharSet +
                 ";Password=" + MySqlDBPassword + ";";
