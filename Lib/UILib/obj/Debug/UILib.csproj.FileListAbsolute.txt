@@ -1,0 +1,12 @@
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\bin\Debug\Lib\Tools\ID3.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\bin\Debug\UILib.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\bin\Debug\UILib.pdb
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\bin\Debug\Lib.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\bin\Debug\ID3.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\bin\Debug\Interop.Shell32.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\bin\Debug\Lib.pdb
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\obj\Debug\UILib.csprojResolveAssemblyReference.cache
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\obj\Debug\UILib.AbstractForm.AbstractSelect.resources
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\obj\Debug\UILib.csproj.GenerateResource.Cache
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\obj\Debug\UILib.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\UILib\obj\Debug\UILib.pdb
