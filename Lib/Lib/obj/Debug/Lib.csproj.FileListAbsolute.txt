@@ -1,0 +1,10 @@
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\bin\Debug\Lib\Tools\ID3.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\bin\Debug\Lib.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\bin\Debug\Lib.pdb
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\bin\Debug\ID3.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\bin\Debug\Interop.Shell32.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\obj\Debug\Interop.Shell32.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\obj\Debug\Lib.csproj.ResolveComReference.cache
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\obj\Debug\Lib.dll
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\obj\Debug\Lib.pdb
+D:\My_Document\Github\Animedata\12\Animedata\Lib\Lib\obj\Debug\Lib.csprojResolveAssemblyReference.cache
