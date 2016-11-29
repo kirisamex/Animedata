@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<config>
+  <messages>
+    <!--共通信息-->
+    <message id="MSG-COMMON-001" text="系统错误，请联系开发者。\n{0}" caption="系统错误" category="E" />
+    <message id="MSG-COMMON-002" text="未选中任何一行数据！" caption="" category="I" />
+    <message id="MSG-COMMON-003" text="操作成功！" caption="" category="I" />
+    <message id="MSG-COMMON-004" text="动画编号 {0} 格式不正确！\n目前允许的编号格式为：大写字母+3位数字。" caption="格式错误" category="W"/>
+    <message id="MSG-COMMON-005" text="动画简写 {0} 格式不正确！\n简写需要是英文半角字母，且首字母大写。" caption="格式错误" category="W"/>
+    <message id="MSG-COMMON-006" text="[ {0} ]的年月格式不正确！时间格式：yyyyMM。" caption="格式错误" category="W"/>
+    <message id="MSG-COMMON-007" text="未搜索到对应结果。" caption="搜索结果" category="I"/>
+    <message id="MSG-COMMON-008" text="确定进行操作吗？" caption="操作确认" category="C"/>
+    <message id="MSG-COMMON-009" text="[ {0} ]的年份格式不正确！时间格式：yyyy。" caption="格式错误" category="W"/>
+    
+    <!--Main-->
+    <message id="MSG-MAIN-001" text="确定删除选中行信息吗？\n注意：这些信息对应的播放信息与角色信息将一并被删除。" caption="操作确认" category="CN"/>
+    <message id="MSG-MAIN-003" text="请输入需要搜索的内容！" caption="" category="W"/>
+    <message id="MSG-MAIN-004" text="请先选择需要修改的动画信息！" caption="" category="W"/>
+
+    <!--MainSearch-->
+    <message id="MSG-MAINSEARCH-001" text="至少选择一个播放状态进行搜索！" caption="" category="W"/>
+    <message id="MSG-MAINSEARCH-002" text="至少选择一个原作种类进行搜索！" caption="" category="W"/>
+    
+    <!--AddAnime-->
+    <message id="MSG-ADDANIME-001" text="基本信息填写不完整，请补充。" caption="基本信息不完整" category="W"/>
+    <message id="MSG-ADDANIME-002" text="请填写第{0}行的放送内容！" caption="放送信息不完整" category="W"/>
+    <message id="MSG-ADDANIME-003" text="请填写第{0}行的状态！" caption="放送信息不完整" category="W"/>
+    <message id="MSG-ADDANIME-004" text="第{0}行的话数格式不正确，话数必须为半角数字！" caption="放送信息格式错误" category="W"/>
+    <message id="MSG-ADDANIME-005" text="请填写第{0}行的角色！" caption="角色信息不完整" category="W"/>
+    <message id="MSG-ADDANIME-006" text="请填写第{0}行的声优！" caption="角色信息不完整" category="W"/>
+    <message id="MSG-ADDANIME-007" text="填写的部分动画基本信息与以下信息重复，操作失败！\n动画编号:{0} \n中文名称:{1} \n日文名称:{2} \n动画简称:{3}" caption="基本信息重复" category="W"/>
+    <message id="MSG-ADDANIME-008" text="放送信息或声优信息未填写，是否继续？" caption="信息不完整" category="C"/>
+    
+    <!--CompanyManage-->
+    <message id="MSG-COMPANYMANAGE-001" text="企业名称未修改！" caption="" category="W"/>
+    <message id="MSG-COMPANYMANAGE-002" text="企业名称不能为空！" caption="" category="W"/>
+    <message id="MSG-COMPANYMANAGE-003" text="没有任何信息被修改！" caption="" category="I"/>
+    <message id="MSG-COMPANYMANAGE-004" text="删除动画制作企业前需要先在动画列表中删除所有该企业制作的动画。确定要删除企业 {0} 吗？" caption="操作确认" category="CN"/>
+    <message id="MSG-COMPANYMANAGE-005" text="该制作公司正被以下动画使用\n{0}" caption="" category="W"/>
+    
+    <!--CVManage-->
+    <message id="MSG-CVMANAGE-001" text="[ {0} ]的年月日格式或日期不正确！时间格式：yyyyMMdd。" caption="格式错误" category="W"/>
+    <message id="MSG-CVMANAGE-002" text="[ {0} ]日期超过了当前时间，请检查是否填写错误或系统时间不正确！" caption="格式错误" category="W"/>
+    <message id="MSG-CVMANAGE-003" text="{0}\n若需要删除该声优请先删除上述角色信息。" caption="删除失败" category="W"/>
+    <message id="MSG-CVMANAGE-004" text="确认要删除选中的声优信息吗？如果有该声优有记录的配音角色，请先删除该角色。" caption="操作确认" category="CN"/>
+    <message id="MSG-CVMANAGE-005" text="有未填写的声优编号！" caption="声优信息不完整" category="W"/>
+    <message id="MSG-CVMANAGE-006" text="有未填写的声优姓名！" caption="声优信息不完整" category="W"/>
+    <message id="MSG-CVMANAGE-007" text="[ {0} ]的格式不正确。编号必须为半角数字!" caption="格式错误" category="W"/>
+    <message id="MSG-CVMANAGE-008" text="声优编号与现有编号重复，操作失败！\n重复声优编号:{0} \n姓名:{1}" caption="声优编号重复" category="W"/>
+    <message id="MSG-CVMANAGE-009" text="未选中声优！" caption="" category="I"/>
+    <message id="MSG-CVMANAGE-010" text="没有任何信息被修改！" caption="" category="I"/>
+  
+    <!--ImportMusic-->
+    <message id="MSG-IMPORTMUSIC-001" text="指定的路径：{0} 不存在！" caption="文件不存在" category="W"/>
+    <message id="MSG-IMPORTMUSIC-002" text="修改标签时，必须仅选择一个单元格进行修改，请勿多选。" caption="" category="E"/>
+    <message id="MSG-IMPORTMUSIC-003" text="专辑 {0} 内曲目编号为 {1} 的曲目标题为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-004" text="专辑编号 {0} 的专辑标题为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-005" text="专辑 {0} 内曲目 {1} 的碟号为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-006" text="专辑 {0} 内曲目 {1} 的碟号格式不正确，必须为半角数字！" caption="格式错误" category="E"/>
+    <message id="MSG-IMPORTMUSIC-007" text="专辑 {0} 内曲目 {1} 的音轨为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-008" text="专辑 {0} 内曲目 {1} 的音轨格式不正确，必须为半角数字！" caption="格式错误" category="E"/>
+    <message id="MSG-IMPORTMUSIC-009" text="专辑 {0} 内曲目 {1} 的发售年份格式不正确，必须为半角数字年份。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-010" text="专辑 {0} 内曲目 {1} 的专辑类型未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-011" text="专辑 {0} 内曲目 {1} 的曲目类型未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-012" text="专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。\艺术家信息中，红色背景的艺术家为新艺术家；黄色背景的艺术家为不完全相同的艺术家；绿色背景的艺术家为匹配成功的艺术家。\请将所有艺术家内容编辑为绿色后再导入。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-013" text="专辑 {0} 内曲目 {1} 的所属动画未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-IMPORTMUSIC-014" text="文件{0}不存在！" caption="文件不存在" category="E"/>
+
+    <!--SelectArtist-->
+    <message id="MSG-SELECTARTIST-001" text="数据填写不完整：未选择{0}。" caption="信息不完整" category="W"/>
+    <message id="MSG-SELECTARTIST-002" text="数据填写不完整：未填写{0}。" caption="信息不完整" category="W"/>
+    <message id="MSG-SELECTARTIST-003" text="未编辑构成信息！若该艺术家不是任何声优、艺术家、角色组成的个人或团体，请在构成种类中选择“独自”。" caption="信息不完整" category="W"/>
+    <message id="MSG-SELECTARTIST-004" text="未选择匹配对象！请选择该艺术家对应的既存艺术家。若既存艺术家中不存在，请取消勾选“既存艺术家”并编辑匹配信息。" caption="信息不完整" category="W"/>
+    
+    <!--MusicManage-->
+    <message id="MSG-MUSICMANAGE-001" text="修改标签时，必须仅选择一个单元格进行修改，请勿多选。" caption="" category="E"/>
+    <message id="MSG-MUSICMANAGE-002" text="专辑 {0} 内曲目 {1} 的碟号为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-003" text="专辑 {0} 内曲目 {1} 的碟号格式不正确，必须为半角数字！" caption="格式错误" category="E"/>
+    <message id="MSG-MUSICMANAGE-004" text="专辑 {0} 内曲目 {1} 的音轨为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-005" text="专辑 {0} 内曲目 {1} 的音轨格式不正确，必须为半角数字！" caption="格式错误" category="E"/>
+    <message id="MSG-MUSICMANAGE-006" text="专辑 {0} 内曲目 {1} 的发售年份格式不正确，必须为半角数字年份。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-007" text="专辑 {0} 内曲目 {1} 的专辑类型未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-008" text="专辑 {0} 内曲目 {1} 的曲目类型未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-009" text="专辑 {0} 内曲目 {1} 的艺术家内容未编辑完成，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-010" text="专辑 {0} 内曲目 {1} 的所属动画未选择，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-011" text="文件{0}不存在！" caption="文件不存在" category="E"/>
+    <message id="MSG-MUSICMANAGE-012" text="专辑 {0} 内曲目编号为 {1} 的曲目标题为空，请补充。" caption="信息不完整" category="W"/>
+    <message id="MSG-MUSICMANAGE-013" text="专辑编号 {0} 的专辑标题为空，请补充。" caption="信息不完整" category="W"/>
+  
+  </messages>
+</config>

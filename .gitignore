@@ -1,13 +1,10 @@
-/Animedata/bin/Release
-/Animedata/bin/x86
-/Animedata/bin/Debug
-/Animedata/bin/*
 bin
+obj
 /_UpgradeReport_Files
-/Animedata/obj
 /Backup
 /Animedata.v11.suo
 /version.txt
-/Ticket
 /Animedata.suo
 /.vs/Animedata/v14
+/Lib/Lib/obj
+/Lib/UILib/obj
