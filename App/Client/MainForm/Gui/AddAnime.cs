@@ -22,9 +22,15 @@ namespace Client.MainForm.Gui
     {
         #region 常量
 
-        //全局变量
+        /// <summary>
+        /// 操作种类
+        /// </summary>
         public AnimeCommand.Command cmd;
-        public DataGridViewRow sdr;
+
+        /// <summary>
+        /// 修改：旧动画编号
+        /// </summary>
+        public string oldAnimeNo;
 
         //实例
         AddAnimeService service = new AddAnimeService();
@@ -93,11 +99,11 @@ namespace Client.MainForm.Gui
         /// <param name="control">操作种类</param>
         /// <param name="rownum">选中行动画ID</param>
         /// <param name="mainfm"></param>
-        public AddAnime(AnimeCommand.Command command, DataGridViewRow selecteddr)
+        public AddAnime(AnimeCommand.Command command, string animeNo)
         {
             InitializeComponent();
             cmd = command;
-            sdr = selecteddr;
+            oldAnimeNo = animeNo;
         }
 
         /// <summary>
@@ -135,11 +141,12 @@ namespace Client.MainForm.Gui
             switch (ctr)
             {
                 case AnimeCommand.Command.Add:
-                    Animation newAnime = new Animation(null);
+                    Animation newAnime = new Animation();
+                    newAnime.GetNextid();
                     this.numbox.Text = newAnime.No;
                     break;
                 case AnimeCommand.Command.Update:
-                    Animation toChangeAnime = service.GetAnimeFromAnimeNo(sdr.Cells[0].Value.ToString());
+                    Animation toChangeAnime = service.GetAnimeFromAnimeNo(oldAnimeNo);
                     this.SetAnimeWindowWithAnime(toChangeAnime);
                     break;
                 case AnimeCommand.Command.Delete:
@@ -212,7 +219,8 @@ namespace Client.MainForm.Gui
                     CharacterInfoDataGridView.DataSource = dt2;
                 }
 
-                Animation anime = new Animation(null);
+                Animation anime = new Animation();
+                anime.GetNextid();
                 numbox.Text = anime.No;
                 numbox.Focus();
             }
@@ -302,7 +310,7 @@ namespace Client.MainForm.Gui
                 return false;
             }
 
-            Animation anime = new Animation(numbox.Text.ToString());
+            Animation anime = new Animation();
             anime.CNName = cnnamebox.Text.ToString();
             anime.JPName = jpnamebox.Text.ToString();
             anime.Nickname = nnbox.Text.ToString();
@@ -311,7 +319,11 @@ namespace Client.MainForm.Gui
             anime.original=service.GetOriginalIntFromOriginalText(originalbox.Text.ToString());
 
             //动画信息规则检查
-            if (!AnimeInfoFormatAndRuleCheck(ctr,anime))
+            if (ctr == AnimeCommand.Command.Add && !AnimeInfoFormatAndRuleCheck(ctr, anime))
+            {
+                return false;
+            }
+            else if (ctr == AnimeCommand.Command.Update && !AnimeInfoFormatAndRuleCheck(ctr, oldAnimeNo, anime))
             {
                 return false;
             }
@@ -402,13 +414,10 @@ namespace Client.MainForm.Gui
                 if (PlayInfoDataGridView.Rows[i].Cells[COMPANYCLN].Value != null)
                 {
                     string companyName = PlayInfoDataGridView.Rows[i].Cells[COMPANYCLN].Value.ToString();
-                    try
+
+                    if (!string.Empty.Equals(companyName))
                     {
                         pInfo.companyID = service.SetCompanyIDByCompanyName(companyName);
-                    }
-                    catch(Exception ex)
-                    {
-                        MsgBox.Show(MSG_COMMON_001, ex.ToString());
                     }
                 }
 
@@ -477,14 +486,8 @@ namespace Client.MainForm.Gui
                 if (CharacterInfoDataGridView.Rows[i].Cells[SEIYUUNAMECLN].Value != null)
                 {
                     string CVName = CharacterInfoDataGridView.Rows[i].Cells[SEIYUUNAMECLN].Value.ToString();
-                    try
-                    {
-                        chara.CVID = service.SetCVIDByCVName(CVName);
-                    }
-                    catch(Exception ex)
-                    {
-                        MsgBox.Show(MSG_COMMON_001, ex.ToString());
-                    }
+
+                    chara.CVID = service.SetCVIDByCVName(CVName);
                 }
 
                 chara.leadingFLG = Convert.ToBoolean(CharacterInfoDataGridView.Rows[i].Cells[ISMAINCHARACTERCLN].Value);
@@ -718,7 +721,7 @@ namespace Client.MainForm.Gui
         }
 
         /// <summary>
-        /// 动画格式与规则检查
+        /// 动画格式与规则检查(New)
         /// </summary>
         /// <returns></returns>
         public bool AnimeInfoFormatAndRuleCheck(AnimeCommand.Command ctr, Animation anime)
@@ -746,7 +749,35 @@ namespace Client.MainForm.Gui
         }
 
         /// <summary>
-        /// 动画是否重复
+        /// 动画格式与规则检查(Update)
+        /// </summary>
+        /// <returns></returns>
+        public bool AnimeInfoFormatAndRuleCheck(AnimeCommand.Command ctr, string oldNo, Animation anime)
+        {
+            //动画编号格式
+            if (!service.AnimeNoCheck(anime.No))
+            {
+                MsgBox.Show(MSG_COMMON_004, anime.No);
+                return false;
+            }
+
+            if (!service.AnimeNNCheck(anime.Nickname))
+            {
+                MsgBox.Show(MSG_COMMON_005, anime.Nickname);
+                return false;
+            }
+
+            //动画信息唯一性
+            if (!AnimationRepeatCheck(anime, oldNo, ctr))
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
+        /// 动画是否重复(New)
         /// </summary>
         /// <param name="anime"></param>
         /// <param name="ctr"></param>
@@ -754,7 +785,29 @@ namespace Client.MainForm.Gui
         private bool AnimationRepeatCheck(Animation anime, AnimeCommand.Command ctr)
         {
             //重复性检查
-            Animation repeatAnime = service.SearchRepeatAnimeInfo(anime, ctr);
+            Animation repeatAnime = service.SearchRepeatAnimeInfo(anime, string.Empty, ctr);
+
+            if (repeatAnime == null)
+            {
+                return true;
+            }
+            else
+            {
+                MsgBox.Show(MSG_ADDANIME_007, repeatAnime.No, repeatAnime.CNName, repeatAnime.JPName, repeatAnime.Nickname);
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 动画是否重复(Update)
+        /// </summary>
+        /// <param name="anime"></param>
+        /// <param name="ctr"></param>
+        /// <returns>true:不重复 false:重复</returns>
+        private bool AnimationRepeatCheck(Animation anime, string oldNo, AnimeCommand.Command ctr)
+        {
+            //重复性检查
+            Animation repeatAnime = service.SearchRepeatAnimeInfo(anime, oldNo, ctr);
 
             if (repeatAnime == null)
             {

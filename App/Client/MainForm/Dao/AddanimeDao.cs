@@ -82,40 +82,27 @@ namespace Client.MainForm.Dao
         /// 查询是否有重复的动画信息
         /// </summary>
         /// <param name="anime"></param>
+        /// <param name="ctr">执行操作</param>
         /// <returns>重复的动画信息，如无则为null</returns>
-        public Animation SearchRepeatAnimeInfo(Animation anime, AnimeCommand.Command ctr)
+        public DataSet SearchRepeatAnimeInfo(Animation anime, string oldNo, AnimeCommand.Command ctr)
         {
-            string sqlcmd = @"SELECT *
+            string sqlcmd = @"SELECT ANIME_NO
                                 FROM {0}
-                                WHERE ANIME_NO = @animeNo
+                                WHERE (ANIME_NO = @animeNo
 	                                OR ANIME_CHN_NAME = @animeCNName
 	                                OR ANIME_JPN_NAME = @animeJPName
-	                                OR ANIME_NN = @nickname";
+	                                OR ANIME_NN = @nickname)
+                                AND ANIME_NO <> @oldNo";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
             paras.Add(new SqlParameter("@animeNo", anime.No));
             paras.Add(new SqlParameter("@animeCNName", anime.CNName));
             paras.Add(new SqlParameter("@animeJPName", anime.JPName));
             paras.Add(new SqlParameter("@nickname", anime.Nickname));
+            paras.Add(new SqlParameter("@oldNo", oldNo));
 
-            DataSet ds = DbCmd.DoSelect(string.Format(sqlcmd,CommonConst.TableName.T_ANIME_TBL), paras);
+            return DbCmd.DoSelect(string.Format(sqlcmd, CommonConst.TableName.T_ANIME_TBL), paras);
 
-            if (ds.Tables[0].Rows.Count == 0)
-            {
-                return null;
-            }
-
-            if (ctr == AnimeCommand.Command.Update && ds.Tables[0].Rows[0][0].ToString().Equals(anime.No))
-            {
-                return null;
-            }
-
-            Animation repeatAnime = new Animation();
-            repeatAnime.No = ds.Tables[0].Rows[0][0].ToString();
-            repeatAnime.CNName = ds.Tables[0].Rows[0][1].ToString();
-            repeatAnime.JPName = ds.Tables[0].Rows[0][2].ToString();
-            repeatAnime.Nickname = ds.Tables[0].Rows[0][3].ToString();
-            return repeatAnime;
         }
 
         #endregion

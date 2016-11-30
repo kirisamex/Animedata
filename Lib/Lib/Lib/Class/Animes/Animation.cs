@@ -70,10 +70,11 @@ namespace Lib.Lib.Class.Animes
                 this.No = animeNo;
                 this.playInfoList=new List<PlayInfo>();
                 this.characterList = new List<Character>();
+                
             }
             else
             {
-                this.No = GetNextid();
+                GetNextid();
                 return;
             }
 
@@ -116,8 +117,10 @@ namespace Lib.Lib.Class.Animes
         /// </summary>
         /// <param name="maxId">最大动画编号</param>
         /// <returns></returns>
-        private string GetNextid()
+        public void GetNextid()
         {
+            string nextId = string.Empty;
+
             string maxId = GetMaxId();
 
             string a = "";
@@ -136,24 +139,25 @@ namespace Lib.Lib.Class.Animes
             }
 
             if (b == "")
-                return "A001";
+                nextId = "A001";
 
             if (Convert.ToInt32(b) > 98)
             {
                 string r = a + (Convert.ToInt32(b) + 1);
-                return r;
+                nextId = r;
             }
             else if (Convert.ToInt32(b) > 8)
             {
                 string r = a + "0" + (Convert.ToInt32(b) + 1);
-                return r;
+                nextId = r;
             }
             else
             {
                 string r = a + "00" + (Convert.ToInt32(b) + 1);
-                return r;
+                nextId = r;
             }
 
+            this.No = nextId;
         }
 
         /// <summary>
