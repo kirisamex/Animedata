@@ -504,7 +504,7 @@ namespace Client.MainForm.Gui
             {
                 if (!IsFormOpened("AddAnime"))
                 {
-                    AddAnime cgem = new AddAnime(AnimeCommand.Command.Update, GetSelectedRow().Cells[0].Value.ToString());
+                    AddAnime cgem = new AddAnime(AnimeCommand.Command.Update, GetSelectedRow());
                     cgem.Show();
                 }
             }

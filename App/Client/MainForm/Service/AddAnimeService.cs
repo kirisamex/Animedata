@@ -20,20 +20,24 @@ namespace Client.MainForm.Service
         AddanimeDao dao = new AddanimeDao();
 
         /// <summary>
-        /// 查询是否有重复的动画信息
+        /// 查询是否有重复的动画信息（新规）
         /// </summary>
         /// <param name="anime"></param>
         /// <returns></returns>
-        public Animation SearchRepeatAnimeInfo(Animation anime, string oldNo, AnimeCommand.Command ctr)
+        public Animation SearchRepeatAnimeInfo(Animation anime, AnimeCommand.Command ctr)
         {
-            DataTable dt = dao.SearchRepeatAnimeInfo(anime, oldNo, ctr).Tables[0];
+            return dao.SearchRepeatAnimeInfo(anime, ctr);
+        }
 
-            if (dt.Rows.Count == 0)
-            {
-                return null;
-            }
-
-            return GetAnimeFromAnimeNo(dt.Rows[0][0].ToString());
+        /// <summary>
+        /// 查询是否有重复的动画信息（修改）
+        /// </summary>
+        /// <param name="anime"></param>
+        /// <param name="ctr"></param>
+        /// <returns></returns>
+        public Animation SearchChangedAnimeInfo(Animation anime, AnimeCommand.Command ctr)
+        {
+            return dao.SearchRepeatAnimeInfo(anime, ctr);
         }
 
         /// <summary>

@@ -738,7 +738,7 @@ namespace Lib.Lib.Class.Abstract
 										GROUP BY ANIME_NO
                                     ) AS PT ON AT.ANIME_NO = PT.ANIME_NO
                                     WHERE AT.ENABLE_FLG = 1 
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,4,3,2,9') ,
 										PT.TIME DESC";
 
             return DbCmd.DoSelect(string.Format(sqlcmd
@@ -773,7 +773,7 @@ namespace Lib.Lib.Class.Abstract
                                     WHERE PT.COMPANY_ID	= @companyid
                                     AND AT.ENABLE_FLG = 1
                                     AND PT.ENABLE_FLG = 1
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,4,3,2,9') ,
 									WT.TIME DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -825,7 +825,7 @@ namespace Lib.Lib.Class.Abstract
                                     AND AT.ENABLE_FLG = 1 
                                     AND CHT.ENABLE_FLG = 1
                                     AND CVT.ENABLE_FLG = 1
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,4,3,2,9') ,
 									WT.TIME DESC";
 
             Collection<DbParameter> paras = new Collection<DbParameter>();
@@ -1096,7 +1096,7 @@ namespace Lib.Lib.Class.Abstract
             #endregion
 
             #region ORDERBY
-            joincmd.Append(@"ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+            joincmd.Append(@"ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,4,3,2,9') ,
 									WT.TIME DESC");
             #endregion
 
@@ -1145,7 +1145,7 @@ namespace Lib.Lib.Class.Abstract
 									CPT.COMPANY_NAME LIKE @target OR 
 									CVT.CV_NAME LIKE @target)
                                     AND AT.ENABLE_FLG = 1
-                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,3,2,9') ,
+                                    ORDER BY CHARINDEX(RTRIM(CAST(AT.STATUS as NCHAR)),'1,4,3,2,9') ,
 									WT.TIME DESC
 									";
 
