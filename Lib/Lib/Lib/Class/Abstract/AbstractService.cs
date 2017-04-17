@@ -51,6 +51,8 @@ namespace Lib.Lib.Class.Abstract
                     return "完结";
                 case 3:
                     return "新企划";
+                case 4:
+                    return "完结欠";
                 case 9:
                     return "弃置";
                 default:
@@ -70,6 +72,7 @@ namespace Lib.Lib.Class.Abstract
                 case "放送中": return 1;
                 case "完结": return 2;
                 case "新企划": return 3;
+                case "完结欠": return 4;
                 case "弃置": return 9;
                 default: return -1;
             }

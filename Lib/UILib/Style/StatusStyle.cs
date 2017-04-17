@@ -24,7 +24,6 @@ namespace UILib.Style
                 case 1://放送中
                     dr.ForeColor = Color.White;
                     dr.BackColor = Color.Navy;
-
                     break;
                 case 2://完结
                     dr.ForeColor = Color.FromArgb(0, 97, 0);
@@ -33,6 +32,10 @@ namespace UILib.Style
                 case 3://新企划
                     dr.ForeColor = Color.DarkRed;
                     dr.BackColor = Color.LightPink;
+                    break;
+                case 4://完结欠
+                    dr.ForeColor = Color.GreenYellow;
+                    dr.BackColor = Color.DarkGreen;
                     break;
                 case 9://弃置
                     dr.ForeColor = Color.Black;
@@ -61,6 +64,8 @@ namespace UILib.Style
                     dr.ForeColor = Color.FromArgb(0, 97, 0);
                     break;
                 case 3://新企划
+                    break;
+                case 4://完结欠
                     break;
                 case 9://弃置
                     dr.BackColor = Color.Green;
