@@ -1043,6 +1043,11 @@ namespace Lib.Lib.Class.Abstract
                 AddComma(statusincmd);
                 statusincmd.Append(AnimeStatusModule.DISCARE.ToString());
             }
+            if (search.animeStatue.finishedNotWatched)
+            {
+                AddComma(statusincmd);
+                statusincmd.Append(AnimeStatusModule.FINISHEDNOTWATCHED.ToString());
+            }
 
             joincmd.Append(statusincmd);
             joincmd.Append(" )");

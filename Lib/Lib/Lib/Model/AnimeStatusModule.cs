@@ -27,6 +27,10 @@ namespace Lib.Lib.Model
         /// </summary>
         public const int NEW_PROJECT = 3;//新企划
         /// <summary>
+        /// 完结欠
+        /// </summary>
+        public const int FINISHEDNOTWATCHED = 4;//完结欠
+        /// <summary>
         /// 弃置
         /// </summary>
         public const int DISCARE = 9;//弃置
@@ -43,6 +47,11 @@ namespace Lib.Lib.Model
         /// 完结
         /// </summary>
         public bool finished = false;
+
+        /// <summary>
+        /// 完结欠
+        /// </summary>
+        public bool finishedNotWatched = false;
 
         /// <summary>
         /// 新企划

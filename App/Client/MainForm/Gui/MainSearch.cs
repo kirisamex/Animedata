@@ -139,6 +139,15 @@ namespace Client.MainForm.Gui
 
             if (StatusCheckedListBox.GetItemChecked(2))
             {
+                mainSearch.animeStatue.finishedNotWatched = true;
+            }
+            else
+            {
+                mainSearch.animeStatue.finishedNotWatched = false;
+            }
+
+            if (StatusCheckedListBox.GetItemChecked(3))
+            {
                 mainSearch.animeStatue.newproject = true;
             }
             else
@@ -147,7 +156,7 @@ namespace Client.MainForm.Gui
             }
 
 
-            if (StatusCheckedListBox.GetItemChecked(3))
+            if (StatusCheckedListBox.GetItemChecked(4))
             {
                 mainSearch.animeStatue.discare = true;
             }
