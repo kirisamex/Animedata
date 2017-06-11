@@ -94,7 +94,7 @@
             // 
             this.AnimeNoBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.AnimeNoBox.Location = new System.Drawing.Point(128, 12);
-            this.AnimeNoBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AnimeNoBox.Margin = new System.Windows.Forms.Padding(4);
             this.AnimeNoBox.Name = "AnimeNoBox";
             this.AnimeNoBox.Size = new System.Drawing.Size(191, 22);
             this.AnimeNoBox.TabIndex = 1;
@@ -103,7 +103,7 @@
             // 
             this.AnimeCNNamebox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.AnimeCNNamebox.Location = new System.Drawing.Point(128, 62);
-            this.AnimeCNNamebox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AnimeCNNamebox.Margin = new System.Windows.Forms.Padding(4);
             this.AnimeCNNamebox.Name = "AnimeCNNamebox";
             this.AnimeCNNamebox.Size = new System.Drawing.Size(191, 22);
             this.AnimeCNNamebox.TabIndex = 11;
@@ -111,7 +111,7 @@
             // AnimeJPNameBox
             // 
             this.AnimeJPNameBox.Location = new System.Drawing.Point(128, 109);
-            this.AnimeJPNameBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AnimeJPNameBox.Margin = new System.Windows.Forms.Padding(4);
             this.AnimeJPNameBox.Name = "AnimeJPNameBox";
             this.AnimeJPNameBox.Size = new System.Drawing.Size(191, 22);
             this.AnimeJPNameBox.TabIndex = 21;
@@ -142,7 +142,7 @@
             // 
             this.AnimeNNBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.AnimeNNBox.Location = new System.Drawing.Point(128, 162);
-            this.AnimeNNBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AnimeNNBox.Margin = new System.Windows.Forms.Padding(4);
             this.AnimeNNBox.Name = "AnimeNNBox";
             this.AnimeNNBox.Size = new System.Drawing.Size(191, 22);
             this.AnimeNNBox.TabIndex = 31;
@@ -151,7 +151,7 @@
             // 
             this.AnimeCNNameSearchTypeButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.AnimeCNNameSearchTypeButton.Location = new System.Drawing.Point(328, 60);
-            this.AnimeCNNameSearchTypeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AnimeCNNameSearchTypeButton.Margin = new System.Windows.Forms.Padding(4);
             this.AnimeCNNameSearchTypeButton.Name = "AnimeCNNameSearchTypeButton";
             this.AnimeCNNameSearchTypeButton.Size = new System.Drawing.Size(100, 29);
             this.AnimeCNNameSearchTypeButton.TabIndex = 12;
@@ -163,7 +163,7 @@
             // 
             this.AnimeJPNameSearcyTypeButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.AnimeJPNameSearcyTypeButton.Location = new System.Drawing.Point(328, 106);
-            this.AnimeJPNameSearcyTypeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.AnimeJPNameSearcyTypeButton.Margin = new System.Windows.Forms.Padding(4);
             this.AnimeJPNameSearcyTypeButton.Name = "AnimeJPNameSearcyTypeButton";
             this.AnimeJPNameSearcyTypeButton.Size = new System.Drawing.Size(100, 29);
             this.AnimeJPNameSearcyTypeButton.TabIndex = 22;
@@ -201,12 +201,13 @@
             this.StatusCheckedListBox.Items.AddRange(new object[] {
             "放送中",
             "完结",
+            "完结欠",
             "新企划",
             "弃置"});
             this.StatusCheckedListBox.Location = new System.Drawing.Point(128, 412);
-            this.StatusCheckedListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StatusCheckedListBox.Margin = new System.Windows.Forms.Padding(4);
             this.StatusCheckedListBox.Name = "StatusCheckedListBox";
-            this.StatusCheckedListBox.Size = new System.Drawing.Size(191, 72);
+            this.StatusCheckedListBox.Size = new System.Drawing.Size(191, 89);
             this.StatusCheckedListBox.TabIndex = 81;
             // 
             // OriginalCheckedListBox
@@ -222,7 +223,7 @@
             "影视",
             "其他"});
             this.OriginalCheckedListBox.Location = new System.Drawing.Point(128, 518);
-            this.OriginalCheckedListBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OriginalCheckedListBox.Margin = new System.Windows.Forms.Padding(4);
             this.OriginalCheckedListBox.Name = "OriginalCheckedListBox";
             this.OriginalCheckedListBox.Size = new System.Drawing.Size(191, 106);
             this.OriginalCheckedListBox.TabIndex = 91;
@@ -242,7 +243,7 @@
             // 
             this.PlaytimeToBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.PlaytimeToBox.Location = new System.Drawing.Point(244, 215);
-            this.PlaytimeToBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PlaytimeToBox.Margin = new System.Windows.Forms.Padding(4);
             this.PlaytimeToBox.Name = "PlaytimeToBox";
             this.PlaytimeToBox.Size = new System.Drawing.Size(75, 22);
             this.PlaytimeToBox.TabIndex = 43;
@@ -251,7 +252,7 @@
             // 
             this.PlaytimeSearchTypeButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.PlaytimeSearchTypeButton.Location = new System.Drawing.Point(328, 212);
-            this.PlaytimeSearchTypeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PlaytimeSearchTypeButton.Margin = new System.Windows.Forms.Padding(4);
             this.PlaytimeSearchTypeButton.Name = "PlaytimeSearchTypeButton";
             this.PlaytimeSearchTypeButton.Size = new System.Drawing.Size(100, 29);
             this.PlaytimeSearchTypeButton.TabIndex = 44;
@@ -264,7 +265,7 @@
             // 
             this.PlaytimeFromBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.PlaytimeFromBox.Location = new System.Drawing.Point(128, 215);
-            this.PlaytimeFromBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PlaytimeFromBox.Margin = new System.Windows.Forms.Padding(4);
             this.PlaytimeFromBox.Name = "PlaytimeFromBox";
             this.PlaytimeFromBox.Size = new System.Drawing.Size(75, 22);
             this.PlaytimeFromBox.TabIndex = 41;
@@ -295,7 +296,7 @@
             // 
             this.WatchtimeFromBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.WatchtimeFromBox.Location = new System.Drawing.Point(128, 265);
-            this.WatchtimeFromBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.WatchtimeFromBox.Margin = new System.Windows.Forms.Padding(4);
             this.WatchtimeFromBox.Name = "WatchtimeFromBox";
             this.WatchtimeFromBox.Size = new System.Drawing.Size(75, 22);
             this.WatchtimeFromBox.TabIndex = 51;
@@ -304,7 +305,7 @@
             // 
             this.WatchtimeSearchTypeButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.WatchtimeSearchTypeButton.Location = new System.Drawing.Point(328, 262);
-            this.WatchtimeSearchTypeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.WatchtimeSearchTypeButton.Margin = new System.Windows.Forms.Padding(4);
             this.WatchtimeSearchTypeButton.Name = "WatchtimeSearchTypeButton";
             this.WatchtimeSearchTypeButton.Size = new System.Drawing.Size(100, 29);
             this.WatchtimeSearchTypeButton.TabIndex = 54;
@@ -317,7 +318,7 @@
             // 
             this.WatchtimeToBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.WatchtimeToBox.Location = new System.Drawing.Point(244, 265);
-            this.WatchtimeToBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.WatchtimeToBox.Margin = new System.Windows.Forms.Padding(4);
             this.WatchtimeToBox.Name = "WatchtimeToBox";
             this.WatchtimeToBox.Size = new System.Drawing.Size(75, 22);
             this.WatchtimeToBox.TabIndex = 53;
@@ -337,7 +338,7 @@
             // 
             this.SearchButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.SearchButton.Location = new System.Drawing.Point(75, 655);
-            this.SearchButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SearchButton.Margin = new System.Windows.Forms.Padding(4);
             this.SearchButton.Name = "SearchButton";
             this.SearchButton.Size = new System.Drawing.Size(100, 29);
             this.SearchButton.TabIndex = 200;
@@ -349,7 +350,7 @@
             // 
             this.ClearButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.ClearButton.Location = new System.Drawing.Point(202, 655);
-            this.ClearButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.ClearButton.Margin = new System.Windows.Forms.Padding(4);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(100, 29);
             this.ClearButton.TabIndex = 201;
@@ -361,7 +362,7 @@
             // 
             this.cancelButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.cancelButton.Location = new System.Drawing.Point(328, 655);
-            this.cancelButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.cancelButton.Margin = new System.Windows.Forms.Padding(4);
             this.cancelButton.Name = "cancelButton";
             this.cancelButton.Size = new System.Drawing.Size(100, 29);
             this.cancelButton.TabIndex = 202;
@@ -384,7 +385,7 @@
             // 
             this.seiyuuBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.seiyuuBox.Location = new System.Drawing.Point(128, 312);
-            this.seiyuuBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.seiyuuBox.Margin = new System.Windows.Forms.Padding(4);
             this.seiyuuBox.Name = "seiyuuBox";
             this.seiyuuBox.Size = new System.Drawing.Size(191, 22);
             this.seiyuuBox.TabIndex = 61;
@@ -404,7 +405,7 @@
             // 
             this.companyBox.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.companyBox.Location = new System.Drawing.Point(128, 362);
-            this.companyBox.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.companyBox.Margin = new System.Windows.Forms.Padding(4);
             this.companyBox.Name = "companyBox";
             this.companyBox.Size = new System.Drawing.Size(191, 22);
             this.companyBox.TabIndex = 71;
@@ -413,7 +414,7 @@
             // 
             this.CVNameSearchTypeButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.CVNameSearchTypeButton.Location = new System.Drawing.Point(328, 310);
-            this.CVNameSearchTypeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CVNameSearchTypeButton.Margin = new System.Windows.Forms.Padding(4);
             this.CVNameSearchTypeButton.Name = "CVNameSearchTypeButton";
             this.CVNameSearchTypeButton.Size = new System.Drawing.Size(100, 29);
             this.CVNameSearchTypeButton.TabIndex = 62;
@@ -425,7 +426,7 @@
             // 
             this.CompanySearchTypeButton.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.CompanySearchTypeButton.Location = new System.Drawing.Point(328, 360);
-            this.CompanySearchTypeButton.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CompanySearchTypeButton.Margin = new System.Windows.Forms.Padding(4);
             this.CompanySearchTypeButton.Name = "CompanySearchTypeButton";
             this.CompanySearchTypeButton.Size = new System.Drawing.Size(100, 29);
             this.CompanySearchTypeButton.TabIndex = 72;
@@ -525,7 +526,7 @@
             this.Controls.Add(this.label1);
             this.Font = new System.Drawing.Font("MS UI Gothic", 11F);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "MainSearch";

@@ -55,6 +55,10 @@
             this.charainfotab = new System.Windows.Forms.TabPage();
             this.CVbox = new System.Windows.Forms.ComboBox();
             this.CharacterInfoDataGridView = new System.Windows.Forms.DataGridView();
+            this.charactername = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.seiyuuname = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ismaincharacter = new System.Windows.Forms.DataGridViewCheckBoxColumn();
+            this.characterNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.AddRowButton = new System.Windows.Forms.Button();
             this.RemoveRowButton = new System.Windows.Forms.Button();
             this.playinfo = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -64,10 +68,6 @@
             this.playstarttime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.watchtime = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.PlayinfoID = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.charactername = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.seiyuuname = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.ismaincharacter = new System.Windows.Forms.DataGridViewCheckBoxColumn();
-            this.characterNo = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.basicinfotab.SuspendLayout();
             this.playinfotab.SuspendLayout();
@@ -85,6 +85,7 @@
             "放送中",
             "完结",
             "新企划",
+            "完结欠",
             "弃置"});
             this.statescbox.Location = new System.Drawing.Point(130, 175);
             this.statescbox.Name = "statescbox";
@@ -377,6 +378,37 @@
             this.CharacterInfoDataGridView.CurrentCellChanged += new System.EventHandler(this.CharacterInfoDataGridView_CurrentCellChanged);
             this.CharacterInfoDataGridView.KeyDown += new System.Windows.Forms.KeyEventHandler(this.CharacterInfoDataGridView_KeyDown);
             // 
+            // charactername
+            // 
+            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.charactername.DefaultCellStyle = dataGridViewCellStyle3;
+            this.charactername.FillWeight = 152.2843F;
+            this.charactername.HeaderText = "角色";
+            this.charactername.Name = "charactername";
+            this.charactername.Width = 200;
+            // 
+            // seiyuuname
+            // 
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            this.seiyuuname.DefaultCellStyle = dataGridViewCellStyle4;
+            this.seiyuuname.FillWeight = 73.85786F;
+            this.seiyuuname.HeaderText = "声优";
+            this.seiyuuname.Name = "seiyuuname";
+            this.seiyuuname.Width = 150;
+            // 
+            // ismaincharacter
+            // 
+            this.ismaincharacter.FillWeight = 73.85786F;
+            this.ismaincharacter.HeaderText = "主角";
+            this.ismaincharacter.Name = "ismaincharacter";
+            this.ismaincharacter.Width = 50;
+            // 
+            // characterNo
+            // 
+            this.characterNo.HeaderText = "CHARACTER_NO";
+            this.characterNo.Name = "characterNo";
+            this.characterNo.Visible = false;
+            // 
             // AddRowButton
             // 
             this.AddRowButton.Font = new System.Drawing.Font("MS UI Gothic", 11F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
@@ -429,6 +461,7 @@
             "放送中",
             "完结",
             "新企划",
+            "完结欠",
             "弃置"});
             this.status.Name = "status";
             this.status.Width = 80;
@@ -451,37 +484,6 @@
             this.PlayinfoID.Name = "PlayinfoID";
             this.PlayinfoID.Visible = false;
             this.PlayinfoID.Width = 119;
-            // 
-            // charactername
-            // 
-            dataGridViewCellStyle3.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.charactername.DefaultCellStyle = dataGridViewCellStyle3;
-            this.charactername.FillWeight = 152.2843F;
-            this.charactername.HeaderText = "角色";
-            this.charactername.Name = "charactername";
-            this.charactername.Width = 200;
-            // 
-            // seiyuuname
-            // 
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            this.seiyuuname.DefaultCellStyle = dataGridViewCellStyle4;
-            this.seiyuuname.FillWeight = 73.85786F;
-            this.seiyuuname.HeaderText = "声优";
-            this.seiyuuname.Name = "seiyuuname";
-            this.seiyuuname.Width = 150;
-            // 
-            // ismaincharacter
-            // 
-            this.ismaincharacter.FillWeight = 73.85786F;
-            this.ismaincharacter.HeaderText = "主角";
-            this.ismaincharacter.Name = "ismaincharacter";
-            this.ismaincharacter.Width = 50;
-            // 
-            // characterNo
-            // 
-            this.characterNo.HeaderText = "CHARACTER_NO";
-            this.characterNo.Name = "characterNo";
-            this.characterNo.Visible = false;
             // 
             // AddAnime
             // 
@@ -538,6 +540,10 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button AddRowButton;
         private System.Windows.Forms.Button RemoveRowButton;
+        private System.Windows.Forms.DataGridViewTextBoxColumn charactername;
+        private System.Windows.Forms.DataGridViewTextBoxColumn seiyuuname;
+        private System.Windows.Forms.DataGridViewCheckBoxColumn ismaincharacter;
+        private System.Windows.Forms.DataGridViewTextBoxColumn characterNo;
         private System.Windows.Forms.DataGridViewTextBoxColumn playinfo;
         private System.Windows.Forms.DataGridViewTextBoxColumn playcounts;
         private System.Windows.Forms.DataGridViewTextBoxColumn company;
@@ -545,9 +551,5 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn playstarttime;
         private System.Windows.Forms.DataGridViewTextBoxColumn watchtime;
         private System.Windows.Forms.DataGridViewTextBoxColumn PlayinfoID;
-        private System.Windows.Forms.DataGridViewTextBoxColumn charactername;
-        private System.Windows.Forms.DataGridViewTextBoxColumn seiyuuname;
-        private System.Windows.Forms.DataGridViewCheckBoxColumn ismaincharacter;
-        private System.Windows.Forms.DataGridViewTextBoxColumn characterNo;
     }
 }
